@@ -1,0 +1,114 @@
+## Tidslinje
+
+
+\centering
+```{r, engine = 'tikz', echo=F}
+\usetikzlibrary{arrows.meta}
+\pgfkeys{/pgf/number format,
+  int detect,
+  set thousands separator={},
+}
+\tikzset{
+  kronos/.code={% http://tex.stackexchange.com/a/159856/ - Claudio Fiandrino
+    \tikzset{%
+      align=center,
+      anchor=mid,
+      /kronos/.cd,
+      #1
+    }%
+    \pgfmathsetmacro\kronosunit{(\kronosheight-20pt)/(\kronosend-\kronosstart)}%
+    \draw [line width=0pt,white]  (-.5*\kronoswidth,10pt) coordinate (kronos tl) ++(3.5pt,0) coordinate (kronos pre) ++(0,-\kronosheight) ++(\kronoswidth-3.5pt,0) coordinate (kronos br) ++(-3.5pt,0) coordinate (kronos post) (kronos post |- kronos pre);
+    \coordinate (kronos start) at (0,0);
+    \coordinate (kronos end) at ([yshift=10pt]kronos post);
+    \pgfmathsetmacro\tempa{int(\kronosstart+\kronosstep)}%
+    \foreach \i in {\kronosstart,\tempa,...,\kronosend} {%
+      \node (\i) [font=\rmfamily] at (0,{(\kronosstart-\i)*\kronosunit pt}) {\i};
+      \draw [line width=0pt,white] (\i.west -| kronos pre) -- +(-3.5pt,0) (\i.east -| kronos post) -- +(3.5pt,0);
+    }
+  },
+  kronos arrow/.style={{Stealth[]}-, thick, shorten <=2.5pt},
+  kronos event/.search also={/kronos,/tikz},
+  kronos event/year/.store in=\kronosyear,
+  kronos event/year=1850,
+  /kronos/.search also={/tikz},
+  /kronos/.cd,
+  start/.store in=\kronosstart,
+  end/.store in=\kronosend,
+  step/.store in=\kronosstep,
+  width/.store in=\kronoswidth,
+  height/.store in=\kronosheight,
+  start=1800,
+  end=2030,
+  width=10mm,
+  height=190mm,
+  step=10,
+}
+\NewDocumentCommand\kronosevent { s O {} m }
+{%
+  \tikzset{%
+    kronos event/.cd,
+    #2
+  }
+  \coordinate (a) at (0,{(\kronosstart-\kronosyear)*\kronosunit pt});
+  \IfBooleanTF {#1}
+  {%
+    \draw [kronos arrow] (a -| kronos br) -- ++(30pt,0) node [anchor=west, align=left, font=\footnotesize\rmfamily] {\textbf{\kronosyear} #3};
+  }{%
+    \draw [kronos arrow] (a -| kronos tl) -- ++(-30pt,0) node [anchor=east, align=left, font=\footnotesize\rmfamily] {\textbf{\kronosyear} #3};
+  }
+}
+
+\begin{tikzpicture}
+  [kronos]
+  \kronosevent[year=1870]{adsfasdf}
+  \kronosevent*[year=1981]{Major changes}
+  \kronosevent*[year=1962]{xMajor changes}
+\end{tikzpicture}
+```
+
+```{r, engine = 'tikz', echo=F, hidden=T}
+\usetikzlibrary{decorations.pathreplacing}
+\begin{tikzpicture}[%
+    every node/.style={
+        font=\scriptsize,
+        % Better alignment, see https://tex.stackexchange.com/questions/315075
+        text height=1ex,
+        text depth=.25ex,
+    },
+]
+% draw horizontal line   
+\draw[->] (0,0) -- (8.5,0);
+
+% draw vertical lines
+\foreach \x in {0,1,...,8}{
+    \draw (\x cm,3pt) -- (\x cm,0pt);
+}
+
+% place axis labels
+\node[anchor=north] at (3,0) {$t-2$};
+\node[anchor=north] at (4,0) {$t-1$};
+\node[anchor=north] at (5,0) {$t$};
+\node[anchor=north] at (6,0) {$t+1$};
+\node[anchor=north] at (8.5,0) {years};
+
+% draw scale above
+\fill[red] (1,0.25) rectangle (2,0.4);
+\fill[blue] (2,0.25) rectangle (3,0.4);
+\fill[yellow] (3,0.25) rectangle (4,0.4);
+\fill[green] (4,0.25) rectangle (5,0.4);
+\draw[green,dashed,thick,-latex] (5.05,0.325) -- (6.05,0.325);
+
+% draw scale below
+\fill[red] (3,-0.4) rectangle (4,-0.55);
+\fill[orange] (4,-0.4) rectangle (5,-0.55);
+\fill[pink] (5,-0.4) rectangle (6,-0.55);
+\draw[pink,dashed,thick,-latex] (6.05,-0.475) -- (7.05,-0.475);
+
+% draw curly braces and add their labels
+\draw[decorate,decoration={brace,amplitude=5pt}] (3,0.45) -- (5,0.45)
+    node[anchor=south,midway,above=4pt] {Training period};
+\draw[decorate,decoration={brace,amplitude=5pt}] (6,-0.6) -- (5,-0.6)
+    node[anchor=north,midway,below=4pt] {Testing period};
+\end{tikzpicture}
+```
+

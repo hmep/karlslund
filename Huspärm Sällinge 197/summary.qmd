@@ -1,9 +1,9 @@
-## Tidslinje
+# Tidslinje Sällinge 2:4
 
-
-\centering
+::: {#fig-tikz}
 ```{r, engine = 'tikz', echo=F}
 \usetikzlibrary{arrows.meta}
+\usetikzlibrary{math} %needed tikz library
 \pgfkeys{/pgf/number format,
   int detect,
   set thousands separator={},
@@ -37,13 +37,14 @@
   step/.store in=\kronosstep,
   width/.store in=\kronoswidth,
   height/.store in=\kronosheight,
-  start=1800,
+  start=1870,
   end=2030,
   width=10mm,
-  height=190mm,
-  step=10,
+  height=150mm,
+  step=5,
 }
-\NewDocumentCommand\kronosevent { s O {} m }
+
+\NewDocumentCommand\kronosevent { s O {} m O {0pt} }
 {%
   \tikzset{%
     kronos event/.cd,
@@ -52,63 +53,44 @@
   \coordinate (a) at (0,{(\kronosstart-\kronosyear)*\kronosunit pt});
   \IfBooleanTF {#1}
   {%
-    \draw [kronos arrow] (a -| kronos br) -- ++(30pt,0) node [anchor=west, align=left, font=\footnotesize\rmfamily] {\textbf{\kronosyear} #3};
+    \draw [kronos arrow] (a -| kronos br) -- ++(30pt,#4) node [anchor=west, align=left, font=\footnotesize\rmfamily] {\textbf{\kronosyear} \strut#3 };
   }{%
-    \draw [kronos arrow] (a -| kronos tl) -- ++(-30pt,0) node [anchor=east, align=left, font=\footnotesize\rmfamily] {\textbf{\kronosyear} #3};
+    \draw [kronos arrow] (a -| kronos tl) -- ++(-30pt,#4) node [anchor=east, align=left, font=\footnotesize\rmfamily] {\textbf{\kronosyear} \strut#3 };
   }
 }
 
 \begin{tikzpicture}
   [kronos]
-  \kronosevent[year=1870]{adsfasdf}
-  \kronosevent*[year=1981]{Major changes}
-  \kronosevent*[year=1962]{xMajor changes}
+  \kronosevent[year=1878]{Carl Erik Olsson}
+  \kronosevent[year=1896]{Erik Person}[20pt]
+  \kronosevent[year=1898]{Erik Larsson}[15pt]
+  \kronosevent[year=1900]{Enkan Anna Jansson och Lars Larsson}[10pt]
+  \kronosevent[year=1900]{Per Mårtensson}[0pt]
+  \kronosevent[year=1906]{Handlaren Hjalmar Linder}[5pt]
+  \kronosevent[year=1908]{A. H. Israelsson}[0pt]
+  \kronosevent[year=1908]{P. A. Nilsson}[-10pt]
+  \kronosevent[year=1910]{Reinhold Ljungdahl}[-14pt]
+  \kronosevent[year=1911]{Karl Dahlström}[-20pt]
+  \kronosevent[year=1912]{Arvid Eriksson och P. V. Eriksson}[-26pt]
+  \kronosevent[year=1914]{A. G. Fröding}[-30pt]
+  \kronosevent[year=1917]{Albin Andersson}[-31pt]
+  \kronosevent[year=1929]{Anders Daniel Andersson}[-9pt]
+  \kronosevent[year=1931]{John Thorell}[-13pt]
+  \kronosevent[year=1931]{Axel Östman}[-22pt]
+  \kronosevent[year=1953]{Hulda Vilhelmina Gustafsson}[5pt]
+  \kronosevent[year=1954]{Folke Persebo}[-5pt]
+  \kronosevent[year=1966]{Dödsboet efter Folke Persebo}
+  \kronosevent[year=1982]{Ingrid Wennerfeldt}
+  \kronosevent[year=2020]{Dödsboet efter Ingrid Wennerfeldt}
+  \kronosevent[year=2010]{(obebott)}
+  \kronosevent[year=2024]{Maja Berge och Tobias Hagberg}
+  \kronosevent*[year=1878]{Boningshus uppförs?}
+  \kronosevent*[year=1982]{\\Omläggning takfall 1\\Borrning av brunn\\Tilläggsisolering\\Inredning av vind}
+  \kronosevent*[year=2000]{(cirka)\itshape \\Omläggning takfall 2}
+  \kronosevent*[year=2025]{\itshape \\Omläggning takfall 1}
+  \kronosevent*[year=1931]{Lanthandel och 1\,000 kvadratmeter avsöndras}
+  \kronosevent*[year=1904]{Uthus uppförs}
 \end{tikzpicture}
 ```
-
-```{r, engine = 'tikz', echo=F, hidden=T}
-\usetikzlibrary{decorations.pathreplacing}
-\begin{tikzpicture}[%
-    every node/.style={
-        font=\scriptsize,
-        % Better alignment, see https://tex.stackexchange.com/questions/315075
-        text height=1ex,
-        text depth=.25ex,
-    },
-]
-% draw horizontal line   
-\draw[->] (0,0) -- (8.5,0);
-
-% draw vertical lines
-\foreach \x in {0,1,...,8}{
-    \draw (\x cm,3pt) -- (\x cm,0pt);
-}
-
-% place axis labels
-\node[anchor=north] at (3,0) {$t-2$};
-\node[anchor=north] at (4,0) {$t-1$};
-\node[anchor=north] at (5,0) {$t$};
-\node[anchor=north] at (6,0) {$t+1$};
-\node[anchor=north] at (8.5,0) {years};
-
-% draw scale above
-\fill[red] (1,0.25) rectangle (2,0.4);
-\fill[blue] (2,0.25) rectangle (3,0.4);
-\fill[yellow] (3,0.25) rectangle (4,0.4);
-\fill[green] (4,0.25) rectangle (5,0.4);
-\draw[green,dashed,thick,-latex] (5.05,0.325) -- (6.05,0.325);
-
-% draw scale below
-\fill[red] (3,-0.4) rectangle (4,-0.55);
-\fill[orange] (4,-0.4) rectangle (5,-0.55);
-\fill[pink] (5,-0.4) rectangle (6,-0.55);
-\draw[pink,dashed,thick,-latex] (6.05,-0.475) -- (7.05,-0.475);
-
-% draw curly braces and add their labels
-\draw[decorate,decoration={brace,amplitude=5pt}] (3,0.45) -- (5,0.45)
-    node[anchor=south,midway,above=4pt] {Training period};
-\draw[decorate,decoration={brace,amplitude=5pt}] (6,-0.6) -- (5,-0.6)
-    node[anchor=north,midway,below=4pt] {Testing period};
-\end{tikzpicture}
-```
-
+Namn och årtal på registrering i fastighetsbok och lagfartsbok anges till vänster, till höger listas signifikanta åtgärder på fastigheten (kända eller förmodade)
+:::

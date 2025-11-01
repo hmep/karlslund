@@ -1,5 +1,5 @@
 # Introduktion {.unnumbered}
 
-This is a Quarto book. pdf????
+Detta är ett work-in-progress-dokument som sammanfattar information om Lindesberg Sällinge 2:4 på adressen Sällinge 197, 718 91 Frövi. Det sammanställer vilka personer som bott och verkat på fastigheten (utdrag ur lagfartsbok och fastighetsbok, utdrag ur kyrkböcker, med mera), vilka spår som de lämnat på fastigheten, såväl på tomten/i trädgården som i uthus och i boningshus, liksom hur fastigheten har brukats och vilken funktion den har fyllt i byn Sällinge.
 
-To learn more about Quarto books visit <https://quarto.org/docs/books>.
+![Vy från Sällinge, 1911. Huset till vänster är lanthandeln, som står på ett stycke mark som avsöndrades från Sällinge 2:4 1931. En allé av lönnar leder upp till boningshuset som skymtar i fonden till höger.](cover.png)

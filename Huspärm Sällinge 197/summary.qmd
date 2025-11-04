@@ -1,4 +1,4 @@
-# Tidslinje Sällinge 2:4
+# Översikt/tidslinje
 
 ::: {#fig-tikz}
 ```{r, engine = 'tikz', echo=F}
@@ -87,7 +87,8 @@
   \kronosevent*[year=1878]{Boningshus uppförs?}
   \kronosevent*[year=1982]{\\Omläggning takfall 1\\Borrning av brunn\\Tilläggsisolering\\Inredning av vind}
   \kronosevent*[year=2000]{(cirka)\itshape \\Omläggning takfall 2}
-  \kronosevent*[year=2025]{\itshape \\Omläggning takfall 1}
+  \kronosevent*[year=2024]{\\Installation av ny värmepump}[10pt]
+  \kronosevent*[year=2025]{\\Omläggning takfall 1}[-10pt]
   \kronosevent*[year=1931]{Lanthandel och 1\,000 kvadratmeter avsöndras}
   \kronosevent*[year=1904]{Uthus uppförs}
 \end{tikzpicture}

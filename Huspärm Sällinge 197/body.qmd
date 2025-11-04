@@ -1,14 +1,10 @@
-# Lagfartsböcker
+# Persongalleriet
 
-Bifoga bilagor här.
+## Carl Erik Olsson {#sec-ceo}
 
-# Kyrkböcker
+## Erik Person {#sec-ep}
 
-Bifoga bilagor här.
-
-# Klippbok 
-
-Klipp in bilder och kartor här.
+## Erik Larsson {#sec-el}
 
 # Åtgärder och renoveringar
 
@@ -17,3 +13,18 @@ Förmodade eller kända åtgärder avseende boningshus och ekonomibyggnader:
 - a
 - b
 - c
+
+# Bilagor
+
+## Lagfartsböcker
+
+Bifoga bilagor här.
+
+## Kyrkböcker
+
+Bifoga bilagor här.
+
+## Klippbok 
+
+Klipp in bilder och kartor här.
+

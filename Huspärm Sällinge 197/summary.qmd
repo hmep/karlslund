@@ -1,7 +1,7 @@
 # Översikt/tidslinje
 
 ::: {#fig-tikz}
-```{r, engine = 'tikz', echo=F}
+```{r, engine = 'tikz', echo=F, fig.ext="png"}
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{math} %needed tikz library
 \pgfkeys{/pgf/number format,

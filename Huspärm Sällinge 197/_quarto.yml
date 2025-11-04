@@ -1,0 +1,31 @@
+project:
+  type: book
+
+book:
+  title: "Huspärm Karlslund"
+  subtitle: "Lindesberg Sällinge 2:4"
+  author: "Tobias Hagberg"
+  date: "2025-10-31"
+  chapters:
+    - index.qmd
+    - summary.qmd
+    - persongalleri.qmd
+    - renovering.qmd
+    - references.qmd
+    - bilagor.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+  pdf:
+    documentclass: scrreprt
+    papersize: a4
+    toc: true
+    number-sections: true
+    colorlinks: true
+    mainfont: 'Cardo Regular'
+    sansfont: 'Cardo Bold'

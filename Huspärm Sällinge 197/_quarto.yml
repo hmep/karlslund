@@ -21,6 +21,7 @@ format:
     theme:
       - cosmo
       - brand
+    format-links: [pdf]
   pdf:
     documentclass: scrreprt
     papersize: a4

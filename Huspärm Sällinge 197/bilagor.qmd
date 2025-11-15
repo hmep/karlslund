@@ -2,7 +2,9 @@
 
 ## Lagfartsböcker
 
-Bifoga bilagor här.
+\includepdf[pages=-]{"Fastighetsboken Sällinge 2-4.pdf"}
+
+\includepdf[pages=-]{"Lagfartsboken Sällinge 2.pdf"}
 
 ## Kyrkböcker
 

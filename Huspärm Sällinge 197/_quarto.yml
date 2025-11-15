@@ -29,3 +29,7 @@ format:
     colorlinks: true
     mainfont: 'Cardo Regular'
     sansfont: 'Cardo Bold'
+    keep-tex: true
+    include-in-header:
+      text: |
+        \usepackage{pdfpages}

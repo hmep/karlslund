@@ -2,9 +2,28 @@
 
 ## Lagfartsböcker
 
-\includepdf[pages=-]{"Fastighetsboken Sällinge 2-4.pdf"}
+### Lagfartsbok Sällinge 2 (från vilken 2:4 avsöndrades)
 
-\includepdf[pages=-]{"Lagfartsboken Sällinge 2.pdf"}
+Lagfartsbok för Sällinge 2 tillhandahölls från Riksarkivet i Täby 2025-10-20 som digital PDF-fil. 
+
+```{=latex}
+\pagebreak[4]
+\includepdf[pages=-, scale=0.8, frame,pagecommand={}]{lagfartsbok.pdf}
+```
+```{=-latex}
+![](lagfartsbok.pdf)
+```
+### Fastighetsbok Sällinge 2:4
+
+Fastighetsbok för Sällinge 2:4 tillhandahölls från Riksarkivet i Täby 2025-10-20 som digital PDF-fil. 
+
+```{=latex}
+\pagebreak[4]
+\includepdf[pages=-, scale=0.8, frame,pagecommand={}]{fastighetsbok.pdf}
+```
+```{=-latex}
+![](fastighetsbok.pdf)
+```
 
 ## Kyrkböcker
 
@@ -12,5 +31,7 @@ Bifoga bilagor här.
 
 ## Klippbok 
 
-Klipp in bilder och kartor här.
+![](cover.jpg)
+
+![](shg.jpg)
 

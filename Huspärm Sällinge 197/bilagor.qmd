@@ -4,25 +4,28 @@
 
 ### Lagfartsbok Sällinge 2 (från vilken 2:4 avsöndrades)
 
-Lagfartsbok för Sällinge 2 tillhandahölls från Riksarkivet i Täby 2025-10-20 som digital PDF-fil. 
+Lagfartsbok för Sällinge 2 tillhandahölls från Riksarkivet i Täby 2025-10-20 som digital PDF-fil (se nedan). 
+
+::: {.content-visible unless-format="pdf"}
+[Lagfartsbok (PDF)](lagfartsbok.pdf)
+:::
 
 ```{=latex}
 \pagebreak[4]
 \includepdf[pages=-, scale=0.8, frame,pagecommand={}]{lagfartsbok.pdf}
 ```
-```{=-latex}
-![](lagfartsbok.pdf)
-```
+
 ### Fastighetsbok Sällinge 2:4
 
-Fastighetsbok för Sällinge 2:4 tillhandahölls från Riksarkivet i Täby 2025-10-20 som digital PDF-fil. 
+Fastighetsbok för Sällinge 2:4 tillhandahölls från Riksarkivet i Täby 2025-10-20 som digital PDF-fil (se nedan). 
+
+::: {.content-visible unless-format="pdf"}
+[Fastighetsbok (PDF)](fastighetsbok.pdf)
+:::
 
 ```{=latex}
 \pagebreak[4]
 \includepdf[pages=-, scale=0.8, frame,pagecommand={}]{fastighetsbok.pdf}
-```
-```{=-latex}
-![](fastighetsbok.pdf)
 ```
 
 ## Kyrkböcker
@@ -31,7 +34,7 @@ Bifoga bilagor här.
 
 ## Klippbok 
 
-![](cover.jpg)
+![](cover.png)
 
 ![](shg.jpg)
 

@@ -35,3 +35,5 @@ format:
     include-in-header:
       text: |
         \usepackage{pdfpages}
+        \usepackage{ragged2e}
+        \RaggedRight

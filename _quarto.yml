@@ -1,3 +1,5 @@
+# quarto render --to all ; git commit -am "" ; git push
+
 project:
   type: book
   output-dir: docs
@@ -36,4 +38,3 @@ format:
       text: |
         \usepackage{pdfpages}
         \usepackage{ragged2e}
-        \RaggedRight

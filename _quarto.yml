@@ -14,6 +14,7 @@ book:
     - renovering.qmd
     - references.qmd
     - bilagor.qmd
+format-links: [pdf]
 
 bibliography: references.bib
 
@@ -22,7 +23,6 @@ format:
     theme:
       - cosmo
       - brand
-    format-links: [pdf]
   pdf:
     documentclass: scrreprt
     papersize: a4

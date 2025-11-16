@@ -6,8 +6,12 @@ Detta är ett *work-in-progress*-dokument som sammanfattar information om Karlsl
 
 Dokumentet sammanställer vilka personer som bott och verkat på fastigheten (utdrag ur lagfartsbok och fastighetsbok, utdrag ur kyrkböcker, ledtrådar i väggarna och på tomten, med mera), vilka avtryck de har gjort på Karlslund, liksom vilken funktion fastigheten har fyllt i byn Sällinge. 
 
+## Hitta hit
+
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2023.4321829736912!2d15.491054977289245!3d59.52589117471012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x465c312849762a61%3A0x6f10d16b6238a952!2sS%C3%A4llinge%20197%2C%20718%2091%20Fr%C3%B6vi!5e0!3m2!1ssv!2sse!4v1763308035509!5m2!1ssv!2sse" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
 ## Om Sällinge
 
-Sällinge ligger i ett gränsland geografiskt, där Mälardalens slättbygd övergår i Bergslagens skogslandskap, strax norr om Fellingsbro[@wikipedia] och klimatmässigt, där odlingszon 3 precis har övergått i odlingszon 4 [@zonkartan]. Karlslund ligger med vacker utsikt mot öppna fält, med skogen i ryggen. Persontrafiken på järnvägen förbi stationshuset ett stenkast bort har i allt väsentligt ersatts av godstrafik, utmed det som nu kallas Godsstråket genom Bergsslagen [@gods]. I byn, ofta med Paviljongen som samlingspunkt, finns en livaktig föreningsverksamhet och en fin social gemenskap [@paviljongen].
+Sällinge ligger i ett gränsland geografiskt, där Mälardalens slättbygd övergår i Bergslagens skogslandskap, strax norr om Fellingsbro [@wikipedia] och klimatmässigt, där odlingszon 3 precis har övergått i odlingszon 4 [@zonkartan]. Karlslund ligger med vacker utsikt mot öppna fält, med skogen i ryggen. Persontrafiken på järnvägen förbi stationshuset ett stenkast bort har i allt väsentligt ersatts av godstrafik, utmed det som nu kallas Godsstråket genom Bergsslagen [@gods]. I byn finns en livaktig föreningsverksamhet, ofta med samlingspunkt i Paviljongen, som angränsar till Karslund [@paviljongen].
 
 ![Vy från Sällinge, 1911. Huset till vänster är lanthandeln, som står på ett stycke mark som avsöndrades från Karlslund 1931. En allé av lönnar leder upp till boningshuset som skymtar i fonden till höger.](cover.png)

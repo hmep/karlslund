@@ -1,0 +1,30 @@
+# Persongalleriet
+
+## Carl Erik Olsson {#sec-ceo}
+
+## Erik Person {#sec-ep}
+
+## Erik Larsson {#sec-el}
+
+# Åtgärder och renoveringar
+
+Förmodade eller kända åtgärder avseende boningshus och ekonomibyggnader:
+
+- a
+- b
+- c
+
+# Bilagor
+
+## Lagfartsböcker
+
+Bifoga bilagor här.
+
+## Kyrkböcker
+
+Bifoga bilagor här.
+
+## Klippbok 
+
+Klipp in bilder och kartor här.
+

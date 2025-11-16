@@ -1,6 +1,0 @@
-# Referenser {.unnumbered}
-
-Källor (dokument, personer) som refererats ovan:
-
-::: {#refs}
-:::

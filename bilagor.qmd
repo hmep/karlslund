@@ -102,3 +102,32 @@ Minnesanteckningar från samtal över en kopp kaffe 2025-10-05 med Bo "Boman" An
 ![@Lindebilder3](https://www.lindebilder.se/data/media/174/Sellinge_ID_23763_Vy_Fron_190906_973.jpg)
 
 ![@Lindebilder4](https://www.lindebilder.se/data/media/174/sellingeOsterhammarsSkola1910_270411.jpg)
+
+## Borrad brunn
+
+Brunnsid: 115200099 Borrdatum: 1983‐08‐15 Läge:
+Användning: Djup till berg (m): 5.0 Totaldjup (m): 30.0
+Vattenmängd l/h: 2000 Grundvattennivå (m): 3.0 Grundvatten uppmätt: 19
+Lägesnoggrannhet: <250 m Koordinater: X=59,53 Y=15,49
+
+## Objektsbeskrivning
+
+::: {.content-visible unless-format="pdf"}
+[Objektsbeskrivning (PDF)](Objektsbeskrivning.pdf)
+:::
+
+```{=latex}
+\pagebreak[4]
+\includepdf[pages=-, scale=0.8, frame,pagecommand={}]{Objektsbeskrivning.pdf}
+```
+
+## Fastighetskarta
+
+::: {.content-visible unless-format="pdf"}
+[Fastighetskarta (PDF)](Karta.pdf)
+:::
+
+```{=latex}
+\pagebreak[4]
+\includepdf[pages=-, scale=0.8, frame,pagecommand={}]{Karta.pdf}
+```

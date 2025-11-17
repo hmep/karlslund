@@ -1,18 +1,21 @@
 # Persongalleriet
 
-```{r}
-# install.packages("lubridate")
+```{r echo=FALSE, message=FALSE}
+#install.packages("lubridate")
 library(lubridate)
 date1 <- ymd("2020-01-15")
 date2 <- ymd("2024-04-30")
 
-ymdiff <- function(date1,date1){
-   time_interval <- interval(date1, date2)
+ymdiff <- function(xdate1,xdate2){
+   time_interval <- interval(xdate1, xdate2)
    years <- time_interval %/% months(1) %/% 12
    months <- time_interval %/% months(1) %% 12
-   if (months == 0) {
+   if ( months == 0 ) {
       paste0(years, " år")
-   } else {
+   } else if ( years == 0 ) {
+      paste0(months, " månader")
+   }
+   else {
       paste0(years, " år och ", months, " månader")
    }
 }
@@ -22,59 +25,78 @@ ymdiff <- function(date1,date1){
 
 ## Carl Erik Olsson {#sec-ceo}
 
+Carl Erik Olsson, köpeafhandling d. 8 nov 1877
+Lagfart 1878 den 3 December; 24 
+
 ## Erik Person {#sec-ep}
+
+Erik Person. Testamente den 4 April 1888
+1896 d. 28 sept; 29
 
 ## Erik Larsson {#sec-el}
 
-Ägare, till yrket handlande, född 1858-08-19 i Sällinge. Inflyttad 1898 (2do följ hänvisning till 1:139). Avliden 1899-08-11. [@00163702_00369]
+Erik Larsson. Köpekontrakt och köpebref den 6 oktober 1898.
+1898 d. 15 dec; 36
 
-Erik Larssons tid vid Karlslund blev mycket kort, han dog redan året efter det att han blev lagfaren ägare till fastigheten, endast `r usepackage("zoo"); as.yearmon((as.Date("1899-08-11") - as.Date("1858-08-19"))` år gammal.
+Ägare, till yrket handlande, född 1858-08-19 i Sällinge. Inflyttad till Karslund 1898. Eriks tid vid Karlslund blev  dock mycket kort, han avled 1899-08-11, året efter det att han blev lagfaren ägare till fastigheten, `r ymdiff("1858-08-19","1899-08-11")` gammal [@00163702_00369].
 
-2do: vad dig han av, finns något i kyrkböckerna?
+<!-- 2do: följ hänvisning till 1:139 -->
+<!-- 2do: vad dog han av, finns något i kyrkböckerna? -->
 
-## Enkan Anna Jansson och Lars Larsson
+## Änkan Anna Jansson och Lars Larsson
 
-Erik Larssons änka Anna Jansson samt Lars Larsson (Eriks bror?) fick lagfart om hälften var 1900-03-12. [@lagfartsbok]
+Enkan Anna Jansson och Lars Larsson, Arfsskifte den 26 Februari 1900
+1900 den 12 Mars; 67
+<!-- (Eriks bror?) -->
+
+Erik Larssons änka Anna Jansson samt Lars Larsson fick lagfart om hälften var 1900-03-12 [@lagfartsbok].
 
 ## Per Mårtensson
 
-Ägare. (2do: En oklar anteckning i @00163702_00369 refererar till Linder, se sektion nedan.)
+Per Mårtensson. Köpebref den 1 september 1899
+1900 den 12 Mars; 68
 
-Per Mårtensson ägde Karlslund endast en mycket kort tid, det lagfarna ägandet övergick i Hjalmar Linders ägo redan samma år. Det är okänt om Per verkade vid Karlslund, i lanthandeln, eller om han flyttade bort. Känt från @00163702_00369 är dock att flera andra personer kom från när och fjärran för att arbeta i lanthandeln.
+<!-- (2do: En oklar anteckning i @00163702_00369 refererar till Linder, se sektion nedan.)
+ -->
+
+Ägare. @00163702_00369 anger inte något födelsedatum, inflyttningsdatum eller avflyttningsdatum. Det är okänt om Per verkade vid Karlslund, i lanthandeln, eller om han flyttade bort. Känt från @00163702_00369 är dock att flera andra personer kom från när och fjärran för att arbeta i lanthandeln.
 
 ### Karl Fredrik Eriksson
 
-Handelsföreståndare, född 1874-06-09 i Arboga, från vilken han inflyttade 1899-11-17. Utflyttad till Näsby 1900-05-01. [@00163702_00369]
+Handelsföreståndare, född 1874-06-09 i Arboga, från vilken han inflyttade 1899-11-17. Utflyttad till Näsby 1900-05-01 [@00163702_00369].
 
 ### Hugo Valdemar Emanuel Holmlin
 
-Handelsföreståndare, född 1873-06-26 i Avesta. Inflyttad från Ljusnarsberg 1900-04-20. [@00163702_00369]
+Handelsföreståndare, född 1873-06-26 i Avesta. Inflyttad från Ljusnarsberg 1900-04-20 [@00163702_00369].
 
 ### Axel Gustaf Andersson
 
-Handelsföreståndare, född 1872-10-14 i Karlstad, Värmlands län. Inflyttad från Klara i Stockholm 1903-04-23. Utflyttad till Karlstad 1904-11-24. [@00163702_00369]
+Handelsföreståndare, född 1872-10-14 i Karlstad, Värmlands län. Inflyttad från Klara i Stockholm 1903-04-23. Utflyttad till Karlstad 1904-11-24 [@00163702_00369].
 
 ### Johan Edvard Jansson
 
-Handlande, född 1856-04-05 i (oklart, Anna?) i Södermanlands län. Inflyttad från Örebro 1904-09-03. Avliden 1905-04-12, `r format(as.Date("1905-04-12") - as.Date("1856-04-05"), %y)` år gammal. [@00163702_00369]
+Handlande, född 1856-04-05 i (oklart, Anna?) i Södermanlands län. Inflyttad från Örebro 1904-09-03. Avliden 1905-04-12, `r ymdiff("1856-04-05","1905-04-12")` gammal [@00163702_00369].
 
 ## Handlaren Hjalmar Linder
 
-Ägare, till yrket handlande, född 1871-12-10 i Nora. Gjorde värnplikt 1886. Gift 1904-11-07. [@00163712_00122] Inflyttad från Lerbäck 1905-09-19. [@00163702_00369]
+Handlaren Hjalmar Linder. Köpebref den 14 Nov 1905
+1906 d. 15 Januari; 1
 
-Hustru Maria Charlotta Karlsson, född 1862-04-29 i Lerbäck. [@00163712_00122]
-
-Son Gustaf Erik Hjalmar, född 1906-05-17 i Sällinge. Icke av svenska kyrkan döpt. [@00163712_00122]
-
-Familjen flyttade till Örebro 1908-05-26. [@00163712_00122], deras tid vid Karlslund blev således `r format(as.Date("1908-05-26") - as.Date("1905-09-19"), %y år och %B månader)`.
+Ägare, till yrket handlande, född 1871-12-10 i Nora. Gift 1904-11-07. Inflyttad från Lerbäck 1905-09-19. **Hustru** Maria Charlotta Karlsson, född 1862-04-29 i Lerbäck. **Son** Gustaf Erik Hjalmar, född 1906-05-17 i Sällinge. Familjen flyttade till Örebro 1908-05-26, deras tid vid Karlslund blev således `r ymdiff("1905-09-19","1908-05-26")` [@00163702_00369; @00163712_00122].
 
 ### Karl Anders Reinhold Henriksson
 
-Handelsbiträde. Född 1887-12-26 i Grådinge. Inflyttad från Ucklum i Bohuslän 1904-11-23. Utflyttad till Karlskoga 1905-11-17. [@00163702_00369]
+Handelsbiträde. Född 1887-12-26 i Grådinge. Inflyttad från Ucklum i Bohuslän 1904-11-23. Utflyttad till Karlskoga 1905-11-17 blev Karls tid i Sällinge kort, `r ymdiff("1904-11-23","1905-11-17")` [@00163702_00369].
 
 ## A. H. Israelsson
 
+A. H. Israelsson. Köpebref den 7 Januari 1908
+1908 d. 30 Nov.; 154
+
 ## Per August Nilsson
+
+P. A. Nilsson. Transport den 1 Maj 1908.
+1908 d. 30 Nov.; 155
 
 Ägare, till yrket handlande, född 1862-11-19 i Älgarås, Skaraborgs län. Fänrik. Gift 1889-10-27. Inflyttad från Örebro 1908-06-15. [@00163712_00122]
 
@@ -82,9 +104,12 @@ Hustru Augusta Olsson, född 1866-07-15 i Nora.  [@00163712_00122]
 
 Dotter Julia Eugenia, född 1893-07-13 i Örebro.  [@00163712_00122]
 
-Familjen flyttade tillbaka till Örebro 1909-11-17. [@00163712_00122]
+Familjen flyttade tillbaka till Örebro 1909-11-17 [@00163712_00122], efter bara `r ymdiff("1908-06-15","1909-11-17")`
 
 ## Reinhold Ljungdahl
+
+Reinhold Ljungdahl. Köpebref den 2 aug. 1909
+1910 d. 17 Januari; 2
 
 Ägare, till yrket handlande, född 1876-09-01 i Nordmark, Värmlands län. Fänrik. Gift 1903-09-12. Inflyttad från Karlskoga 1909-08-16. [@00163712_00122]
 
@@ -99,6 +124,9 @@ Dotter Ingeborg, född 1910-05-31 i Sällinge. [@00163712_00122]
 Familjen flyttade tillbaka till Örebro 1911-07-13. [@00163712_00122]
 
 ## Karl Viktor Olov Dahlström
+
+Karl Dahlström. Köpebref den 1 Maj 1911
+1911 d. 8 Maj; 223
 
 Ägare, till yrket handlande, född 1878-08-08 i Örebro. Fänrik. Gift 1902-10-19. Inflyttad från Örebro 1911-05-12. [@00163712_00122]
 
@@ -152,24 +180,191 @@ Til yrket piga, född 1889-11-12
 
 ## Arvid Eriksson och P. V. Eriksson
 
+Arvid Eriksson och P. V. Eriksson. Köpebrev den 1 Okt. 1911
+1912 d. 15 Januari; 20
+
 ## A. G. Fröding
+
+A. G. Fröding. Köpebrev den 5 aug. 1913
+1914 d. 7 Sept; 47
 
 ## Albin Andersson
 
+Albin Andersson. Köpebrev d. 1 nov. 1917
+1917 den 22 nov; 231
+
 ## Anders Daniel Andersson
+
+Anders Daniel Andersson. Köpebrev den 18 februari 1929
+1929 den 14 mars; 90
 
 ## John Thorell
 
+John Thorell. Köpebrev den 20 oktober 1931
+1931 den 29 oktober; 126
+
+--> Avsöndringen
+
 ## Axel Östman
+
+Axel Östman. Köpebrev den 20 oktober 1931
+1931 den 29 oktober; 127
+
+Axel Severin Östman. Bouppteckning den 5 juli 1947.
+1953 d. 27 maj; 396
 
 ## Hulda Vilhelmina Gustafsson
 
+Hulda Vilhelmina Gustafsson. Köpeavtal den 1 april 1954
+1954 d. 7 april; 251
+
 ## Folke Persebo
+
+Folke Persebo. Köpebrev den 11 juli 1966
+1966 d. 14 juli; 732
 
 ## Dödsboet efter Folke Persebo
 
+Dödsboet efter Folke Persebo. Bouppteckning 1982-04-02.
+1982-11-10
+
 ## Ingrid Wennerfeldt
+
+Wennerfeldt, Ingrid. Köpebrev 1982-11-22
+1982‐11‐24, Andel: 1/1
 
 ## Dödsboet efter Ingrid Wennerfeldt
 
 ## Maja Berge och Tobias Hagberg
+
+Andel
+
+1/2
+Inskrivningsdag
+
+2024-07-22
+Akt
+
+D-2024-00233775:1
+
+Andel
+
+1/2
+Inskrivningsdag
+
+2024-07-22
+Akt
+
+D-2024-00233775:2
+
+
+
+
+Tidigare beteckningar
+Beteckning
+
+T-FELLINGSBRO SÄLLINGE 2 4
+Datum
+
+1987-11-04
+Akt
+
+1885-87/32
+
+
+Ursprung
+Beteckning
+
+LINDESBERG SÄLLINGE 2:3
+
+
+
+
+Fastighetsrättsliga åtgärder
+
+Avsöndring Kb
+Datum
+
+1878-07-11
+Akt
+
+18-FEL-AVS638
+Fastighetsrättsliga åtgärder
+
+Avstyckning
+Datum
+
+1931-09-12
+Akt
+
+18-FEL-664
+Fastighetsrättsliga åtgärder
+
+Fastighetsreglering
+Datum
+
+1975-03-07
+Akt
+
+18-FEL-1286
+Fastighetsrättsliga åtgärder
+
+Fastighetsbestämning
+Datum
+
+2014-06-17
+Akt
+
+1885-1122
+
+
+Avskild mark
+Beteckning
+
+LINDESBERG SÄLLINGE 2:15
+Datum
+
+1931-09-12
+Akt
+
+18-FEL-664
+
+
+
+Last
+Beteckning
+
+LINDESBERG SÄLLINGE 2:15, 3:24
+
+
+
+
+
+Åtgärder
+Typ
+
+Berörkrets ändrad, Fastighetsreglering
+Datum
+
+1975-03-07
+Akt
+
+18-FEL-1286
+Typ
+
+Rättighetens omfång/läge ändrat, Fastighetsreglering
+Datum
+
+1975-03-07
+Akt
+
+18-FEL-1286
+Typ
+
+Berörkrets ändrad, Fastighetsreglering
+Datum
+
+2014-06-17
+Akt
+
+1885-1122

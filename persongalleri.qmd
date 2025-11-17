@@ -10,7 +10,7 @@
 
 Ägare, till yrket handlande, född 1858-08-19 i Sällinge. Inflyttad 1998 (2do följ hänvisning till 1:139). Avliden 1899-08-11. [@00163702_00369]
 
-Erik Larssons tid vid Karlslund blev mycket kort, han dog redan året efter det att han blev lagfaren ägare till fastigheten, endast `r format(as.Date("1899-08-11") - as.Date("1858-08-19"), %Y)` år gammal.
+Erik Larssons tid vid Karlslund blev mycket kort, han dog redan året efter det att han blev lagfaren ägare till fastigheten, endast `r format(as.Date("1899-08-11") - as.Date("1858-08-19"), %y)` år gammal.
 
 2do: vad dig han av, finns något i kyrkböckerna?
 
@@ -38,7 +38,7 @@ Handelsföreståndare, född 1872-10-14 i Karlstad, Värmlands län. Inflyttad f
 
 ### Johan Edvard Jansson
 
-Handlande, född 1856-04-05 i (oklart, Anna?) i Södermanlands län. Inflyttad från Örebro 1904-09-03. Avliden 1905-04-12, `r format(as.Date("1905-04-12") - as.Date("1856-04-05"), %Y)` år gammal. [@00163702_00369]
+Handlande, född 1856-04-05 i (oklart, Anna?) i Södermanlands län. Inflyttad från Örebro 1904-09-03. Avliden 1905-04-12, `r format(as.Date("1905-04-12") - as.Date("1856-04-05"), %y)` år gammal. [@00163702_00369]
 
 ## Handlaren Hjalmar Linder
 
@@ -48,7 +48,7 @@ Hustru Maria Charlotta Karlsson, född 1862-04-29 i Lerbäck. [@00163712_00122]
 
 Son Gustaf Erik Hjalmar, född 1906-05-17 i Sällinge. Icke av svenska kyrkan döpt. [@00163712_00122]
 
-Familjen flyttade till Örebro 1908-05-26. [@00163712_00122]
+Familjen flyttade till Örebro 1908-05-26. [@00163712_00122], deras tid vid Karlslund blev således `r format(as.Date("1908-05-26") - as.Date("1905-09-19"), %y %B)` år
 
 ### Karl Anders Reinhold Henriksson
 

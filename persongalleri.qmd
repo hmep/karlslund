@@ -48,7 +48,7 @@ Hustru Maria Charlotta Karlsson, född 1862-04-29 i Lerbäck. [@00163712_00122]
 
 Son Gustaf Erik Hjalmar, född 1906-05-17 i Sällinge. Icke av svenska kyrkan döpt. [@00163712_00122]
 
-Familjen flyttade till Örebro 1908-05-26. [@00163712_00122], deras tid vid Karlslund blev således `r format(as.Date("1908-05-26") - as.Date("1905-09-19"), %y %B)` år
+Familjen flyttade till Örebro 1908-05-26. [@00163712_00122], deras tid vid Karlslund blev således `r format(as.Date("1908-05-26") - as.Date("1905-09-19"), %y år och %B månader)`.
 
 ### Karl Anders Reinhold Henriksson
 

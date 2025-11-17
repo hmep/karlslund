@@ -14,8 +14,8 @@ book:
     - summary.qmd
     - persongalleri.qmd
     - renovering.qmd
-    - references.qmd
     - bilagor.qmd
+    - references.qmd
   downloads: [pdf]
 
 bibliography: references.bib

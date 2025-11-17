@@ -8,9 +8,11 @@
 
 ## Erik Larsson {#sec-el}
 
-Ägare, till yrket handlande, född 1858-08-19 i Sällinge. Inflyttad 1998 (2do följ hänvisning till 1:139). Avliden 1899-08-11. [@00163702_00369]
+Från @00163702_00369: 
 
-Eriks tid vid Karlslund blev mycket kort, han dog redan året efter det att han blev ägare till fastigheten, `r format( as.Date("1899-08-11")-as.Date("1858-08-19"), %Y)` år gammal.
+> Ägare, till yrket handlande, född 1858-08-19 i Sällinge. Inflyttad 1998 (2do följ hänvisning till 1:139). Avliden 1899-08-11.
+
+Erik Larssons tid vid Karlslund blev mycket kort, han dog redan året efter det att han blev ägare till fastigheten, `r format(as.Date("1899-08-11") - as.Date("1858-08-19"), %Y)` år gammal.
 
 ## Enkan Anna Jansson och Lars Larsson
 

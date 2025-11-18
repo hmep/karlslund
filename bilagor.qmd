@@ -4,7 +4,7 @@
 
 ### Lagfartsbok Sällinge 2 (från vilken 2:4 avsöndrades)
 
-Lagfartsbok för Sällinge 2 tillhandahölls från Riksarkivet i Täby 2025-10-20 som digital PDF-fil (se nedan). 
+Lagfartsbok för Sällinge 2 tillhandahölls från Riksarkivet i Täby 2025-10-20 som digital PDF-fil (se nedan).
 
 ::: {.content-visible unless-format="pdf"}
 [Lagfartsbok (PDF)](lagfartsbok.pdf)
@@ -17,7 +17,7 @@ Lagfartsbok för Sällinge 2 tillhandahölls från Riksarkivet i Täby 2025-10-2
 
 ### Fastighetsbok Sällinge 2:4
 
-Fastighetsbok för Sällinge 2:4 tillhandahölls från Riksarkivet i Täby 2025-10-20 som digital PDF-fil (se nedan). 
+Fastighetsbok för Sällinge 2:4 tillhandahölls från Riksarkivet i Täby 2025-10-20 som digital PDF-fil (se nedan).
 
 ::: {.content-visible unless-format="pdf"}
 [Fastighetsbok (PDF)](fastighetsbok.pdf)
@@ -30,6 +30,7 @@ Fastighetsbok för Sällinge 2:4 tillhandahölls från Riksarkivet i Täby 2025-
 
 ## Kyrkböcker
 
+```{=html}
 <!--
 Bifoga bilagor här.
 
@@ -52,6 +53,7 @@ Arrendator K. A. Rosén i No 4
 00163712_00125
 00163712_00126
 -->
+```
 
 ![Utdrag ur kyrkbok, 1898-1907, Karlslund. @00163702_00369](00163702_00369.jpg)
 
@@ -63,31 +65,31 @@ Arrendator K. A. Rosén i No 4
 
 Minnesanteckningar från samtal över en kopp kaffe 2025-10-05 med Bo "Boman" Andersson, närmaste granne boende i fastigheten Lindesberg Sällinge 2:18.
 
-- Wennergren tog över 1983.
+-   Wennergren tog över 1983.
 
-- Folke Persebo jobbade i Södertälje på Scania, begravd 1983 i Fellingsbro kyrka, hans fru hade dött och han hade bott här ca 20 år. De drog om vägen från affären någon gång på 80-talet innan Inger Wennerfelt bodde här. Det var Tevo och Persebo som inte kom överens. Då skänkte Helge Andersson lite mark så man kunde åka förbi.
+-   Folke Persebo jobbade i Södertälje på Scania, begravd 1983 i Fellingsbro kyrka, hans fru hade dött och han hade bott här ca 20 år. De drog om vägen från affären någon gång på 80-talet innan Inger Wennerfelt bodde här. Det var Tevo och Persebo som inte kom överens. Då skänkte Helge Andersson lite mark så man kunde åka förbi.
 
-- Östman en äldre gubbe med hushållerska som hette Hulda Gustavsson, hon hade 5 pojkar som var här ibland (de var äldre än Bosse).
+-   Östman en äldre gubbe med hushållerska som hette Hulda Gustavsson, hon hade 5 pojkar som var här ibland (de var äldre än Bosse).
 
-- De innan Östman var nog de som hade affären, han hette Anders Linder, hans far hade affären och bodde där, han hade ett tv-program.
+-   De innan Östman var nog de som hade affären, han hette Anders Linder, hans far hade affären och bodde där, han hade ett tv-program.
 
-- Ett tag var det en finne som hette Tevo Setteri som hade lanthandeln nedanför.
+-   Ett tag var det en finne som hette Tevo Setteri som hade lanthandeln nedanför.
 
-- En annan som hette Oscar.
+-   En annan som hette Oscar.
 
-- De hade bönhus där uppepå, han som skötte det bodde uppe där doktorn bor, han hette Beckman.
+-   De hade bönhus där uppepå, han som skötte det bodde uppe där doktorn bor, han hette Beckman.
 
-- Innan Tevo var det nån som ville göra bilverkstad nere vid affären.
+-   Innan Tevo var det nån som ville göra bilverkstad nere vid affären.
 
-- Tevos bror Kalevi tog över affären efter honom, det var kalevis frus som sålde till Lotta och Jörgen, de köpte det för mer än 5 år sen.
+-   Tevos bror Kalevi tog över affären efter honom, det var kalevis frus som sålde till Lotta och Jörgen, de köpte det för mer än 5 år sen.
 
-- Den lilla boden nästa framme vid Rosén har varit en gammal affär på 1500-1600-talet.
+-   Den lilla boden nästa framme vid Rosén har varit en gammal affär på 1500-1600-talet.
 
-- Huset med bastun upp mot "farfarsstugan" är en liten smedja/"smestuga" som bönderna hade för smeden. Sällinges smed bodde där Doris bor.
+-   Huset med bastun upp mot "farfarsstugan" är en liten smedja/"smestuga" som bönderna hade för smeden. Sällinges smed bodde där Doris bor.
 
-- Bosses mamma Mandis (Amanda) visste det mesta om gamla tider, Bosse säger att han skulle ha spelat in henne.
+-   Bosses mamma Mandis (Amanda) visste det mesta om gamla tider, Bosse säger att han skulle ha spelat in henne.
 
-## Klippbok 
+## Klippbok
 
 <!--![Vy från Sällinge, 1911. @Boström](cover.png)-->
 
@@ -152,20 +154,20 @@ Följande dokumenterar recepten för de egenblandade färger som använts på Ka
 
 #### Rostskyddsfärg till plåt och järn
 
-Takstegen, avloppsventilationsstosen och plåtkragningen kring skorstenen är i oktober 2025 målade med följande grundfärg i 2 strykningar.
+![](plåtfärg.jpg){style="float: right; margin: 1em;" width="25%"}Takstegen, avloppsventilationsstosen och plåtkragningen kring skorstenen är i oktober 2025 målade med följande grundfärg i 2 strykningar.
 
-* 1 del (vikt) zinkoxid [@kremer-zinkoxid]
-* 2 delar Järnmönja [@claessons-jarnmonja]
-* 3 delar kokt linolja [@bostallets-kokt-linolja]
+-   1 del (vikt) zinkoxid [@kremer-zinkoxid]
+-   2 delar Järnmönja [@claessons-jarnmonja]
+-   3 delar kokt linolja [@bostallets-kokt-linolja]
 
 #### Slutstrykningsfärg till plåt och järn
 
 Takstegen, avloppsventilationsstosen och plåtkragningen kring skorstenen är i oktober 2025 målade med följande grundfärg i 1--2 strykningar, för att efterlikna takteglets kulör.
 
-* 1 del (vikt) zinkoxid [@kremer-zinkoxid]
-* 1 del Järnmönja [@claessons-jarnmonja]
-* 1 del Gul järnoxid [@kremer-gul-jarnoxid]
-* 3 delar kokt linolja [@bostallets-kokt-linolja]
+-   1 del (vikt) zinkoxid [@kremer-zinkoxid]
+-   1 del Järnmönja [@claessons-jarnmonja]
+-   1 del Gul järnoxid [@kremer-gul-jarnoxid]
+-   3 delar kokt linolja [@bostallets-kokt-linolja]
 
 ### Roslagsmahogny/tjäroljefärg
 
@@ -173,12 +175,12 @@ Takstegen, avloppsventilationsstosen och plåtkragningen kring skorstenen är i 
 
 Vattbrädorna i trä är målade i oktober 2025 med nedanstående pigmenterade roslagsmahogny för att efterlikna takteglets kulör, och harmoniera med linoljefärgen på takets plåtbeslag.
 
-* 1 del (vikt) zinkoxid [@kremer-zinkoxid]
-* 1 del Järnmönja [@claessons-jarnmonja]
-* 1 del Gul järnoxid [@kremer-gul-jarnoxid]
-* 1 del kokt linolja [@bostallets-kokt-linolja]
-* 1 del äkta trätjära [@biltema-tjara]
-* 1 del balsamterpentin [@biltema-terpentin]
+-   1 del (vikt) zinkoxid [@kremer-zinkoxid]
+-   1 del Järnmönja [@claessons-jarnmonja]
+-   1 del Gul järnoxid [@kremer-gul-jarnoxid]
+-   1 del kokt linolja [@bostallets-kokt-linolja]
+-   1 del äkta trätjära [@biltema-tjara]
+-   1 del balsamterpentin [@biltema-terpentin]
 
 ### Äggoljetempera
 

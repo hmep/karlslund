@@ -190,14 +190,14 @@ Instruktion: Bindmedel och terpenting blandas först, varpå pigmenten läggs i 
 
 #### Linoljefärg vit 3% grön umbra (pasta)
 
-Vintern 2025 bereddes en vit linoljefärgspasta, med aningen grön umbra för att balansera linoljans svaga gulton, att använda på snickerier, inklusive socklar och foder, liksom gjutjärnsradiatorer. Pastan används gärna direkt för den första inarbetningen i underlaget, med med ökande tillsats kokt linolja i mellan- och slutstrykningen (utifrån målningsprincipen "från magert till fett"). Nedanstående mängd bereds och förvaras med fördel i en 1-liters färgburk i plåt [@burk-1l].
+Vintern 2025 bereddes en vit linoljefärgspasta, med aningen grön umbra för att balansera linoljans svaga gulton, att använda på snickerier, inklusive socklar och foder, liksom gjutjärnsradiatorer. Pastan används gärna direkt för den första inarbetningen i underlaget (med anstrykare), med med ökande tillsats kokt linolja i mellan- och slutstrykningen (med moddlare), utifrån målningsprincipen "från magert till fett". För ökad glans kan sista strykningen innehålla upp till 5 % [soloxiderad linolja](#sec-linolja-soloxiderad).
 
 -   20 g grön umbra [@kremer-gron-umbra]
 -   1020 g titandioxid [@kremer-titandioxid]
 -   120 g zinkvitt [@kremer-zinkoxid]
--   500 g kokt linolja [@egen-kokt-linolja]
+-   500 g [kokt linolja](#sec-linolja-kokt)
 
-Instruktion: Pigmenten läggs i att väta i linolja över natten. Den tjocka blandningen mixas sedan mycket noga med färgblandare [@allback-hans] i borrmaskin.
+Instruktion: Pigmenten läggs i att väta i linolja över natten. Den tjocka blandningen mixas sedan mycket noga med färgblandare [@allback-hans] i borrmaskin. Ovan angiven mängd bereds och förvaras med fördel i en 1-liters färgburk i plåt [@burk-1l].
 
 #### Äggoljetempera ljusgul väggfärg
 
@@ -208,6 +208,6 @@ Vinyltapeten från 1980-talet i ett av sovrummen målades hösten 2025, som en "
 -   15 delar titandioxid [@kremer-titandioxid]
 -   25 delar vatten
 -   10 delar ägg
--   10 delar kokt linolja [@egen-kokt-linolja]
+-   10 delar [kokt linolja](#sec-linolja-kokt)
 
 Instruktion: Pigmenten läggs att väta i vatten i ett kärl över natten. Pigmentpastan mixas därefter med stavmixer. Ägg och olja mixas samman i ett separat kärl och hälls sedan ned i pigmentpastan. Färgen justeras med valfri mängd vatten till underlaget och önskad känsla i pensel/roller.

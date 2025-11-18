@@ -18,6 +18,8 @@ book:
     - references.qmd
   downloads: [pdf]
 
+lang: sv
+csl: apa.csl
 bibliography: references.bib
 
 format:
@@ -25,9 +27,11 @@ format:
     theme:
       - cosmo
       - brand
+    lang: sv
   pdf:
     documentclass: scrreprt
     papersize: a4
+    lang: sv
     toc: true
     number-sections: true
     colorlinks: true

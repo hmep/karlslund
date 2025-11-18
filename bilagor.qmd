@@ -148,38 +148,36 @@ Minnesanteckningar från samtal över en kopp kaffe 2025-10-05 med Bo "Boman" An
 
 ## Recept på färgblandningar
 
-Följande dokumenterar recepten för de egenblandade färger som använts på Karlslund från 2024 och framåt. Recepten är skapade för att vara enkla att reproducera med enhetligt resultat. De kan med fördel justeras med valfri mängd extra linolja eller annat förekommande bindmedel, utifrån behov och önskemål.
+Följande dokumenterar recepten för de egenblandade färger som använts på Karlslund från 2025 och framåt. Recepten är skapade för att vara enkla att reproducera med enhetligt resultat. De kan med fördel justeras med valfri mängd extra linolja eller annat förekommande bindmedel, utifrån behov och önskemål.
 
 ### Linoljefärg
 
-#### ![](plåtfärg.jpg){style="float: right; margin-left: 1em; width: 25%; min-width: 200px;"}Rostskyddsfärg till plåt och järn
+#### ![](plåtfärg.jpg){style="float: right; margin: 0 0 1em 1em; width: 25%; min-width: 200px;"}Rostskyddsfärg till plåt och järn
 
 Takstegen, avloppsventilationsstosen och plåtkragningen kring skorstenen är i oktober 2025 målade med följande grundfärg i 2 strykningar.
-
-Pigmenten läggs i att väta i linolja. Blandningen mixas sedan noga med färgblandare [@allback-hans] i borrmaskin.
 
 -   1 del (vikt; 50 g) zinkoxid [@kremer-zinkoxid]
 -   2 delar Järnmönja [@claessons-jarnmonja]
 -   3 delar kokt linolja [@bostallets-kokt-linolja]
 
+Pigmenten läggs i att väta i linolja. Blandningen mixas sedan noga med färgblandare [@allback-hans] i borrmaskin.
+
 #### Slutstrykningsfärg till plåt och järn
 
 Takstegen, avloppsventilationsstosen och plåtkragningen kring skorstenen är i oktober 2025 målade med följande grundfärg i 1--2 strykningar, för att efterlikna takteglets kulör.
-
-Pigmenten läggs i att väta i linolja. Blandningen mixas sedan noga med färgblandare [@allback-hans] i borrmaskin.
 
 -   1 del (vikt; 50 g) zinkoxid [@kremer-zinkoxid]
 -   1 del Järnmönja [@claessons-jarnmonja]
 -   1 del Gul järnoxid [@kremer-gul-jarnoxid]
 -   3 delar kokt linolja [@bostallets-kokt-linolja]
 
+Pigmenten läggs i att väta i linolja. Blandningen mixas sedan noga med färgblandare [@allback-hans] i borrmaskin.
+
 ### Roslagsmahogny/tjäroljefärg
 
-#### ![](vattbräda.jpg){style="float: right; margin-left: 1em; width: 25%; min-width: 200px;"}Vattbrädor tak
+#### ![](vattbräda.jpg){style="float: right; margin: 0 0 1em 1em; width: 25%; min-width: 200px;"}Vattbrädor tak
 
 Vattbrädorna i trä är målade i oktober 2025 med nedanstående pigmenterade roslagsmahogny i 1 första strykning för att efterlikna takteglets kulör, och harmoniera med linoljefärgen på takets plåtbeslag.
-
-Bindmedel och terpenting blandas först, varpå pigmenten läggs i att väta. Blandningen mixas sedan noga med färgblandare [@allback-hans] i borrmaskin.
 
 -   1 del (vikt; 75 g) zinkoxid [@kremer-zinkoxid]
 -   1 del Järnmönja [@claessons-jarnmonja]
@@ -188,17 +186,19 @@ Bindmedel och terpenting blandas först, varpå pigmenten läggs i att väta. Bl
 -   1 del äkta trätjära [@biltema-tjara]
 -   1 del balsamterpentin [@biltema-terpentin]
 
+Bindmedel och terpenting blandas först, varpå pigmenten läggs i att väta. Blandningen mixas sedan noga med färgblandare [@allback-hans] i borrmaskin.
+
 ### Äggoljetempera
 
 #### Väggfärg "Evas ljusgula"
 
-Vinyltapeten från 1980-talet i ett av sovrummen målas som en "snabbrenovering" med följande färg i 2 strykningar. 
-
-Samtliga pigment läggs att väta i vatten i en skål över natten. Pigmentpastan mixas med stavmixer. Ägg och olja mixas samman i ett separat kärl och blandas sedan ned i pigmentpastan. Färgen justeras med valfri mängd vatten till underlaget och önskad känsla i pensel/roller.
+Vinyltapeten från 1980-talet i ett av sovrummen målades hösten 2025, som en "snabbrenovering", med följande färg i 2 strykningar. 
 
 -   1 del (vikt; 50 g) Gul järnoxid [@kremer-gul-jarnoxid]
 -   10 delar krita [@kremer-krita]
 -   15 delar titandioxid [@kremer-titandioxid]
 -   25 delar vatten
 -   10 delar ägg
--   10 delar kokt linolja [@bostallets-kokt-linolja]
+-   10 delar kokt linolja [@egen-kokt-linolja]
+
+Samtliga pigment läggs att väta i vatten i en skål över natten. Pigmentpastan mixas med stavmixer. Ägg och olja mixas samman i ett separat kärl och blandas sedan ned i pigmentpastan. Färgen justeras med valfri mängd vatten till underlaget och önskad känsla i pensel/roller.

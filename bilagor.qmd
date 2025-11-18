@@ -150,7 +150,7 @@ Minnesanteckningar från samtal över en kopp kaffe 2025-10-05 med Bo "Boman" An
 
 Följande dokumenterar recepten för de egenblandade färger som använts på Karlslund från 2025 och framåt. Recepten är skapade för att vara enkla att reproducera med enhetligt resultat. De kan med fördel justeras med valfri mängd extra linolja eller annat förekommande bindmedel, utifrån behov och önskemål.
 
-### Linoljefärg
+### Utomhus
 
 #### ![](plåtfärg.jpg){style="float: right; margin: 0 0 1em 1em; width: 25%; min-width: 200px;"}Rostskyddsfärg till plåt och järn
 
@@ -173,9 +173,7 @@ Takstegen, avloppsventilationsstosen och plåtkragningen kring skorstenen målad
 
 Instruktion: Pigmenten läggs i att väta i linolja. Blandningen mixas sedan noga med färgblandare [@allback-hans] i borrmaskin.
 
-### Roslagsmahogny/tjäroljefärg
-
-#### ![](vattbräda.jpg){style="float: right; margin: 0 0 1em 1em; width: 25%; min-width: 200px;"}Vattbrädor tak
+#### ![](vattbräda.jpg){style="float: right; margin: 0 0 1em 1em; width: 25%; min-width: 200px;"}Roslagsmahogny/tjäroljefärg till vattbrädor tak
 
 Vattbrädorna i trä målades i oktober 2025 med nedanstående pigmenterade roslagsmahogny i 1 första strykning för att efterlikna takteglets kulör, och harmoniera med linoljefärgen på takets plåtbeslag.
 
@@ -188,9 +186,20 @@ Vattbrädorna i trä målades i oktober 2025 med nedanstående pigmenterade rosl
 
 Instruktion: Bindmedel och terpenting blandas först, varpå pigmenten läggs i att väta. Blandningen mixas sedan noga med färgblandare [@allback-hans] i borrmaskin.
 
-### Äggoljetempera
+### Inomhus
 
-#### Väggfärg Evas ljusgula
+#### Linoljefärg vit 3% grön umbra (pasta)
+
+Vintern 2025 bereddes en vit linoljefärgspasta, med aningen grön umbra för att balansera linoljans svaga gulton, att använda på snickerier, inklusive socklar och foder, liksom gjutjärnsradiatorer. Pastan används gärna direkt för den första inarbetningen i underlaget, med med ökande tillsats kokt linolja i mellan- och slutstrykningen (utifrån målningsprincipen "från magert till fett"). Nedanstående mängd bereds och förvaras med fördel i en 1-liters färgburk i plåt [@burk-1l].
+
+-   20 g grön umbra [@kremer-gron-umbra]
+-   1020 g titandioxid [@kremer-titandioxid]
+-   120 g zinkvitt [@kremer-zinkoxid]
+-   500 g kokt linolja [@egen-kokt-linolja]
+
+Instruktion: Pigmenten läggs i att väta i linolja över natten. Den tjocka blandningen mixas sedan mycket noga med färgblandare [@allback-hans] i borrmaskin.
+
+#### Äggoljetempera ljusgul väggfärg
 
 Vinyltapeten från 1980-talet i ett av sovrummen målades hösten 2025, som en "snabbrenovering", med följande färg i 2 strykningar. 
 

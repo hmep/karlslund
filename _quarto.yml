@@ -18,7 +18,6 @@ book:
     - references.qmd
   downloads: [pdf]
 
-lang: sv
 csl: apa.csl
 bibliography: references.bib
 
@@ -31,7 +30,6 @@ format:
   pdf:
     documentclass: scrreprt
     papersize: a4
-    lang: sv
     toc: true
     number-sections: true
     colorlinks: true

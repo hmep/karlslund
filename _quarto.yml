@@ -14,7 +14,10 @@ book:
     - summary.qmd
     - persongalleri.qmd
     - renovering.qmd
-    - bilagor.qmd
+    - part: bilagor.qmd
+      chapters:
+      - linoljeförädling.qmd
+      - färgtillverkning.qmd
     - references.qmd
   downloads: [pdf]
 
@@ -27,6 +30,9 @@ format:
       - cosmo
       - brand
     lang: sv
+    toc: true
+    toc-depth: 3
+    toc-expand: 3
   pdf:
     documentclass: scrreprt
     papersize: a4

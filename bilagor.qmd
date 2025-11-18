@@ -148,11 +148,11 @@ Minnesanteckningar från samtal över en kopp kaffe 2025-10-05 med Bo "Boman" An
 
 ## Recept på färgblandningar
 
-Följande dokumenterar recepten för de egenblandade färger som använts på Karlslund från 2024 och framåt. Recepten är skapade för att vara enkla att reproducera.
+Följande dokumenterar recepten för de egenblandade färger som använts på Karlslund från 2024 och framåt. Recepten är skapade för att vara enkla att reproducera med enhetligt resultat. De kan med fördel justeras med valfri mängd extra linolja eller annat förekommande bindmedel, utifrån behov och önskemål.
 
 ### Linoljefärg
 
-#### ![](plåtfärg.jpg){style="float: right; margin-left: 1em; width: 25%; min-width:200px;"}Rostskyddsfärg till plåt och järn
+#### ![](plåtfärg.jpg){style="float: right; margin-left: 1em; width: 25%; min-width: 200px;"}Rostskyddsfärg till plåt och järn
 
 Takstegen, avloppsventilationsstosen och plåtkragningen kring skorstenen är i oktober 2025 målade med följande grundfärg i 2 strykningar.
 
@@ -171,9 +171,9 @@ Takstegen, avloppsventilationsstosen och plåtkragningen kring skorstenen är i 
 
 ### Roslagsmahogny/tjäroljefärg
 
-#### ![](vattbräda.jpg){style="float: right; margin-left: 1em; width: 25%; min-width:200px;"}Vattbrädor tak
+#### ![](vattbräda.jpg){style="float: right; margin-left: 1em; width: 25%; min-width: 200px;"}Vattbrädor tak
 
-Vattbrädorna i trä är målade i oktober 2025 med nedanstående pigmenterade roslagsmahogny för att efterlikna takteglets kulör, och harmoniera med linoljefärgen på takets plåtbeslag.
+Vattbrädorna i trä är målade i oktober 2025 med nedanstående pigmenterade roslagsmahogny i 1 första strykning för att efterlikna takteglets kulör, och harmoniera med linoljefärgen på takets plåtbeslag.
 
 -   1 del (vikt) zinkoxid [@kremer-zinkoxid]
 -   1 del Järnmönja [@claessons-jarnmonja]

@@ -152,7 +152,7 @@ Följande dokumenterar recepten för de egenblandade färger som använts på Ka
 
 ### Linoljefärg
 
-#### ![](plåtfärg.jpg){style="float: right; margin: 1em;" width="25%"}Rostskyddsfärg till plåt och järn
+#### ![](plåtfärg.jpg){style="float: right; margin-left: 1em; width: 25%; min-width:200px;"}Rostskyddsfärg till plåt och järn
 
 Takstegen, avloppsventilationsstosen och plåtkragningen kring skorstenen är i oktober 2025 målade med följande grundfärg i 2 strykningar.
 
@@ -171,7 +171,7 @@ Takstegen, avloppsventilationsstosen och plåtkragningen kring skorstenen är i 
 
 ### Roslagsmahogny/tjäroljefärg
 
-#### Vattbrädor tak
+#### ![](vattbräda.jpg){style="float: right; margin-left: 1em; width: 25%; min-width:200px;"}Vattbrädor tak
 
 Vattbrädorna i trä är målade i oktober 2025 med nedanstående pigmenterade roslagsmahogny för att efterlikna takteglets kulör, och harmoniera med linoljefärgen på takets plåtbeslag.
 

@@ -1,4 +1,4 @@
-# quarto render --to all ; git commit -am "" ; git push
+# quarto render --to all ; git add docs; git commit -am "genererar nya docs" ; git push
 
 project:
   type: book

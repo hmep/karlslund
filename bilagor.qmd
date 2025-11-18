@@ -103,13 +103,6 @@ Minnesanteckningar från samtal över en kopp kaffe 2025-10-05 med Bo "Boman" An
 
 ![@Lindebilder4](https://www.lindebilder.se/data/media/174/sellingeOsterhammarsSkola1910_270411.jpg)
 
-## Borrad brunn
-
-Brunnsid: 115200099 Borrdatum: 1983‐08‐15 Läge:
-Användning: Djup till berg (m): 5.0 Totaldjup (m): 30.0
-Vattenmängd l/h: 2000 Grundvattennivå (m): 3.0 Grundvatten uppmätt: 19
-Lägesnoggrannhet: <250 m Koordinater: X=59,53 Y=15,49
-
 ## Objektsbeskrivning
 
 ::: {.content-visible unless-format="pdf"}
@@ -119,6 +112,17 @@ Lägesnoggrannhet: <250 m Koordinater: X=59,53 Y=15,49
 ```{=latex}
 \pagebreak[4]
 \includepdf[pages=-, scale=0.8, frame,pagecommand={}]{Objektsbeskrivning.pdf}
+```
+
+## Fastighetsutdrag
+
+::: {.content-visible unless-format="pdf"}
+[Fastighetskarta (PDF)](Fastighetsutdrag.pdf)
+:::
+
+```{=latex}
+\pagebreak[4]
+\includepdf[pages=-, scale=0.8, frame,pagecommand={}]{Fastighetsutdrag.pdf}
 ```
 
 ## Fastighetskarta
@@ -131,3 +135,51 @@ Lägesnoggrannhet: <250 m Koordinater: X=59,53 Y=15,49
 \pagebreak[4]
 \includepdf[pages=-, scale=0.8, frame,pagecommand={}]{Karta.pdf}
 ```
+
+## Dateringsspår
+
+### Utförandestilar
+
+### Tapetlager
+
+### Färgtrappor
+
+## Recept på färgblandningar
+
+Följande dokumenterar recepten för de egenblandade färger som använts på Karlslund från 2024 och framåt. Recepten är skapade för att vara enkla att reproducera.
+
+### Linoljefärg
+
+#### Rostskyddsfärg till plåt och järn
+
+Takstegen, avloppsventilationsstosen och plåtkragningen kring skorstenen är i oktober 2025 målade med följande grundfärg i 2 strykningar.
+
+* 1 del (vikt) zinkoxid [@kremer-zinkoxid]
+* 2 delar Järnmönja [@claessons-jarnmonja]
+* 3 delar kokt linolja [@bostallets-kokt-linolja]
+
+#### Slutstrykningsfärg till plåt och järn
+
+Takstegen, avloppsventilationsstosen och plåtkragningen kring skorstenen är i oktober 2025 målade med följande grundfärg i 1--2 strykningar, för att efterlikna takteglets kulör.
+
+* 1 del (vikt) zinkoxid [@kremer-zinkoxid]
+* 1 del Järnmönja [@claessons-jarnmonja]
+* 1 del Gul järnoxid [@kremer-gul-jarnoxid]
+* 3 delar kokt linolja [@bostallets-kokt-linolja]
+
+### Roslagsmahogny/tjäroljefärg
+
+#### Vattbrädor tak
+
+Vattbrädorna i trä är målade i oktober 2025 med nedanstående pigmenterade roslagsmahogny för att efterlikna takteglets kulör, och harmoniera med linoljefärgen på takets plåtbeslag.
+
+* 1 del (vikt) zinkoxid [@kremer-zinkoxid]
+* 1 del Järnmönja [@claessons-jarnmonja]
+* 1 del Gul järnoxid [@kremer-gul-jarnoxid]
+* 1 del kokt linolja [@bostallets-kokt-linolja]
+* 1 del äkta trätjära [@biltema-tjara]
+* 1 del balsamterpentin [@biltema-terpentin]
+
+### Äggoljetempera
+
+#### Väggfärg "Evas rum"

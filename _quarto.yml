@@ -38,3 +38,4 @@ format:
       text: |
         \usepackage{pdfpages}
         \usepackage{ragged2e}
+        \usepackage{rotating}

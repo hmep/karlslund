@@ -61,7 +61,7 @@ Instruktion: Pigmenten läggs att väta i linolja över natten. Blandningen rivs
 
 ### Linoljefärg vit 12% grön umbra (pasta)
 
-Vintern 2025 bereddes en varmgrå linoljefärgspasta, med 12 % grön umbra i vitt, för användning på vindskivor och knutar på boningshuset. Pastan, som innehåller en större mängd zinkoxid för att motverka mögelpåväxt, används gärna direkt för den första inarbetningen i underlaget (med anstrykare), med med ökande tillsats kokt linolja i mellan- och slutstrykningen (med moddlare), utifrån målningsprincipen "från magert till fett". För ökad glans kan sista strykningen innehålla upp till 5 % [soloxiderad linolja](linoljeförädling.qmd#sec-linolja-soloxiderad).
+Vintern 2025 bereddes en varmgrå linoljefärgspasta, med 12 % grön umbra i vitt, för användning på vindskivor och knutar på boningshuset. Pastan, som innehåller en större mängd zinkoxid för att motverka mögelpåväxt, används gärna direkt för den första inarbetningen i underlaget, med med ökande tillsats kokt linolja i mellan- och slutstrykningen, utifrån principen "fett över magert". För ökad glans kan sista strykningen innehålla upp till 5 % [soloxiderad linolja](linoljeförädling.qmd#sec-linolja-soloxiderad).
 
 -   110 g grön umbra [@kremer-gron-umbra]
 -   700 g titandioxid [@kremer-titandioxid]

@@ -945,16 +945,16 @@ oktober 2025 med följande grundfärg i 2 strykningar.
 \begin{itemize}
 \tightlist
 \item
-  1 del (vikt; 50 g) zinkoxid (Kremer Pigmente, 2025a)
+  1 del (vikt; 50 g i första batchen) zinkoxid (Kremer Pigmente, 2025a)
 \item
   2 delar Järnmönja (Claessons träjära, 2025)
 \item
   3 delar kokt linolja (Boställets lin, 2025)
 \end{itemize}
 
-Instruktion: Pigmenten läggs i att väta i linolja. Blandningen mixas
-sedan noga med färgblandare (Allbäck Linoljeprodukter, 2025) i
-borrmaskin.
+Instruktion: Pigmenten läggs i att väta i linolja över natten.
+Blandningen mixas sedan noga med färgblandare (Allbäck Linoljeprodukter,
+2025) i borrmaskin.
 
 \subsection{Slutstrykningsfärg till plåt och
 järn}\label{slutstrykningsfuxe4rg-till-pluxe5t-och-juxe4rn}
@@ -966,7 +966,7 @@ att efterlikna takteglets kulör.
 \begin{itemize}
 \tightlist
 \item
-  1 del (vikt; 50 g) zinkoxid (Kremer Pigmente, 2025a)
+  1 del (vikt; 50 g i första batchen) zinkoxid (Kremer Pigmente, 2025a)
 \item
   1 del Järnmönja (Claessons träjära, 2025)
 \item
@@ -975,9 +975,9 @@ att efterlikna takteglets kulör.
   3 delar kokt linolja (Boställets lin, 2025)
 \end{itemize}
 
-Instruktion: Pigmenten läggs i att väta i linolja. Blandningen mixas
-sedan noga med färgblandare (Allbäck Linoljeprodukter, 2025) i
-borrmaskin.
+Instruktion: Pigmenten läggs i att väta i linolja över natten.
+Blandningen mixas sedan noga med färgblandare (Allbäck Linoljeprodukter,
+2025) i borrmaskin.
 
 \subsection{Roslagsmahogny/tjäroljefärg till vattbrädor
 tak}\label{roslagsmahognytjuxe4roljefuxe4rg-till-vattbruxe4dor-tak}
@@ -990,11 +990,35 @@ och harmoniera med linoljefärgen på takets plåtbeslag.
 \begin{itemize}
 \tightlist
 \item
-  1 del (vikt; 75 g) zinkoxid (Kremer Pigmente, 2025a)
+  1 del (vikt; 75 g i första batchen) zinkoxid (Kremer Pigmente, 2025a)
 \item
   1 del Järnmönja (Claessons träjära, 2025)
 \item
   1 del Gul järnoxid (Kremer Pigmente, 2025b)
+\item
+  1 del kokt linolja (Boställets lin, 2025)
+\item
+  1 del äkta trätjära (Biltema, 2025a)
+\item
+  1 del balsamterpentin (Biltema, 2025b)
+\end{itemize}
+
+Instruktion: Bindmedel och terpenting blandas först, varpå pigmenten
+läggs i att väta. Blandningen mixas sedan noga med färgblandare (Allbäck
+Linoljeprodukter, 2025) i borrmaskin.
+
+\subsection{Roslagsmahogny/tjäroljefärg till
+uthusdörrar}\label{roslagsmahognytjuxe4roljefuxe4rg-till-uthusduxf6rrar}
+
+En färgblandning bereddes vintern 2025 med nedanstående pigmenterade
+roslagsmahogny till fastighetens alla uthusdörrar.
+
+\begin{itemize}
+\tightlist
+\item
+  1 del (vikt; 75 g i första batchen) zinkoxid (Kremer Pigmente, 2025a)
+\item
+  2 delar Gul järnoxid (Kremer Pigmente, 2025b)
 \item
   1 del kokt linolja (Boställets lin, 2025)
 \item
@@ -1034,15 +1058,15 @@ till fett''. För ökad glans kan sista strykningen innehålla upp till 5
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{dc }\OtherTok{\textless{}{-}} \FloatTok{2.02}\SpecialCharTok{/}\FloatTok{2.7}   \CommentTok{\# diffraktionskvot zinkoxid/titandioxid (konstant)}
-\NormalTok{cp }\OtherTok{\textless{}{-}} \FloatTok{0.12}       \CommentTok{\# färgprocenten}
-\NormalTok{wp }\OtherTok{\textless{}{-}} \DecValTok{1}\FloatTok{{-}0.12}     \CommentTok{\# vitprocenten (räknas ut)}
-\NormalTok{zp }\OtherTok{\textless{}{-}} \FloatTok{0.3}        \CommentTok{\# zinkprocenten }
-\NormalTok{tp }\OtherTok{\textless{}{-}} \DecValTok{1}\FloatTok{{-}0.3}      \CommentTok{\# titanprocenten (räknas ut)}
+\NormalTok{cp }\OtherTok{\textless{}{-}} \FloatTok{0.12}       \CommentTok{\# färgandel}
+\NormalTok{zp }\OtherTok{\textless{}{-}} \FloatTok{0.3}        \CommentTok{\# zinkandel; 0.3 utomhus; 0.15 inomhus om kulören tillåter}
+\CommentTok{\#wp \textless{}{-} 1{-}0.12     \# vitandel (räknas ut)}
+\CommentTok{\#tp \textless{}{-} 1{-}0.3      \# titandel (räknas ut)}
 
-\NormalTok{u }\OtherTok{=}\NormalTok{ tp}\SpecialCharTok{*}\NormalTok{(wp}\SpecialCharTok{*}\NormalTok{zp}\SpecialCharTok{*}\FloatTok{2.02}\SpecialCharTok{/}\FloatTok{2.7}\SpecialCharTok{+}\NormalTok{wp}\SpecialCharTok{*}\NormalTok{tp)}
-\NormalTok{u }\OtherTok{=} \FloatTok{0.098}
-\NormalTok{z }\OtherTok{=} \FloatTok{0.88}\SpecialCharTok{*}\FloatTok{0.3}
-\NormalTok{t }\OtherTok{=} \FloatTok{0.88}\SpecialCharTok{*}\FloatTok{0.7}
+\NormalTok{ca }\OtherTok{=}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{zp)}\SpecialCharTok{*}\NormalTok{((}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{cp)}\SpecialCharTok{*}\NormalTok{zp}\SpecialCharTok{*}\FloatTok{2.02}\SpecialCharTok{/}\FloatTok{2.7}\SpecialCharTok{+}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{cp)}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{zp)) }\CommentTok{\# mängd färgpigment}
+\CommentTok{\#u = 0.098}
+\CommentTok{\#z = 0.88*0.3}
+\CommentTok{\#t = 0.88*0.7}
 \end{Highlighting}
 \end{Shaded}
 

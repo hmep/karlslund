@@ -39,16 +39,44 @@ Vattbrädorna i trä målades i oktober 2025 med nedanstående pigmenterade rosl
 
 Instruktion: Bindmedel och terpenting blandas först, varpå pigmenten läggs i att väta. Blandningen mixas sedan noga med färgblandare [@allback-hans] i borrmaskin.
 
+### Linoljefärg vit 12% grön umbra (pasta)
+
+Vintern 2025 bereddes en varmgrå linoljefärgspasta, med 12 % grön umbra i vitt, för användning på vindskivor och knutar på boningshuset. Pastan, som innehåller en större mängd zinkoxid för att motverka mögelpåväxt, används gärna direkt för den första inarbetningen i underlaget (med anstrykare), med med ökande tillsats kokt linolja i mellan- och slutstrykningen (med moddlare), utifrån målningsprincipen "från magert till fett". För ökad glans kan sista strykningen innehålla upp till 5 % [soloxiderad linolja](linoljeförädling.qmd#sec-linolja-soloxiderad).
+
+-   110 g grön umbra [@kremer-gron-umbra]
+-   700 g titandioxid [@kremer-titandioxid]
+-   300 g zinkvitt [@kremer-zinkoxid]
+-   ? g [kokt linolja](linoljeförädling.qmd#sec-linolja-kokt)
+
+``` r
+dc <- 2.02/2.7   # diffraktionskvot zinkoxid/titandioxid (konstant)
+cp <- 0.12       # färgprocenten
+wp <- 1-0.12     # vitprocenten (räknas ut)
+zp <- 0.3        # zinkprocenten 
+tp <- 1-0.3      # titanprocenten (räknas ut)
+
+u = tp*(wp*zp*2.02/2.7+wp*tp)
+u = 0.098
+z = 0.88*0.3
+t = 0.88*0.7
+
+```
+
+Instruktion: Pigmenten läggs i att väta i linolja över natten. Den tjocka blandningen mixas sedan mycket noga med färgblandare [@allback-hans] i borrmaskin. Ovan angiven mängd bereds och förvaras med fördel i en 1-liters färgburk i plåt [@burk-1l].
+
+
 ## Inomhus
 
 ### Linoljefärg vit 3% grön umbra (pasta)
 
 Vintern 2025 bereddes en vit linoljefärgspasta, med aningen grön umbra för att balansera linoljans svaga gulton, att använda på snickerier, inklusive socklar och foder, liksom gjutjärnsradiatorer. Pastan används gärna direkt för den första inarbetningen i underlaget (med anstrykare), med med ökande tillsats kokt linolja i mellan- och slutstrykningen (med moddlare), utifrån målningsprincipen "från magert till fett". För ökad glans kan sista strykningen innehålla upp till 5 % [soloxiderad linolja](linoljeförädling.qmd#sec-linolja-soloxiderad).
 
--   20 g grön umbra [@kremer-gron-umbra]
--   1020 g titandioxid [@kremer-titandioxid]
--   120 g zinkvitt [@kremer-zinkoxid]
--   500 g [kokt linolja](linoljeförädling.qmd#sec-linolja-kokt)
+-   30 g grön umbra [@kremer-gron-umbra]
+-   850 g titandioxid [@kremer-titandioxid]
+-   150 g zinkvitt [@kremer-zinkoxid]
+-   ? g [kokt linolja](linoljeförädling.qmd#sec-linolja-kokt)
+
+<!-- (0.85*1000+(2.02/2.7*0.15*1000))*0.03 -->
 
 Instruktion: Pigmenten läggs i att väta i linolja över natten. Den tjocka blandningen mixas sedan mycket noga med färgblandare [@allback-hans] i borrmaskin. Ovan angiven mängd bereds och förvaras med fördel i en 1-liters färgburk i plåt [@burk-1l].
 

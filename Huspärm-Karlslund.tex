@@ -67,6 +67,46 @@
 \fi
 \makeatother
 
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
 
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
@@ -969,6 +1009,50 @@ Instruktion: Bindmedel och terpenting blandas först, varpå pigmenten
 läggs i att väta. Blandningen mixas sedan noga med färgblandare (Allbäck
 Linoljeprodukter, 2025) i borrmaskin.
 
+\subsection{Linoljefärg vit 12\% grön umbra
+(pasta)}\label{linoljefuxe4rg-vit-12-gruxf6n-umbra-pasta}
+
+Vintern 2025 bereddes en varmgrå linoljefärgspasta, med 12 \% grön umbra
+i vitt, för användning på vindskivor och knutar på boningshuset. Pastan,
+som innehåller en större mängd zinkoxid för att motverka mögelpåväxt,
+används gärna direkt för den första inarbetningen i underlaget (med
+anstrykare), med med ökande tillsats kokt linolja i mellan- och
+slutstrykningen (med moddlare), utifrån målningsprincipen ``från magert
+till fett''. För ökad glans kan sista strykningen innehålla upp till 5
+\% \hyperref[sec-linolja-soloxiderad]{soloxiderad linolja}.
+
+\begin{itemize}
+\tightlist
+\item
+  110 g grön umbra (Kremer Pigmente, 2025c)
+\item
+  700 g titandioxid (Kremer Pigmente, 2025d)
+\item
+  300 g zinkvitt (Kremer Pigmente, 2025a)
+\item
+  ? g \hyperref[sec-linolja-kokt]{kokt linolja}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dc }\OtherTok{\textless{}{-}} \FloatTok{2.02}\SpecialCharTok{/}\FloatTok{2.7}   \CommentTok{\# diffraktionskvot zinkoxid/titandioxid (konstant)}
+\NormalTok{cp }\OtherTok{\textless{}{-}} \FloatTok{0.12}       \CommentTok{\# färgprocenten}
+\NormalTok{wp }\OtherTok{\textless{}{-}} \DecValTok{1}\FloatTok{{-}0.12}     \CommentTok{\# vitprocenten (räknas ut)}
+\NormalTok{zp }\OtherTok{\textless{}{-}} \FloatTok{0.3}        \CommentTok{\# zinkprocenten }
+\NormalTok{tp }\OtherTok{\textless{}{-}} \DecValTok{1}\FloatTok{{-}0.3}      \CommentTok{\# titanprocenten (räknas ut)}
+
+\NormalTok{u }\OtherTok{=}\NormalTok{ tp}\SpecialCharTok{*}\NormalTok{(wp}\SpecialCharTok{*}\NormalTok{zp}\SpecialCharTok{*}\FloatTok{2.02}\SpecialCharTok{/}\FloatTok{2.7}\SpecialCharTok{+}\NormalTok{wp}\SpecialCharTok{*}\NormalTok{tp)}
+\NormalTok{u }\OtherTok{=} \FloatTok{0.098}
+\NormalTok{z }\OtherTok{=} \FloatTok{0.88}\SpecialCharTok{*}\FloatTok{0.3}
+\NormalTok{t }\OtherTok{=} \FloatTok{0.88}\SpecialCharTok{*}\FloatTok{0.7}
+\end{Highlighting}
+\end{Shaded}
+
+Instruktion: Pigmenten läggs i att väta i linolja över natten. Den
+tjocka blandningen mixas sedan mycket noga med färgblandare (Allbäck
+Linoljeprodukter, 2025) i borrmaskin. Ovan angiven mängd bereds och
+förvaras med fördel i en 1-liters färgburk i plåt (Bauhaus, 2025).
+
 \section{Inomhus}\label{inomhus}
 
 \subsection{Linoljefärg vit 3\% grön umbra
@@ -986,13 +1070,13 @@ glans kan sista strykningen innehålla upp till 5 \%
 \begin{itemize}
 \tightlist
 \item
-  20 g grön umbra (Kremer Pigmente, 2025c)
+  30 g grön umbra (Kremer Pigmente, 2025c)
 \item
-  1020 g titandioxid (Kremer Pigmente, 2025d)
+  850 g titandioxid (Kremer Pigmente, 2025d)
 \item
-  120 g zinkvitt (Kremer Pigmente, 2025a)
+  150 g zinkvitt (Kremer Pigmente, 2025a)
 \item
-  500 g \hyperref[sec-linolja-kokt]{kokt linolja}
+  ? g \hyperref[sec-linolja-kokt]{kokt linolja}
 \end{itemize}
 
 Instruktion: Pigmenten läggs i att väta i linolja över natten. Den

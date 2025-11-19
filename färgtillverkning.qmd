@@ -69,9 +69,9 @@ zp <- 0.3        # zinkandel; 0.3 utomhus; 0.15 inomhus om kulören tillåter
 #tp <- 1-0.3      # titandel (räknas ut)
 
 ca = (1-zp)*((1-cp)*zp*2.02/2.7+(1-cp)*(1-zp)) # mängd färgpigment
-#u = 0.098
-#z = 0.88*0.3
-#t = 0.88*0.7
+#ca = 0.098
+#za = 0.88*0.3
+#ta = 0.88*0.7
 
 
 

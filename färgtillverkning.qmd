@@ -48,7 +48,8 @@ Vintern 2025 bereddes en varmgrå linoljefärgspasta, med 12 % grön umbra i vit
 -   300 g zinkvitt [@kremer-zinkoxid]
 -   ? g [kokt linolja](linoljeförädling.qmd#sec-linolja-kokt)
 
-``` r
+```{r}
+
 dc <- 2.02/2.7   # diffraktionskvot zinkoxid/titandioxid (konstant)
 cp <- 0.12       # färgprocenten
 wp <- 1-0.12     # vitprocenten (räknas ut)

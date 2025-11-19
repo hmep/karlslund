@@ -5,9 +5,9 @@ Följande dokumenterar recepten för de egenblandade färger som använts på Ka
 
 ## Utomhus
 
-### ![](plåtfärg.jpg){style="float: right; margin: 0 0 1em 1em; width: 25%; min-width: 200px;"}Rostskyddsfärg till plåt och järn
+### Rostskyddsfärg till plåt och järn
 
-Takstegen, avloppsventilationsstosen och plåtkragningen kring skorstenen målades i oktober 2025 med följande grundfärg i 2 strykningar.
+![](plåtfärg.jpg){style="float: right; margin: 0 0 1em 1em; width: 25%; min-width: 200px;"}Takstegen, avloppsventilationsstosen och plåtkragningen kring skorstenen målades i oktober 2025 med följande grundfärg i 2 strykningar.
 
 -   1 del (vikt; 50 g) zinkoxid [@kremer-zinkoxid]
 -   2 delar Järnmönja [@claessons-jarnmonja]
@@ -26,9 +26,9 @@ Takstegen, avloppsventilationsstosen och plåtkragningen kring skorstenen målad
 
 Instruktion: Pigmenten läggs i att väta i linolja. Blandningen mixas sedan noga med färgblandare [@allback-hans] i borrmaskin.
 
-### ![](vattbräda.jpg){style="float: right; margin: 0 0 1em 1em; width: 25%; min-width: 200px;"}Roslagsmahogny/tjäroljefärg till vattbrädor tak
+### Roslagsmahogny/tjäroljefärg till vattbrädor tak
 
-Vattbrädorna i trä målades i oktober 2025 med nedanstående pigmenterade roslagsmahogny i 1 första strykning för att efterlikna takteglets kulör, och harmoniera med linoljefärgen på takets plåtbeslag.
+![](vattbräda.jpg){style="float: right; margin: 0 0 1em 1em; width: 25%; min-width: 200px;"}Vattbrädorna i trä målades i oktober 2025 med nedanstående pigmenterade roslagsmahogny i 1 första strykning för att efterlikna takteglets kulör, och harmoniera med linoljefärgen på takets plåtbeslag.
 
 -   1 del (vikt; 75 g) zinkoxid [@kremer-zinkoxid]
 -   1 del Järnmönja [@claessons-jarnmonja]

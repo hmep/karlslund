@@ -4,7 +4,7 @@ Följande dokumenterar recepten för de egenblandade färger som tillverkats och
 
 ## Utomhus
 
-### Rostskyddsfärg till plåt och järn
+### Rostskyddsfärg till plåt och järnstege
 
 ![](plåtfärg.jpg){style="float: right; margin: 0 0 1em 1em; width: 25%; min-width: 200px;"}Takstegen, avloppsventilationsstosen och plåtkragningen kring skorstenen målades i oktober 2025 med följande grundfärg i 2 strykningar.
 
@@ -12,7 +12,7 @@ Följande dokumenterar recepten för de egenblandade färger som tillverkats och
 -   2 delar Järnmönja [@claessons-jarnmonja]
 -   3 delar kokt linolja [@bostallets-kokt-linolja]
 
-Instruktion: Pigmenten läggs i att väta i linolja över natten. Blandningen mixas sedan noga med färgblandare [@allback-hans] i borrmaskin.
+Instruktion: Pigmenten läggs att väta i linolja över natten. Blandningen rivs sedan noga med färgblandare [@allback-hans] i borrmaskin.
 
 ### Slutstrykningsfärg till plåt och järn
 
@@ -23,7 +23,7 @@ Takstegen, avloppsventilationsstosen och plåtkragningen kring skorstenen målad
 -   1 del Gul järnoxid [@kremer-gul-jarnoxid]
 -   3 delar kokt linolja [@bostallets-kokt-linolja]
 
-Instruktion: Pigmenten läggs i att väta i linolja över natten. Blandningen mixas sedan noga med färgblandare [@allback-hans] i borrmaskin.
+Instruktion: Pigmenten läggs att väta i linolja över natten. Blandningen rivs sedan noga med färgblandare [@allback-hans] i borrmaskin.
 
 ### Roslagsmahogny/tjäroljefärg till vattbrädor tak
 
@@ -36,7 +36,7 @@ Instruktion: Pigmenten läggs i att väta i linolja över natten. Blandningen mi
 -   1 del äkta trätjära [@biltema-tjara]
 -   1 del balsamterpentin [@biltema-terpentin]
 
-Instruktion: Bindmedel och terpenting blandas först, varpå pigmenten läggs i att väta. Blandningen mixas sedan noga med färgblandare [@allback-hans] i borrmaskin.
+Instruktion: Bindmedel och terpenting blandas först, varpå pigmenten läggs i att väta. Blandningen rivs sedan noga med färgblandare [@allback-hans] i borrmaskin.
 
 ### Roslagsmahogny/tjäroljefärg till uthusdörrar
 
@@ -48,7 +48,7 @@ En färgblandning bereddes vintern 2025 med nedanstående pigmenterade roslagsma
 -   1 del äkta trätjära [@biltema-tjara]
 -   1 del balsamterpentin [@biltema-terpentin]
 
-Instruktion: Bindmedel och terpenting blandas först, varpå pigmenten läggs i att väta. Blandningen mixas sedan noga med färgblandare [@allback-hans] i borrmaskin.
+Instruktion: Bindmedel och terpenting blandas först, varpå pigmenten läggs i att väta. Blandningen rivs sedan noga med färgblandare [@allback-hans] i borrmaskin.
 
 ### Linoljefärg vit 12% grön umbra (pasta)
 
@@ -76,7 +76,7 @@ ca = (1-zp)*((1-cp)*zp*2.02/2.7+(1-cp)*(1-zp)) # mängd färgpigment
 
 ```
 
-Instruktion: Pigmenten läggs i att väta i linolja över natten. Den tjocka blandningen mixas sedan mycket noga med färgblandare [@allback-hans] i borrmaskin. Ovan angiven mängd bereds och förvaras med fördel i en 1-liters färgburk i plåt [@burk-1l].
+Instruktion: Pigmenten läggs att väta i linolja över natten. Den tjocka blandningen rivs sedan mycket noga med färgblandare [@allback-hans] i borrmaskin. Ovan angiven mängd bereds och förvaras med fördel i en 1-liters färgburk i plåt [@burk-1l].
 
 
 ## Inomhus
@@ -92,7 +92,7 @@ Vintern 2025 bereddes en vit linoljefärgspasta, med aningen grön umbra för at
 
 <!-- (0.85*1000+(2.02/2.7*0.15*1000))*0.03 -->
 
-Instruktion: Pigmenten läggs i att väta i linolja över natten. Den tjocka blandningen mixas sedan mycket noga med färgblandare [@allback-hans] i borrmaskin. Ovan angiven mängd bereds och förvaras med fördel i en 1-liters färgburk i plåt [@burk-1l].
+Instruktion: Pigmenten läggs att väta i linolja över natten. Den tjocka blandningen rivs sedan mycket noga med färgblandare [@allback-hans] i borrmaskin. Ovan angiven mängd bereds och förvaras med fördel i en 1-liters färgburk i plåt [@burk-1l].
 
 ### Äggoljetempera ljusgul väggfärg
 

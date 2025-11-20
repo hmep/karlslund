@@ -1087,49 +1087,85 @@ linolja}.
 \CommentTok{\#ta = 0.88*0.7}
 
 \CommentTok{\#CPVC ≈ 100 / (1 + oljetal/100 × 0,93 / densitet\_pigment)}
+
+\NormalTok{oljetal }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}
+    \AttributeTok{titandioxid=}\FunctionTok{c}\NormalTok{(}\DecValTok{20}\NormalTok{,}\FloatTok{4.23}\NormalTok{),}
+    \AttributeTok{zinkoxid=}\FunctionTok{c}\NormalTok{(}\DecValTok{15}\NormalTok{,}\FloatTok{5.60}\NormalTok{),}
+    \AttributeTok{jarnoxid\_svart=}\DecValTok{22}\NormalTok{,}
+    \AttributeTok{jarnoxid\_rod=}\DecValTok{27}\NormalTok{,}
+    \AttributeTok{jarnoxid\_gul=}\FunctionTok{c}\NormalTok{(}\DecValTok{35}\NormalTok{,}\FloatTok{4.0}\NormalTok{),}
+    \AttributeTok{jarnmonja=}\FunctionTok{c}\NormalTok{(}\DecValTok{25}\NormalTok{,}\FloatTok{5.2}\NormalTok{),}
+    \AttributeTok{umbra\_gron=}\FunctionTok{c}\NormalTok{(}\DecValTok{45}\NormalTok{,}\FloatTok{2.60}\NormalTok{),}
+    \AttributeTok{kromoxid\_gron=}\FunctionTok{c}\NormalTok{(}\DecValTok{18}\NormalTok{,}\FloatTok{5.2}\NormalTok{),}
+    \AttributeTok{krita=}\FunctionTok{c}\NormalTok{(}\DecValTok{18}\NormalTok{,}\FloatTok{2.71}\NormalTok{)}
+\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2653}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1939}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.5408}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.3049}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.0915}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1402}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2134}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2500}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Pigment
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Oljetal (g/100 g)
+Ref Key
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Referens (Kremer Pigmente + kompletterande källor)
+Density (g/cm³)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Oljetal (g olja / 100 g pigment)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Notes / Source
 \end{minipage} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-\textbf{Titandioxid (TiO₂)} & 15--25 & Kremer Titanium White (art.
-46350, PW 6): \textasciitilde20 g/100
-g\href{https://www.kremer-pigmente.com/en/shop/pigments/46350-titanium-white.html}{kremer-pigmente.com/en/shop/pigments/46350-titanium-white.html} \\
-\textbf{Zinkoxid (ZnO)} & 10--20 & Kremer Zinc White (art. 46300, PW 4):
-\textasciitilde15 g/100
-g\href{https://www.kremer-pigmente.com/en/shop/pigments/46300-zinc-white.html}{kremer-pigmente.com/en/shop/pigments/46300-zinc-white.html} \\
-\textbf{Svart järnoxid (Fe₃O₄)} & 15--25 & Kremer Iron Oxide Black 318
-(art. 48400, PBk 11): 22 g/100
-g\href{https://www.kremer-pigmente.com/elements/resources/products/files/48400e.pdf}{48400e.pdf} \\
-\textbf{Röd järnoxid (Fe₂O₃)} & 20--35 & Kremer Iron Oxide Red 130 (art.
-48200, PR 101): 27 g/100
-g\href{https://www.kremer-pigmente.com/elements/resources/products/files/48200e.pdf}{48200e.pdf} \\
-\textbf{Gul järnoxid (FeOOH)} & 25--45 & Kremer Iron Oxide Yellow 313
-(art. 48060, PY 42): \textasciitilde35 g/100
-g\href{https://www.kremer-pigmente.com/elements/resources/products/files/48060e.pdf}{48060e.pdf} \\
-\textbf{Grön umbra} & 35--60 & Kremer Green Umber (art. 23030, PBr 8):
-\textasciitilde45 g/100 g (typiskt för Cyprus-umbra)Kremer katalog +
-earth pigment databaser \\
-\textbf{Kromoxidgrön (Cr₂O₃)} & 15--25 & Kremer Chrome Oxide Green (art.
-44200, PG 17): 18 g/100
-g\href{https://www.kremer-pigmente.com/elements/resources/products/files/44200_SDS.pdf}{44200\_SDS.pdf} \\
-\textbf{Krita (CaCO₃)} & 15--25 & Kremer Chalk from Champagne (art.
-58100, PW 18): \textasciitilde18 g/100 gKremer Marble Dust/Champagne
-Chalk datablad \\
+Zinc White (ZnO, Kremer \#46300) & kremer46300 & 5.60 & 18--22 & Kremer
+SDS, low absorption typical \\
+Iron Oxide Yellow (FeOOH, Maize Yellow, Kremer \#48045) & kremer48045 &
+4.0 & 60 & Kremer SDS \#48045 \\
+Titanium White Rutile (TiO₂, Kremer \#46200) & kremer46200 & 4.23 (typ.
+3.4--4.3) & 18.7 & Kremer SDS \#46200 \\
+Raw Umber Greenish Dark (Kremer \#40612) & kremer40612 & 2.60 & 64 &
+Kremer SDS \\
+Chrome Oxide Green (Cr₂O₃, Kremer \#44200) & kremer44200 &
+\textasciitilde5.2 & \textasciitilde11 & Kremer SDS \#44200 \\
+Järnmönja 406 (Red Iron Oxide, Claessons) & claessons406 & 5.2
+(4.9--5.3) & 15--25 & Typical synthetic hematite values \\
+Chalk from Champagne (CaCO₃, Kremer \#58000) & kremer58000 & 2.71 & 17 &
+Kremer SDS \#58000, calcite true density \\
+Iron Oxide Red 110 M, light (Kremer \#48100) & kremer48100 & 5.2 & 28 &
+Kremer SDS \#48100 \\
+Iron Oxide Red 120 M (Kremer \#48120) & kremer48120 & 5.2 & 28 & Kremer
+SDS \#48120 \\
+Iron Oxide Red 130 B, medium (Kremer \#48150) & kremer48150 & 5.2 & 26 &
+Kremer SDS \#48150 \\
+Iron Oxide Red 130 M, medium (Kremer \#48200) & kremer48200 & 5.2 &
+25--30 & Similar to \#48150 \\
+Iron Oxide Red 160 M (Kremer \#48210) & kremer48210 & 5.2 & 24--28 &
+Typical M-grade \\
+Caput Mortuum Synthetic 180 M, bluish (Kremer \#48220) & kremer48220 &
+5.2 & 22--26 & Typical dark synthetic PR101 \\
+Iron Oxide Red 222, dark (Kremer \#48250) & kremer48250 & 5.2 & 20--25 &
+Coarse rust-protection grade \\
+Iron Oxide Red, micronized (Kremer \#48289) & kremer48289 & 5.2 & 30--35
+& Higher due to fine particle size \\
+Translucent Orange-Red (Kremer \#52350) & kremer52350 & 5.2 & 15--20 &
+Low absorption translucent PR101 \\
+Translucent Red medium (Kremer \#52400) & kremer52400 & 5.2 & 18--22 &
+Low absorption translucent PR101 \\
+Iron Oxide Red natural (Kremer \#48600) & kremer48600 &
+\textasciitilde5.0 & 38 & Kremer SDS \#48600 \\
+Haematite, very intensive (Kremer \#48651) & kremer48651 & 5.2 & 22 (±1)
+& Kremer SDS \#48651 \\
+Venetian Red natural (Kremer \#40510) & kremer40510 & 5.2 & 25--30 &
+Typical natural PR102 earth \\
+English Red Light natural (Kremer \#40542) & kremer40542 & 5.2 & 28--32
+& Typical light natural red earth \\
 \end{longtable}
 
 \section{Inomhus}\label{inomhus}

@@ -1,6 +1,6 @@
 # Färgtillverkning
 
-Följande dokumenterar recepten för de egenblandade färger som tillverkats och använts på Karlslund från 2025 och framåt. Recepten är skapade för att vara enkla att reproducera med enhetligt resultat. De kan med fördel justeras med valfri mängd extra linolja eller annat förekommande bindmedel, utifrån behov och önskemål.
+Följande dokumenterar recepten för de egenblandade färger som tillverkats och använts på Karlslund från 2025 och framåt. Recepten utgår från de olika ingrediensernas egenskaper (oljetal, opacitet med mera) och är skapade för att vara enkla att reproducera med enhetligt resultat. De kan med fördel justeras med valfri mängd extra linolja eller annat förekommande bindmedel, utifrån behov och önskemål.
 
 ## Utomhus
 
@@ -81,12 +81,21 @@ ca = (1-zp)*((1-cp)*zp*2.02/2.7+(1-cp)*(1-zp)) # mängd färgpigment
 #za = 0.88*0.3
 #ta = 0.88*0.7
 
-
+#CPVC ≈ 100 / (1 + oljetal/100 × 0,93 / densitet_pigment)
 
 ```
 
-Instruktion: Pigmenten läggs att väta i linolja över natten. Den tjocka blandningen rivs sedan mycket noga med färgblandare [@allback-hans] i borrmaskin. Ovan angiven mängd bereds och förvaras med fördel i en 1-liters färgburk i plåt [@burk-1l].
 
+| Pigment                  | Oljetal (g/100 g) | Referens (Kremer Pigmente + kompletterande källor) |
+|--------------------------|-------------------|-----------------------------------------------------|
+| **Titandioxid (TiO₂)**   | 15–25            | Kremer Titanium White (art. 46350, PW 6): ~20 g/100 g<br>[kremer-pigmente.com/en/shop/pigments/46350-titanium-white.html](https://www.kremer-pigmente.com/en/shop/pigments/46350-titanium-white.html) |
+| **Zinkoxid (ZnO)**       | 10–20            | Kremer Zinc White (art. 46300, PW 4): ~15 g/100 g<br>[kremer-pigmente.com/en/shop/pigments/46300-zinc-white.html](https://www.kremer-pigmente.com/en/shop/pigments/46300-zinc-white.html) |
+| **Svart järnoxid (Fe₃O₄)** | 15–25          | Kremer Iron Oxide Black 318 (art. 48400, PBk 11): 22 g/100 g<br>[48400e.pdf](https://www.kremer-pigmente.com/elements/resources/products/files/48400e.pdf) |
+| **Röd järnoxid (Fe₂O₃)** | 20–35            | Kremer Iron Oxide Red 130 (art. 48200, PR 101): 27 g/100 g<br>[48200e.pdf](https://www.kremer-pigmente.com/elements/resources/products/files/48200e.pdf) |
+| **Gul järnoxid (FeOOH)** | 25–45            | Kremer Iron Oxide Yellow 313 (art. 48060, PY 42): ~35 g/100 g<br>[48060e.pdf](https://www.kremer-pigmente.com/elements/resources/products/files/48060e.pdf) |
+| **Grön umbra**           | 35–60            | Kremer Green Umber (art. 23030, PBr 8): ~45 g/100 g (typiskt för Cyprus-umbra)<br>Kremer katalog + earth pigment databaser |
+| **Kromoxidgrön (Cr₂O₃)** | 15–25            | Kremer Chrome Oxide Green (art. 44200, PG 17): 18 g/100 g<br>[44200_SDS.pdf](https://www.kremer-pigmente.com/elements/resources/products/files/44200_SDS.pdf) |
+| **Krita (CaCO₃)**        | 15–25            | Kremer Chalk from Champagne (art. 58100, PW 18): ~18 g/100 g<br>Kremer Marble Dust/Champagne Chalk datablad |
 
 ## Inomhus
 

@@ -18,6 +18,7 @@ book:
       chapters:
       - linoljeförädling.qmd
       - färgtillverkning.qmd
+      - recept-grok.qmd
     - references.qmd
   downloads: [pdf]
 

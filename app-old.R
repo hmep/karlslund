@@ -1,6 +1,7 @@
 # ────────────────────────────────
-# app.R – KUBELKA-MUNK-version
-# Skapad med hjälp av Grok.com
+# app.R – KUBELKA-MUNK med BLUE PIGMENTS
+# Tillagd: Ultramarine, Phthalo Blue, Cobalt Blue, Prussian Blue, Indigo
+# Baserat på standardvärden från Kremer och färgvetenskap
 # ────────────────────────────────
 
 library(shiny)
@@ -20,9 +21,24 @@ km <- list(
   "44510" = list(name = "Orangeoxid PO73",       oil = 47, K = 0.55,  S = 0.85),
   "44300" = list(name = "Brunoxid PBr7 transp",  oil = 50, K = 0.80,  S = 0.22),
   "44620" = list(name = "Sienna bränd",          oil = 50, K = 0.75,  S = 0.50),
-  "44600" = list(name = "Umbra Cyprus mörk",     oil = 50, K = 1.00,  S = 0.45)
+  "44600" = list(name = "Umbra Cyprus mörk",     oil = 50, K = 1.00,  S = 0.45),
+  
+  # ── NYA BLUE PIGMENTS ─────────────────────────────────
+  "23000" = list(name = "Ultramarine Blue PB29",      oil = 40, K = 1.60, S = 0.85),  # Kremer #23000
+  "23010" = list(name = "Ultramarine Blue light",     oil = 40, K = 1.50, S = 0.90),  # Kremer #23010
+  "23020" = list(name = "Ultramarine Blue violet",    oil = 40, K = 1.70, S = 0.80),  # Kremer #23020
+  "11670" = list(name = "Phthalo Blue PB15:3",        oil = 45, K = 1.80, S = 0.90),  # Kremer #11670
+  "11680" = list(name = "Phthalo Blue green shade",   oil = 45, K = 1.85, S = 0.88),  # Kremer #11680
+  "46000" = list(name = "Cobalt Blue PB28",           oil = 30, K = 0.95, S = 1.20),  # Kremer #46000
+  "46050" = list(name = "Cobalt Blue light",          oil = 30, K = 0.90, S = 1.25),  # Kremer #46050
+  "46080" = list(name = "Cobalt Turquoise",           oil = 35, K = 1.20, S = 1.00),  # Kremer #46080
+  "43000" = list(name = "Prussian Blue PB27",         oil = 35, K = 2.10, S = 0.70),  # Kremer #43000
+  "43010" = list(name = "Prussian Blue light",        oil = 35, K = 2.00, S = 0.75),  # Kremer #43010
+  "40800" = list(name = "Indigo Natural",             oil = 40, K = 1.40, S = 0.65),  # Kremer #40800
+  "40810" = list(name = "Indigo Synthetic",           oil = 40, K = 1.45, S = 0.68)   # Kremer #40810
 )
 
+# RGB för färgprov
 rgb <- list(
   "44100" = c(255,255,255), "44400" = c(255,255,255),
   "48220" = c(139,58,58),   "48200" = c(160,82,82),
@@ -30,10 +46,18 @@ rgb <- list(
   "44250" = c(139,0,0),     "44450" = c(28,38,38),
   "44000" = c(218,165,32),  "44080" = c(193,154,107),
   "44510" = c(232,97,0),    "44300" = c(139,69,19),
-  "44620" = c(160,82,45),   "44600" = c(99,81,71)
+  "44620" = c(160,82,45),   "44600" = c(99,81,71),
+  
+  # BLUE RGB
+  "23000" = c(30,50,130),   "23010" = c(40,60,140),
+  "23020" = c(20,40,120),   "11670" = c(0,70,130),
+  "11680" = c(0,50,100),    "46000" = c(70,150,200),
+  "46050" = c(90,170,220),  "46080" = c(50,160,180),
+  "43000" = c(0,20,60),     "43010" = c(10,30,80),
+  "40800" = c(20,30,80),    "40810" = c(25,35,85)
 )
 
-# Alla färgande pigment i dropdown
+# Dropdown för färgande pigment
 color_choices <- setNames(
   names(km)[sapply(km, function(x) x$K > 0.01)],
   paste0(sapply(km, `[[`, "name")[sapply(km, function(x) x$K > 0.01)],
@@ -41,11 +65,11 @@ color_choices <- setNames(
 )
 
 ui <- dashboardPage(
-  dashboardHeader(title = "Färglabbet"),
+  dashboardHeader(title = "Färglabbet – Med Blue Pigments"),
   dashboardSidebar(
     numericInput("total_weight", "Total vikt pigment (g)", 300, min = 50, max = 5000),
     sliderInput("zinc_ratio", "Zinkvit PW4 i vitt (%)", 0, 100, 60, step = 1),
-
+    
     tags$h4("Färgande pigment (0–3 st)"),
     selectInput("p1", "Pigment 1", choices = c("Inget" = "", color_choices), selected = ""),
     conditionalPanel("input.p1 != ''", sliderInput("pct1", "Andel (%)", 1, 100, 70)),
@@ -56,7 +80,7 @@ ui <- dashboardPage(
     selectInput("p3", "Pigment 3", choices = c("Inget" = "", color_choices), selected = ""),
     conditionalPanel("input.p3 != ''", sliderInput("pct3", "Andel (%)", 1, 100, 10))
   ),
-
+  
   dashboardBody(
     fluidRow(
       box(title = "Recept", width = 8, status = "danger", solidHeader = TRUE,
@@ -65,7 +89,7 @@ ui <- dashboardPage(
           downloadButton("download_recipe", "Spara recept som .txt", icon = icon("download"),
                          style = "width:100%; font-size:16px; padding:12px;")
       ),
-
+      
       box(title = "Färgprov", width = 4, status = "primary", solidHeader = TRUE,
           uiOutput("color_box"),
           uiOutput("color_boxB"),
@@ -80,7 +104,7 @@ ui <- dashboardPage(
 )
 
 server <- function(input, output, session) {
-
+  
   total_color_pct <- reactive({
     s <- 0
     if (input$p1 != "" && !is.null(input$pct1)) s <- s + input$pct1
@@ -88,11 +112,11 @@ server <- function(input, output, session) {
     if (input$p3 != "" && !is.null(input$pct3)) s <- s + input$pct3
     min(s, 100)
   })
-
+  
   recipe_and_color <- reactive({
     total_g <- input$total_weight
     color_pct <- total_color_pct()
-
+    
     total_K_col <- total_S_col <- 0
     color_weights <- numeric()
     used <- c(input$p1, input$p2, input$p3)[c(input$p1,input$p2,input$p3) != ""]
@@ -103,17 +127,17 @@ server <- function(input, output, session) {
       total_K_col <- total_K_col + w * km[[id]]$K
       total_S_col <- total_S_col + w * km[[id]]$S
     }
-
+    
     target_S_white <- total_g * (100 - color_pct)/100 * km[["44400"]]$S
     zn_frac <- input$zinc_ratio / 100
     zn_g <- (zn_frac * target_S_white) / km[["44100"]]$S
     ti_g <- ((1 - zn_frac) * target_S_white) / km[["44400"]]$S
-
+    
     oil <- zn_g * 20/100 + ti_g * 15/100
     for (id in names(color_weights)) oil <- oil + color_weights[id] * km[[id]]$oil / 100
     oil_g <- round(oil, 1)
     oil_ml <- round(oil / 0.93, 1)
-
+    
     # Färgprov – titanvit-ekvivalent vitmängd
     equiv_white_g <- target_S_white / km[["44400"]]$S
     r <- g <- b <- equiv_white_g * 255
@@ -126,36 +150,36 @@ server <- function(input, output, session) {
     total_equiv <- equiv_white_g + sum(color_weights)
     final_hex <- sprintf("#%02X%02X%02X",
                          round(r/total_equiv), round(g/total_equiv), round(b/total_equiv))
-
+    
     list(zinc_g = round(zn_g,1), titanium_g = round(ti_g,1),
          color_weights = color_weights, oil_g = oil_g, oil_ml = oil_ml,
          final_hex = final_hex, color_pct = color_pct, total_g = total_g)
   })
-
+  
   output$color_box <- renderUI({
     tags$div(style = paste0(
       "height:200px; background:", recipe_and_color()$final_hex,
       "; border:4em solid #000;border-bottom:0; border-radius:0px;"
     ))
   })
-
+  
   output$color_boxB <- renderUI({
     tags$div(style = paste0(
       "height:200px; background:", recipe_and_color()$final_hex,
       "; border:4em solid #fff;border-top:0;margin-bottom:-4em; border-radius:0px;"
     ))
   })
-
+  
   output$hex_code <- renderText(recipe_and_color()$final_hex)
   output$color_pct_text <- renderText(paste0(recipe_and_color()$color_pct, " %"))
   output$total_weight_text <- renderText(paste0(recipe_and_color()$total_g, " g"))
-
+  
   output$recipe <- renderTable({
     r <- recipe_and_color()
     df <- data.frame(Ingrediens = character(), Gram = character(), stringsAsFactors = FALSE)
     df <- rbind(df, data.frame(Ingrediens = HTML("Kallpressad kokt linolja"),
                                Gram = paste0(r$oil_g, " g ≈ ", r$oil_ml, " ml")))
-    if (r$zinc_g > 0.1)     df <- rbind(df, data.frame(Ingrediens = "Zinkvit PW4 (#44100)", Gram = paste0(r$zinc_g, " g")))
+    if (r$zinc_g > 0.1)     df <- rbind(df, data.frame(Ingrediens = "Zinkvit PW4 (#44100)", Gram = paste0(r$zink_g, " g")))
     if (r$titanium_g > 0.1) df <- rbind(df, data.frame(Ingrediens = "Titanvit Rutile PW6 (#44400)", Gram = paste0(r$titanium_g, " g")))
     for (id in names(r$color_weights))
       df <- rbind(df, data.frame(Ingrediens = paste0(km[[id]]$name, " (#", id, ")"),
@@ -164,7 +188,7 @@ server <- function(input, output, session) {
       df <- rbind(df, data.frame(Ingrediens = HTML("<span style='color:red; font-weight:bold;'>VARNING: 100 % pigment!</span>"), Gram = ""))
     df
   }, sanitize.text.function = function(x) x, striped = TRUE, bordered = TRUE)
-
+  
   output$download_recipe <- downloadHandler(
     filename = function() paste0("kremer_KM_recept_", Sys.Date(), ".txt"),
     content = function(file) {
@@ -178,7 +202,7 @@ server <- function(input, output, session) {
       )
       i <- 1
       lines <- c(lines, paste0(i, ". Kallpressad kokt linolja: ", r$oil_g, " g (≈ ", r$oil_ml, " ml)")); i <- i + 1
-      if (r$zinc_g > 0.1)     lines <- c(lines, paste0(i, ". Zinkvit PW4 (#44100): ", r$zinc_g, " g")); i <- i + 1
+      if (r$zink_g > 0.1)     lines <- c(lines, paste0(i, ". Zinkvit PW4 (#44100): ", r$zink_g, " g")); i <- i + 1
       if (r$titanium_g > 0.1) lines <- c(lines, paste0(i, ". Titanvit Rutile PW6 (#44400): ", r$titanium_g, " g")); i <- i + 1
       for (id in names(r$color_weights)) {
         lines <- c(lines, paste0(i, ". ", km[[id]]$name, " (#", id, "): ", r$color_weights[id], " g"))

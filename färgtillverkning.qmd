@@ -94,6 +94,143 @@ oljetal <- list(
     kromoxid_gron=c(18,5.2),
     krita=c(18,2.71)
 )
+
+kremer_pigments <- list(
+  `77510` = list(density = 5.60, oil_absorption = 15, refractive_index = 2.55),
+  `44100` = list(density = 4.00, oil_absorption = 20, refractive_index = 1.66),
+  `44107` = list(density = 4.00, oil_absorption = 20, refractive_index = 1.66),
+  `44000` = list(density = 4.00, oil_absorption = 20, refractive_index = 1.66),
+  `44010` = list(density = 4.00, oil_absorption = 20, refractive_index = 1.66),
+  `44080` = list(density = 4.00, oil_absorption = 20, refractive_index = 1.66),
+  `44082` = list(density = 4.00, oil_absorption = 20, refractive_index = 1.66),
+  `44084` = list(density = 4.00, oil_absorption = 20, refractive_index = 1.66),
+  `44086` = list(density = 4.00, oil_absorption = 20, refractive_index = 1.66),
+  `44200` = list(density = 5.20, oil_absorption = 47, refractive_index = 1.63),
+  `44207` = list(density = 5.20, oil_absorption = 47, refractive_index = 1.63),
+  `44210` = list(density = 5.20, oil_absorption = 47, refractive_index = 1.63),
+  `44220` = list(density = 5.20, oil_absorption = 47, refractive_index = 1.63),
+  `44230` = list(density = 5.20, oil_absorption = 47, refractive_index = 1.63),
+  `44240` = list(density = 5.20, oil_absorption = 47, refractive_index = 1.63),
+  `44250` = list(density = 5.20, oil_absorption = 47, refractive_index = 1.63),
+  `44300` = list(density = 5.03, oil_absorption = 50, refractive_index = 1.71),
+  `44310` = list(density = 5.03, oil_absorption = 50, refractive_index = 1.71),
+  `44320` = list(density = 5.03, oil_absorption = 50, refractive_index = 1.71),
+  `44340` = list(density = 5.03, oil_absorption = 50, refractive_index = 1.71),
+  `44350` = list(density = 5.03, oil_absorption = 50, refractive_index = 1.71),
+  `44360` = list(density = 5.03, oil_absorption = 50, refractive_index = 1.71),
+  `44380` = list(density = 5.03, oil_absorption = 50, refractive_index = 1.71),
+  `44400` = list(density = 5.60, oil_absorption = 15, refractive_index = 2.55),
+  `44410` = list(density = 5.60, oil_absorption = 15, refractive_index = 2.55),
+  `44420` = list(density = 5.60, oil_absorption = 15, refractive_index = 2.55),
+  `44430` = list(density = 5.60, oil_absorption = 15, refractive_index = 2.55),
+  `44440` = list(density = 5.60, oil_absorption = 15, refractive_index = 2.55),
+  `44450` = list(density = 5.60, oil_absorption = 15, refractive_index = 2.55),
+  `44460` = list(density = 5.60, oil_absorption = 15, refractive_index = 2.55),
+  `44470` = list(density = 5.60, oil_absorption = 15, refractive_index = 2.55),
+  `44510` = list(density = 5.20, oil_absorption = 47, refractive_index = 1.63),
+  `44520` = list(density = 5.20, oil_absorption = 47, refractive_index = 1.63),
+  `44530` = list(density = 5.20, oil_absorption = 47, refractive_index = 1.63),
+  `44540` = list(density = 5.20, oil_absorption = 47, refractive_index = 1.63),
+  `44550` = list(density = 5.20, oil_absorption = 47, refractive_index = 1.63),
+  `44560` = list(density = 5.20, oil_absorption = 47, refractive_index = 1.63),
+  `44570` = list(density = 5.20, oil_absorption = 47, refractive_index = 1.63),
+  `44600` = list(density = 5.03, oil_absorption = 50, refractive_index = 1.71),
+  `44610` = list(density = 5.03, oil_absorption = 50, refractive_index = 1.71),
+  `44620` = list(density = 5.03, oil_absorption = 50, refractive_index = 1.71),
+  `48200` = list(density = 5.10, oil_absorption = 25, refractive_index = 2.40),
+  `48210` = list(density = 5.10, oil_absorption = 25, refractive_index = 2.40),
+  `48220` = list(density = 5.10, oil_absorption = 25, refractive_index = 2.40),
+  `48700` = list(density = 4.80, oil_absorption = 30, refractive_index = 2.30),
+  `48750` = list(density = 4.80, oil_absorption = 30, refractive_index = 2.30)
+)
+
+# Exempel på användning:
+# kremer_pigments[["48220"]]$density          # → 5.1
+# kremer_pigments[["48220"]]$oil_absorption    # → 25
+# kremer_pigments[["48220"]]$refractive_index  # → 2.4
+
+
+# Ladda in pigmentdatabasen (från tidigare)
+kremer_pigments <- list(
+  `44100` = list(density = 4.00, oil_absorption = 20, refractive_index = 1.66),  # Zinkvit PW4
+  `44400` = list(density = 5.60, oil_absorption = 15, refractive_index = 2.55),  # Titanvit Rutile PW6
+  `48220` = list(density = 5.10, oil_absorption = 25, refractive_index = 2.40)   # Caput Mortuum 180 M
+)
+
+# Funktion: skapa 100 ml oljefärg
+make_falu_inspired_oil_paint <- function(titanium_ratio = 0.5, 
+                                         red_oxide_pct_volume = 15) {
+  
+  # titanium_ratio: 0 = 100% zinkvit, 1 = 100% titanvit
+  # red_oxide_pct_volume: volymprocent av det röda järnoxids-pigmentet i den färdiga färgen
+  
+  white_pw4  <- kremer_pigments[["44100"]]
+  white_pw6  <- kremer_pigments[["44400"]]
+  red_iron   <- kremer_pigments[["48220"]]
+  
+  # Volym vi ska fylla (ml)
+  total_volume_ml <- 100
+  
+  # Volym av rött pigment (användarens val)
+  vol_red_ml <- red_oxide_pct_volume         # t.ex. 15 ml
+  
+  # Återstående volym för vitt pigment
+  vol_white_ml <- total_volume_ml - vol_red_ml   # t.ex. 85 ml
+  
+  # Hur mycket av det vita som är titanvit vs zinkvit
+  vol_titanium_ml <- vol_white_ml * titanium_ratio
+  vol_zinc_ml     <- vol_white_ml * (1 - titanium_ratio)
+  
+  # Omvandla volym → vikt för varje pigment (g)
+  mass_zinc_g      <- vol_zinc_ml     * white_pw4$density
+  mass_titanium_g  <- vol_titanium_ml * white_pw6$density
+  mass_red_g       <- vol_red_ml      * red_iron$density
+  
+  total_pigment_g <- mass_zinc_g + mass_titanium_g + mass_red_g
+  
+  # Oljebehov för varje pigment (g olja per 100 g pigment)
+  oil_for_zinc_g     <- mass_zinc_g     * white_pw4$oil_absorption / 100
+  oil_for_titanium_g <- mass_titanium_g * white_pw6$oil_absorption / 100
+  oil_for_red_g      <- mass_red_g      * red_iron$oil_absorption  / 100
+  
+  total_oil_g <- oil_for_zinc_g + oil_for_titanium_g + oil_for_red_g
+  
+  # Densitet linolja ≈ 0.93 g/ml → omvandla till volym
+  density_linolja <- 0.93
+  total_oil_ml <- total_oil_g / density_linolja
+  
+  # Resultat
+  cat(sprintf("Recept för 100 ml varm faluröd-inspirerad oljefärg\n"))
+  cat(sprintf("──────────────────────────────────────────────\n"))
+  cat(sprintf("Titanium ratio (PW6)          : %.0f %%\n", titanium_ratio * 100))
+  cat(sprintf("Rött järnoxids-pigment        : %.1f vol-%% (#48220)\n", red_oxide_pct_volume))
+  cat(sprintf("\nPigment (gram):\n"))
+  if (vol_zinc_ml > 0.1)     cat(sprintf("  Zinkvit PW4    (#44100) : %6.1f g\n", mass_zinc_g))
+  if (vol_titanium_ml > 0.1) cat(sprintf("  Titanvit PW6   (#44400) : %6.1f g\n", mass_titanium_g))
+  cat(sprintf("  Caput Mortuum  (#48220) : %6.1f g\n", mass_red_g))
+  cat(sprintf("\nKallpressad linolja           : %6.1f g  (ca %.1f ml)\n", total_oil_g, total_oil_ml))
+  cat(sprintf("Total vikt färdig färg        : %6.1f g\n", total_pigment_g + total_oil_g))
+  cat(sprintf("PVC (pigmentvolymkoncentration): %.1f %%\n", red_oxide_pct_volume + (100 - red_oxide_pct_volume)))
+  
+  invisible(list(
+    zinc_g = round(mass_zinc_g, 1),
+    titanium_g = round(mass_titanium_g, 1),
+    red_g = round(mass_red_g, 1),
+    linseed_oil_g = round(total_oil_g, 1),
+    linseed_oil_ml = round(total_oil_ml, 1)
+  ))
+}
+
+# ─── Exempel på användning ──────────────────────────────
+
+# Klassisk mjuk, halvtransparent falu-ton (mycket zinkvit)
+make_falu_inspired_oil_paint(titanium_ratio = 0.1, red_oxide_pct_volume = 18)
+
+# Modernare, mer täckande variant
+make_falu_inspired_oil_paint(titanium_ratio = 0.7, red_oxide_pct_volume = 12)
+
+# Extremt täckande och ljus faluröd
+make_falu_inspired_oil_paint(titanium_ratio = 1.0, red_oxide_pct_volume = 10)
 ```
 
 | Pigment                                                                                           | Densitet (g/cm³)      | Oljetal (g olja / 100 g pigment) | Brytningsindex (n)                  |

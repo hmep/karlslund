@@ -1,4 +1,5 @@
 # Paint-o-matic – ihopblandad av Tobias Hagberg med hjälp av Grok.com
+# tobias at hagberg dot com
 
 library(shiny)
 library(shinydashboard)

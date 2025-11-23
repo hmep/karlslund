@@ -1,4 +1,4 @@
-# Paint-o-matic – med oljejustering i Steg 3 (slutgiltig version)
+# Paint-o-matic – ihopblandad av Tobias Hagberg med hjälp av Grok.com
 
 library(shiny)
 library(shinydashboard)

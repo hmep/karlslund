@@ -152,8 +152,18 @@ km <- list(
     K = 2.40,
     S = 1.10
   ),
-  "48001" = list(name = "Gul järnoxid, majsgul", oil = 25, K = 0.45, S = 1.20),
-  "48001" = list(name = "Fransk gul ockra", oil = 20, K = 0.40, S = 1.00),
+  "48001" = list(
+    name = "Gul järnoxid, majsgul",
+    oil = 25,
+    K = 0.45,
+    S = 1.20
+  ),
+  "48001" = list(
+    name = "Fransk gul ockra",
+    oil = 20,
+    K = 0.40,
+    S = 1.00
+  ),
   "44510" = list(
     name = "Orange järnoxid PO73",
     oil = 47,
@@ -221,7 +231,7 @@ km <- list(
     S = 0.48
   ),
   "40610" = list(
-    name = "Burnt Umber",
+    name = "Bränd umbra",
     oil = 55,
     K = 1.30,
     S = 0.60
@@ -335,25 +345,37 @@ km <- list(
     S = 0.48
   ),
   "44622" = list(
-    name = "Burnt Sienna mörk",
+    name = "Bränd Sienna mörk",
     oil = 50,
     K = 0.80,
     S = 0.52
   ),
   "44610" = list(
-    name = "Raw Umber ljus",
+    name = "Rå umbra ljus",
     oil = 50,
     K = 0.90,
     S = 0.48
   ),
+  "40630" = list(
+    name = "Rå umbra, grönaktig",
+    oil = 45,
+    K = 0.95,
+    S = 0.50
+  ),
+  "40612" = list(
+    name = "Rå umbra, grönaktigt mörk",
+    oil = 50,
+    K = 1.00,
+    S = 0.45
+  ),
   "44680" = list(
-    name = "Burnt Umber Italien",
+    name = "Bränd umbra Italien",
     oil = 55,
     K = 1.10,
     S = 0.50
   ),
   "44682" = list(
-    name = "Burnt Umber mörk",
+    name = "Bränd umbra mörk",
     oil = 55,
     K = 1.20,
     S = 0.48
@@ -369,8 +391,7 @@ km <- list(
     oil = 50,
     K = 0.85,
     S = 0.32
-  ),
-  "40612" = list(name = "Umbra natur, grünlich dunkel", oil = 50, K = 1.00, S = 0.45)
+  )
 )
 
 rgb <- list(
@@ -435,7 +456,8 @@ rgb <- list(
   "44350" = c(120, 70, 40),
   "48001" = c(218, 165, 32),
   "44080" = c(193, 154, 107),
-  "40612" = c(99, 81, 71)
+  "40612" = c(99, 81, 71),
+  "40630" = c(110, 90, 80)
 )
 
 color_choices <- setNames(names(km)[sapply(km, function(x)
@@ -470,7 +492,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "#", class = "version-text", "version 0.1.7")
+      tags$a(href = "#", class = "version-text", "version 0.1.8")
     )
   ),
   dashboardSidebar(disable = TRUE),

@@ -6,7 +6,7 @@
 # Critical oil amount = Σ (pigment_i × oil_absorption_i / 100) → this is the scientifically accepted “mager” base (≈ 1.0×)
 # Practical top-coat factor 1.6–2.2× → confirmed by centuries of Nordic practice and modern measurements
 # Kubelka-Munk two-constant additive K and S → correctly used to keep tinting strength constant when changing zinc/titanium ratio
-# Measured K and S values → within published ranges (Duncan 1959, Balfour 1988, van Dyk 2018)
+# K and S values → within published ranges (Duncan 1959, Balfour 1988, van Dyk 2018)
 
 library(shiny)
 library(shinydashboard)
@@ -492,7 +492,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "#", class = "version-text", "version 0.2.0")
+      tags$a(href = "#", class = "version-text", "version 0.2.1")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -604,7 +604,7 @@ ui <- dashboardPage(
         12,
         p(
           textOutput("locked_info", inline = TRUE),
-          "Ange hur många färgande pigment (förslagsvis 1 eller 2, max 3) som du vill tillsätta till vitbasen, och ange hur många procent av varje du önskar, beräknat på den totala pigmentvikten. Vitbasen fylls automatiskt upp till 100 %. Om den samlade mängde pigment överskrider 100 % normaliseras mängderna till 100 % i nästa steg."
+          "Välj de färgande pigment (1 till 3) som du vill tillsätta till vitbasen, och ange hur många procent av varje du önskar som andel av den totala pigmentvikten. Vitbasen fylls automatiskt upp till 100 %. Om den samlade mängden färgande pigment överskrider 100 % sätts vitbasen till 0 % och de färgade pigmenten normaliseras till 100 %."
         ),
         hr()
       ), ),
@@ -728,10 +728,10 @@ ui <- dashboardPage(
           ),
           h4("Instruktion för målning"),
           p(
-            "Grundfärgsstrykning: Pastan kan målas/gnuggas in med påstrykare direkt, som en mager grundfärg. Lägg till den mängd kokt linolja som gör pastan smidig att påföra underlaget med."
+            "Grundfärgsstrykning: Pastan kan målas/gnuggas in med påstrykare direkt, som en mager grundfärg utifrån principen ”fett över magert”. Lägg till den mängd kokt linolja som gör pastan smidig att påföra underlaget med."
           ),
           p(
-            "Mellanstrykning: För mellanstrykningen, tillför ytterligare kokt linolja, utifrån principen ”fett över magert”, i precis den mängd, men inte heller mindre, som gör att färgen utstruken på en glasbit fortfarande förblir ogenomskinlig."
+            "Mellanstrykning: För mellanstrykningen, tillför ytterligare precis den mängd kokt linolja som gör att färgen utstruken på en glasbit fortfarande är ogenomskinlig. Testa dig fram!"
           ),
           p(
             "Slutstrykning: För ökad glans och hållbarhet kan sista strykningen med moddlare därutöver med fördel innehålla cirka 10 % extra soloxiderad linolja."

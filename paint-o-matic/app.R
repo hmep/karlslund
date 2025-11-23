@@ -152,6 +152,7 @@ km <- list(
     K = 2.40,
     S = 1.10
   ),
+  "48001" = list(name = "Iron Oxide Yellow, Maize Yellow", oil = 25, K = 0.45, S = 1.20),
   "44510" = list(
     name = "Orange järnoxid PO73",
     oil = 47,
@@ -429,7 +430,8 @@ rgb <- list(
   "44680" = c(90, 50, 30),
   "44682" = c(80, 45, 25),
   "44310" = c(160, 100, 60),
-  "44350" = c(120, 70, 40)
+  "44350" = c(120, 70, 40),
+  "48001" = c(218, 165, 32)
 )
 
 color_choices <- setNames(names(km)[sapply(km, function(x)
@@ -464,7 +466,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "#", class = "version-text", "version 0.1.4")
+      tags$a(href = "#", class = "version-text", "version 0.1.5")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -538,11 +540,11 @@ ui <- dashboardPage(
         fluidRow(column(
           12,
           p(
-            "Starta ditt linoljefärgsmakande genom att ange den totala vikten av pigment – såväl de vita, som ingår i vitbasen, och färgande pigment (som du blandar in i vitbasen i valfria proportioner i nästa steg)."
+            "Starta ditt linoljefärgsmakande genom att ange den totala vikten av pigment – både de vita pigmenten och de färgande pigmenten. De vita pigmenten utgör den så kallade vitbasen. I nästa steg )."
           ),
           #p("Utöver pigment behövs den mängd kokt linolja som pigmenten kräver för att varje pigmentkorn till hundra procent omsluts av olja (den mängden räknas ut i sista steget)."),
           p(
-            "Ange därefter förhållandet mellan zinkoxid (zinkvit) och titaniumdioxid (titanvit), vilka tillsammans utgör den så kallade vitbasen. Beräkningen av mängden pigment i vitbasen kompenseras enligt Kubelka-Munk-funktionen, för bibehållen styrka av färgande pigment oavsett förhållande mellan de två möjliga pigmenten i vitbasen."
+            "Ange därefter förhållandet mellan zinkoxid (zinkvit) och titaniumdioxid (titanvit) i vitbasen. Beräkningen av mängden pigment i vitbasen använder Kubelka-Munk-funktionen, vilket kompenserar för att de båda vita pigmenten har olika brytningsindex och därför blir olika genomskinliga i färgen."
           ),
           p(
             "För utomhusfärg, välj en högre andel zinkvit i vitbasen (gärna 30 % om det färgande pigmentet tillåter det), så blir den färdiga färgen mer motståndskraftig mot alger och mögelpåväxt."
@@ -551,7 +553,7 @@ ui <- dashboardPage(
             "För inomhusfärg, välj en lägre andel zinkvit i vitbasen (0–15 %). Zink gör å ena sidan färgfilmen hårdare, men å den andra blir den också känsligare för krackelering över tid."
           ),
           p(
-            "För mörka utomhusfärger, välj 100% zinkvit i vitbasen, i nästa steg anger du sedan hur mycket av vitbasen som ska vara med i den färdiga färgen. På så sätt styr du mängden zink i den mörka utomhusfärgen."
+            "För mörka utomhusfärger, välj 100% zinkvit i vitbasen, i nästa steg anger du sedan hur mycket av vitbasen som ska vara med i den färdiga färgen. På så sätt styr du mängden zink, och därmed skyddet mot alger och mögel, i den mörka utomhusfärgen."
           ),
           hr()
         ), ),

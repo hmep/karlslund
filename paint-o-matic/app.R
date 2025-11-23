@@ -492,7 +492,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "#", class = "version-text", "version 0.1.9")
+      tags$a(href = "#", class = "version-text", "version 0.2.0")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -566,9 +566,8 @@ ui <- dashboardPage(
         fluidRow(column(
           12,
           p(
-            "Starta ditt linoljefärgsmakande genom att ange den totala vikten av pigment – både de vita pigmenten och de färgande pigmenten. De vita pigmenten utgör den så kallade vitbasen."
+            "Starta ditt linoljefärgsmakande genom att ange den önskade totala vikten av pigmenten – både de vita pigmenten och de färgande pigmenten."
           ),
-          #p("Utöver pigment behövs den mängd kokt linolja som pigmenten kräver för att varje pigmentkorn till hundra procent omsluts av olja (den mängden räknas ut i sista steget)."),
           p(
             "Ange därefter förhållandet mellan zinkoxid (zinkvit) och titaniumdioxid (titanvit) i vitbasen. Beräkningen av mängden pigment i vitbasen använder Kubelka-Munk-funktionen, vilket kompenserar för att de båda vita pigmenten har olika brytningsindex och därför blir olika genomskinliga i färgen."
           ),
@@ -674,7 +673,7 @@ ui <- dashboardPage(
         fluidRow(column(
           12,
           p(
-            "Här är det färdiga receptet för en färgpasta med önskad mängd färgande pigment. Den utgör basen för ett komplett färgsystem för linoljemålning."
+            "Här är det färdiga receptet för en färgpasta med önskad mängd färgande pigment. Den utgör basen för ett komplett system för linoljefärgsmålning."
           ),
           hr()
         ), ),
@@ -685,13 +684,13 @@ ui <- dashboardPage(
             status = "danger",
             solidHeader = TRUE,
             width = 12,
-            h4("Valfritt: justera mängden linolja"),
+            h4("Valfritt: addera extra kokt linolja"),
             p(
-              "Kritiskt oljetalet = minsta möjliga mängd som krävs för att väta alla pigmenten. För enklare blandning med färgblandare i borrmaskin och bra strykbarhet, välj 1,6–2,2×."
+              "Kritiskt oljetalet är minsta möjliga mängd som krävs för att väta alla pigmenten, och är det som används för att beräkning oljemängden till färgpastan. För enklare blandning med färgblandare i borrmaskin och bra strykbarhet, öka gärna till 1,6–2,2 × det kritiska oljetalet."
             ),
             sliderInput(
               "oil_multiplier",
-              "Faktor på kritiskt oljetal",
+              "Hur mycket extra linolja ska tillföras?",
               min = 1.0,
               max = 2.5,
               value = 1.6,
@@ -725,7 +724,7 @@ ui <- dashboardPage(
           hr(),
           h4("Instruktion för rivning (blandning)"),
           p(
-            "Häll upp den kokta linoljan i ett kärl (gärna en plåtburk för färg. Väg upp och tillsätt pigmenten. Det kan verka förvånande att det räcker med så lite linolja i botten av kärlet, men ha tålamod och låt pigmenten vila, gärna över natten; Pigmenten väts med lite tid med hjälp av oljans kapillärvandring. Riv sedan blandningen noga med färgblandare i borrmaskin."
+            "Häll upp den kokta linoljan i ett kärl – gärna en plåtburk för färg. Väg upp och tillsätt pigmenten. Det kan verka förvånande att det räcker med så lite linolja i botten av kärlet, men ha tålamod och låt pigmenten vila, gärna över natten; Pigmenten väts med lite tid med hjälp av oljans kapillärvandring. Riv sedan blandningen noga med färgblandare i borrmaskin."
           ),
           h4("Instruktion för målning"),
           p(
@@ -926,7 +925,7 @@ server <- function(input, output, session) {
     olja <- vald_olja()
     
     df <- data.frame(
-      Ingrediens = "Kallpressad linolja",
+      Ingrediens = "Kallpressad kokt linolja",
       Gram = olja,
       stringsAsFactors = FALSE
     )
@@ -995,8 +994,9 @@ server <- function(input, output, session) {
         ),
         paste("Hex-kod:", r$hex),
         "",
-        "## Recept:",
-        paste("- Kallpressad linolja:", vald_olja(), "g")
+        "## Ingredienser",
+        "",
+        paste("- Kallpressad kokt linolja:", vald_olja(), "g")
       )
       if (r$zn > 0.1)
         lines <- c(lines, paste("- Zinkvit PW4:", r$zn, "g"))

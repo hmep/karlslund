@@ -152,7 +152,8 @@ km <- list(
     K = 2.40,
     S = 1.10
   ),
-  "48001" = list(name = "Iron Oxide Yellow, Maize Yellow", oil = 25, K = 0.45, S = 1.20),
+  "48001" = list(name = "Gul järnoxid, majsgul", oil = 25, K = 0.45, S = 1.20),
+  "48001" = list(name = "Fransk gul ockra", oil = 20, K = 0.40, S = 1.00),
   "44510" = list(
     name = "Orange järnoxid PO73",
     oil = 47,
@@ -431,7 +432,8 @@ rgb <- list(
   "44682" = c(80, 45, 25),
   "44310" = c(160, 100, 60),
   "44350" = c(120, 70, 40),
-  "48001" = c(218, 165, 32)
+  "48001" = c(218, 165, 32),
+  "44080" = c(193, 154, 107)
 )
 
 color_choices <- setNames(names(km)[sapply(km, function(x)
@@ -466,7 +468,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "#", class = "version-text", "version 0.1.5")
+      tags$a(href = "#", class = "version-text", "version 0.1.6")
     )
   ),
   dashboardSidebar(disable = TRUE),

@@ -1,0 +1,12 @@
+name: paint-o-matic
+title: paint-o-matic
+username: tobias-at-hagberg-dot-com
+account: tobias-at-hagberg-dot-com
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 16148095
+bundleId: 11219933
+url: https://tobias-at-hagberg-dot-com.shinyapps.io/paint-o-matic/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

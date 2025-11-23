@@ -492,7 +492,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "#", class = "version-text", "version 0.1.8")
+      tags$a(href = "#", class = "version-text", "version 0.1.9")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -605,7 +605,7 @@ ui <- dashboardPage(
         12,
         p(
           textOutput("locked_info", inline = TRUE),
-          "Ange hur många procent färgande pigment (1, 2 eller 3) du vill tillsätta till vitbasen, beräknat på den totala pigmentvikten. Vitbasen fylls automatiskt upp till 100 %. Om den samlade mängde pigment överskrider 100 % normaliseras mängderna till 100 % i nästa steg."
+          "Ange hur många färgande pigment (förslagsvis 1 eller 2, max 3) som du vill tillsätta till vitbasen, och ange hur många procent av varje du önskar, beräknat på den totala pigmentvikten. Vitbasen fylls automatiskt upp till 100 %. Om den samlade mängde pigment överskrider 100 % normaliseras mängderna till 100 % i nästa steg."
         ),
         hr()
       ), ),
@@ -735,7 +735,7 @@ ui <- dashboardPage(
             "Mellanstrykning: För mellanstrykningen, tillför ytterligare kokt linolja, utifrån principen ”fett över magert”, i precis den mängd, men inte heller mindre, som gör att färgen utstruken på en glasbit fortfarande förblir ogenomskinlig."
           ),
           p(
-            "Slutstrykning: För ökad glans och hållbarhet kan sista strykningen med moddlare därutöver med fördel innehålla upp till 5 % soloxiderad linolja."
+            "Slutstrykning: För ökad glans och hållbarhet kan sista strykningen med moddlare därutöver med fördel innehålla cirka 10 % extra soloxiderad linolja."
           )
         ), )
       )

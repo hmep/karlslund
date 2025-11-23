@@ -21,10 +21,10 @@ jobs:
         with:
           r-version: '4.4.3'     # funkar 100 % med shinyapps.io
 
-      # THIS LINE MAKES IT FAST
-      - uses: r-lib/actions/setup-renv@v2
-        with:
-          cache-version: 2
+      # # THIS LINE MAKES IT FAST
+      # - uses: r-lib/actions/setup-renv@v2
+      #   with:
+      #     cache-version: 2
 
       - name: Install system dependencies
         run: |

@@ -109,7 +109,7 @@ ui <- dashboardPage(
       .pct-box { font-size: 20px; font-weight: bold; text-align: center; padding: 15px; background: #f0f0f0; border: 3px solid #333; border-radius: 12px; }
     "))),
     
-    # STEG 1 (oförändrat)
+    # STEG 1
     hidden(div(id = "step1",
                h2("Steg 1 – Ange vitbas"),
                fluidRow(
@@ -128,7 +128,7 @@ ui <- dashboardPage(
                actionButton("to_step2", "Nästa: Välj färgande pigment", class = "btn-primary")
     )),
     
-    # STEG 2 (oförändrat – bara små justeringar i text)
+    # STEG 2
     hidden(div(id = "step2",
                h2("Steg 2 – Blanda färg"),
                fluidRow(
@@ -169,7 +169,7 @@ ui <- dashboardPage(
                )
     )),
     
-    # STEG 3 – med oljejustering!
+    # STEG 3
     hidden(div(id = "step3",
                h2("Färdigt recept", textOutput("paint_name_title", inline = TRUE)),
                fluidRow(
@@ -297,7 +297,7 @@ server <- function(input, output, session) {
   output$live_preview <- renderUI({ tags$div(class = "preview-box", style = paste0("background:", live_color()$hex)) })
   output$live_hex <- renderText(live_color()$hex)
   
-  # Gå till Steg 3 – beräkna kritisk olja
+  # Gå till Steg 3
   observeEvent(input$to_step3, {
     hide("step2"); show("step3")
     lc <- live_color()
@@ -331,7 +331,7 @@ server <- function(input, output, session) {
     paste0("Vald mängd linolja: ", vald_olja(), " g  (", input$oil_multiplier, "× kritiskt oljetal)")
   })
   
-  # Recepttabell med vald olja
+  # Recepttabell med vald mängd olja
   output$final_recipe <- renderTable({
     req(final_data())
     r <- final_data()

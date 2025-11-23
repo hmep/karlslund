@@ -121,7 +121,8 @@ ui <- dashboardPage(
                h2("Steg 1 – Ange vitbas"),
                fluidRow(
                  column(12,
-                        p("Ange den totala vikten av pigment som du önskar. Till detta tillkommer sedan det sammanvägda kritiska oljetalet, det vill säga den mängd linolja som pigmenten kräver för att varje pigmentkorn till hundra procent omsluts av olja (den mängden räknas ut i sista steget)."),
+                        p("Starta ditt linoljefärgsmakande genom att ange den totala vikten av pigment – såväl de vita, som ingår i vitbasen, och färgande pigment (som du blandar in i vitbasen i valfria proportioner i nästa steg)."),
+                        #p("Utöver pigment behövs den mängd kokt linolja som pigmenten kräver för att varje pigmentkorn till hundra procent omsluts av olja (den mängden räknas ut i sista steget)."),
                         p("Ange därefter förhållandet mellan zinkoxid (zinkvit) och titaniumdioxid (titanvit), vilka tillsammans utgör den så kallade vitbasen. Beräkningen av mängden pigment i vitbasen kompenseras enligt Kubelka-Munk-funktionen, för bibehållen styrka av färgande pigment oavsett förhållande mellan de två möjliga pigmenten i vitbasen."),
                         p("För utomhusfärg, välj en högre andel zinkvit i vitbasen (gärna 30 % om det färgande pigmentet tillåter det), så blir den färdiga färgen mer motståndskraftig mot alger och mögelpåväxt."),
                         p("För inomhusfärg, välj en lägre andel zinkvit i vitbasen (0–15 %). Zink gör å ena sidan färgfilmen hårdare, men å den andra blir den också känsligare för krackelering över tid."),
@@ -137,11 +138,10 @@ ui <- dashboardPage(
     
     # STEG 2
     hidden(div(id = "step2",
-               h2("Steg 2 – Blanda färg"),
+               h2("Steg 2 – Blanda färg!"),
                fluidRow(
                  column(12,
-                        p(textOutput("locked_info", inline = TRUE)),
-                        p("Ange nu hur många procent varje färgande pigment ska vara av den totala pigmentvikten. Vitbasen fylls automatiskt upp till 100 %. Om den samlade mängde pigment överskrider 100 % normaliseras mängderna till 100 % i nästa steg."),
+                        p(textOutput("locked_info", inline = TRUE), "Ange hur många procent färgande pigment (1, 2 eller 3) du vill tillsätta till vitbasen, beräknat på den totala pigmentvikten. Vitbasen fylls automatiskt upp till 100 %. Om den samlade mängde pigment överskrider 100 % normaliseras mängderna till 100 % i nästa steg."),
                         hr()
                  ),
                ),
@@ -270,7 +270,7 @@ server <- function(input, output, session) {
   })
   
   output$locked_info <- renderText({
-    paste0("Du har valt ", input$total_weight, " g total pigmentmängd och ", input$zinc_ratio, " % zinkvit i vitbasen.")
+    paste0("Du har valt ", input$total_weight, " g total mängd pigment (vita och färgande) och ", input$zinc_ratio, " % zinkvit i vitbasen.")
   })
   
   # Live-färg

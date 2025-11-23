@@ -542,7 +542,7 @@ ui <- dashboardPage(
         fluidRow(column(
           12,
           p(
-            "Starta ditt linoljefärgsmakande genom att ange den totala vikten av pigment – både de vita pigmenten och de färgande pigmenten. De vita pigmenten utgör den så kallade vitbasen. I nästa steg )."
+            "Starta ditt linoljefärgsmakande genom att ange den totala vikten av pigment – både de vita pigmenten och de färgande pigmenten. De vita pigmenten utgör den så kallade vitbasen."
           ),
           #p("Utöver pigment behövs den mängd kokt linolja som pigmenten kräver för att varje pigmentkorn till hundra procent omsluts av olja (den mängden räknas ut i sista steget)."),
           p(

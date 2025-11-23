@@ -154,7 +154,7 @@ ui <- dashboardPage(
                         br(),
                         actionButton("reset_pigments", "Nollställ pigment", class = "btn-default"),
                         hr(),
-                        textInput("paint_name", "Namn på färgblandning (valfritt)", placeholder = "T.ex. Faluröd 1923"),
+                        textInput("paint_name", "Namn på färgblandning (valfritt)", placeholder = "T.ex. Dörrkarm 1923"),
                         hr(),
                         actionButton("back_to_step1", "Tillbaka", class = "btn-default"),
                         actionButton("to_step3", "Nästa: Beräkna recept", class = "btn-primary")

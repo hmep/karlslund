@@ -369,7 +369,8 @@ km <- list(
     oil = 50,
     K = 0.85,
     S = 0.32
-  )
+  ),
+  "40612" = list(name = "Umbra natur, grünlich dunkel", oil = 50, K = 1.00, S = 0.45)
 )
 
 rgb <- list(
@@ -433,7 +434,8 @@ rgb <- list(
   "44310" = c(160, 100, 60),
   "44350" = c(120, 70, 40),
   "48001" = c(218, 165, 32),
-  "44080" = c(193, 154, 107)
+  "44080" = c(193, 154, 107),
+  "40612" = c(99, 81, 71)
 )
 
 color_choices <- setNames(names(km)[sapply(km, function(x)
@@ -468,7 +470,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "#", class = "version-text", "version 0.1.6")
+      tags$a(href = "#", class = "version-text", "version 0.1.7")
     )
   ),
   dashboardSidebar(disable = TRUE),

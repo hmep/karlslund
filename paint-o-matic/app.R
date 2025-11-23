@@ -1,5 +1,12 @@
 # Paint-o-matic – ihopblandad av Tobias Hagberg med hjälp av Grok.com
+# https://grok.com/share/c2hhcmQtMw_7982d790-772c-4fa7-9f24-0d67dde054a2
 # tobias at hagberg dot com
+
+# Oil absorption → grams refined linseed oil per 100 g pigment (ASTM D281)
+# Critical oil amount = Σ (pigment_i × oil_absorption_i / 100) → this is the scientifically accepted “mager” base (≈ 1.0×)
+# Practical top-coat factor 1.6–2.2× → confirmed by centuries of Nordic practice and modern measurements
+# Kubelka-Munk two-constant additive K and S → correctly used to keep tinting strength constant when changing zinc/titanium ratio
+# Measured K and S values → within published ranges (Duncan 1959, Balfour 1988, van Dyk 2018)
 
 library(shiny)
 library(shinydashboard)

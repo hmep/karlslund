@@ -116,7 +116,7 @@ ui <- dashboardPage(
                         p("Ange den totala vikten av pigment som du önskar. Till detta tillkommer sedan det sammanvägda kritiska oljetalet, det vill säga den mängd linolja som pigmenten kräver för att varje pigmentkorn till hundra procent omsluts av olja (den mängden räknas ut i sista steget)."),
                         p("Ange därefter förhållandet mellan zinkoxid (zinkvit) och titaniumdioxid (titanvit), vilka tillsammans utgör den så kallade vitbasen. Beräkningen av mängden pigment i vitbasen kompenseras enligt Kubelka-Munk-funktionen, för bibehållen styrka av färgande pigment oavsett förhållande mellan de två möjliga pigmenten i vitbasen."),
                         p("För utomhusfärg, välj en högre andel zinkvit i vitbasen (gärna 30 % om det färgande pigmentet tillåter det), så blir den färdiga färgen mer motståndskraftig mot alger och mögelpåväxt."),
-                        p("För inomhusfärg, välj en lägre andel zinkvit i vitbasen (0--15 %). Zink gör å ena sidan färgfilmen hårdare, men å den andra blir den också känsligare för krackelering över tid."),
+                        p("För inomhusfärg, välj en lägre andel zinkvit i vitbasen (0–15 %). Zink gör å ena sidan färgfilmen hårdare, men å den andra blir den också känsligare för krackelering över tid."),
                         p("För mörka utomhusfärger, välj 100% zinkvit i vitbasen, i nästa steg anger du sedan hur mycket av vitbasen som ska vara med i den färdiga färgen. På så sätt styr du mängden zink i den mörka utomhusfärgen."),
                         hr()
                  ),
@@ -157,7 +157,7 @@ ui <- dashboardPage(
                         textInput("paint_name", "Namn på färgblandning (valfritt)", placeholder = "T.ex. Faluröd 1923"),
                         hr(),
                         actionButton("back_to_step1", "Tillbaka", class = "btn-default"),
-                        actionButton("to_step3", "Beräkna recept", class = "btn-primary")
+                        actionButton("to_step3", "Nästa: Beräkna recept", class = "btn-primary")
                  ),
                  column(6,
                         h3("Färgprov"),
@@ -200,7 +200,7 @@ ui <- dashboardPage(
                ),
                fluidRow(
                  column(12,
-                        actionButton("back_to_step2", "Tillbaka till blandning", class = "btn-default"),
+                        actionButton("back_to_step2", "Tillbaka", class = "btn-default"),
                         actionButton("restart", "Börja om från början", class = "btn-warning"),
                         ),
                ),

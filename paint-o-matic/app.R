@@ -3,7 +3,7 @@
 # tobias at hagberg dot com
 
 # Oil absorption → grams refined linseed oil per 100 g pigment (ASTM D281)
-# Critical oil amount = Σ (pigment_i × oil_absorption_i / 100) → this is the scientifically accepted “mager” base (≈ 1.0×)
+# Critical oil amount = Σ (pigment_i × oil_absorption_i / 100) → this is the scientifically accepted "mager" base (≈ 1.0×)
 # Practical top-coat factor 1.6–2.2× → confirmed by centuries of Nordic practice and modern measurements
 # Kubelka-Munk two-constant additive K and S → correctly used to keep tinting strength constant when changing zinc/titanium ratio
 # K and S values → within published ranges (Duncan 1959, Balfour 1988, van Dyk 2018)
@@ -11,6 +11,10 @@
 library(shiny)
 library(shinydashboard)
 library(shinyjs)
+
+# Constants for white pigments used in calculations
+ZINC_WHITE_ID <- "44100"
+TITANIUM_WHITE_ID <- "44400"
 
 # ====================== PIGMENTDATA & FÄRGER ======================
 km <- list(
@@ -158,7 +162,7 @@ km <- list(
     K = 0.45,
     S = 1.20
   ),
-  "48001" = list(
+  "48002" = list(
     name = "Fransk gul ockra",
     oil = 20,
     K = 0.40,
@@ -350,7 +354,7 @@ km <- list(
     K = 0.80,
     S = 0.52
   ),
-  "44610" = list(
+  "44611" = list(
     name = "Rå umbra ljus",
     oil = 50,
     K = 0.90,
@@ -380,13 +384,13 @@ km <- list(
     K = 1.20,
     S = 0.48
   ),
-  "44310" = list(
+  "44311" = list(
     name = "Brunoxid ljus",
     oil = 50,
     K = 0.75,
     S = 0.25
   ),
-  "44350" = list(
+  "44351" = list(
     name = "Brunoxid djup",
     oil = 50,
     K = 0.85,
@@ -449,13 +453,13 @@ rgb <- list(
   "44086" = c(160, 120, 70),
   "44652" = c(190, 140, 80),
   "44622" = c(140, 70, 40),
-  "44610" = c(110, 90, 80),
+  "44611" = c(110, 90, 80),
   "44680" = c(90, 50, 30),
   "44682" = c(80, 45, 25),
-  "44310" = c(160, 100, 60),
-  "44350" = c(120, 70, 40),
+  "44311" = c(160, 100, 60),
+  "44351" = c(120, 70, 40),
   "48001" = c(218, 165, 32),
-  "44080" = c(193, 154, 107),
+  "48002" = c(193, 154, 107),
   "40612" = c(99, 81, 71),
   "40630" = c(110, 90, 80)
 )
@@ -466,10 +470,6 @@ color_choices <- setNames(names(km)[sapply(km, function(x)
       x$K > 0.01)], ")"))
 
 # ====================== UI ======================
-
-tags$head(tags$style(HTML("
-
-  ")))
 
 ui <- dashboardPage(
   dashboardHeader(
@@ -492,7 +492,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "#", class = "version-text", "version 0.2.1")
+      tags$a(href = "#", class = "version-text", "version 0.2.2")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -530,6 +530,11 @@ ui <- dashboardPage(
         padding-bottom: 15px;
       }
       .dark-mode .version-text { color: #888; }
+      .validation-warning {
+        color: #d9534f;
+        font-weight: bold;
+        margin-top: 10px;
+      }
     ")
     )),
     tags$script(
@@ -647,6 +652,7 @@ ui <- dashboardPage(
               step = 1
             )
           ),
+          uiOutput("pigment_validation_warning"),
           br(),
           actionButton("reset_pigments", "Nollställ pigment", class = "btn-default"),
           hr(),
@@ -728,7 +734,7 @@ ui <- dashboardPage(
           ),
           h4("Instruktion för målning"),
           p(
-            "Grundfärgsstrykning: Pastan kan målas/gnuggas in med påstrykare direkt, som en mager grundfärg utifrån principen ”fett över magert”. Lägg till den mängd kokt linolja som gör pastan smidig att påföra underlaget med."
+            "Grundfärgsstrykning: Pastan kan målas/gnuggas in med påstrykare direkt, som en mager grundfärg utifrån principen "fett över magert". Lägg till den mängd kokt linolja som gör pastan smidig att påföra underlaget med."
           ),
           p(
             "Mellanstrykning: För mellanstrykningen, tillför ytterligare precis den mängd kokt linolja som gör att färgen utstruken på en glasbit fortfarande är ogenomskinlig. Testa dig fram!"
@@ -781,6 +787,19 @@ server <- function(input, output, session) {
     updateNumericInput(session, "pct1", value = 0)
     updateNumericInput(session, "pct2", value = 0)
     updateNumericInput(session, "pct3", value = 0)
+  })
+  
+  # Validation for duplicate pigments
+  output$pigment_validation_warning <- renderUI({
+    pigments <- c(input$p1, input$p2, input$p3)
+    pigments <- pigments[pigments != ""]
+    
+    if (length(pigments) != length(unique(pigments))) {
+      tags$div(
+        class = "validation-warning",
+        "⚠️ Varning: Du har valt samma pigment flera gånger!"
+      )
+    }
   })
   
   # Procent-summering
@@ -842,15 +861,17 @@ server <- function(input, output, session) {
     
     white_g <- total_g * p$white / 100
     zn_frac <- input$zinc_ratio / 100
-    zn_g <- white_g * zn_frac * km[["44400"]]$S / km[["44100"]]$S
+    zn_g <- white_g * zn_frac * km[[TITANIUM_WHITE_ID]]$S / km[[ZINC_WHITE_ID]]$S
     ti_g <- white_g * (1 - zn_frac)
     
     r <- g <- b <- white_g * 255
     for (id in names(raw_color)) {
-      col <- rgb[[id]]
-      r <- r + raw_color[id] * col[1]
-      g <- g + raw_color[id] * col[2]
-      b <- b + raw_color[id] * col[3]
+      if (id %in% names(rgb)) {
+        col <- rgb[[id]]
+        r <- r + raw_color[id] * col[1]
+        g <- g + raw_color[id] * col[2]
+        b <- b + raw_color[id] * col[3]
+      }
     }
     total_eq <- white_g + sum(raw_color)
     hex <- sprintf("#%02X%02X%02X",
@@ -951,7 +972,7 @@ server <- function(input, output, session) {
   })
   output$exact_total <- renderText({
     req(final_data())
-    paste0("Total pigmentvikt: ", final_data()$total_pigment, " g")
+    paste0("Total pigmentvikt: ", round(final_data()$total_pigment, 1), " g")
   })
   output$paint_name_title <- renderText({
     if (input$paint_name != "")
@@ -983,7 +1004,7 @@ server <- function(input, output, session) {
         ),
         "",
         paste(Sys.Date()),
-        paste("Total pigmentvikt:", r$total_pigment, "g"),
+        paste("Total pigmentvikt:", round(r$total_pigment, 1), "g"),
         paste("Zinkvit i vitbas:", input$zinc_ratio, "%"),
         paste(
           "Linolja:",

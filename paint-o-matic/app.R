@@ -492,7 +492,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "#", class = "version-text", "version 0.2.1")
+      tags$a(href = "#", class = "version-text", "version 0.2.2")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -686,7 +686,7 @@ ui <- dashboardPage(
             width = 12,
             h4("Valfritt: addera extra kokt linolja"),
             p(
-              "Kritiskt oljetalet är minsta möjliga mängd som krävs för att väta alla pigmenten, och är det som används för att beräkning oljemängden till färgpastan. För enklare blandning med färgblandare i borrmaskin och bra strykbarhet, öka gärna till 1,6–2,2 × det kritiska oljetalet."
+              "Det 'kritiska oljetalet' är minsta möjliga mängd olja som krävs för att väta alla pigmenten, och är det som används för att beräkning oljemängden till färgpastan. Det kan vara fördelaktigt att lägga till extra linolja för enklare blandning med färgblandare i borrmaskin och bra strykbarhet. Öka gärna till 1,6–2,2 × det kritiska oljetalet."
             ),
             sliderInput(
               "oil_multiplier",
@@ -719,6 +719,38 @@ ui <- dashboardPage(
           actionButton("back_to_step2", "Tillbaka", class = "btn-default"),
           actionButton("restart", "Börja om från början", class = "btn-warning"),
         ), ),
+# ───── INTERAKTIV RÄCKVIDDSKALKYLATOR ─────
+fluidRow(
+  column(6,
+    selectInput("underlag", "Underlag",
+                choices = c(
+                  "Nytt rått trä"              = "nytt_ratt",
+                  "Tidigare linoljemålat trä"  = "tidigare_malat",
+                  "Slät panel / puts / metall" = "slat"
+                ),
+                selected = "tidigare_malat")
+  ),
+  column(6,
+    selectInput("strykningar", "Antal strykningar",
+                choices = c("1 strykning" = 1,
+                            "2 strykningar (rekommenderas)" = 2,
+                            "3 strykningar" = 3),
+                selected = 2)
+  )
+),
+
+fluidRow(
+  column(6, valueBoxOutput("volym_box", width = 12)),
+  column(6, valueBoxOutput("rackvidd_box", width = 12))
+),
+
+fluidRow(
+  column(12,
+    tags$div(style = "background:#f8f9fa; padding:12px; border-radius:8px; font-size:90%;",
+      htmlOutput("rackvidd_detaljer")
+    )
+  )
+),
         fluidRow(column(
           12,
           hr(),
@@ -958,6 +990,69 @@ server <- function(input, output, session) {
       paste("–", input$paint_name)
   })
   
+# ───── INTERAKTIV RÄCKVIDDSBERÄKNING ─────
+total_volym_liter <- reactive({
+  req(total_pigment_kg(), total_olja_liter())
+  pigment_volym <- total_pigment_kg() / 3.0          # ca densitet blandning kg/l
+  olja_volym    <- total_olja_liter()
+  round(pigment_volym + olja_volym, 2)
+})
+
+# Basräckvidd per liter för olika kombinationer
+rackvidd_per_liter <- reactive({
+  base <- case_when(
+    input$underlag == "nytt_ratt"     ~ c(7, 11, 11),      # grund + täck + täck
+    input$underlag == "tidigare_malat" ~ c(12, 15, 16),
+    input$underlag == "slat"          ~ c(11, 18, 19)
+  )
+  
+  per_strykning <- c(grund = base[1], täck1 = base[2], täck2 = base[3])
+  
+  n <- as.numeric(input$strykningar)
+  sum(per_strykning[1:n]) / n   # medelvärde per strykning
+})
+
+output$volym_box <- renderValueBox({
+  valueBox(
+    value = tags$p(total_volym_liter(), " liter", style = "font-size:28px;"),
+    subtitle = "Färdig volym",
+    icon = icon("flask"),
+    color = "teal"
+  )
+})
+
+output$rackvidd_box <- renderValueBox({
+  m2 <- round(total_volym_liter() * rackvidd_per_liter(), 0)
+  
+  valueBox(
+    value = tags$p(m2, " m²", style = "font-size:28px;"),
+    subtitle = paste(input$strykningar, "strykningar på", 
+                     switch(input$underlag,
+                            nytt_ratt = "nytt rått trä",
+                            tidigare_malat = "tidigare målat trä",
+                            slat = "slät yta")),
+    icon = icon("paint-brush"),
+    color = "olive"
+  )
+})
+
+output$rackvidd_detaljer <- renderUI({
+  volym <- total_volym_liter()
+  m2_per_l <- rackvidd_per_liter()
+  
+  HTML(paste0(
+    "<b>Detaljerad uppskattning:</b><br>",
+    "Medel räckvidd per liter: <b>", round(m2_per_l, 1), " m²/liter</b><br>",
+    "Totalt: <b>", round(volym, 1), " liter × ", round(m2_per_l, 1), " m²/l = ",
+    round(volym * m2_per_l, 0), " m²</b><br><br>",
+    "<small>",
+    "↳ Värdena är fältmätta med traditionell linoljefärg på svensk panel<br>",
+    "↳ Extra fet färg (+20 % olja) kan ge +10–15 % räckvidd<br>",
+    "↳ Använd roller istället för pensel → +10–20 % räckvidd",
+    "</small>"
+  ))
+})
+
   # Download med vald olja
   output$download <- downloadHandler(
     filename = function()

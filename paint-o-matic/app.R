@@ -752,20 +752,21 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.5.3, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.5.4, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
   dashboardBody(
     useShinyjs(),
     tags$head(tags$style(HTML("
-      .step { padding:24px; padding-bottom:64px; background:#f9f9f9; border-radius:12px; margin:20px 20px 80px 20px; position:relative; min-width: 360px; max-width:840px;margin:auto;}
+      .content-wrapper {background: #ccc !important;}
+      .step { padding:24px; padding-bottom:64px; background:#fff; border-radius:12px; margin:20px 20px 80px 20px; position:relative; min-width: 360px; max-width:840px;margin:auto;}
       .footer-ref { position:relative; bottom:-44px; left:0; right:0; font-size:12px; color:#555; text-align:center; 
-                    padding:12px 12px 0; border-top:1px solid #ddd; background:#f9f9f9; }
+                    padding:12px 12px 0; border-top:1px solid #ddd; }
       .preview { display:block; height:300px; width:300px; border:8px solid #333; border-radius:150px; margin: auto; }
-      .normalized-box, .info-box, .ready-box, .alert { background:#eee; color:black; padding:12px; border-radius:6px;margin-top:1em;}
+      .normalized-box, .info-box, .alert { background:#fefefe; drop-shadow: 0 0; color:black; border: 0; padding:12px; border-radius:6px;margin-top:1em;}
       .normalized-box { margin:10px 0;}
-      .ready-box {padding: 20px; width: calc(50% - 20px) !important; background:white;}
+      .ready-box {padding: 20px; width: calc(50% - 20px) !important;}
       .ready-box h3 {margin-top:0; }
       .rmargin-box {margin-right:20px;}
       .btn {margin: .12px 12px 0 0;}
@@ -815,6 +816,7 @@ ui <- dashboardPage(
                         pickerInput("p4", "Pigment 4", choices = all_choices, selected = "",
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),
                         conditionalPanel("input.p4", sliderInput("pct4","Andel (%)",0,100,0,1)),
+                        hr(),
                         actionButton("reset_pigments", "Nollställ pigment", class="btn-default"),
                  ),
                  column(6,
@@ -839,7 +841,7 @@ ui <- dashboardPage(
                fluidRow(column(
                  12,
                  p(
-                   "Ange förhållandet mellan zinkoxid (zinkvitt) och titaniumdioxid (Titanvitt) i vitbasen. Kubelka-Munk-funktionen garanterar ett konsekvent resultat när eventuella färgande pigment blandas med vitbasen."
+                   "Ange förhållandet mellan zinkoxid (zinkvitt) och titaniumdioxid (titanvitt) i vitbasen."
                  ),
                  p(
                    "För utomhusfärg, välj en högre andel zinkvitt i vitbasen (gärna 30 %, om det fungerar med den önskade kulören), så blir den färdiga färgen mer motståndskraftig mot alger och mögelpåväxt."
@@ -848,7 +850,7 @@ ui <- dashboardPage(
                    "För inomhusfärg, välj en lägre andel zinkvitt i vitbasen (0–15 %). Zink gör å ena sidan färgfilmen hårdare, men å den andra blir den också känsligare för krackelering över tid."
                  ),
                  p(
-                   "Oavsett vilket förhållande du väljer, blir resultatet detsamma kulörmässigt!"
+                   "Oavsett vilket förhållande du väljer, blir resultatet detsamma kulörmässigt."
                  ),
                  br(),
                  sliderInput("zinc_ratio","Zinkvitt i vitbas (%)",0,100,15,5,post="% zinkoxid"),
@@ -876,8 +878,8 @@ ui <- dashboardPage(
                                     selected = 1.20),
                         radioButtons("use","Antal strykningar",choices=list("1 strykning"=1,"2 strykningar (rekommenderas inomhus)"=2,"3 strykningar (rekommenderas utomhus)"=3),selected=3),
                         hr(),
-                        sliderInput("extra_oil","Extra olja (CPV-faktor)",1,2.2,1.8,0.05,post="× CPV"),
-                        p(class="info-box","CPV-faktorn ökar endast mängden linolja (pigmentmängderna är fixerade). För blandning med färgblandare i borrmaskin och bra strykbarhet, öka gärna till 1,6–2,2× det kritiska oljetalet (CPV)."),
+                        sliderInput("extra_oil","Extra kokt linolja (CPV-faktor)",1,2.2,1.8,0.05,post="× CPV"),
+                        p("Reglaget ökar endast mängden kokt linolja i receptet (pigmentmängderna är fixerade). En liten ökad mängd linolja utöver den minsta mängd som krävs för pigmenten underlättar både tillredningen med färgblandare i borrmaskin och ger bra strykbarhet. Öka gärna till 1,6–2,2× det kritiska oljetalet (CPV)."),
                  ),
                  column(6,class="ready-box",
                         h3("Färdigt recept"),

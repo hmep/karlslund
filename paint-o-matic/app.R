@@ -695,28 +695,42 @@ pigment_name_to_id <- list(
   "Kromoxidgrönt nr GN 83" = "KG83", "Ultramarinblått nr 88" = "UB88", "Koboltblått nr 28" = "KB28"
 )
 
-# Calculate preview colors for each recipe
+# Calculate preview colors for each recipe using same method as main preview
 calculate_recipe_color <- function(recipe) {
   base_id <- pigment_name_to_id[[recipe$pigment]]
   if(is.null(base_id) || !base_id %in% names(rgb)) return(c(200, 200, 200))
   
-  r_val <- rgb[[base_id]][1] * (recipe$basfarg / 100)
-  g_val <- rgb[[base_id]][2] * (recipe$basfarg / 100)
-  b_val <- rgb[[base_id]][3] * (recipe$basfarg / 100)
+  # Build list of pigments with their percentages (same as main preview logic)
+  ids <- character()
+  pcts <- numeric()
+  
+  if(recipe$basfarg > 0) {
+    ids <- c(ids, base_id)
+    pcts <- c(pcts, recipe$basfarg)
+  }
   
   if(recipe$vit > 0) {
-    r_val <- r_val + 255 * (recipe$vit / 100)
-    g_val <- g_val + 255 * (recipe$vit / 100)
-    b_val <- b_val + 255 * (recipe$vit / 100)
+    ids <- c(ids, "vitbas")
+    pcts <- c(pcts, recipe$vit)
   }
   
   if(recipe$svart > 0) {
-    r_val <- r_val + 25 * (recipe$svart / 100)
-    g_val <- g_val + 25 * (recipe$svart / 100)
-    b_val <- b_val + 25 * (recipe$svart / 100)
+    ids <- c(ids, "J318")
+    pcts <- c(pcts, recipe$svart)
   }
   
-  return(c(min(255, r_val), min(255, g_val), min(255, b_val)))
+  # Weighted average mixing (same as current_color() in main preview)
+  total <- sum(pcts)
+  r <- g <- b <- 0
+  for(i in seq_along(ids)) {
+    col <- rgb[[ids[i]]] %||% c(255, 255, 255)
+    w <- pcts[i] / total
+    r <- r + w * col[1]
+    g <- g + w * col[2]
+    b <- b + w * col[3]
+  }
+  
+  return(c(r, g, b))
 }
 
 ui <- dashboardPage(
@@ -725,7 +739,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.5.1, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.5.2, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -795,7 +809,6 @@ ui <- dashboardPage(
                         uiOutput("preview1"), br(),
                         tags$b("Total andel: "), textOutput("total_pct",inline=TRUE), " %", 
                         uiOutput("total_warning"), br(),
-                        hr(),
                         tags$div(style="margin-top:10px;",
                                  tags$b("RAÄ Kulturkulörs fördefinierade recept"), br(),
                                  tags$small("Klicka på en färg för att ladda receptet."),
@@ -805,7 +818,7 @@ ui <- dashboardPage(
                ),
                hr(),
                actionButton("to_step2","Nästa steg", class="btn-primary next-btn"),
-               div(class="footer-ref", "Masstone baserad på Kulturkulör NCS-koder från Riksantikvarieämbetet (RAÄ) och data från Kremer Pigmente")
+               div(class="footer-ref", "Ungefärliga masstone baserade på Kulturkulör NCS-koder från Riksantikvarieämbetet (RAÄ) och data från Kremer Pigmente")
     )),
     
     hidden(div(id="step2", class="step",
@@ -899,7 +912,6 @@ server <- function(input, output, session) {
     updatePickerInput(session, "p4", choices = choices_list, selected = input$p4)
   })
   
-  # Kulturkulör swatches
   output$kulturkulor_swatches <- renderUI({
     # Group recipes by pigment base
     recipe_codes <- names(kulturkulor_complete)

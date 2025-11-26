@@ -766,7 +766,7 @@ ui <- dashboardPage(
       .preview { display:block; height:300px; width:300px; border:8px solid #333; border-radius:150px; margin: auto; }
       .normalized-box, .info-box, .alert { background:#fefefe; drop-shadow: 0 0; color:black; border: 0; padding:12px; border-radius:6px;margin-top:1em;}
       .normalized-box { margin:10px 0;}
-      .ready-box {padding: 20px; width: calc(50% - 20px) !important;}
+      .ready-box {}
       .ready-box h3 {margin-top:0; }
       .rmargin-box {margin-right:20px;}
       .btn {margin: .12px 12px 0 0;}
@@ -880,6 +880,7 @@ ui <- dashboardPage(
                         hr(),
                         sliderInput("extra_oil","Extra kokt linolja (CPV-faktor)",1,2.2,1.8,0.05,post="× CPV"),
                         p("Reglaget ökar endast mängden kokt linolja i receptet (pigmentmängderna är fixerade). En liten ökad mängd linolja utöver den minsta mängd som krävs för pigmenten underlättar både tillredningen med färgblandare i borrmaskin och ger bra strykbarhet. Öka gärna till 1,6–2,2× det kritiska oljetalet (CPV)."),
+                        br(),
                  ),
                  column(6,class="ready-box",
                         h3("Färdigt recept"),

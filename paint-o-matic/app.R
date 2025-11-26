@@ -493,7 +493,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "#", class = "version-text", "version 0.3.0")
+      tags$a(href = "#", class = "version-text", "version 0.3.1")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -528,7 +528,7 @@ ui <- dashboardPage(
     ")),
     
     hidden(div(id="step1", class="step",
-               h2("Steg 1 – Blanda din linoljefärg"),
+               h2("Steg 1 – Blanda pigment"),
                fluidRow(
                  column(6,
                         checkboxInput("raa_only", "Visa endast Kulturkulör-pigment (RAÄ)", TRUE),
@@ -554,12 +554,12 @@ ui <- dashboardPage(
                  )
                ),
                hr(),
-               actionButton("to_step2","Nästa", class="btn-primary next-btn"),
+               actionButton("to_step2","Nästa: Blanda vitbas", class="btn-primary next-btn"),
                div(class="footer-ref", "Masstone baserad på Kulturkulör NCS-koder från Riksantikvarieämbetet (RAÄ) och data från Kremer Pigmente")
     )),
     
     hidden(div(id="step2", class="step",
-               h2("Steg 2 – Välj pigment för Kubelka-Munk-vitbasen"),
+               h2("Steg 2 – Blanda vitbas"),
                fluidRow(column(
                  12,
                  p(
@@ -575,8 +575,8 @@ ui <- dashboardPage(
                  sliderInput("zinc_ratio","Zinkvitt i vitbas (%)",0,100,15,5,post="% zinkoxid"),
                ), ),
                hr(),
-               actionButton("back1","Tillbaka till färgblandning", class="btn-default back-btn"),
-               actionButton("to_step3","Beräkna mängd linolja", class="btn-primary next-btn"),
+               actionButton("back1","Föregående: Blanda pigment", class="btn-default back-btn"),
+               actionButton("to_step3","Nästa: Beräkna mängd linolja", class="btn-primary next-btn"),
                div(class="footer-ref", "Kubelka-Munk-funktionen används för att bibehålla färgande pigments styrka i vitbasen konstant")
     )),
     
@@ -609,8 +609,8 @@ ui <- dashboardPage(
                  )
                ),
                hr(),
-               actionButton("back2","Tillbaka till vitbasblandning", class="btn-default back-btn"),
-               actionButton("restart","Börja om", class="btn-default"),
+               actionButton("back2","Föregående: Blanda vitbas", class="btn-default back-btn"),
+               actionButton("restart","Börja om från början", class="btn-default"),
                div(class="footer-ref", "Åtgång per m²: RAÄ Byggnadsvård (2018). Pigmentvikt/liter: 1070 g.")
     ))
   )

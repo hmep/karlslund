@@ -752,7 +752,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.5.4, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.5.5, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -786,7 +786,13 @@ ui <- dashboardPage(
       }
       h2 {margin: 0 0 .5em;padding:0}
       .navbar-custom-menu .navbar-nav > li > a.version-text { font-size: 11px; color: #aaa; padding-top: 15px; padding-bottom: 15px;}
-    "))),
+    "),tags$script(HTML("
+  Shiny.addCustomMessageHandler('copyToClipboard', function(text) {
+    navigator.clipboard.writeText(text).then(function() {
+      console.log('Kopierat: ' + text);
+    });
+  });
+")))),
     
     # JavaScript for clipboard
     tags$script(HTML("
@@ -887,7 +893,8 @@ ui <- dashboardPage(
                         tags$p("Du blandar cirka ",textOutput("total_volume",inline=TRUE)," liter färdig färg, med sammanlagt ",textOutput("needed_pigment",inline=TRUE)," g pigment."),
                         uiOutput("final_preview"),br(),
                         tableOutput("final_recipe"),
-                        downloadButton("download_txt","Spara som textfil",class="btn-primary")
+                        downloadButton("download_txt","Spara som textfil",class="btn btn-primary"),
+                        actionButton("share_link", "Kopiera delningslänk", class ="btn btn-default")
                  )
                ),
                hr(),
@@ -1372,15 +1379,34 @@ server <- function(input, output, session) {
     }
   )
   
-  observeEvent(input$copy_clip, {
-    df <- recipe_df()
-    txt <- paste0("Färgkod: ", final_hex(), "\nYta: ", format_swe(values$area, 0), " m²\n\n")
-    for(i in 1:nrow(df)) {
-      gram_val <- format_swe(parse_numeric(df[i,2]), 1)
-      txt <- paste0(txt, df[i,1], ": ", gram_val, " g\n")
+  # === DELNINGSLÄNK ===
+  observeEvent(input$share_link, {
+    # Samla alla viktiga parametrar
+    params <- list(
+      w  = input$total_weight,
+      z  = input$zinc_ratio,
+      p1 = input$p1, pct1 = input$pct1,
+      p2 = input$p2, pct2 = input$pct2,
+      p3 = input$p3, pct3 = input$pct3,
+      n  = input$paint_name %||% ""
+    )
+    
+    # Skapa query-string
+    query <- paste0("?", paste(names(params), "=", sapply(params, URLencode), collapse = "&"))
+    url <- paste0(session$clientData$url_hostname, 
+                  session$clientData$url_pathname, 
+                  query)
+    
+    # Fullständig URL med protokoll
+    full_url <- if (session$clientData$url_port == "" || session$clientData$url_port == "80" || session$clientData$url_port == "443") {
+      paste0(session$clientData$url_protocol, "//", url)
+    } else {
+      paste0(session$clientData$url_protocol, "//", url, ":", session$clientData$url_port)
     }
-    session$sendCustomMessage("copyToClipboard", txt)
-    showNotification("Recept kopierat till klippbord!", type = "message")
+    
+    # Kopiera till klippbord via JavaScript
+    session$sendCustomMessage("copyToClipboard", full_url)
+    showNotification("Delningslänk kopierad till klippbord!", type = "message", duration = 4)
   })
   
   observeEvent(input$restart, {

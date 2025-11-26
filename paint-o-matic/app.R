@@ -786,13 +786,7 @@ ui <- dashboardPage(
       }
       h2 {margin: 0 0 .5em;padding:0}
       .navbar-custom-menu .navbar-nav > li > a.version-text { font-size: 11px; color: #aaa; padding-top: 15px; padding-bottom: 15px;}
-    "),tags$script(HTML("
-  Shiny.addCustomMessageHandler('copyToClipboard', function(text) {
-    navigator.clipboard.writeText(text).then(function() {
-      console.log('Kopierat: ' + text);
-    });
-  });
-")))),
+    "))),
     
     # JavaScript for clipboard
     tags$script(HTML("

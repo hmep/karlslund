@@ -681,7 +681,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.4.0, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.4.1, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -774,7 +774,7 @@ ui <- dashboardPage(
     hidden(div(id="step3", class="step",
                h2("Beräkna mängd kokt linolja och pigment"),
                fluidRow(
-                 column(6,class="rmargin-box",
+                 column(6,
                         numericInput("area","Yta att måla (m²)",10,1,2000,1),
                         selectInput("substrate","Underlag (absorptionsfaktor)",
                                     choices=list(
@@ -791,7 +791,7 @@ ui <- dashboardPage(
                         sliderInput("extra_oil","Extra olja (CPV-faktor)",1,2.2,1.8,0.05,post="× CPV"),
                         p(class="info-box","För blandning med färgblandare i borrmaskin och bra strykbarhet, öka gärna mängden linolja till 1,6–2,2× det kritiska oljetalet (CPV)."),
                  ),
-                 column(6,class="ready-box",
+                 column(6,
                         h3("Färdigt recept"),
                         tags$p("Du blandar cirka ",textOutput("total_volume",inline=TRUE)," liter färdig färg, med sammanlagt ",textOutput("needed_pigment",inline=TRUE)," g pigment."),
                         uiOutput("final_preview"),br(),
@@ -1078,7 +1078,7 @@ server <- function(input, output, session) {
     # Format the Gram column with Swedish decimals
     df$Gram <- sapply(df$Gram, function(x) format_swe(parse_numeric(x), 1))
     df
-  }, striped=TRUE, bordered=F, width="100%", align="lr", sanitize.text.function = function(x) x)
+  }, striped=TRUE, bordered=TRUE, width="100%", align="lr", sanitize.text.function = function(x) x)
   output$final_preview <- renderUI(tags$div(class="preview", style=paste0("background:", final_hex())))
   
   output$download_txt <- downloadHandler(

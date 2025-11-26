@@ -675,13 +675,57 @@ make_choices <- function(ids) {
 }
 all_choices <- c("Välj pigment" = "", make_choices(names(km)))
 
+
+# === KULTURKULÖR PRESET SYSTEM ===
+source("kulturkulor_recipes.r")
+source("kulturkulor_recipes_part2.r")
+source("kulturkulor_recipes_part3.r")
+kulturkulor_complete <- c(kulturkulor, kulturkulor_part2, kulturkulor_part3)
+
+pigment_name_to_id <- list(
+  "Järnoxidrött nr 225" = "J225", "Järnoxidrött nr 180 M (Caput Mortuum)" = "J180M",
+  "Järnoxidrött nr 120 N" = "J120N", "Engelskt rött nr 48 A" = "ER48A",
+  "Järnoxidbrunt nr 663" = "J663", "Järnoxidbrunt nr 686" = "J686",
+  "Järnoxidgult nr 920" = "J920", "Järnoxidsvart nr 318" = "J318",
+  "Ljusockra nr 92" = "LO92", "Guldockra nr 94" = "GO94",
+  "50% Guldockra nr 94 + 50% Grön umbra nr 30" = "GO94_GU30",
+  "Obränd Umbra nr 103" = "OU103", "Bränd Umbra nr 100" = "BU100",
+  "Brun Umbra nr 39" = "BRU39", "Grön Umbra nr 30" = "GU30", "Grå Umbra nr 36" = "GRAU36",
+  "Bränd Terra nr 44" = "BT44", "Obränd Terra nr 46" = "OT46", "Bensvart nr 98" = "BS98",
+  "Kromoxidgrönt nr GN 83" = "KG83", "Ultramarinblått nr 88" = "UB88", "Koboltblått nr 28" = "KB28"
+)
+
+# Calculate preview colors for each recipe
+calculate_recipe_color <- function(recipe) {
+  base_id <- pigment_name_to_id[[recipe$pigment]]
+  if(is.null(base_id) || !base_id %in% names(rgb)) return(c(200, 200, 200))
+  
+  r_val <- rgb[[base_id]][1] * (recipe$basfarg / 100)
+  g_val <- rgb[[base_id]][2] * (recipe$basfarg / 100)
+  b_val <- rgb[[base_id]][3] * (recipe$basfarg / 100)
+  
+  if(recipe$vit > 0) {
+    r_val <- r_val + 255 * (recipe$vit / 100)
+    g_val <- g_val + 255 * (recipe$vit / 100)
+    b_val <- b_val + 255 * (recipe$vit / 100)
+  }
+  
+  if(recipe$svart > 0) {
+    r_val <- r_val + 25 * (recipe$svart / 100)
+    g_val <- g_val + 25 * (recipe$svart / 100)
+    b_val <- b_val + 25 * (recipe$svart / 100)
+  }
+  
+  return(c(min(255, r_val), min(255, g_val), min(255, b_val)))
+}
+
 ui <- dashboardPage(
   dashboardHeader(
     title = "Paint-o-matic",
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.4.3, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.5.0, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -699,6 +743,19 @@ ui <- dashboardPage(
       .rmargin-box {margin-right:20px;}
       .btn {margin: .12px 12px 0 0;}
       .btn-primary { color:white;}
+      .kulturkulor-swatch { 
+        display:inline-block; width:24px; height:24px; border-radius:50%; 
+        margin:3px; cursor:pointer; border:2px solid #999;
+        transition: transform 0.1s, border-color 0.1s;
+      }
+      .kulturkulor-swatch:hover { 
+        transform:scale(1.3); border-color:#333; z-index:10; position:relative;
+      }
+      .kulturkulor-gallery { 
+        max-height:200px; overflow-y:auto; overflow-x:hidden;
+        padding:8px; background:#fff; border:1px solid #ddd; border-radius:4px;
+        margin-top:8px;
+      }
       h2 {margin: 0 0 .5em;padding:0}
       .navbar-custom-menu .navbar-nav > li > a.version-text { font-size: 11px; color: #aaa; padding-top: 15px; padding-bottom: 15px;}
     "))),
@@ -738,11 +795,17 @@ ui <- dashboardPage(
                         uiOutput("preview1"), br(),
                         tags$b("Total andel: "), textOutput("total_pct",inline=TRUE), " %", 
                         uiOutput("total_warning"), br(),
+                        hr(),
+                        tags$div(style="margin-top:10px;",
+                                 tags$b("Kulturkulör-recept (RAÄ)"), br(),
+                                 tags$small("Klicka på en färg för att hämta receptet"),
+                                 uiOutput("kulturkulor_swatches")
+                        )
                  )
                ),
                hr(),
                actionButton("to_step2","Nästa steg", class="btn-primary next-btn"),
-               div(class="footer-ref", "Masstone baserad på Kulturkulör NCS-koder från Riksantikvarieämbetet (RAÄ) och data från Kremer Pigmente")
+               div(class="footer-ref", "Fördefinierade recept från Kulturkulör (Riksantikvarieämbetet, RAÄ). Masstone baserad på RAÄs NCS-koder och data från Kremer Pigmente")
     )),
     
     hidden(div(id="step2", class="step",
@@ -834,6 +897,78 @@ server <- function(input, output, session) {
     updatePickerInput(session, "p2", choices = choices_list, selected = input$p2)
     updatePickerInput(session, "p3", choices = choices_list, selected = input$p3)
     updatePickerInput(session, "p4", choices = choices_list, selected = input$p4)
+  })
+  
+  # Kulturkulör swatches
+  output$kulturkulor_swatches <- renderUI({
+    # Group recipes by pigment base
+    recipe_codes <- names(kulturkulor_complete)
+    
+    # Track last pigment to detect series changes
+    swatch_elements <- list()
+    last_pigment <- NULL
+    
+    for(code in recipe_codes) {
+      recipe <- kulturkulor_complete[[code]]
+      
+      # Use pigment name as grouping key (most reliable)
+      current_pigment <- recipe$pigment
+      
+      # If pigment changed, add line break
+      if(!is.null(last_pigment) && current_pigment != last_pigment) {
+        swatch_elements[[length(swatch_elements) + 1]] <- tags$br()
+      }
+      last_pigment <- current_pigment
+      
+      # Calculate color
+      color_rgb <- calculate_recipe_color(recipe)
+      hex_color <- rgb(color_rgb[1], color_rgb[2], color_rgb[3], maxColorValue = 255)
+      
+      tooltip <- sprintf("%s: %s (Bas %g%%, Vit %g%%, Svart %g%%)", 
+                         code, recipe$pigment, recipe$basfarg, recipe$vit, recipe$svart)
+      
+      # Add swatch
+      swatch_elements[[length(swatch_elements) + 1]] <- tags$span(
+        class = "kulturkulor-swatch",
+        style = sprintf("background-color:%s;", hex_color),
+        title = tooltip,
+        onclick = sprintf("Shiny.setInputValue('swatch_click', '%s', {priority: 'event'});", code)
+      )
+    }
+    
+    tags$div(class = "kulturkulor-gallery", swatch_elements)
+  })
+  
+  # Handle swatch clicks
+  observeEvent(input$swatch_click, {
+    req(input$swatch_click)
+    
+    recipe <- kulturkulor_complete[[input$swatch_click]]
+    base_id <- pigment_name_to_id[[recipe$pigment]]
+    
+    if(is.null(base_id)) return()
+    
+    updatePickerInput(session, "p1", selected = base_id)
+    updateSliderInput(session, "pct1", value = recipe$basfarg)
+    
+    if(recipe$vit > 0) {
+      updatePickerInput(session, "p2", selected = "vitbas")
+      updateSliderInput(session, "pct2", value = recipe$vit)
+    } else {
+      updatePickerInput(session, "p2", selected = "")
+      updateSliderInput(session, "pct2", value = 0)
+    }
+    
+    if(recipe$svart > 0) {
+      updatePickerInput(session, "p3", selected = "J318")
+      updateSliderInput(session, "pct3", value = recipe$svart)
+    } else {
+      updatePickerInput(session, "p3", selected = "")
+      updateSliderInput(session, "pct3", value = 0)
+    }
+    
+    updatePickerInput(session, "p4", selected = "")
+    updateSliderInput(session, "pct4", value = 0)
   })
   
   # Blandning

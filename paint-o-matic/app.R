@@ -73,7 +73,7 @@ parse_numeric <- function(x, default = NA) {
 
 km <- list(
   # BASE WHITES
-  "vitbas" = list(name = "Kubelka-Munk vitbas (titan/zink)", oil = 17, K = 0.00, S = 2.20, density = 4.2),
+  "vitbas" = list(name = "Vitbas (titan/zink-blandning)", oil = 17, K = 0.00, S = 2.20, density = 4.2),
   "44100" = list(name = "Zinkvitt PW4", oil = 20, K = 0.00, S = 1.66, density = 5.6),
   "44400" = list(name = "Titanvitt Rutile PW6", oil = 15, K = 0.00, S = 2.55, density = 4.2),
   
@@ -880,7 +880,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.5.7-rgbtest-raä, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.5.7-rgbtest-3, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -1250,8 +1250,53 @@ server <- function(input, output, session) {
       tags$div(
         class = "alert",
         icon(icon_type),
-        " ", msg, text_lines
+        " ", msg, text_lines,
+        tags$br(),
+        tags$div(
+          style = "margin-top: 0.5em;",
+          actionButton("normalize_values", "← Använd normaliserade värden", class = "btn-default btn-sm")
+        )
       )
+    }
+  })
+  
+  # Handle normalize button click
+  observeEvent(input$normalize_values, {
+    m <- mix()
+    if (m$total > 100 && length(m$ids) > 0) {
+      # Calculate normalized percentages
+      normalized <- (m$pct / m$total) * 100
+      
+      # Round to integers (sliders use step=1)
+      normalized_int <- round(normalized)
+      
+      # Ensure they sum to exactly 100 by adjusting largest
+      total_normalized <- sum(normalized_int)
+      if(total_normalized != 100) {
+        diff <- 100 - total_normalized
+        max_idx <- which.max(normalized_int)
+        normalized_int[max_idx] <- normalized_int[max_idx] + diff
+      }
+      
+      # Map back to p1, p2, p3, p4 inputs
+      # Get current inputs to determine mapping
+      current_inputs <- c(input$p1, input$p2, input$p3, input$p4)
+      
+      # Update sliders for each pigment
+      for(i in seq_along(m$ids)) {
+        pigment_id <- m$ids[i]
+        new_pct <- normalized_int[i]
+        
+        # Find which input slot this pigment is in
+        slot_idx <- which(current_inputs == pigment_id)[1]
+        
+        if(!is.na(slot_idx) && slot_idx <= 4) {
+          input_name <- paste0("pct", slot_idx)
+          updateSliderInput(session, input_name, value = new_pct)
+        }
+      }
+      
+      showNotification("Värdena har normaliserats till 100%", type = "message", duration = 2)
     }
   })
   

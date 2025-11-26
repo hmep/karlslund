@@ -752,7 +752,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.5.6, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.5.7, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -789,22 +789,6 @@ ui <- dashboardPage(
     "))),
     
     tags$script(HTML('
-    Shiny.addCustomMessageHandler("copyToClipboard", function(text) {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(text).catch(function(err) {
-            console.warn("Clipboard failed:", err);
-            // Silent fallback – no error shown
-          });
-        } else {
-          // Legacy fallback for older browsers
-          const textarea = document.createElement("textarea");
-          textarea.value = text;
-          document.body.appendChild(textarea);
-          textarea.select();
-          document.execCommand("copy");
-          document.body.removeChild(textarea);
-        }
-      });
     ')),
     
     hidden(div(id="step1", class="step",
@@ -895,8 +879,8 @@ ui <- dashboardPage(
                         uiOutput("final_preview"),br(),
                         tableOutput("final_recipe"),
                         downloadButton("download_txt","Spara som textfil",class="btn btn-primary"),
-                        actionButton("share_link", "Kopiera delningslänk", 
-                                     icon = icon("share-alt"), class = "btn btn-default")
+                        actionButton("copy_share_link","Kopiera delningslänk",class="btn btn-default"),
+                        tags$input(id="share_url_hidden", type="hidden", value="")
                  )
                ),
                hr(),
@@ -908,27 +892,37 @@ ui <- dashboardPage(
 )
 
 server <- function(input, output, session) {
-  # === ÅTERSTÄLL FRÅN LÄNK ===
+  # === LOAD RECIPE FROM URL ===
   observe({
     query <- parseQueryString(session$clientData$url_search)
-    if(length(query) > 0) {
-      # Vänta tills appen är redo
+    if(length(query) > 0 && any(c("p1", "p2", "p3", "p4") %in% names(query))) {
+      # Wait for app to be ready
       delay(500, {
-        if("area" %in% names(query)) updateNumericInput(session, "area", value = as.numeric(query$area))
-        if("extra_oil" %in% names(query)) updateSliderInput(session, "extra_oil", value = as.numeric(query$extra_oil))
-        if("zinc_ratio" %in% names(query)) updateSliderInput(session, "zinc_ratio", value = as.numeric(query$zinc_ratio))
-        if("paint_name" %in% names(query)) updateTextInput(session, "paint_name", value = query$paint_name)
-        
-        # Återställ pigment
-        for(i in 1:10) {
-          id_key <- paste0("id", i)
-          pct_key <- paste0("pct", i)
-          if(id_key %in% names(query) && pct_key %in% names(query)) {
-            updateSelectInput(session, paste0("pigment_", i), selected = query[[id_key]])
-            updateNumericInput(session, paste0("pct_", i), value = as.numeric(query[[pct_key]]))
-          }
+        # Load pigments and percentages
+        if("p1" %in% names(query) && query$p1 != "") {
+          updatePickerInput(session, "p1", selected = query$p1)
+          if("pct1" %in% names(query)) updateSliderInput(session, "pct1", value = as.numeric(query$pct1))
         }
-        showNotification("Recept återställt från länk", type = "message")
+        if("p2" %in% names(query) && query$p2 != "") {
+          updatePickerInput(session, "p2", selected = query$p2)
+          if("pct2" %in% names(query)) updateSliderInput(session, "pct2", value = as.numeric(query$pct2))
+        }
+        if("p3" %in% names(query) && query$p3 != "") {
+          updatePickerInput(session, "p3", selected = query$p3)
+          if("pct3" %in% names(query)) updateSliderInput(session, "pct3", value = as.numeric(query$pct3))
+        }
+        if("p4" %in% names(query) && query$p4 != "") {
+          updatePickerInput(session, "p4", selected = query$p4)
+          if("pct4" %in% names(query)) updateSliderInput(session, "pct4", value = as.numeric(query$pct4))
+        }
+        
+        # Load other parameters
+        if("area" %in% names(query)) updateNumericInput(session, "area", value = as.numeric(query$area))
+        if("zinc_ratio" %in% names(query)) updateSliderInput(session, "zinc_ratio", value = as.numeric(query$zinc_ratio))
+        if("extra_oil" %in% names(query)) updateSliderInput(session, "extra_oil", value = as.numeric(query$extra_oil))
+        if("use" %in% names(query)) updateRadioButtons(session, "use", selected = query$use)
+        
+        showNotification("Recept laddades från länk!", type = "message", duration = 3)
       })
     }
   })
@@ -1402,47 +1396,71 @@ server <- function(input, output, session) {
     }
   )
   
-  # === KOPIERA DELNINGSLÄNK – SÄKER FÖR SHINYAPPS.IO ===
-  observeEvent(input$share_link, {
-    # Delay slightly to ensure JS handler is ready
-    delay(100, {
-      tryCatch({
-        # Your existing params collection (unchanged)
-        params <- list(
-          area = values$area,
-          oil = values$extra_oil,
-          zinc = input$zinc_ratio %||% 25,
-          name = input$paint_name %||% ""
-        )
+  # === GENERATE AND UPDATE SHARE URL ===
+  observe({
+    # Build query string from current inputs
+    params <- list()
     
-    # Lägg till alla pigment som har pct > 0
-    pigment_count <- 0
-    for(i in seq_along(m$ids)) {
-      pct_input <- input[[paste0("pct_", i)]]
-      if(!is.null(pct_input) && pct_input > 0 && pct_input < 100) {
-        pigment_count <- pigment_count + 1
-        params[[paste0("p", pigment_count)]] <- m$ids[i]
-        params[[paste0("v", pigment_count)]] <- pct_input
-      }
+    # Add pigments and percentages (only if pigment is selected)
+    if(!is.null(input$p1) && input$p1 != "") {
+      params$p1 <- input$p1
+      params$pct1 <- input$pct1
+    }
+    if(!is.null(input$p2) && input$p2 != "") {
+      params$p2 <- input$p2
+      params$pct2 <- input$pct2
+    }
+    if(!is.null(input$p3) && input$p3 != "") {
+      params$p3 <- input$p3
+      params$pct3 <- input$pct3
+    }
+    if(!is.null(input$p4) && input$p4 != "") {
+      params$p4 <- input$p4
+      params$pct4 <- input$pct4
     }
     
-    # Build URL (unchanged)
-    query <- paste(names(params), params, sep = "=", collapse = "&")
-    full_url <- paste0(session$clientData$url_protocol, "//",
-                       session$clientData$url_hostname,
-                       if(session$clientData$url_port != "") paste0(":", session$clientData$url_port),
-                       session$clientData$url_pathname,
-                       "?", query)
+    # Add other parameters (only if not default values)
+    if(!is.null(input$area) && input$area != 20) params$area <- input$area
+    if(!is.null(input$zinc_ratio) && input$zinc_ratio != 15) params$zinc_ratio <- input$zinc_ratio
+    if(!is.null(input$extra_oil) && input$extra_oil != 1.8) params$extra_oil <- input$extra_oil
+    if(!is.null(input$use) && input$use != 3) params$use <- input$use
     
-    # Safe copy with fallback
-    session$sendCustomMessage("copyToClipboard", full_url)
-    showNotification("Delningslänk kopierad!", type = "message", duration = 4)
-      }, error = function(e) {
-        # Fallback: Show URL in notification (no disconnect risk)
-        showNotification(HTML(paste0("Länk (kopia manuellt):<br><small><code>", full_url, "</code></small>")), 
-                         type = "warning", duration = 8)
+    # Build URL
+    if(length(params) > 0) {
+      base_url <- session$clientData$url_protocol
+      base_url <- paste0(base_url, "//", session$clientData$url_hostname)
+      if(!is.null(session$clientData$url_port) && session$clientData$url_port != "") {
+        base_url <- paste0(base_url, ":", session$clientData$url_port)
+      }
+      base_url <- paste0(base_url, session$clientData$url_pathname)
+      
+      # Build query string
+      query_parts <- sapply(names(params), function(key) {
+        paste0(key, "=", URLencode(as.character(params[[key]]), reserved = TRUE))
       })
-    })
+      query_string <- paste(query_parts, collapse = "&")
+      
+      share_url <- paste0(base_url, "?", query_string)
+      
+      # Update hidden input with share URL
+      runjs(sprintf("document.getElementById('share_url_hidden').value = '%s';", share_url))
+    }
+  })
+  
+  # === COPY SHARE LINK BUTTON ===
+  observeEvent(input$copy_share_link, {
+    runjs("
+      var url = document.getElementById('share_url_hidden').value;
+      if(url) {
+        navigator.clipboard.writeText(url).then(function() {
+          alert('Delningslänk kopierad till urklipp!');
+        }).catch(function(err) {
+          prompt('Kopiera denna länk:', url);
+        });
+      } else {
+        alert('Välj pigment först för att skapa en delningslänk.');
+      }
+    ")
   })
   
   observeEvent(input$restart, {

@@ -3,7 +3,7 @@ library(shinydashboard)
 library(shinyjs)
 library(shinyWidgets)
 
-# === SWEDISH LOCALE CONFIGURATION ===
+# === SWEDISH LOCALE CONFIGURATION === 
 # Set Swedish locale for number formatting (cross-platform)
 swedish_locale_set <- FALSE
 locale_options <- c("sv_SE.UTF-8", "sv_SE", "Swedish_Sweden.1252", "Swedish")

@@ -681,7 +681,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.4.1, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.4.2, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -772,7 +772,7 @@ ui <- dashboardPage(
     )),
     
     hidden(div(id="step3", class="step",
-               h2("Beräkna mängd kokt linolja och pigment"),
+               h2("Beräkna mängd kokt linolja"),
                fluidRow(
                  column(6,
                         numericInput("area","Yta att måla (m²)",10,1,2000,1),
@@ -789,7 +789,7 @@ ui <- dashboardPage(
                         radioButtons("use","Antal strykningar",choices=list("1 strykning"=1,"2 strykningar (rekommenderas inomhus)"=2,"3 strykningar (rekommenderas utomhus)"=3),selected=3),
                         hr(),
                         sliderInput("extra_oil","Extra olja (CPV-faktor)",1,2.2,1.8,0.05,post="× CPV"),
-                        p(class="info-box","För blandning med färgblandare i borrmaskin och bra strykbarhet, öka gärna mängden linolja till 1,6–2,2× det kritiska oljetalet (CPV)."),
+                        p(class="info-box","CPV-faktorn ökar endast mängden linolja (pigmentmängderna är fixerade). För blandning med färgblandare i borrmaskin och bra strykbarhet, öka gärna till 1,6–2,2× det kritiska oljetalet (CPV)."),
                  ),
                  column(6,
                         h3("Färdigt recept"),
@@ -1010,8 +1010,8 @@ server <- function(input, output, session) {
     # Regardless of what user entered, treat their ratios as parts of 100%
     normalized_pcts <- (m$pct / m$total) * 100
     
-    # Calculate weighted average pigment properties for PVC calculation
-    total_oil_absorption <- 0
+    # Calculate weighted average pigment properties (WITHOUT extra oil factor)
+    base_oil_absorption <- 0
     total_density <- 0
     
     for(i in seq_along(m$ids)) {
@@ -1020,37 +1020,36 @@ server <- function(input, output, session) {
       
       if(id == "vitbas") {
         # Vitbas is a mix of zinc and titanium
-        total_oil_absorption <- total_oil_absorption + 
+        base_oil_absorption <- base_oil_absorption + 
           weight_fraction * (zinc_ratio * 0.20 + (1-zinc_ratio) * 0.15)
         total_density <- total_density + 
           weight_fraction * (zinc_ratio * 5.6 + (1-zinc_ratio) * 4.2)
       } else {
-        total_oil_absorption <- total_oil_absorption + 
+        base_oil_absorption <- base_oil_absorption + 
           weight_fraction * (km[[id]]$oil / 100)
         total_density <- total_density + 
           weight_fraction * km[[id]]$density
       }
     }
     
-    # Apply extra oil factor
-    total_oil_absorption <- total_oil_absorption * values$extra_oil
-    
-    # Calculate PVC (Pigment Volume Concentration)
+    # Calculate PVC with BASE oil (minimum required)
     # V_pigment per gram of pigment
     V_pigment_per_gram <- 1 / total_density  # cm³
-    # V_oil per gram of pigment
-    V_oil_per_gram <- total_oil_absorption / 0.92  # cm³ (oil density = 0.92 g/cm³)
+    # V_oil per gram of pigment (minimum)
+    V_oil_per_gram_min <- base_oil_absorption / 0.92  # cm³
     
-    # PVC for this mixture
-    pvc <- V_pigment_per_gram / (V_pigment_per_gram + V_oil_per_gram)
+    # PVC with minimum oil
+    pvc_base <- V_pigment_per_gram / (V_pigment_per_gram + V_oil_per_gram_min)
     
-    # Calculate volumes
-    pigment_volume_L <- target_liters * pvc
-    oil_volume_L <- target_liters * (1 - pvc)
-    
-    # Convert to weights
+    # Calculate pigment amount needed for target volume with base PVC
+    pigment_volume_L <- target_liters * pvc_base
     total_pigment_g <- pigment_volume_L * 1000 * total_density
-    total_oil_g <- oil_volume_L * 1000 * 0.92
+    
+    # Calculate MINIMUM oil needed for these pigments
+    base_oil_g <- total_pigment_g * base_oil_absorption
+    
+    # Apply CPV factor ONLY to oil (pigment stays fixed)
+    final_oil_g <- base_oil_g * values$extra_oil
     
     # Distribute pigments according to normalized percentages
     zn_g <- ti_g <- 0
@@ -1070,7 +1069,7 @@ server <- function(input, output, session) {
     }
     
     list(zn=round(zn_g,1), ti=round(ti_g,1), color=round(color_g,1), 
-         oil=round(total_oil_g,1), hex=final_hex())
+         oil=round(final_oil_g,1), hex=final_hex())
   })
   
   output$final_recipe <- renderTable({
@@ -1078,7 +1077,7 @@ server <- function(input, output, session) {
     # Format the Gram column with Swedish decimals
     df$Gram <- sapply(df$Gram, function(x) format_swe(parse_numeric(x), 1))
     df
-  }, striped=TRUE, bordered=TRUE, width="100%", align="lr", sanitize.text.function = function(x) x)
+  }, striped=TRUE, bordered=F, width="100%", align="lr", sanitize.text.function = function(x) x)
   output$final_preview <- renderUI(tags$div(class="preview", style=paste0("background:", final_hex())))
   
   output$download_txt <- downloadHandler(

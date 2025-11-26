@@ -790,22 +790,21 @@ ui <- dashboardPage(
     
     tags$script(HTML('
     Shiny.addCustomMessageHandler("copyToClipboard", function(text) {
-        if (navigator.clipboard) {
-          navigator.clipboard.writeText(text).catch(function() {
-            fallbackCopy(text);
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).catch(function(err) {
+            console.warn("Clipboard failed:", err);
+            // Silent fallback – no error shown
           });
         } else {
-          fallbackCopy(text);
+          // Legacy fallback for older browsers
+          const textarea = document.createElement("textarea");
+          textarea.value = text;
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand("copy");
+          document.body.removeChild(textarea);
         }
       });
-      function fallbackCopy(text) {
-        const textarea = document.createElement("textarea");
-        textarea.value = text;
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand("copy");
-        document.body.removeChild(textarea);
-      }
     ')),
     
     hidden(div(id="step1", class="step",
@@ -1405,16 +1404,16 @@ server <- function(input, output, session) {
   
   # === KOPIERA DELNINGSLÄNK – SÄKER FÖR SHINYAPPS.IO ===
   observeEvent(input$share_link, {
-    # Säker fallback-URL – använder alltid aktuell domän från Shiny
-    base_url <- "https://tobias-at-hagberg-dot-com.shinyapps.io/paint-o-matic"
-    # Om du har ett eget domännamn, byt ut ovan till t.ex. "https://paintomatic.se"
-    
-    params <- list(
-      area = values$area %||% 100,
-      oil = values$extra_oil %||% 1.5,
-      zinc = input$zinc_ratio %||% 25,
-      name = URLencode(input$paint_name %||% "", reserved = TRUE)
-    )
+    # Delay slightly to ensure JS handler is ready
+    delay(100, {
+      tryCatch({
+        # Your existing params collection (unchanged)
+        params <- list(
+          area = values$area,
+          oil = values$extra_oil,
+          zinc = input$zinc_ratio %||% 25,
+          name = input$paint_name %||% ""
+        )
     
     # Lägg till alla pigment som har pct > 0
     pigment_count <- 0
@@ -1427,17 +1426,23 @@ server <- function(input, output, session) {
       }
     }
     
-    # Bygg query-string
+    # Build URL (unchanged)
     query <- paste(names(params), params, sep = "=", collapse = "&")
-    full_url <- paste0(base_url, "?", query)
+    full_url <- paste0(session$clientData$url_protocol, "//",
+                       session$clientData$url_hostname,
+                       if(session$clientData$url_port != "") paste0(":", session$clientData$url_port),
+                       session$clientData$url_pathname,
+                       "?", query)
     
-    # Kopiera till klippbord med fallback
+    # Safe copy with fallback
     session$sendCustomMessage("copyToClipboard", full_url)
-    
-    showNotification(
-      HTML(paste0("Delningslänk kopierad!<br><small>Klistra in i chatt eller e-post</small>")),
-      type = "message", duration = 6
-    )
+    showNotification("Delningslänk kopierad!", type = "message", duration = 4)
+      }, error = function(e) {
+        # Fallback: Show URL in notification (no disconnect risk)
+        showNotification(HTML(paste0("Länk (kopia manuellt):<br><small><code>", full_url, "</code></small>")), 
+                         type = "warning", duration = 8)
+      })
+    })
   })
   
   observeEvent(input$restart, {

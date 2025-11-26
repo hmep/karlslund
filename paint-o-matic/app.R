@@ -240,43 +240,214 @@ raa_pigments <- c(
 # KREMER PRODUCT LINKS FOR NON-RAÄ PIGMENTS
 kremer_links <- list(
   # WHITES
-  "44100" = "https://www.kremer-pigmente.com/en/shop/pigments/46300-zinc-white",
-  "44400" = "https://www.kremer-pigmente.com/en/shop/pigments/46200-titanium-white-rutile",
+  "44100" = list(
+    name = "Zinkvitt PW4",
+    kremer_match = "Zinc White (PW4)",
+    kremer_id = "46300",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/46300-zinc-white",
+    ottosson_match = "Zinkvitt",
+    ottosson_url = "https://ottossonfarg.com/produkt/zinkvitt/",
+    notes = "Högkvalitativt zinkvitt för linoljefärg. Finns hos både Kremer och svenska leverantörer."
+  ),
+  
+  "44400" = list(
+    name = "Titanvitt Rutile PW6",
+    kremer_match = "Titanium White Rutile (PW6)",
+    kremer_id = "46200",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/46200-titanium-white-rutile",
+    ottosson_match = "Titanvitt",
+    ottosson_url = "https://ottossonfarg.com/produkt/titanvitt/",
+    notes = "Rutiltyp titanvitt med högsta täckförmåga. Standard vitpigment för linoljefärg."
+  ),
   
   # GREENS
-  "40400" = "https://www.kremer-pigmente.com/en/shop/pigments/44250-viridian-green",
-  "41700" = "https://www.kremer-pigmente.com/en/shop/pigments/44400-malachite-synthetic",
-  "11100" = "https://www.kremer-pigmente.com/en/shop/pigments/23000-phthalo-green-bluish-pg-7",
-  "40850" = "https://www.kremer-pigmente.com/en/shop/pigments/40850-green-earth-bohemian",
-  "40860" = "https://www.kremer-pigmente.com/en/shop/pigments/40860-green-earth-verona",
+  "40400" = list(
+    name = "Viridian PG18",
+    kremer_match = "Viridian Green (PG18)",
+    kremer_id = "44250",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/44250-viridian-green",
+    notes = "Klassisk viridiangrön, kall transparent grön. Främst från internationella leverantörer."
+  ),
+  
+  "41700" = list(
+    name = "Malakit naturlig",
+    kremer_match = "Malachite Synthetic (PG19)",
+    kremer_id = "44400",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/44400-malachite-synthetic",
+    notes = "Syntetisk malakit som alternativ till naturlig. Speciellt pigment från Kremer."
+  ),
+  
+  "11100" = list(
+    name = "Phthalogrön PG7",
+    kremer_match = "Phthalo Green Bluish (PG7)",
+    kremer_id = "23000",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/23000-phthalo-green-bluish-pg-7",
+    notes = "Stark blåaktig phthalogrön med hög färgstyrka. Organiskt pigment."
+  ),
+  
+  "40850" = list(
+    name = "Grön jord Böhmen",
+    kremer_match = "Green Earth Bohemian (PG23)",
+    kremer_id = "40850",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40850-green-earth-bohemian",
+    notes = "EXAKT MATCHNING - Samma produktnummer! Böhmisk grön jord från Kremer."
+  ),
+  
+  "40860" = list(
+    name = "Grön jord Verona",
+    kremer_match = "Green Earth Verona (PG23)",
+    kremer_id = "40860",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40860-green-earth-verona",
+    notes = "EXAKT MATCHNING - Samma produktnummer! Veronese grön jord från Kremer."
+  ),
   
   # BLACKS
-  "44450" = "https://www.kremer-pigmente.com/en/shop/pigments/47000-black-iron-oxide",
+  "44450" = list(
+    name = "Svartoxid PBk11",
+    kremer_match = "Black Iron Oxide (PBk11)",
+    kremer_id = "47000",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/47000-black-iron-oxide",
+    ottosson_match = "Järnoxidsvart",
+    ottosson_url = "https://ottossonfarg.com/produkt/jarnoxidsvart/",
+    claessons_match = "Järnoxidsvart 9313",
+    claessons_url = "https://claessons.com/svarta/jarnoxidsvart-9313-losvikt/",
+    notes = "Järnoxidsvart med hög täckförmåga. Finns hos Kremer, Ottosson och Claessons."
+  ),
   
   # BLUES
-  "11670" = "https://www.kremer-pigmente.com/en/shop/pigments/23060-phthalo-blue-royal-blue-pb-15-3",
+  "11670" = list(
+    name = "Phthaloblå PB15:3",
+    kremer_match = "Phthalo Blue Royal Blue (PB15:3)",
+    kremer_id = "23060",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/23060-phthalo-blue-royal-blue-pb-15-3",
+    notes = "Royal blue variant av phthaloblått med hög färgstyrka. Organiskt pigment."
+  ),
   
-  # EARTH COLORS - TERRA
-  "40820" = "https://www.kremer-pigmente.com/en/shop/pigments/41550-terra-pozzuoli",
-  "40800" = "https://www.kremer-pigmente.com/en/shop/pigments/40400-raw-sienna-italian",
-  "40830" = "https://www.kremer-pigmente.com/en/shop/pigments/40835-terra-di-ercolano",
+  # EARTH COLORS - TERRA & POZZUOLI
+  "40820" = list(
+    name = "Terra di Pozzuoli",
+    kremer_match = "Terra Pozzuoli (PY43)",
+    kremer_id = "41550",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/41550-terra-pozzuoli",
+    notes = "Italiensk vulkanisk jord från Pozzuoli. Speciellt pigment från Kremer."
+  ),
+  
+  "40800" = list(
+    name = "Terra di Siena natur",
+    kremer_match = "Raw Sienna Italian (PBr7)",
+    kremer_id = "40400",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40400-raw-sienna-italian",
+    notes = "Klassisk obränd sienna från Italien. Naturligt jordpigment."
+  ),
+  
+  "40830" = list(
+    name = "Terra di Ercolano",
+    kremer_match = "Terra di Ercolano (PBr7)",
+    kremer_id = "40835",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40835-terra-di-ercolano",
+    notes = "EXAKT MATCHNING - Terra från Herculaneum. Italienskt specialpigment."
+  ),
   
   # YELLOWS & OCHRES
-  "44082" = "https://www.kremer-pigmente.com/en/shop/pigments/40010-yellow-ochre-light",
-  "44086" = "https://www.kremer-pigmente.com/en/shop/pigments/40030-yellow-ochre-dark",
-  "44150" = "https://www.kremer-pigmente.com/en/shop/pigments/43010-naples-yellow-light",
-  "44160" = "https://www.kremer-pigmente.com/en/shop/pigments/43000-naples-yellow-dark",
+  "44082" = list(
+    name = "Gul ockra ljus",
+    kremer_match = "Yellow Ochre Light (PY43)",
+    kremer_id = "40010",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40010-yellow-ochre-light",
+    ottosson_match = "Gul ockra",
+    ottosson_url = "https://ottossonfarg.com/produkt/gul-ockra/",
+    notes = "Ljus gul ockra, ett av de mest använda pigmenten i svensk tradition."
+  ),
+  
+  "44086" = list(
+    name = "Gul ockra mörk",
+    kremer_match = "Yellow Ochre Dark (PY43)",
+    kremer_id = "40030",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40030-yellow-ochre-dark",
+    notes = "Mörk gul ockra med högre färgstyrka än ljus variant."
+  ),
+  
+  "44150" = list(
+    name = "Naples Yellow light",
+    kremer_match = "Naples Yellow Light (PY41/PW4)",
+    kremer_id = "43010",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/43010-naples-yellow-light",
+    notes = "Ljus neapelgul, blybaserad variant. Historiskt pigment."
+  ),
+  
+  "44160" = list(
+    name = "Naples Yellow dark",
+    kremer_match = "Naples Yellow Dark (PY41/PW4)",
+    kremer_id = "43000",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/43000-naples-yellow-dark",
+    notes = "Mörk neapelgul, blybaserad variant. Historiskt pigment."
+  ),
   
   # SIENNAS
-  "44650" = "https://www.kremer-pigmente.com/en/shop/pigments/40400-raw-sienna-italian",
-  "44620" = "https://www.kremer-pigmente.com/en/shop/pigments/40450-burnt-sienna-italian",
+  "44650" = list(
+    name = "Raw Sienna Italien",
+    kremer_match = "Raw Sienna Italian (PBr7)",
+    kremer_id = "40400",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40400-raw-sienna-italian",
+    notes = "Klassisk obränd sienna från Italien. Naturligt jordpigment."
+  ),
+  
+  "44620" = list(
+    name = "Burnt Sienna Italien",
+    kremer_match = "Burnt Sienna Italian (PR101)",
+    kremer_id = "40450",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40450-burnt-sienna-italian",
+    ottosson_match = "Järnoxidrött bränd",
+    ottosson_url = "https://ottossonfarg.com/produkt/jarnoxidrott-brand/",
+    notes = "Bränd sienna med varm rödbrun nyans. Liknande bränt järnoxid."
+  ),
   
   # REDS & ORANGES - IRON OXIDES
-  "44300" = "https://www.kremer-pigmente.com/en/shop/pigments/48000-transparent-brown-oxide",
-  "44200" = "https://www.kremer-pigmente.com/en/shop/pigments/48100-red-iron-oxide-transparent",
-  "44210" = "https://www.kremer-pigmente.com/en/shop/pigments/48200-red-iron-oxide-light",
-  "44220" = "https://www.kremer-pigmente.com/en/shop/pigments/48300-red-iron-oxide-dark",
-  "44510" = "https://www.kremer-pigmente.com/en/shop/pigments/48500-orange-iron-oxide"
+  "44300" = list(
+    name = "Transparent brunoxid",
+    kremer_match = "Transparent Brown Oxide (PBr7)",
+    kremer_id = "48000",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48000-transparent-brown-oxide",
+    notes = "Transparent järnoxid för lasering och transparenta skikt."
+  ),
+  
+  "44200" = list(
+    name = "Röd järnoxid transparent",
+    kremer_match = "Red Iron Oxide Transparent (PR101)",
+    kremer_id = "48100",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48100-red-iron-oxide-transparent",
+    notes = "Transparent röd järnoxid för lasering och transparenta skikt."
+  ),
+  
+  "44210" = list(
+    name = "Röd järnoxid ljus",
+    kremer_match = "Red Iron Oxide Light (PR101)",
+    kremer_id = "48200",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48200-red-iron-oxide-light",
+    ottosson_match = "Järnoxidrött ljus",
+    ottosson_url = "https://ottossonfarg.com/produkt/jarnoxidrott-ljus/",
+    claessons_match = "Järnoxidrött 9509",
+    claessons_url = "https://claessons.com/roda/jarnoxidrott-9509/",
+    notes = "Ljus röd järnoxid med god täckförmåga. Klassisk svensk rödfärgsnyans."
+  ),
+  
+  "44220" = list(
+    name = "Röd järnoxid mörk",
+    kremer_match = "Red Iron Oxide Dark (PR101)",
+    kremer_id = "48300",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48300-red-iron-oxide-dark",
+    ottosson_match = "Järnoxidrött mörk",
+    ottosson_url = "https://ottossonfarg.com/produkt/jarnoxidrott-mork/",
+    notes = "Mörk röd järnoxid med hög färgstyrka och täckförmåga."
+  ),
+  
+  "44510" = list(
+    name = "Orange järnoxid",
+    kremer_match = "Orange Iron Oxide (PO20)",
+    kremer_id = "48500",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48500-orange-iron-oxide",
+    notes = "Orange järnoxid för varma toner mellan gult och rött."
+  )
 )
 
 # KREMER MATCHES FOR RAÄ PIGMENTS
@@ -287,7 +458,7 @@ raa_kremer_matches <- list(
     name = "Kromoxidgrönt nr GN 83 (RAÄ)",
     kremer_match = "Chrome Oxide Green (PG17)",
     kremer_id = "44200",
-    url = "https://www.kremer-pigmente.com/en/shop/pigments/44200-chrome-oxide-green",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/44200-chrome-oxide-green",
     notes = "Kall grön, opak, samma pigmenttyp (PG17). MYCKET GOD MATCHNING - samma krompigment som RAÄ använder."
   ),
   
@@ -295,7 +466,7 @@ raa_kremer_matches <- list(
     name = "Zinkgrönt nr 65 (RAÄ)",
     kremer_match = "Cobalt Green Dark (PG19) or Cobalt Zinc Silicate",
     kremer_id = "44350",
-    url = "https://www.kremer-pigmente.com/en/shop/pigments/44350-cobalt-green-dark",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/44350-cobalt-green-dark",
     notes = "Zinkbaserad grön, närmaste matchning för traditionell zinkgrön"
   ),
   
@@ -303,7 +474,7 @@ raa_kremer_matches <- list(
     name = "Grön umbra nr 30 (RAÄ)",
     kremer_match = "Raw Umber, greenish (PBr8)",
     kremer_id = "40630",
-    url = "https://www.kremer-pigmente.com/en/shop/pigments/40630-raw-umber-greenish",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40630-raw-umber-greenish",
     notes = "Tysk obränd umbra med grönaktig nyans"
   ),
   
@@ -312,16 +483,22 @@ raa_kremer_matches <- list(
     name = "Järnoxidsvart nr 318 (RAÄ)",
     kremer_match = "Iron Oxide Black 318 (PBk11)",
     kremer_id = "48400",
-    url = "https://www.kremer-pigmente.com/en/shop/pigments/48400-iron-oxide-black-318-high-tinting",
-    notes = "EXAKT MATCHNING - Samma produktnummer 318! Identiskt pigment."
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48400-iron-oxide-black-318-high-tinting",
+    ottosson_match = "Järnoxidsvart",
+    ottosson_url = "https://ottossonfarg.com/produkt/jarnoxidsvart/",
+    claessons_match = "Järnoxidsvart CM-5D",
+    claessons_url = "https://claessons.com/svarta/jarnoxidsvart-cm-5d-1-kg/",
+    notes = "EXAKT MATCHNING - Samma produktnummer 318! Finns hos Kremer, Ottosson och Claessons."
   ),
   
   "BS98" = list(
     name = "Bensvart nr 98 (RAÄ)",
     kremer_match = "Bone Black (PBk9)",
     kremer_id = "47100",
-    url = "https://www.kremer-pigmente.com/en/shop/pigments/47100-bone-black",
-    notes = "Traditionell bensvart, tillverkad av ben. MYCKET GOD MATCHNING - samma pigment (PBk9) som RAÄ."
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/47100-bone-black",
+    ottosson_match = "Bensvart",
+    ottosson_url = "https://ottossonfarg.com/produkt/bensvart/",
+    notes = "Traditionell bensvart från ben. MYCKET GOD MATCHNING - finns hos både Kremer och svenska leverantörer."
   ),
   
   # BLUES
@@ -329,7 +506,7 @@ raa_kremer_matches <- list(
     name = "Ultramarinblått nr 88 (RAÄ)",
     kremer_match = "Ultramarine Blue, very dark (PB29)",
     kremer_id = "45000",
-    url = "https://www.kremer-pigmente.com/en/shop/pigments/45000-ultramarine-blue-very-dark",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/45000-ultramarine-blue-very-dark",
     notes = "Djupt ultramarin, matchar mörkt NCS-värde. MYCKET GOD MATCHNING - samma pigment (PB29)."
   ),
   
@@ -337,7 +514,7 @@ raa_kremer_matches <- list(
     name = "Koboltblått nr 28 (RAÄ)",
     kremer_match = "Cobalt Blue Medium (PB28)",
     kremer_id = "45710",
-    url = "https://www.kremer-pigmente.com/en/shop/pigments/45710-cobalt-blue-medium",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/45710-cobalt-blue-medium",
     notes = "Mellannyans koboltblått med violett underton"
   ),
   
@@ -346,7 +523,7 @@ raa_kremer_matches <- list(
     name = "Bränd terra nr 44 (RAÄ)",
     kremer_match = "Burnt Sienna, Italian (PR101)",
     kremer_id = "44620",
-    url = "https://www.kremer-pigmente.com/en/shop/pigments/40450-burnt-sienna-italian",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40450-burnt-sienna-italian",
     notes = "Bränd röd jord, liknande bränd terra"
   ),
   
@@ -354,7 +531,7 @@ raa_kremer_matches <- list(
     name = "Obränd terra nr 46 (RAÄ)",
     kremer_match = "Raw Sienna, Italian (PY43)",
     kremer_id = "40400",
-    url = "https://www.kremer-pigmente.com/en/shop/pigments/40400-raw-sienna-italian",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40400-raw-sienna-italian",
     notes = "Naturlig gulbrun jord"
   ),
   
@@ -363,7 +540,7 @@ raa_kremer_matches <- list(
     name = "Järnoxidgult nr 920 (RAÄ)",
     kremer_match = "Yellow Ochre, dark (PY42/43)",
     kremer_id = "40030",
-    url = "https://www.kremer-pigmente.com/en/shop/pigments/40030-yellow-ochre-dark",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40030-yellow-ochre-dark",
     notes = "Mörkare gulockra med god mättnad"
   ),
   
@@ -371,7 +548,7 @@ raa_kremer_matches <- list(
     name = "Ljusockra nr 92 (RAÄ)",
     kremer_match = "Yellow Ochre, light (PY42/43)",
     kremer_id = "40010",
-    url = "https://www.kremer-pigmente.com/en/shop/pigments/40010-yellow-ochre-light",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40010-yellow-ochre-light",
     notes = "Ljus gulockra"
   ),
   
@@ -379,15 +556,17 @@ raa_kremer_matches <- list(
     name = "Guldockra nr 94 (RAÄ)",
     kremer_match = "Yellow Ochre Golden, Italian (PY43)",
     kremer_id = "40015",
-    url = "https://www.kremer-pigmente.com/en/shop/pigments/40015-yellow-ochre-golden-italian",
-    notes = "Guldtonad ockra, varmare än ljusockra"
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40015-yellow-ochre-golden-italian",
+    ottosson_match = "Guldockra",
+    ottosson_url = "https://ottossonfarg.com/produkt/guldockra/",
+    notes = "Guldtonad ockra, varmare än ljusockra. Klassiskt svensk pigment."
   ),
   
   "GO94_GU30" = list(
     name = "50% Guldockra + 50% Grön umbra (RAÄ)",
     kremer_match = "Mix Yellow Ochre Golden + Raw Umber greenish",
     kremer_id = "40015 + 40630",
-    url = c(
+    kremer_url = c(
       "https://www.kremer-pigmente.com/en/shop/pigments/40015-yellow-ochre-golden-italian",
       "https://www.kremer-pigmente.com/en/shop/pigments/40630-raw-umber-greenish"
     ),
@@ -399,7 +578,7 @@ raa_kremer_matches <- list(
     name = "Obränd umbra nr 103 (RAÄ)",
     kremer_match = "Raw Umber, Cyprus (PBr8)",
     kremer_id = "40610",
-    url = "https://www.kremer-pigmente.com/en/shop/pigments/40610-raw-umber",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40610-raw-umber",
     notes = "Traditionell cypriotisk obränd umbra, mörkbrun-grön. MYCKET GOD MATCHNING - samma pigment (PBr8)."
   ),
   
@@ -407,15 +586,19 @@ raa_kremer_matches <- list(
     name = "Bränd umbra nr 100 (RAÄ)",
     kremer_match = "Burnt Umber, dark brown (PBr7)",
     kremer_id = "40720",
-    url = "https://www.kremer-pigmente.com/en/shop/pigments/40720-burnt-umber-dark-brown",
-    notes = "Cypriotisk bränd umbra, mycket mörk. MYCKET GOD MATCHNING - samma pigment (PBr7)."
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40720-burnt-umber-dark-brown",
+    ottosson_match = "Umbra bränd",
+    ottosson_url = "https://ottossonfarg.com/produkt/umbra-brand/",
+    claessons_match = "Bränd umbra 1783",
+    claessons_url = "https://claessons.com/umbra/brand-umbra-1783-25-kg/",
+    notes = "Cypriotisk bränd umbra, mycket mörk. Finns hos Kremer, Ottosson och Claessons."
   ),
   
   "BRU39" = list(
     name = "Brun umbra nr 39 (RAÄ)",
     kremer_match = "Burnt Umber, reddish (PBr7)",
     kremer_id = "40700",
-    url = "https://www.kremer-pigmente.com/en/shop/pigments/40700-burnt-umber-reddish",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40700-burnt-umber-reddish",
     notes = "Italiensk rödaktig bränd umbra, varmare ton"
   ),
   
@@ -423,7 +606,7 @@ raa_kremer_matches <- list(
     name = "Grå umbra nr 36 (RAÄ)",
     kremer_match = "Raw Umber, dark + small amount of blue pigment",
     kremer_id = "40660",
-    url = "https://www.kremer-pigmente.com/en/shop/pigments/40660-raw-umber-dark",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40660-raw-umber-dark",
     notes = "Använd Raw Umber dark; tillsätt en nypa ultramarin för gråton"
   ),
   
@@ -432,7 +615,7 @@ raa_kremer_matches <- list(
     name = "Järnoxidrött nr 225 (RAÄ)",
     kremer_match = "Red Iron Oxide, medium (PR101)",
     kremer_id = "48200",
-    url = "https://www.kremer-pigmente.com/en/shop/pigments/48200-red-iron-oxide-medium",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48200-red-iron-oxide-medium",
     notes = "Mellannyans röd järnoxid"
   ),
   
@@ -440,7 +623,7 @@ raa_kremer_matches <- list(
     name = "Caput Mortuum 180M (RAÄ)",
     kremer_match = "Caput Mortuum Violet (PR101)",
     kremer_id = "48280",
-    url = "https://www.kremer-pigmente.com/en/shop/pigments/48280-caput-mortuum-violet",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48280-caput-mortuum-violet",
     notes = "Mörkt lila-brunt järnoxid, klassiskt caput mortuum"
   ),
   
@@ -448,7 +631,7 @@ raa_kremer_matches <- list(
     name = "Järnoxidrött nr 120N (RAÄ)",
     kremer_match = "Red Iron Oxide, light (PR101)",
     kremer_id = "48220",
-    url = "https://www.kremer-pigmente.com/en/shop/pigments/48220-red-iron-oxide-light",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48220-red-iron-oxide-light",
     notes = "Ljusare rött järnoxid"
   ),
   
@@ -456,7 +639,7 @@ raa_kremer_matches <- list(
     name = "Engelskt rött nr 48A (RAÄ)",
     kremer_match = "English Red (PR101)",
     kremer_id = "42100",
-    url = "https://www.kremer-pigmente.com/en/shop/pigments/42100-english-red",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/42100-english-red",
     notes = "Traditionellt engelskt rött, ljust orange-rött järnoxid"
   ),
   
@@ -465,7 +648,7 @@ raa_kremer_matches <- list(
     name = "Järnoxidbrunt nr 663 (RAÄ)",
     kremer_match = "Brown Iron Oxide 610 (PBr6/7)",
     kremer_id = "48610",
-    url = "https://www.kremer-pigmente.com/en/shop/pigments/48610-brown-iron-oxide-610",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48610-brown-iron-oxide-610",
     notes = "Syntetiskt brunt järnoxid, mycket mörkt"
   ),
   
@@ -473,7 +656,7 @@ raa_kremer_matches <- list(
     name = "Järnoxidbrunt nr 686 (RAÄ)",
     kremer_match = "Brown Iron Oxide 686 (PBr6/7)",
     kremer_id = "48686",
-    url = "https://www.kremer-pigmente.com/en/shop/pigments/48686-brown-iron-oxide-686",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48686-brown-iron-oxide-686",
     notes = "EXAKT MATCHNING - Samma produktnummer 686, troligen identiskt pigment."
   )
 )
@@ -493,7 +676,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "#", class = "version-text", "version 0.3.4")
+      tags$a(href = "#", class = "version-text", "version 0.3.7")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -897,14 +1080,107 @@ server <- function(input, output, session) {
     filename = function() paste0("fargrecept_", Sys.Date(), ".txt"),
     content = function(file) {
       df <- recipe_df()
+      recipe <- final_recipe()
+      
       txt <- paste0("Paint-o-matic – recept ", Sys.Date(), "\n\n",
                     "Färgkod: ", final_hex(), "\n",
                     "Yta: ", format_swe(values$area, 0), " m²\n\n")
+      
+      # Recipe ingredients
       for(i in 1:nrow(df)) {
-        # Format gram values with Swedish decimals
         gram_val <- format_swe(parse_numeric(df[i,2]), 1)
         txt <- paste0(txt, df[i,1], ": ", gram_val, " g\n")
       }
+      
+      # Add sourcing section
+      txt <- paste0(txt, "\n", strrep("=", 60), "\n")
+      txt <- paste0(txt, "PIGMENTKÄLLOR\n")
+      txt <- paste0(txt, strrep("=", 60), "\n\n")
+      
+      # Collect all pigment IDs used in recipe
+      pigment_ids <- c()
+      if(recipe$zn > 0.1) pigment_ids <- c(pigment_ids, "44100")
+      if(recipe$ti > 0.1) pigment_ids <- c(pigment_ids, "44400")
+      if(length(recipe$color) > 0) pigment_ids <- c(pigment_ids, names(recipe$color))
+      
+      # Add supplier links for each pigment
+      suppliers_found <- FALSE
+      for(id in pigment_ids) {
+        # Check both raa_kremer_matches and kremer_links
+        match_info <- NULL
+        if(id %in% names(raa_kremer_matches)) {
+          match_info <- raa_kremer_matches[[id]]
+        } else if(id %in% names(kremer_links)) {
+          match_info <- kremer_links[[id]]
+        }
+        
+        if(!is.null(match_info)) {
+          suppliers_found <- TRUE
+          
+          txt <- paste0(txt, km[[id]]$name, "\n")
+          
+          # Kremer Pigmente
+          if(!is.null(match_info$kremer_match)) {
+            txt <- paste0(txt, "  Kremer Pigmente:\n")
+            txt <- paste0(txt, "    - Matchning: ", match_info$kremer_match, "\n")
+            txt <- paste0(txt, "    - Produkt-ID: ", match_info$kremer_id, "\n")
+            
+            # Handle multiple URLs (e.g., for GO94_GU30)
+            if(length(match_info$kremer_url) > 1) {
+              txt <- paste0(txt, "    - Webbadresser:\n")
+              for(url in match_info$kremer_url) {
+                txt <- paste0(txt, "      ", url, "\n")
+              }
+            } else {
+              txt <- paste0(txt, "    - Webbadress: ", match_info$kremer_url, "\n")
+            }
+          }
+          
+          # Ottosson Färgmakeri
+          if(!is.null(match_info$ottosson_match)) {
+            txt <- paste0(txt, "  Ottosson Färgmakeri (Sverige):\n")
+            txt <- paste0(txt, "    - Produkt: ", match_info$ottosson_match, "\n")
+            txt <- paste0(txt, "    - Webbadress: ", match_info$ottosson_url, "\n")
+          }
+          
+          # Claessons Trätjära
+          if(!is.null(match_info$claessons_match)) {
+            txt <- paste0(txt, "  Claessons Trätjära (Sverige):\n")
+            txt <- paste0(txt, "    - Produkt: ", match_info$claessons_match, "\n")
+            txt <- paste0(txt, "    - Webbadress: ", match_info$claessons_url, "\n")
+          }
+          
+          # Gysinge
+          if(!is.null(match_info$gysinge_match)) {
+            txt <- paste0(txt, "  Gysinge (Sverige):\n")
+            txt <- paste0(txt, "    - Produkt: ", match_info$gysinge_match, "\n")
+            txt <- paste0(txt, "    - Webbadress: ", match_info$gysinge_url, "\n")
+          }
+          
+          txt <- paste0(txt, "  Notering: ", match_info$notes, "\n\n")
+        }
+      }
+      
+      # Add general supplier info
+      if(suppliers_found) {
+        txt <- paste0(txt, strrep("-", 60), "\n")
+        txt <- paste0(txt, "LEVERANTÖRER\n\n")
+        txt <- paste0(txt, "Kremer Pigmente GmbH & Co. KG (Tyskland)\n")
+        txt <- paste0(txt, "  Webbplats: https://www.kremer-pigmente.com/en/shop/pigments\n")
+        txt <- paste0(txt, "  Internationell leverantör av högkvalitativa pigment\n\n")
+        txt <- paste0(txt, "Ottosson Färgmakeri (Sverige)\n")
+        txt <- paste0(txt, "  Webbplats: https://ottossonfarg.com/\n")
+        txt <- paste0(txt, "  Svensktillverkad linoljefärg och pigment\n\n")
+        txt <- paste0(txt, "Claessons Trätjära (Sverige)\n")
+        txt <- paste0(txt, "  Webbplats: https://claessons.com/pigment/\n")
+        txt <- paste0(txt, "  Byggnadsvård och pigment\n\n")
+        txt <- paste0(txt, "Andra svenska leverantörer:\n")
+        txt <- paste0(txt, "  - Gysinge: https://gysinge.se/\n")
+      } else {
+        txt <- paste0(txt, "Inga leverantörslänkar tillgängliga för dessa pigment.\n")
+        txt <- paste0(txt, "Kontakta Kremer Pigmente, Ottosson, Claessons eller Gysinge.\n")
+      }
+      
       writeLines(txt, file, useBytes = TRUE)
     }
   )

@@ -210,6 +210,19 @@ rgb <- list(
   "J686" = c(41, 31, 28)         # Järnoxidbrunt nr 686 - NCS 8405-Y73R
 )
 
+# === GAMMA CORRECTION FOR sRGB DISPLAY ===
+# NCS->RGB conversion produces linear RGB values, but web browsers expect sRGB
+# Apply gamma correction (γ=1.6) to brighten colors and fix dark/greenish appearance
+rgb_original <- rgb  # Keep original for reference
+rgb <- lapply(rgb, function(color) {
+  # Skip pure white (already correct)
+  if(all(color == 255)) return(color)
+  # Apply gamma correction: sRGB = linear^(1/gamma)
+  linear <- color / 255
+  srgb <- (linear ^ (1/1.6)) * 255
+  return(round(srgb))
+})
+
 # RAÄ KULTURKULÖR PIGMENTS
 # Updated to include all RAÄ pigments with harmonized keys and NCS-based RGB values
 raa_pigments <- c(
@@ -739,7 +752,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.5.2, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.5.3, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),

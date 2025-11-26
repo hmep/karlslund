@@ -676,7 +676,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "#", class = "version-text", "version 0.3.7")
+      tags$a(href = "#", class = "version-text", "version 0.3.8")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -711,7 +711,7 @@ ui <- dashboardPage(
     ")),
     
     hidden(div(id="step1", class="step",
-               h2("Steg 1 – Blanda pigment"),
+               h2("Blanda pigment"),
                fluidRow(
                  column(6,
                         checkboxInput("raa_only", "Visa endast Kulturkulör-pigment (RAÄ)", TRUE),
@@ -737,12 +737,12 @@ ui <- dashboardPage(
                  )
                ),
                hr(),
-               actionButton("to_step2","Nästa: Blanda vitbas", class="btn-primary next-btn"),
+               actionButton("to_step2","Nästa steg", class="btn-primary next-btn"),
                div(class="footer-ref", "Masstone baserad på Kulturkulör NCS-koder från Riksantikvarieämbetet (RAÄ) och data från Kremer Pigmente")
     )),
     
     hidden(div(id="step2", class="step",
-               h2("Steg 2 – Blanda vitbas"),
+               h2("Blanda vitbas"),
                fluidRow(column(
                  12,
                  p(
@@ -761,13 +761,13 @@ ui <- dashboardPage(
                  sliderInput("zinc_ratio","Zinkvitt i vitbas (%)",0,100,15,5,post="% zinkoxid"),
                ), ),
                hr(),
-               actionButton("back1","Föregående: Blanda pigment", class="btn-default back-btn"),
-               actionButton("to_step3","Nästa: Beräkna mängd linolja", class="btn-primary next-btn"),
+               actionButton("back1","Föregående steg", class="btn-default back-btn"),
+               actionButton("to_step3","Nästa steg", class="btn-primary next-btn"),
                div(class="footer-ref", "Kubelka-Munk-funktionen används för att bibehålla färgande pigments styrka i vitbasen konstant")
     )),
     
     hidden(div(id="step3", class="step",
-               h2("Steg 3 – Beräkna mängd linolja"),
+               h2("Beräkna mängd linolja"),
                fluidRow(
                  column(6,class="rmargin-box",
                         numericInput("area","Yta att måla (m²)",10,1,2000,1),
@@ -795,7 +795,7 @@ ui <- dashboardPage(
                  )
                ),
                hr(),
-               actionButton("back2","Föregående: Blanda vitbas", class="btn-default back-btn"),
+               actionButton("back2","Föregående steg", class="btn-default back-btn"),
                actionButton("restart","Börja om från början", class="btn-default"),
                div(class="footer-ref", "Åtgång per m²: data från RAÄ Byggnadsvård, m. fl., uppskattningarna är ungefärliga")
     ))

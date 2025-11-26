@@ -143,7 +143,7 @@ km <- list(
 # Conversions performed using NCS color theory algorithm (blackness, chromaticness, hue)
 # NCS codes sourced from RAÄ "Vårda väl" PDFs (Riksantikvarieämbetet 2013-2014)
 # Non-RAÄ pigments use industry-standard color values
-rgb <- list(
+rgboff <- list(
   # WHITES
   "vitbas" = c(255, 255, 255),
   "44100" = c(255, 255, 255),
@@ -210,6 +210,49 @@ rgb <- list(
   "J686" = c(41, 31, 28)         # Järnoxidbrunt nr 686 - NCS 8405-Y73R
 )
 
+rgb <- list(
+  
+  # WHITES
+  "vitbas" = c(255, 255, 255),
+  "44100" = c(255, 255, 255),
+  "44400" = c(255, 255, 255),
+  
+  # GRÖNA
+  "KG83"   = c(74, 117, 82),    # Kromoxidgrönt GN 83        → #4A7552
+  "ZG65"   = c(110, 145, 105),  # Zinkgrönt nr 65            → #6E9169
+  "GU30"   = c(95, 100, 70),    # Grön umbra nr 30           → #5F6446
+  
+  # SVARTA
+  "J318"   = c(35, 35, 38),     # Järnoxidsvart nr 318       → #232326
+  "BS98"   = c(28, 28, 32),     # Bensvart nr 98             → #1C1C20
+  
+  # BLÅ
+  "UB88"   = c(45, 60, 130),    # Ultramarinblått nr 88      → #2D3C82
+  "KB28"   = c(70, 95, 155),    # Koboltblått nr 28          → #465F9B
+  
+  # GULA & OCKROR
+  "J920"   = c(195, 165, 85),   # Järnoxidgult nr 920        → #C3A555
+  "LO92"   = c(210, 185, 135),  # Ljusockra nr 92            → #D2B987
+  "GO94"   = c(185, 155, 90),   # Guldockra nr 94            → #B99B5A
+  "GO94_GU30" = c(135, 130, 85),# 50 % GO94 + 50 % GU30     → #878255 (RAÄ:s egen blandning)
+  
+  # RÖDA
+  "J225"   = c(142, 52, 52),    # Järnoxidrött nr 225        → #8E3434
+  "J180M"  = c(105, 45, 55),    # Caput Mortuum nr 180M      → #692D37
+  "J120N"  = c(155, 65, 60),    # Järnoxidrött nr 120N       → #9B413C
+  "ER48A"  = c(175, 80, 70),    # Engelskt rött nr 48A       → #AF5046
+  
+  # BRUNA & UMBROR
+  "BT44"   = c(170, 110, 70),   # Bränd terra nr 44          → #AA6E46
+  "OT46"   = c(180, 130, 80),   # Obränd terra nr 46         → #B48250
+  "OU103"  = c(115, 95, 80),    # Obränd umbra nr 103        → #735F50
+  "BU100"  = c(90, 60, 45),     # Bränd umbra nr 100         → #5A3C2D
+  "BRU39"  = c(105, 85, 70),    # Brun umbra nr 39           → #695546
+  "GRAU36" = c(100, 95, 90),    # Grå umbra nr 36            → #645F5A
+  "J663"   = c(120, 80, 60),    # Järnoxidbrunt nr 663       → #78503C
+  "J686"   = c(105, 70, 55),    # Järnoxidbrunt nr 686       → #694637
+  "J318"   = c(35, 35, 38)      # Järnoxidsvart nr 318 (används också som djupsvart bas)
+)
 # === GAMMA CORRECTION FOR sRGB DISPLAY ===
 # NCS->RGB conversion produces linear RGB values, but web browsers expect sRGB
 # Apply gamma correction (γ=1.6) to brighten colors and fix dark/greenish appearance
@@ -219,7 +262,7 @@ rgb <- lapply(rgb, function(color) {
   if(all(color == 255)) return(color)
   # Apply gamma correction: sRGB = linear^(1/gamma)
   linear <- color / 255
-  srgb <- (linear ^ (1/1.6)) * 255
+  srgb <- (linear ^ (1/1)) * 255 # 1.6
   return(round(srgb))
 })
 
@@ -752,7 +795,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.5.7, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.5.7-rgbtest, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),

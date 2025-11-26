@@ -33,7 +33,7 @@ jobs:
 
       - name: Install R packages
         run: |
-          Rscript -e "install.packages(c('shiny','shinydashboard','shinyjs','rsconnect'), repos='https://cran.r-project.org')"
+          Rscript -e "install.packages(c('shiny','shinydashboard','shinyjs','shinyWidgets','rsconnect'), repos='https://cran.r-project.org')"
 
       - name: Deploy to shinyapps.io
         env:

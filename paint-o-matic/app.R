@@ -493,7 +493,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "#", class = "version-text", "version 0.3.2")
+      tags$a(href = "#", class = "version-text", "version 0.3.3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -535,13 +535,13 @@ ui <- dashboardPage(
                         pickerInput("p1", "Pigment 1", choices = all_choices, selected = "vitbas",
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),
                         conditionalPanel("input.p1", sliderInput("pct1","Andel (%)",0,100,70,1)),
-                        pickerInput("p2", "Pigment 2", choices = all_choices, selected = character(0),
+                        pickerInput("p2", "Pigment 2", choices = all_choices, selected = "",
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),
                         conditionalPanel("input.p2", sliderInput("pct2","Andel (%)",0,100,0,1)),
-                        pickerInput("p3", "Pigment 3", choices = all_choices, selected = character(0),
+                        pickerInput("p3", "Pigment 3", choices = all_choices, selected = "",
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),
                         conditionalPanel("input.p3", sliderInput("pct3","Andel (%)",0,100,0,1)),
-                        pickerInput("p4", "Pigment 4", choices = all_choices, selected = character(0),
+                        pickerInput("p4", "Pigment 4", choices = all_choices, selected = "",
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),
                         conditionalPanel("input.p4", sliderInput("pct4","Andel (%)",0,100,0,1)),
                         actionButton("reset_pigments", "Nollställ pigment", class="btn-default"),
@@ -629,9 +629,9 @@ server <- function(input, output, session) {
   # Reset pigments
   observeEvent(input$reset_pigments, {
     updatePickerInput(session, "p1", selected = "vitbas")
-    updatePickerInput(session, "p2", selected = character(0))
-    updatePickerInput(session, "p3", selected = character(0))
-    updatePickerInput(session, "p4", selected = character(0))
+    updatePickerInput(session, "p2", selected = "")  # Empty string instead of character(0)
+    updatePickerInput(session, "p3", selected = "")  # Empty string instead of character(0)
+    updatePickerInput(session, "p4", selected = "")  # Empty string instead of character(0)
     updateSliderInput(session, "pct1", value = 70)
     updateSliderInput(session, "pct2", value = 0)
     updateSliderInput(session, "pct3", value = 0)
@@ -653,13 +653,37 @@ server <- function(input, output, session) {
   mix <- reactive({
     ids <- c(input$p1, input$p2, input$p3, input$p4)
     pct <- c(input$pct1 %||% 0, input$pct2 %||% 0, input$pct3 %||% 0, input$pct4 %||% 0)
-    # Additional safety: check each id individually
+    
+    # Filter: must have valid ID AND percentage > 0
     valid <- sapply(seq_along(ids), function(i) {
-      !is.na(ids[i]) && !is.null(ids[i]) && length(ids[i]) > 0 && ids[i] != "" && pct[i] > 0
+      !is.na(ids[i]) && 
+        !is.null(ids[i]) && 
+        length(ids[i]) > 0 && 
+        nchar(as.character(ids[i])) > 0 &&  # Extra check for empty strings
+        ids[i] != "" && 
+        !is.na(pct[i]) &&
+        pct[i] > 0
     })
-    total <- sum(pct[valid])
-    list(ids = ids[valid], pct = pct[valid], total = ifelse(total==0,1,total),
-         has_white = "vitbas" %in% ids[valid])
+    
+    ids_valid <- ids[valid]
+    pct_valid <- pct[valid]
+    
+    # Remove duplicates: if same pigment appears multiple times, sum the percentages
+    if(length(ids_valid) > 0) {
+      unique_ids <- unique(ids_valid)
+      if(length(unique_ids) < length(ids_valid)) {
+        # There are duplicates - combine them
+        combined_pct <- sapply(unique_ids, function(id) {
+          sum(pct_valid[ids_valid == id])
+        })
+        ids_valid <- unique_ids
+        pct_valid <- combined_pct
+      }
+    }
+    
+    total <- sum(pct_valid)
+    list(ids = ids_valid, pct = pct_valid, total = ifelse(total==0,1,total),
+         has_white = "vitbas" %in% ids_valid)
   })
   
   current_color <- reactive({
@@ -681,10 +705,20 @@ server <- function(input, output, session) {
   output$total_warning <- renderUI({
     m <- mix()
     if (m$total > 100 && length(m$ids) > 0) {
-      normalized <- round((m$pct / m$total) * 100, 1)
-      pigment_names <- sapply(m$ids, function(id) km[[id]]$name)
-      # Format with Swedish decimals
-      normalized_swe <- sapply(normalized, function(x) format_swe(x, 1))
+      # Calculate normalized percentages
+      normalized <- (m$pct / m$total) * 100
+      
+      # Filter out any entries with 0 or near-0 normalized percentages
+      keep <- normalized > 0.05
+      if(sum(keep) == 0) return(NULL)
+      
+      ids_filtered <- m$ids[keep]
+      normalized_filtered <- round(normalized[keep], 1)
+      
+      # Get pigment names and format
+      pigment_names <- sapply(ids_filtered, function(id) km[[id]]$name)
+      normalized_swe <- sapply(normalized_filtered, function(x) format_swe(x, 1))
+      
       text_lines <- paste0(pigment_names, ": ", normalized_swe, " %", collapse = " • ")
       icon_type <- "exclamation-triangle"
       color <- "#ddd"

@@ -68,69 +68,69 @@ parse_numeric <- function(x, default = NA) {
 
 km <- list(
   # BASE WHITES
-  "vitbas" = list(name = "Kubelka-Munk vitbas (titan/zink)", oil = 17, K = 0.00, S = 2.20),
-  "44100" = list(name = "Zinkvitt PW4", oil = 20, K = 0.00, S = 1.66),
-  "44400" = list(name = "Titanvitt Rutile PW6", oil = 15, K = 0.00, S = 2.55),
+  "vitbas" = list(name = "Kubelka-Munk vitbas (titan/zink)", oil = 17, K = 0.00, S = 2.20, density = 4.2),
+  "44100" = list(name = "Zinkvitt PW4", oil = 20, K = 0.00, S = 1.66, density = 5.6),
+  "44400" = list(name = "Titanvitt Rutile PW6", oil = 15, K = 0.00, S = 2.55, density = 4.2),
   
   # GREENS
-  "40400" = list(name = "Viridian PG18", oil = 40, K = 1.20, S = 1.50),
-  "41700" = list(name = "Malakit naturlig", oil = 45, K = 0.90, S = 0.80),
-  "11100" = list(name = "Phthalogrön PG7", oil = 50, K = 1.50, S = 1.40),
-  "KG83" = list(name = "Kromoxidgrönt nr GN 83 (RAÄ)", oil = 18, K = 1.15, S = 1.75),
-  "ZG65" = list(name = "Zinkgrönt nr 65 (RAÄ)", oil = 19, K = 1.00, S = 1.60),
-  "40850" = list(name = "Grön jord Böhmen", oil = 35, K = 0.60, S = 0.55),
-  "40860" = list(name = "Grön jord Verona", oil = 35, K = 0.65, S = 0.60),
-  "GU30" = list(name = "Grön umbra nr 30 (RAÄ)", oil = 50, K = 0.85, S = 0.48),
+  "40400" = list(name = "Viridian PG18", oil = 40, K = 1.20, S = 1.50, density = 3.5),
+  "41700" = list(name = "Malakit naturlig", oil = 45, K = 0.90, S = 0.80, density = 4.0),
+  "11100" = list(name = "Phthalogrön PG7", oil = 50, K = 1.50, S = 1.40, density = 2.0),
+  "KG83" = list(name = "Kromoxidgrönt nr GN 83 (RAÄ)", oil = 18, K = 1.15, S = 1.75, density = 5.2),
+  "ZG65" = list(name = "Zinkgrönt nr 65 (RAÄ)", oil = 19, K = 1.00, S = 1.60, density = 4.8),
+  "40850" = list(name = "Grön jord Böhmen", oil = 35, K = 0.60, S = 0.55, density = 3.2),
+  "40860" = list(name = "Grön jord Verona", oil = 35, K = 0.65, S = 0.60, density = 3.2),
+  "GU30" = list(name = "Grön umbra nr 30 (RAÄ)", oil = 50, K = 0.85, S = 0.48, density = 3.5),
   
   # BLACKS
-  "44450" = list(name = "Svartoxid PBk11", oil = 15, K = 2.40, S = 1.10),
-  "J318" = list(name = "Järnoxidsvart nr 318 (RAÄ)", oil = 16, K = 2.35, S = 1.08),
-  "BS98" = list(name = "Bensvart nr 98 (RAÄ)", oil = 50, K = 2.60, S = 0.95),
+  "44450" = list(name = "Svartoxid PBk11", oil = 15, K = 2.40, S = 1.10, density = 5.2),
+  "J318" = list(name = "Järnoxidsvart nr 318 (RAÄ)", oil = 16, K = 2.35, S = 1.08, density = 5.1),
+  "BS98" = list(name = "Bensvart nr 98 (RAÄ)", oil = 50, K = 2.60, S = 0.95, density = 2.0),
   
   # BLUES
-  "11670" = list(name = "Phthaloblå PB15:3", oil = 45, K = 1.80, S = 1.20),
-  "UB88" = list(name = "Ultramarinblått nr 88 (RAÄ)", oil = 42, K = 1.65, S = 0.88),
-  "KB28" = list(name = "Koboltblått nr 28 (RAÄ)", oil = 35, K = 1.40, S = 0.92),
+  "11670" = list(name = "Phthaloblå PB15:3", oil = 45, K = 1.80, S = 1.20, density = 2.0),
+  "UB88" = list(name = "Ultramarinblått nr 88 (RAÄ)", oil = 42, K = 1.65, S = 0.88, density = 2.4),
+  "KB28" = list(name = "Koboltblått nr 28 (RAÄ)", oil = 35, K = 1.40, S = 0.92, density = 4.0),
   
   # EARTH COLORS - TERRA & POZZUOLI
-  "40820" = list(name = "Terra di Pozzuoli", oil = 40, K = 0.70, S = 0.55),
-  "40800" = list(name = "Terra di Siena natur", oil = 40, K = 0.60, S = 0.50),
-  "40830" = list(name = "Terra di Ercolano", oil = 40, K = 0.75, S = 0.55),
-  "BT44" = list(name = "Bränd terra nr 44 (RAÄ)", oil = 38, K = 0.78, S = 0.52),
-  "OT46" = list(name = "Obränd terra nr 46 (RAÄ)", oil = 38, K = 0.62, S = 0.48),
+  "40820" = list(name = "Terra di Pozzuoli", oil = 40, K = 0.70, S = 0.55, density = 3.3),
+  "40800" = list(name = "Terra di Siena natur", oil = 40, K = 0.60, S = 0.50, density = 3.3),
+  "40830" = list(name = "Terra di Ercolano", oil = 40, K = 0.75, S = 0.55, density = 3.3),
+  "BT44" = list(name = "Bränd terra nr 44 (RAÄ)", oil = 38, K = 0.78, S = 0.52, density = 3.4),
+  "OT46" = list(name = "Obränd terra nr 46 (RAÄ)", oil = 38, K = 0.62, S = 0.48, density = 3.3),
   
   # YELLOWS & OCHRES
-  "44082" = list(name = "Gul ockra ljus", oil = 20, K = 0.48, S = 0.38),
-  "44086" = list(name = "Gul ockra mörk", oil = 20, K = 0.55, S = 0.45),
-  "44150" = list(name = "Naples Yellow light", oil = 35, K = 0.40, S = 0.70),
-  "44160" = list(name = "Naples Yellow dark", oil = 35, K = 0.50, S = 0.65),
-  "J920" = list(name = "Järnoxidgult nr 920 (RAÄ)", oil = 22, K = 0.52, S = 0.42),
-  "LO92" = list(name = "Ljusockra nr 92 (RAÄ)", oil = 21, K = 0.46, S = 0.40),
-  "GO94" = list(name = "Guldockra nr 94 (RAÄ)", oil = 23, K = 0.58, S = 0.46),
-  "GO94_GU30" = list(name = "50% Guldockra + 50% Grön umbra (RAÄ)", oil = 40, K = 0.72, S = 0.47),
+  "44082" = list(name = "Gul ockra ljus", oil = 20, K = 0.48, S = 0.38, density = 3.5),
+  "44086" = list(name = "Gul ockra mörk", oil = 20, K = 0.55, S = 0.45, density = 3.5),
+  "44150" = list(name = "Naples Yellow light", oil = 35, K = 0.40, S = 0.70, density = 6.0),
+  "44160" = list(name = "Naples Yellow dark", oil = 35, K = 0.50, S = 0.65, density = 6.0),
+  "J920" = list(name = "Järnoxidgult nr 920 (RAÄ)", oil = 22, K = 0.52, S = 0.42, density = 4.0),
+  "LO92" = list(name = "Ljusockra nr 92 (RAÄ)", oil = 21, K = 0.46, S = 0.40, density = 3.5),
+  "GO94" = list(name = "Guldockra nr 94 (RAÄ)", oil = 23, K = 0.58, S = 0.46, density = 3.6),
+  "GO94_GU30" = list(name = "50% Guldockra + 50% Grön umbra (RAÄ)", oil = 40, K = 0.72, S = 0.47, density = 3.5),
   
   # SIENNAS & UMBERS
-  "44650" = list(name = "Raw Sienna Italien", oil = 45, K = 0.55, S = 0.45),
-  "44620" = list(name = "Burnt Sienna Italien", oil = 50, K = 0.75, S = 0.50),
-  "OU103" = list(name = "Obränd umbra nr 103 (RAÄ)", oil = 52, K = 0.92, S = 0.46),
-  "BU100" = list(name = "Bränd umbra nr 100 (RAÄ)", oil = 56, K = 1.12, S = 0.52),
-  "BRU39" = list(name = "Brun umbra nr 39 (RAÄ)", oil = 54, K = 1.05, S = 0.48),
-  "GRAU36" = list(name = "Grå umbra nr 36 (RAÄ)", oil = 48, K = 1.20, S = 0.55),
+  "44650" = list(name = "Raw Sienna Italien", oil = 45, K = 0.55, S = 0.45, density = 3.3),
+  "44620" = list(name = "Burnt Sienna Italien", oil = 50, K = 0.75, S = 0.50, density = 3.5),
+  "OU103" = list(name = "Obränd umbra nr 103 (RAÄ)", oil = 52, K = 0.92, S = 0.46, density = 3.4),
+  "BU100" = list(name = "Bränd umbra nr 100 (RAÄ)", oil = 56, K = 1.12, S = 0.52, density = 3.5),
+  "BRU39" = list(name = "Brun umbra nr 39 (RAÄ)", oil = 54, K = 1.05, S = 0.48, density = 3.4),
+  "GRAU36" = list(name = "Grå umbra nr 36 (RAÄ)", oil = 48, K = 1.20, S = 0.55, density = 3.5),
   
   # REDS & ORANGES - IRON OXIDES
-  "44300" = list(name = "Transparent brunoxid", oil = 50, K = 0.80, S = 0.22),
-  "44200" = list(name = "Röd järnoxid transparent", oil = 47, K = 0.90, S = 0.12),
-  "44210" = list(name = "Röd järnoxid ljus", oil = 47, K = 0.80, S = 0.25),
-  "44220" = list(name = "Röd järnoxid mörk", oil = 47, K = 1.00, S = 0.35),
-  "44510" = list(name = "Orange järnoxid", oil = 47, K = 0.55, S = 0.85),
-  "J225" = list(name = "Järnoxidrött nr 225 (RAÄ)", oil = 48, K = 0.95, S = 0.32),
-  "J180M" = list(name = "Järnoxidrött nr 180M Caput Mortuum (RAÄ)", oil = 48, K = 1.15, S = 0.28),
-  "J120N" = list(name = "Järnoxidrött nr 120N (RAÄ)", oil = 47, K = 0.85, S = 0.30),
-  "ER48A" = list(name = "Engelskt rött nr 48A (RAÄ)", oil = 30, K = 0.75, S = 0.40),
+  "44300" = list(name = "Transparent brunoxid", oil = 50, K = 0.80, S = 0.22, density = 5.0),
+  "44200" = list(name = "Röd järnoxid transparent", oil = 47, K = 0.90, S = 0.12, density = 5.2),
+  "44210" = list(name = "Röd järnoxid ljus", oil = 47, K = 0.80, S = 0.25, density = 5.1),
+  "44220" = list(name = "Röd järnoxid mörk", oil = 47, K = 1.00, S = 0.35, density = 5.2),
+  "44510" = list(name = "Orange järnoxid", oil = 47, K = 0.55, S = 0.85, density = 4.8),
+  "J225" = list(name = "Järnoxidrött nr 225 (RAÄ)", oil = 48, K = 0.95, S = 0.32, density = 5.1),
+  "J180M" = list(name = "Järnoxidrött nr 180M Caput Mortuum (RAÄ)", oil = 48, K = 1.15, S = 0.28, density = 5.2),
+  "J120N" = list(name = "Järnoxidrött nr 120N (RAÄ)", oil = 47, K = 0.85, S = 0.30, density = 5.0),
+  "ER48A" = list(name = "Engelskt rött nr 48A (RAÄ)", oil = 30, K = 0.75, S = 0.40, density = 4.9),
   
   # BROWNS - IRON OXIDES
-  "J663" = list(name = "Järnoxidbrunt nr 663 (RAÄ)", oil = 50, K = 0.88, S = 0.38),
-  "J686" = list(name = "Järnoxidbrunt nr 686 (RAÄ)", oil = 52, K = 0.92, S = 0.35)
+  "J663" = list(name = "Järnoxidbrunt nr 663 (RAÄ)", oil = 50, K = 0.88, S = 0.38, density = 5.0),
+  "J686" = list(name = "Järnoxidbrunt nr 686 (RAÄ)", oil = 52, K = 0.92, S = 0.35, density = 5.1)
 )
 
 # RGB MASSTONE VALUES
@@ -493,7 +493,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "#", class = "version-text", "version 0.3.1")
+      tags$a(href = "#", class = "version-text", "version 0.3.2")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -563,13 +563,16 @@ ui <- dashboardPage(
                fluidRow(column(
                  12,
                  p(
-                   "Ange förhållandet mellan zinkoxid (zinkvitt) och titaniumdioxid (Titanvitt) i vitbasen. Kubelka-Munk-funktionen garanterar ett konsekvent resultat när färgande pigment blandas med vitbasen, oavsett blandningsförhållandet mellan de vita pigmenten."
+                   "Ange förhållandet mellan zinkoxid (zinkvitt) och titaniumdioxid (Titanvitt) i vitbasen. Kubelka-Munk-funktionen garanterar ett konsekvent resultat när eventuella färgande pigment blandas med vitbasen."
                  ),
                  p(
                    "För utomhusfärg, välj en högre andel zinkvitt i vitbasen (gärna 30 %, om det fungerar med den önskade kulören), så blir den färdiga färgen mer motståndskraftig mot alger och mögelpåväxt."
                  ),
                  p(
                    "För inomhusfärg, välj en lägre andel zinkvitt i vitbasen (0–15 %). Zink gör å ena sidan färgfilmen hårdare, men å den andra blir den också känsligare för krackelering över tid."
+                 ),
+                 p(
+                   "Oavsett vilket förhållande du väljer, blir resultatet detsamma kulörmässigt!"
                  ),
                  br(),
                  sliderInput("zinc_ratio","Zinkvitt i vitbas (%)",0,100,15,5,post="% zinkoxid"),
@@ -611,7 +614,7 @@ ui <- dashboardPage(
                hr(),
                actionButton("back2","Föregående: Blanda vitbas", class="btn-default back-btn"),
                actionButton("restart","Börja om från början", class="btn-default"),
-               div(class="footer-ref", "Åtgång per m²: RAÄ Byggnadsvård (2018). Pigmentvikt/liter: 1070 g.")
+               div(class="footer-ref", "Åtgång per m²: Data från RAÄ Byggnadsvård, Gysinge, Selder, Ottoson. Pigmentvikt/liter: 1070 g.")
     ))
   )
 )
@@ -715,12 +718,17 @@ server <- function(input, output, session) {
   calc <- reactive({
     # use values are in L/100m², need to convert to L/m²
     # substrate factor: 1.0 = baseline, <1.0 = less material, >1.0 = more material
-    liters <- values$area * (values$use / 100) * values$substrate
-    list(liters = round(liters, 2), pigment = round(liters * 1070, 0))
+    # Calculate target paint volume needed
+    target_liters <- values$area * (values$use / 100) * values$substrate
+    list(target_liters = round(target_liters, 2))
   })
   
-  output$needed_volume <- renderText(format_swe(calc()$liters, 2))
-  output$needed_pigment <- renderText(format_swe(calc()$pigment, 0))
+  output$needed_volume <- renderText(format_swe(calc()$target_liters, 2))
+  output$needed_pigment <- renderText({
+    recipe <- final_recipe()
+    total_pigment <- recipe$zn + recipe$ti + sum(recipe$color)
+    format_swe(total_pigment, 0)
+  })
   output$total_volume <- renderText(format_swe(total_paint_volume(), 2))
   output$volume_warning <- renderUI({
     comp <- volume_comparison()
@@ -770,10 +778,26 @@ server <- function(input, output, session) {
     pigment_total_g <- recipe$zn + recipe$ti + sum(recipe$color)
     oil_g <- recipe$oil
     
+    # Calculate weighted average density from recipe
+    m <- mix()
+    zinc_ratio <- values$zinc_ratio/100
+    normalized_pcts <- (m$pct / m$total) * 100
+    
+    total_density <- 0
+    for(i in seq_along(m$ids)) {
+      id <- m$ids[i]
+      weight_fraction <- normalized_pcts[i] / 100
+      
+      if(id == "vitbas") {
+        total_density <- total_density + 
+          weight_fraction * (zinc_ratio * 5.6 + (1-zinc_ratio) * 4.2)
+      } else {
+        total_density <- total_density + weight_fraction * km[[id]]$density
+      }
+    }
+    
     # Convert to volumes using densities
-    # Average pigment density: ~4.0 g/cm³ (varies by type: 3.5-5.5 g/cm³)
-    # Linseed oil density: ~0.92 g/cm³
-    pigment_volume_L <- pigment_total_g / 4000  # Conservative estimate
+    pigment_volume_L <- pigment_total_g / (total_density * 1000)
     oil_volume_L <- oil_g / 920
     
     # Note: Total volume is less than sum of parts due to oil filling pigment voids
@@ -785,7 +809,7 @@ server <- function(input, output, session) {
   
   # Calculate volume difference and provide warning if significant
   volume_comparison <- reactive({
-    target <- calc()$liters
+    target <- calc()$target_liters
     actual <- total_paint_volume()
     diff_L <- actual - target
     diff_pct <- abs(diff_L) / target * 100
@@ -800,23 +824,75 @@ server <- function(input, output, session) {
   })
   
   final_recipe <- reactive({
-    total_g <- calc()$pigment
+    target_liters <- calc()$target_liters
     m <- mix()
     zinc_ratio <- values$zinc_ratio/100
+    
+    # CRITICAL FIX: Always normalize percentages to 100%
+    # Regardless of what user entered, treat their ratios as parts of 100%
+    normalized_pcts <- (m$pct / m$total) * 100
+    
+    # Calculate weighted average pigment properties for PVC calculation
+    total_oil_absorption <- 0
+    total_density <- 0
+    
+    for(i in seq_along(m$ids)) {
+      id <- m$ids[i]
+      weight_fraction <- normalized_pcts[i] / 100
+      
+      if(id == "vitbas") {
+        # Vitbas is a mix of zinc and titanium
+        total_oil_absorption <- total_oil_absorption + 
+          weight_fraction * (zinc_ratio * 0.20 + (1-zinc_ratio) * 0.15)
+        total_density <- total_density + 
+          weight_fraction * (zinc_ratio * 5.6 + (1-zinc_ratio) * 4.2)
+      } else {
+        total_oil_absorption <- total_oil_absorption + 
+          weight_fraction * (km[[id]]$oil / 100)
+        total_density <- total_density + 
+          weight_fraction * km[[id]]$density
+      }
+    }
+    
+    # Apply extra oil factor
+    total_oil_absorption <- total_oil_absorption * values$extra_oil
+    
+    # Calculate PVC (Pigment Volume Concentration)
+    # V_pigment per gram of pigment
+    V_pigment_per_gram <- 1 / total_density  # cm³
+    # V_oil per gram of pigment
+    V_oil_per_gram <- total_oil_absorption / 0.92  # cm³ (oil density = 0.92 g/cm³)
+    
+    # PVC for this mixture
+    pvc <- V_pigment_per_gram / (V_pigment_per_gram + V_oil_per_gram)
+    
+    # Calculate volumes
+    pigment_volume_L <- target_liters * pvc
+    oil_volume_L <- target_liters * (1 - pvc)
+    
+    # Convert to weights
+    total_pigment_g <- pigment_volume_L * 1000 * total_density
+    total_oil_g <- oil_volume_L * 1000 * 0.92
+    
+    # Distribute pigments according to normalized percentages
     zn_g <- ti_g <- 0
     color_g <- numeric()
+    
     for(i in seq_along(m$ids)){
       id <- m$ids[i]
-      weight_g <- total_g * (m$pct[i]/m$total)
-      if(id=="vitbas"){
+      weight_fraction <- normalized_pcts[i] / 100
+      weight_g <- total_pigment_g * weight_fraction
+      
+      if(id == "vitbas"){
         zn_g <- zn_g + weight_g * zinc_ratio
         ti_g <- ti_g + weight_g * (1-zinc_ratio)
-      } else color_g[id] <- weight_g
+      } else {
+        color_g[id] <- weight_g
+      }
     }
-    base_oil <- zn_g*0.20 + ti_g*0.15
-    for(id in names(color_g)) base_oil <- base_oil + color_g[id]*km[[id]]$oil/100
-    final_oil <- round(base_oil*values$extra_oil,1)
-    list(zn=round(zn_g,1), ti=round(ti_g,1), color=round(color_g,1), oil=final_oil, hex=final_hex())
+    
+    list(zn=round(zn_g,1), ti=round(ti_g,1), color=round(color_g,1), 
+         oil=round(total_oil_g,1), hex=final_hex())
   })
   
   output$final_recipe <- renderTable({
@@ -831,7 +907,7 @@ server <- function(input, output, session) {
     filename = function() paste0("fargrecept_", Sys.Date(), ".txt"),
     content = function(file) {
       df <- recipe_df()
-      txt <- paste0("FÄRGLABBET PRO – RECEPT ", Sys.Date(), "\n\n",
+      txt <- paste0("Paint-o-matic – recept ", Sys.Date(), "\n\n",
                     "Färgkod: ", final_hex(), "\n",
                     "Yta: ", format_swe(values$area, 0), " m²\n\n")
       for(i in 1:nrow(df)) {

@@ -764,7 +764,7 @@ ui <- dashboardPage(
       .footer-ref { position:relative; bottom:-44px; left:0; right:0; font-size:12px; color:#555; text-align:center; 
                     padding:12px 12px 0; border-top:1px solid #ddd; }
       .preview { display:block; height:300px; width:300px; border:8px solid #333; border-radius:150px; margin: auto; }
-      .normalized-box, .info-box, .alert { background:#fefefe; drop-shadow: 0 0; color:black; border: 0; padding:12px; border-radius:6px;margin-top:1em;}
+      .normalized-box, .info-box, .alert { background:#eee; drop-shadow: 0 0; color:black; border: 0; padding:12px; border-radius:6px;margin:1em 0;}
       .normalized-box { margin:10px 0;}
       .ready-box {padding: 20px; width: calc(50% - 20px) !important;}
       .ready-box h3 {margin-top:0; }
@@ -789,14 +789,24 @@ ui <- dashboardPage(
     "))),
     
     tags$script(HTML('
-  Shiny.addCustomMessageHandler("copyToClipboard", function(message) {
-    navigator.clipboard.writeText(message).then(function() {
-      console.log("Kopierat till klippbordet");
-    }).catch(function(err) {
-      alert("Kopiering misslyckades (säkerhetsinställning i webbläsaren). Länken är:\\n\\n" + message);
-    });
-  });
-')),
+    Shiny.addCustomMessageHandler("copyToClipboard", function(text) {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(text).catch(function() {
+            fallbackCopy(text);
+          });
+        } else {
+          fallbackCopy(text);
+        }
+      });
+      function fallbackCopy(text) {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+      }
+    ')),
     
     hidden(div(id="step1", class="step",
                h2("Blanda pigment"),
@@ -822,8 +832,8 @@ ui <- dashboardPage(
                         h3("Färgprov"),
                         uiOutput("preview1"), br(),
                         tags$b("Total andel: "), textOutput("total_pct",inline=TRUE), " %", 
-                        uiOutput("total_warning"), br(),
-                        tags$div(style="margin-top:10px;",
+                        uiOutput("total_warning"), 
+                        tags$div(style="margin-top:2em;",
                                  tags$b("RAÄ Kulturkulörs fördefinierade recept"), br(),
                                  tags$small("Klicka på en färg för att ladda receptet."),
                                  uiOutput("kulturkulor_swatches")
@@ -885,10 +895,9 @@ ui <- dashboardPage(
                         tags$p("Du blandar cirka ",textOutput("total_volume",inline=TRUE)," liter färdig färg, med sammanlagt ",textOutput("needed_pigment",inline=TRUE)," g pigment."),
                         uiOutput("final_preview"),br(),
                         tableOutput("final_recipe"),
-                        downloadButton("download_txt","Spara som textfil",class="btn-primary"),
+                        downloadButton("download_txt","Spara som textfil",class="btn btn-primary"),
                         actionButton("share_link", "Kopiera delningslänk", 
-                                     icon = icon("share-alt"), 
-                                     class = "btn btn-primary")
+                                     icon = icon("share-alt"), class = "btn btn-default")
                  )
                ),
                hr(),
@@ -1116,13 +1125,9 @@ server <- function(input, output, session) {
       
       text_lines <- paste0(pigment_names, ": ", normalized_swe, " %", collapse = " • ")
       icon_type <- "exclamation-triangle"
-      #color <- "#eee"
-      #border <- "#eee"
       msg <- "Totalen överstiger 100 %. Normaliserade procentsatser som används:"
       tags$div(
         class = "alert",
-        #style = sprintf("margin-top: 10px; padding: 10px; background-color: %s; border: 0px solid %s; border-radius: 6px;", 
-        #                color, border),
         icon(icon_type),
         " ", msg, text_lines
       )
@@ -1398,39 +1403,41 @@ server <- function(input, output, session) {
     }
   )
   
-  # === KOPIERA DELNINGSLÄNK ===
+  # === KOPIERA DELNINGSLÄNK – SÄKER FÖR SHINYAPPS.IO ===
   observeEvent(input$share_link, {
-    req(values$area, values$extra_oil)
+    # Säker fallback-URL – använder alltid aktuell domän från Shiny
+    base_url <- "https://tobias-at-hagberg-dot-com.shinyapps.io/paint-o-matic"
+    # Om du har ett eget domännamn, byt ut ovan till t.ex. "https://paintomatic.se"
     
-    # Samla exakt de parametrar som appen använder
     params <- list(
-      area = values$area,
-      extra_oil = values$extra_oil,
-      zinc_ratio = input$zinc_ratio %||% 25,
-      paint_name = input$paint_name %||% ""
+      area = values$area %||% 100,
+      oil = values$extra_oil %||% 1.5,
+      zinc = input$zinc_ratio %||% 25,
+      name = URLencode(input$paint_name %||% "", reserved = TRUE)
     )
     
-    # Lägg till alla pigment och deras andelar
+    # Lägg till alla pigment som har pct > 0
+    pigment_count <- 0
     for(i in seq_along(m$ids)) {
-      id <- m$ids[i]
-      pct <- input[[paste0("pct_", i)]]
-      if(!is.null(pct) && pct > 0) {
-        params[[paste0("id", i)]] <- id
-        params[[paste0("pct", i)]] <- pct
+      pct_input <- input[[paste0("pct_", i)]]
+      if(!is.null(pct_input) && pct_input > 0 && pct_input < 100) {
+        pigment_count <- pigment_count + 1
+        params[[paste0("p", pigment_count)]] <- m$ids[i]
+        params[[paste0("v", pigment_count)]] <- pct_input
       }
     }
     
     # Bygg query-string
-    query_str <- paste(names(params), params, sep = "=", collapse = "&")
-    full_url <- paste0(session$clientData$url_protocol, "//",
-                       session$clientData$url_hostname,
-                       if(session$clientData$url_port != "") paste0(":", session$clientData$url_port),
-                       session$clientData$url_pathname,
-                       "?", query_str)
+    query <- paste(names(params), params, sep = "=", collapse = "&")
+    full_url <- paste0(base_url, "?", query)
     
-    # Kopiera till klippbord
+    # Kopiera till klippbord med fallback
     session$sendCustomMessage("copyToClipboard", full_url)
-    showNotification("Delningslänk kopierad till klippbordet", type = "message", duration = 5)
+    
+    showNotification(
+      HTML(paste0("Delningslänk kopierad!<br><small>Klistra in i chatt eller e-post</small>")),
+      type = "message", duration = 6
+    )
   })
   
   observeEvent(input$restart, {

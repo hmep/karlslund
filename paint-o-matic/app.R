@@ -681,7 +681,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "#", class = "version-text", "version 0.3.9")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.4.0, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -772,7 +772,7 @@ ui <- dashboardPage(
     )),
     
     hidden(div(id="step3", class="step",
-               h2("Beräkna mängd linolja"),
+               h2("Beräkna mängd kokt linolja och pigment"),
                fluidRow(
                  column(6,class="rmargin-box",
                         numericInput("area","Yta att måla (m²)",10,1,2000,1),

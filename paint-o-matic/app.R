@@ -772,7 +772,7 @@ ui <- dashboardPage(
     )),
     
     hidden(div(id="step3", class="step",
-               h2("Beräkna mängd kokt linolja"),
+               h2("Beräkna åtgång och spara recept"),
                fluidRow(
                  column(6,
                         numericInput("area","Yta att måla (m²)",10,1,2000,1),

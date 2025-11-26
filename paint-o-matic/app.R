@@ -1,3 +1,8 @@
+# Paint-o-matic -- blanda din egen linoljefärg!
+# Copyright 2025 Tobias Hagberg
+# Licens: GNU General Public License v3.0
+# https://github.com/hmep/karlslund/tree/main/paint-o-matic
+
 library(shiny)
 library(shinydashboard)
 library(shinyjs)
@@ -676,7 +681,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "#", class = "version-text", "version 0.3.8")
+      tags$a(href = "#", class = "version-text", "version 0.3.9")
     )
   ),
   dashboardSidebar(disable = TRUE),

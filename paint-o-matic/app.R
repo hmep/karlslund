@@ -681,7 +681,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.4.2, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.4.3, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -692,10 +692,9 @@ ui <- dashboardPage(
       .footer-ref { position:relative; bottom:-44px; left:0; right:0; font-size:12px; color:#555; text-align:center; 
                     padding:12px 12px 0; border-top:1px solid #ddd; background:#f9f9f9; }
       .preview { display:block; height:300px; width:300px; border:8px solid #333; border-radius:150px; margin: auto; }
-      .normalized-box, .info-box, .ready-box { background:#eee; color:black; padding:12px; border-radius:6px;}
-      .normalized-box, .info-box { background:#eee; color:black; padding:12px; border-radius:6px;}
+      .normalized-box, .info-box, .ready-box, .alert { background:#eee; color:black; padding:12px; border-radius:6px;margin-top:1em;}
       .normalized-box { margin:10px 0;}
-      .ready-box {padding: 20px; width: calc(50% - 40px) !important;}
+      .ready-box {padding: 20px; width: calc(50% - 20px) !important; background:white;}
       .ready-box h3 {margin-top:0; }
       .rmargin-box {margin-right:20px;}
       .btn {margin: .12px 12px 0 0;}
@@ -791,7 +790,7 @@ ui <- dashboardPage(
                         sliderInput("extra_oil","Extra olja (CPV-faktor)",1,2.2,1.8,0.05,post="× CPV"),
                         p(class="info-box","CPV-faktorn ökar endast mängden linolja (pigmentmängderna är fixerade). För blandning med färgblandare i borrmaskin och bra strykbarhet, öka gärna till 1,6–2,2× det kritiska oljetalet (CPV)."),
                  ),
-                 column(6,
+                 column(6,class="ready-box",
                         h3("Färdigt recept"),
                         tags$p("Du blandar cirka ",textOutput("total_volume",inline=TRUE)," liter färdig färg, med sammanlagt ",textOutput("needed_pigment",inline=TRUE)," g pigment."),
                         uiOutput("final_preview"),br(),
@@ -909,13 +908,13 @@ server <- function(input, output, session) {
       
       text_lines <- paste0(pigment_names, ": ", normalized_swe, " %", collapse = " • ")
       icon_type <- "exclamation-triangle"
-      color <- "#ddd"
-      border <- "#ddd"
+      #color <- "#eee"
+      #border <- "#eee"
       msg <- "Totalen överstiger 100 %. Normaliserade procentsatser som används:"
       tags$div(
         class = "alert",
-        style = sprintf("margin-top: 10px; padding: 10px; background-color: %s; border: 1px solid %s; border-radius: 4px;", 
-                        color, border),
+        #style = sprintf("margin-top: 10px; padding: 10px; background-color: %s; border: 0px solid %s; border-radius: 6px;", 
+        #                color, border),
         icon(icon_type),
         " ", msg, text_lines
       )
@@ -1077,7 +1076,7 @@ server <- function(input, output, session) {
     # Format the Gram column with Swedish decimals
     df$Gram <- sapply(df$Gram, function(x) format_swe(parse_numeric(x), 1))
     df
-  }, striped=TRUE, bordered=F, width="100%", align="lr", sanitize.text.function = function(x) x)
+  }, striped=TRUE, bordered=TRUE, width="100%", align="lr", sanitize.text.function = function(x) x)
   output$final_preview <- renderUI(tags$div(class="preview", style=paste0("background:", final_hex())))
   
   output$download_txt <- downloadHandler(
@@ -1185,7 +1184,9 @@ server <- function(input, output, session) {
         txt <- paste0(txt, "Kontakta Kremer Pigmente, Ottosson, Claessons eller Gysinge.\n")
       }
       
-      writeLines(txt, file, useBytes = TRUE)
+      con <- file(file, open = "wt", encoding = "UTF-8")
+      writeLines(txt, con)
+      close(con)
     }
   )
   

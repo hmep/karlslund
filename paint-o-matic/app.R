@@ -953,7 +953,7 @@ ui <- dashboardPage(
                ),
                hr(),
                actionButton("to_step2","Nästa steg", class="btn-primary next-btn"),
-               div(class="footer-ref", "Ungefärliga masstone baserade på Kulturkulör NCS-koder från Riksantikvarieämbetet (RAÄ) och data från Kremer Pigmente")
+               div(class="footer-ref", "Masstone baserade på data från Riksantikvarieämbetet (RAÄ) Kulturkulör och Kremer Pigmente")
     )),
     
     hidden(div(id="step2", class="step",

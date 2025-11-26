@@ -493,7 +493,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "#", class = "version-text", "version 0.3.3")
+      tags$a(href = "#", class = "version-text", "version 0.3.4")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -507,7 +507,7 @@ ui <- dashboardPage(
       .normalized-box, .info-box, .ready-box { background:#eee; color:black; padding:12px; border-radius:6px;}
       .normalized-box, .info-box { background:#eee; color:black; padding:12px; border-radius:6px;}
       .normalized-box { margin:10px 0;}
-      .ready-box {padding: 20px; margin: 0 -12px;}
+      .ready-box {padding: 20px; width: calc(50% - 40px) !important;}
       .ready-box h3 {margin-top:0; }
       .rmargin-box {margin-right:20px;}
       .btn {margin: .12px 12px 0 0;}
@@ -605,7 +605,7 @@ ui <- dashboardPage(
                  ),
                  column(6,class="ready-box",
                         h3("Färdigt recept"),
-                        tags$p("Du blandar cirka ",textOutput("total_volume",inline=TRUE)," liter färdig färg, med sammanlagt ",textOutput("needed_pigment",inline=TRUE)," g pigment."),uiOutput("volume_warning"),
+                        tags$p("Du blandar cirka ",textOutput("total_volume",inline=TRUE)," liter färdig färg, med sammanlagt ",textOutput("needed_pigment",inline=TRUE)," g pigment."),
                         uiOutput("final_preview"),br(),
                         tableOutput("final_recipe"),
                         downloadButton("download_txt","Spara som textfil",class="btn-primary")
@@ -614,7 +614,7 @@ ui <- dashboardPage(
                hr(),
                actionButton("back2","Föregående: Blanda vitbas", class="btn-default back-btn"),
                actionButton("restart","Börja om från början", class="btn-default"),
-               div(class="footer-ref", "Åtgång per m²: Data från RAÄ Byggnadsvård, Gysinge, Selder, Ottoson. Pigmentvikt/liter: 1070 g.")
+               div(class="footer-ref", "Åtgång per m²: data från RAÄ Byggnadsvård, m. fl., uppskattningarna är ungefärliga")
     ))
   )
 )
@@ -764,35 +764,6 @@ server <- function(input, output, session) {
     format_swe(total_pigment, 0)
   })
   output$total_volume <- renderText(format_swe(total_paint_volume(), 2))
-  output$volume_warning <- renderUI({
-    comp <- volume_comparison()
-    
-    if(comp$significant) {
-      icon_type <- if(comp$diff_L > 0) "exclamation-triangle" else "info-circle"
-      color <- if(comp$diff_L > 0) "#fff" else "#fff"
-      border <- if(comp$diff_L > 0) "#ddd" else "#ddd"
-      
-      msg <- if(comp$diff_L > 0) {
-        sprintf("Receptets faktiska volym (%s L) är %s%% större än målvolymen (%s L). Detta beror på den höga oljeabsorptionen i pigmentblandningen.",
-                format_swe(comp$actual, 2), 
-                format_swe(comp$diff_pct, 0), 
-                format_swe(comp$target, 2))
-      } else {
-        sprintf("Receptets faktiska volym (%s L) är %s%% mindre än målvolymen (%s L). Detta beror på låg oljeabsorption i pigmentblandningen.",
-                format_swe(comp$actual, 2), 
-                format_swe(comp$diff_pct, 0), 
-                format_swe(comp$target, 2))
-      }
-      
-      tags$div(
-        class = "alert",
-        style = sprintf("margin-top: 10px; padding: 10px; background-color: %s; border: 1px solid %s; border-radius: 4px;", 
-                        color, border),
-        icon(icon_type),
-        " ", msg
-      )
-    }
-  })
   
   recipe_df <- reactive({
     r <- final_recipe()
@@ -841,21 +812,6 @@ server <- function(input, output, session) {
     round(total_L, 2)
   })
   
-  # Calculate volume difference and provide warning if significant
-  volume_comparison <- reactive({
-    target <- calc()$target_liters
-    actual <- total_paint_volume()
-    diff_L <- actual - target
-    diff_pct <- abs(diff_L) / target * 100
-    
-    list(
-      target = target,
-      actual = actual,
-      diff_L = round(diff_L, 2),
-      diff_pct = round(diff_pct, 1),
-      significant = diff_pct > 15
-    )
-  })
   
   final_recipe <- reactive({
     target_liters <- calc()$target_liters

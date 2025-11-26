@@ -725,7 +725,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.5.0, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.5.1, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -797,15 +797,15 @@ ui <- dashboardPage(
                         uiOutput("total_warning"), br(),
                         hr(),
                         tags$div(style="margin-top:10px;",
-                                 tags$b("Kulturkulör-recept (RAÄ)"), br(),
-                                 tags$small("Klicka på en färg för att hämta receptet"),
+                                 tags$b("RAÄ Kulturkulörs fördefinierade recept"), br(),
+                                 tags$small("Klicka på en färg för att ladda receptet."),
                                  uiOutput("kulturkulor_swatches")
                         )
                  )
                ),
                hr(),
                actionButton("to_step2","Nästa steg", class="btn-primary next-btn"),
-               div(class="footer-ref", "Fördefinierade recept från Kulturkulör (Riksantikvarieämbetet, RAÄ). Masstone baserad på RAÄs NCS-koder och data från Kremer Pigmente")
+               div(class="footer-ref", "Masstone baserad på Kulturkulör NCS-koder från Riksantikvarieämbetet (RAÄ) och data från Kremer Pigmente")
     )),
     
     hidden(div(id="step2", class="step",
@@ -948,20 +948,39 @@ server <- function(input, output, session) {
     
     if(is.null(base_id)) return()
     
-    updatePickerInput(session, "p1", selected = base_id)
-    updateSliderInput(session, "pct1", value = recipe$basfarg)
+    # Round to integers (sliders only accept integers with step=1)
+    pct_base <- round(recipe$basfarg)
+    pct_vit <- round(recipe$vit)
+    pct_svart <- round(recipe$svart)
     
-    if(recipe$vit > 0) {
+    # Ensure they sum to exactly 100 by adjusting the largest component
+    total <- pct_base + pct_vit + pct_svart
+    if(total != 100) {
+      diff <- 100 - total
+      # Find largest percentage and adjust it
+      if(pct_base >= pct_vit && pct_base >= pct_svart) {
+        pct_base <- pct_base + diff
+      } else if(pct_vit >= pct_svart) {
+        pct_vit <- pct_vit + diff
+      } else {
+        pct_svart <- pct_svart + diff
+      }
+    }
+    
+    updatePickerInput(session, "p1", selected = base_id)
+    updateSliderInput(session, "pct1", value = pct_base)
+    
+    if(pct_vit > 0) {
       updatePickerInput(session, "p2", selected = "vitbas")
-      updateSliderInput(session, "pct2", value = recipe$vit)
+      updateSliderInput(session, "pct2", value = pct_vit)
     } else {
       updatePickerInput(session, "p2", selected = "")
       updateSliderInput(session, "pct2", value = 0)
     }
     
-    if(recipe$svart > 0) {
+    if(pct_svart > 0) {
       updatePickerInput(session, "p3", selected = "J318")
-      updateSliderInput(session, "pct3", value = recipe$svart)
+      updateSliderInput(session, "pct3", value = pct_svart)
     } else {
       updatePickerInput(session, "p3", selected = "")
       updateSliderInput(session, "pct3", value = 0)

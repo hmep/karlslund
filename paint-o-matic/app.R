@@ -210,12 +210,58 @@ rgboff <- list(
   "J686" = c(41, 31, 28)         # Järnoxidbrunt nr 686 - NCS 8405-Y73R
 )
 
-rgb <- list(
+raa_rgb_ncs <- list(
+  # VITA BASER (används i alla RAÄ-recept)
+  "vitbas" = list(rgb = c(245, 245, 245), ncs = "S 0500-N"),     # Neutral vit (zink+titan-blandning)
+  "44100"  = list(rgb = c(248, 248, 248), ncs = "S 0502-B"),     # Zinkvitt PW4 (något blåtonat)
+  "44400"  = list(rgb = c(252, 252, 250), ncs = "S 0500-N"),     # Titanvitt Rutile PW6 (neutralt)
   
-  # WHITES
-  "vitbas" = c(255, 255, 255),
-  "44100" = c(255, 255, 255),
-  "44400" = c(255, 255, 255),
+  # GRÖNA
+  "KG83"      = list(rgb = c(74, 117, 82),    ncs = "S 5020-G30Y"),  # Kromoxidgrönt GN 83
+  "ZG65"      = list(rgb = c(110, 145, 105),  ncs = "S 4030-G40Y"),  # Zinkgrönt nr 65
+  "GU30"      = list(rgb = c(95, 100, 70),    ncs = "S 6005-G50Y"),  # Grön umbra nr 30
+  
+  # SVARTA
+  "J318"      = list(rgb = c(35, 35, 38),     ncs =  "S 8505-R20B"), # Järnoxidsvart nr 318
+  "BS98"      = list(rgb = c(28, 28, 32),     ncs =  "S 9000-N"),     # Bensvart nr 98
+
+  # BLÅ
+  "UB88"      = list(rgb = c(45, 60, 130),    ncs = "S 4050-R80B"),  # Ultramarinblått nr 88
+  "KB28"      = list(rgb = c(70, 95, 155),    ncs = "S 3040-R90B"),  # Koboltblått nr 28
+
+  # GULA & OCKROR
+  "J920"      = list(rgb = c(195, 165, 85),   ncs = "S 2040-Y10R"),   # Järnoxidgult nr 920
+  "LO92"      = list(rgb = c(210, 185, 135),  ncs = "S 2030-Y20R"),  # Ljusockra nr 92
+  "GO94"      = list(rgb = c(185, 155, 90),   ncs = "S 3040-Y10R"),   # Guldockra nr 94
+  "GO94_GU30" = list(rgb = c(135, 130, 85),   ncs = "S  S 5020-G80Y"), # 50/50-blandning (RAÄ original)
+
+  # RÖDA
+  "J225"      = list(rgb = c(142, 52, 52),    ncs = "S 4050-Y90R"),  # Järnoxidrött nr 225
+  "J180M"     = list(rgb = c(105, 45, 55),    ncs = "S 4550-Y90R"),  # Caput Mortuum nr 180M
+  "J120N"     = list(rgb = c(155, 65, 60),    ncs = "S 3550-Y90R"),  # Järnoxidrött nr 120N
+  "ER48A"     = list(rgb = c(175, 80, 70),    ncs = "S 3050-Y90R"),  # Engelskt rött nr 48A
+
+  # BRUNA & TERRA
+  "BT44"      = list(rgb = c(170, 110, 70),   ncs = "S 3040-Y40R"),  # Bränd terra nr 44
+  "OT46"      = list(rgb = c(180, 130, 80),   ncs = "S 3030-Y30R"),  # Obränd terra nr 46
+
+  # UMBROR
+  "OU103"     = list(rgb = c(115, 95, 80),    ncs = "S 5010-Y50R"),  # Obränd umbra nr 103
+  "BU100"     = list(rgb = c(90, 60, 45),     ncs = "S 6020-Y60R"),  # Bränd umbra nr 100
+  "BRU39"     = list(rgb = c(105, 85, 70),    ncs = "S 5020-Y50R"),  # Brun umbra nr 39
+  "GRAU36"    = list(rgb = c(100, 95, 90),    ncs = "S 5502-Y"),     # Grå umbra nr 36
+
+  # BRUNA JÄRNOXIDER
+  "J663"      = list(rgb = c(120, 80, 60),    ncs = "S 5020-Y70R"),  # Järnoxidbrunt nr 663
+  "J686"      = list(rgb = c(105, 70, 55),    ncs = "S 5520-Y70R")   # Järnoxidbrunt nr 686
+)
+
+rgbgrok <- list(
+  
+  # VITA BASER (används i alla RAÄ-recept)
+  "vitbas" = c(245, 245, 245),     # Neutral vit (zink+titan-blandning)
+  "44100"  = c(248, 248, 248),     # Zinkvitt PW4 (något blåtonat)
+  "44400"  = c(252, 252, 250),     # Titanvitt Rutile PW6 (neutralt)
   
   # GRÖNA
   "KG83"   = c(74, 117, 82),    # Kromoxidgrönt GN 83        → #4A7552
@@ -253,6 +299,45 @@ rgb <- list(
   "J686"   = c(105, 70, 55),    # Järnoxidbrunt nr 686       → #694637
   "J318"   = c(35, 35, 38)      # Järnoxidsvart nr 318 (används också som djupsvart bas)
 )
+
+rgb <- list(
+  # VITA BASER
+  "vitbas" = c(245, 245, 245),
+  "44100"  = c(248, 248, 248),
+  "44400"  = c(252, 252, 250),
+  
+  # RAÄ PIGMENTS (extracted from website images)
+  "BRU39" = c(97, 71, 44),
+  "BS98" = c(25, 25, 25),
+  "BT44" = c(131, 60, 38),
+  "BU100" = c(53, 38, 33),
+  "ER48A" = c(125, 52, 44),
+  "GO94" = c(189, 132, 53),
+  "GRAU36" = c(117, 118, 120),
+  "GU30" = c(67, 59, 40),
+  "J120N" = c(125, 52, 44),
+  "J180M" = c(101, 43, 39),
+  "J225" = c(125, 52, 44),
+  "J318" = c(25, 25, 25),
+  "J663" = c(68, 53, 48),
+  "J686" = c(68, 53, 48),
+  "J920" = c(188, 125, 30),
+  "KB28" = c(2, 80, 154),
+  "KG83" = c(84, 111, 68),
+  "LO92" = c(160, 107, 29),
+  "OT46" = c(142, 96, 37),
+  "OU103" = c(71, 54, 38),
+  "UB88" = c(25, 52, 95),
+  "ZG65" = c(73, 113, 50)
+)
+
+# Lägg till RGB-värdena i din befintliga rgb-lista
+#rgb <- modifyList(rgb, sapply(raa_rgb_ncs, function(x) x$rgb))
+
+# Skapa en separat NCS-lista
+ncs_codes <- sapply(raa_rgb_ncs, function(x) x$ncs)
+names(ncs_codes) <- names(raa_rgb_ncs)
+
 # === GAMMA CORRECTION FOR sRGB DISPLAY ===
 # NCS->RGB conversion produces linear RGB values, but web browsers expect sRGB
 # Apply gamma correction (γ=1.6) to brighten colors and fix dark/greenish appearance
@@ -795,7 +880,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.5.7-rgbtest, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.5.7-rgbtest-raä, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),

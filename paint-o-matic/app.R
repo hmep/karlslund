@@ -761,7 +761,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.6.1-K-M, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.6.2-K-M, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -793,6 +793,8 @@ ui <- dashboardPage(
         padding:8px; background:#fff; border:1px solid #ddd; border-radius:4px;
         margin-top:8px;
       }
+      table tr td { white-space: nowrap; }
+      table tr td:first-of-type { white-space: wrap; }
       h2 {margin: 0 0 .5em;padding:0}
       .navbar-custom-menu .navbar-nav > li > a.version-text { font-size: 11px; color: #aaa; padding-top: 15px; padding-bottom: 15px;}
     "))),

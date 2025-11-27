@@ -761,7 +761,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.6.5-K-M, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.6.6-K-M, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -775,7 +775,7 @@ ui <- dashboardPage(
       .preview { display:block; height:300px; width:300px; border:8px solid #333; border-radius:150px; margin: auto; }
       .normalized-box, .info-box, .alert { background:#eee; drop-shadow: 0 0; color:black; border: 0; padding:12px; border-radius:6px;margin:1em 0;}
       .normalized-box { margin:10px 0;}
-      .ready-box {padding: 20px; width: calc(50% - 20px) !important;}
+      .ready-box {padding: 20px;}
       .ready-box h3 {margin-top:0; }
       .rmargin-box {margin-right:20px;}
       .btn {margin: .12px 12px 0 0;}
@@ -865,7 +865,7 @@ ui <- dashboardPage(
                                     choices=list(
                                       "Metall, grundmålad (lägst åtgång)" = 1.3,  # Primed metal (very smooth)
                                       "Tidigare målat trä " =	1.2,	              # Previously painted wood
-                                      "Hyvlat trä" = 1.0,	                        # Planed wood (baseline)
+                                      "Hyvlat trä (normal åtgång)" = 1.0,	        # Planed wood (baseline)
                                       "Sågat trä" = 0.8,                          # Rough sawn wood
                                       "Porös puts, gips (högst åtgång)" = 0.45    # Porous (gypsum, rough masonry)
                                     ),
@@ -875,9 +875,10 @@ ui <- dashboardPage(
                         sliderInput("extra_oil","Extra kokt linolja (CPV-faktor)",1,2.5,1.8,0.05,post="× CPV"),
                         p("Reglaget ökar endast mängden kokt linolja i receptet (pigmentmängderna är fixerade). En viss mängd extra linolja, utöver den minsta mängd som krävs för pigmenten, underlättar både tillredningen av pastan med färgblandare i borrmaskin och dess strykbarhet med penseln. En ökning med 1,6–2,2× det kritiska oljetalet (CPV) rekommenderas."),
                         hr(),
-                        p("Pastan du blandar är lämplig direkt för ", tags$b("grundmålning"), " och utgör basen för ett komplett system för linoljefärgsmålning."),
-                        p("Till färg för ", tags$b("mellanstrykning"), " kan du tillför ytterligare kokt linolja, precis upp till den mängd som medger att färgen struken på en glasskiva förblir ogenomskinlig."),
-                        p("Till färg för ", tags$b("slutstrykning"), " kan du därutöver med fördel tillsätta 10% soloxiderad olja."),
+                        p("Pastan du blandar är lämplig direkt för tunn ", tags$b("grundmålning"), " (enligt principen från magert till fett) och utgör basen för ett komplett system för linoljefärgsmålning."),
+                        p("Till färg för ", tags$b("mellanstrykning"), " kan du tillför ytterligare kokt linolja, precis upp till den maximala mängd som fortfarande medger att färgen struken på en glasskiva förblir ogenomskinlig."),
+                        p("Till färg för ", tags$b("slutstrykning"), " kan du därutöver med fördel tillsätta 10% kokt eller ännu hellre soloxiderad olja."),
+                        p("En burk till alla strykningar – tillsätt bara lite mer linolja efter hand!"),
                  ),
                  column(6,class="ready-box",
                         h3("Recept för linoljefärgspasta"),

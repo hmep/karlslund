@@ -60,16 +60,6 @@ parse_numeric <- function(x, default = NA) {
 # Extended with RAÄ Kulturkulör pigments
 # K and S values estimated based on pigment type and characteristics
 # Oil absorption values from Kremer datablad and industry standards
-# Substrate factors based on Swedish linseed oil paint literature:
-# - Tidigare målat trä: 0.90 (already oil-saturated, needs less)
-# - Hyvlat obehandlat: 1.20 (baseline smooth wood + 20% absorption)
-# - Sågad råspont: 1.50 (rough surface requires 50% more)
-# - Metall/plåt: 1.00 (non-absorbent, standard coverage)
-# - Puts/betong: 2.00 (very absorbent, typically 4 coats vs 2)
-# - Gips/sten: 1.30 (moderate absorption)
-# Coverage rates (use): 3 L/100m² = full 3-coat system (12 m²/L each coat)
-#                       2 L/100m² = 2-coat maintenance (25 m²/L each, optimistic)
-#                       1.5 L/100m² = single touch-up coat (15 m²/L)
 
 km <- list(
   # BASE WHITES
@@ -138,78 +128,7 @@ km <- list(
   "J686" = list(name = "Järnoxidbrunt nr 686 (RAÄ)", oil = 52, K = 0.92, S = 0.35, density = 5.1)
 )
 
-# RGB MASSTONE VALUES
-# All RAÄ pigments marked with "NCS [code]" are converted from official RAÄ specifications
-# Conversions performed using NCS color theory algorithm (blackness, chromaticness, hue)
-# NCS codes sourced from RAÄ "Vårda väl" PDFs (Riksantikvarieämbetet 2013-2014)
-# Non-RAÄ pigments use industry-standard color values
-rgboff <- list(
-  # WHITES
-  "vitbas" = c(255, 255, 255),
-  "44100" = c(255, 255, 255),
-  "44400" = c(255, 255, 255),
-  
-  # GREENS
-  "40400" = c(30, 120, 80),      # Viridian - transparent bluish green
-  "41700" = c(70, 160, 100),     # Malachite - bright mineral green
-  "11100" = c(0, 100, 50),       # Phthalo green - intense dark green
-  "KG83" = c(68, 133, 46),       # Kromoxidgrönt nr GN 83 - NCS 4834-G26Y
-  "ZG65" = c(55, 138, 26),       # Zinkgrönt nr 65 - NCS 4644-G26Y
-  "40850" = c(90, 120, 70),      # Grön jord Böhmen - earthy green
-  "40860" = c(100, 130, 80),     # Grön jord Verona
-  "GU30" = c(56, 56, 36),        # Grön Umbra nr 30 - NCS 7808-Y02R
-  
-  # BLACKS
-  "44450" = c(28, 38, 38),       # Svartoxid - warm black
-  "J318" = c(27, 26, 27),        # Järnoxidsvart nr 318 - NCS 8901-R48B
-  "BS98" = c(23, 23, 25),        # Bensvart nr 98 - NCS 9001-B16G
-  
-  # BLUES
-  "11670" = c(0, 70, 130),       # Phthalo blue - deep cyan blue
-  "UB88" = c(41, 15, 71),        # Ultramarinblått nr 88 - NCS 6232-R68B
-  "KB28" = c(48, 13, 138),       # Koboltblått nr 28 - NCS 3263-R78B
-  
-  # EARTH COLORS - TERRA
-  "40820" = c(180, 80, 60),      # Terra di Pozzuoli - reddish earth
-  "40800" = c(170, 110, 70),     # Terra di Siena natur - warm brown
-  "40830" = c(175, 85, 65),      # Terra di Ercolano - dark red earth
-  "BT44" = c(120, 53, 26),       # Bränd Terra nr 44 - NCS 5337-Y71R
-  "OT46" = c(130, 107, 38),      # Obränd Terra nr 46 - NCS 4936-Y25R
-  
-  # YELLOWS & OCHRES
-  "44082" = c(210, 180, 120),    # Gul ockra ljus - light yellow ochre
-  "44086" = c(160, 120, 70),     # Gul ockra mörk - dark yellow ochre
-  "44150" = c(240, 220, 130),    # Naples Yellow light
-  "44160" = c(220, 190, 100),    # Naples Yellow dark
-  "J920" = c(181, 154, 38),      # Järnoxidgult nr 920 - NCS 2956-Y19R
-  "LO92" = c(166, 134, 38),      # Ljusockra nr 92 - NCS 3550-Y25R [FIXED]
-  "GO94" = c(161, 131, 38),      # Guldockra nr 94 - NCS 3748-Y24R [FIXED]
-  "GO94_GU30" = c(99, 92, 41),   # 50% Guldockra + 50% Grön umbra - NCS 6123-Y12R
-  
-  # SIENNAS & UMBERS
-  "44650" = c(180, 130, 70),     # Raw Sienna - warm orange brown
-  "44620" = c(160, 82, 45),      # Burnt Sienna - deep red brown
-  "OU103" = c(46, 41, 26),       # Obränd Umbra nr 103 - NCS 8208-Y26R
-  "BU100" = c(43, 34, 31),       # Bränd Umbra nr 100 - NCS 8305-Y73R
-  "BRU39" = c(64, 58, 31),       # Brun Umbra nr 39 - NCS 7513-Y17R
-  "GRAU36" = c(79, 77, 87),      # Grå Umbra nr 36 - NCS 6505-R80B
-  
-  # REDS & ORANGES - IRON OXIDES
-  "44300" = c(139, 69, 19),      # Transparent brunoxid
-  "44200" = c(178, 34, 34),      # Röd järnoxid transparent
-  "44210" = c(200, 70, 60),      # Röd järnoxid ljus
-  "44220" = c(160, 35, 35),      # Röd järnoxid mörk
-  "44510" = c(232, 97, 0),       # Orange järnoxid
-  "J225" = c(130, 42, 23),       # Järnoxidrött nr 225 - NCS 4942-Y82R
-  "J180M" = c(99, 31, 26),       # Caput Mortuum 180M - NCS 6129-Y93R
-  "J120N" = c(128, 43, 18),      # Järnoxidrött nr 120 N - NCS 5043-Y77R
-  "ER48A" = c(153, 50, 18),      # Engelskt rött nr 48 A - NCS 4053-Y76R
-  
-  # BROWNS - IRON OXIDES
-  "J663" = c(51, 35, 31),        # Järnoxidbrunt nr 663 - NCS 8008-Y80R
-  "J686" = c(41, 31, 28)         # Järnoxidbrunt nr 686 - NCS 8405-Y73R
-)
-
+# === RGB MASSTONE VALUES ===
 raa_rgb_ncs <- list(
   # VITA BASER (används i alla RAÄ-recept)
   "vitbas" = list(rgb = c(245, 245, 245), ncs = "S 0500-N"),     # Neutral vit (zink+titan-blandning)
@@ -224,132 +143,94 @@ raa_rgb_ncs <- list(
   # SVARTA
   "J318"      = list(rgb = c(35, 35, 38),     ncs =  "S 8505-R20B"), # Järnoxidsvart nr 318
   "BS98"      = list(rgb = c(28, 28, 32),     ncs =  "S 9000-N"),     # Bensvart nr 98
-
+  
   # BLÅ
   "UB88"      = list(rgb = c(45, 60, 130),    ncs = "S 4050-R80B"),  # Ultramarinblått nr 88
   "KB28"      = list(rgb = c(70, 95, 155),    ncs = "S 3040-R90B"),  # Koboltblått nr 28
-
+  
   # GULA & OCKROR
   "J920"      = list(rgb = c(195, 165, 85),   ncs = "S 2040-Y10R"),   # Järnoxidgult nr 920
   "LO92"      = list(rgb = c(210, 185, 135),  ncs = "S 2030-Y20R"),  # Ljusockra nr 92
   "GO94"      = list(rgb = c(185, 155, 90),   ncs = "S 3040-Y10R"),   # Guldockra nr 94
   "GO94_GU30" = list(rgb = c(135, 130, 85),   ncs = "S  S 5020-G80Y"), # 50/50-blandning (RAÄ original)
-
+  
   # RÖDA
   "J225"      = list(rgb = c(142, 52, 52),    ncs = "S 4050-Y90R"),  # Järnoxidrött nr 225
   "J180M"     = list(rgb = c(105, 45, 55),    ncs = "S 4550-Y90R"),  # Caput Mortuum nr 180M
   "J120N"     = list(rgb = c(155, 65, 60),    ncs = "S 3550-Y90R"),  # Järnoxidrött nr 120N
   "ER48A"     = list(rgb = c(175, 80, 70),    ncs = "S 3050-Y90R"),  # Engelskt rött nr 48A
-
+  
   # BRUNA & TERRA
   "BT44"      = list(rgb = c(170, 110, 70),   ncs = "S 3040-Y40R"),  # Bränd terra nr 44
   "OT46"      = list(rgb = c(180, 130, 80),   ncs = "S 3030-Y30R"),  # Obränd terra nr 46
-
+  
   # UMBROR
   "OU103"     = list(rgb = c(115, 95, 80),    ncs = "S 5010-Y50R"),  # Obränd umbra nr 103
   "BU100"     = list(rgb = c(90, 60, 45),     ncs = "S 6020-Y60R"),  # Bränd umbra nr 100
   "BRU39"     = list(rgb = c(105, 85, 70),    ncs = "S 5020-Y50R"),  # Brun umbra nr 39
   "GRAU36"    = list(rgb = c(100, 95, 90),    ncs = "S 5502-Y"),     # Grå umbra nr 36
-
+  
   # BRUNA JÄRNOXIDER
   "J663"      = list(rgb = c(120, 80, 60),    ncs = "S 5020-Y70R"),  # Järnoxidbrunt nr 663
   "J686"      = list(rgb = c(105, 70, 55),    ncs = "S 5520-Y70R")   # Järnoxidbrunt nr 686
 )
 
-rgbgrok <- list(
+rgb_kremer <- list(
+  # GREENS
+  "40400" = c(30, 120, 80),      # Viridian - transparent bluish green
+  "41700" = c(70, 160, 100),     # Malachite - bright mineral green
+  "11100" = c(0, 100, 50),       # Phthalo green - intense dark green
+  "40850" = c(90, 120, 70),      # Grön jord Böhmen - earthy green
+  "40860" = c(100, 130, 80),     # Grön jord Verona
   
-  # VITA BASER (används i alla RAÄ-recept)
-  "vitbas" = c(245, 245, 245),     # Neutral vit (zink+titan-blandning)
-  "44100"  = c(248, 248, 248),     # Zinkvitt PW4 (något blåtonat)
-  "44400"  = c(252, 252, 250),     # Titanvitt Rutile PW6 (neutralt)
+  # BLUES
+  "11670" = c(0, 70, 130),       # Phthalo blue - deep cyan blue
   
-  # GRÖNA
-  "KG83"   = c(74, 117, 82),    # Kromoxidgrönt GN 83        → #4A7552
-  "ZG65"   = c(110, 145, 105),  # Zinkgrönt nr 65            → #6E9169
-  "GU30"   = c(95, 100, 70),    # Grön umbra nr 30           → #5F6446
+  # EARTH COLORS - TERRA
+  "40820" = c(180, 80, 60),      # Terra di Pozzuoli - reddish earth
+  "40800" = c(170, 110, 70),     # Terra di Siena natur - warm brown
+  "40830" = c(175, 85, 65),      # Terra di Ercolano - dark red earth
   
-  # SVARTA
-  "J318"   = c(35, 35, 38),     # Järnoxidsvart nr 318       → #232326
-  "BS98"   = c(28, 28, 32),     # Bensvart nr 98             → #1C1C20
+  # YELLOWS & OCHRES
+  "44082" = c(210, 180, 120),    # Gul ockra ljus - light yellow ochre
+  "44086" = c(160, 120, 70),     # Gul ockra mörk - dark yellow ochre
+  "44150" = c(240, 220, 130),    # Naples Yellow light
+  "44160" = c(220, 190, 100),    # Naples Yellow dark
   
-  # BLÅ
-  "UB88"   = c(45, 60, 130),    # Ultramarinblått nr 88      → #2D3C82
-  "KB28"   = c(70, 95, 155),    # Koboltblått nr 28          → #465F9B
+  # SIENNAS & UMBERS
+  "44650" = c(180, 130, 70),     # Raw Sienna - warm orange brown
+  "44620" = c(160, 82, 45),      # Burnt Sienna - deep red brown
   
-  # GULA & OCKROR
-  "J920"   = c(195, 165, 85),   # Järnoxidgult nr 920        → #C3A555
-  "LO92"   = c(210, 185, 135),  # Ljusockra nr 92            → #D2B987
-  "GO94"   = c(185, 155, 90),   # Guldockra nr 94            → #B99B5A
-  "GO94_GU30" = c(135, 130, 85),# 50 % GO94 + 50 % GU30     → #878255 (RAÄ:s egen blandning)
-  
-  # RÖDA
-  "J225"   = c(142, 52, 52),    # Järnoxidrött nr 225        → #8E3434
-  "J180M"  = c(105, 45, 55),    # Caput Mortuum nr 180M      → #692D37
-  "J120N"  = c(155, 65, 60),    # Järnoxidrött nr 120N       → #9B413C
-  "ER48A"  = c(175, 80, 70),    # Engelskt rött nr 48A       → #AF5046
-  
-  # BRUNA & UMBROR
-  "BT44"   = c(170, 110, 70),   # Bränd terra nr 44          → #AA6E46
-  "OT46"   = c(180, 130, 80),   # Obränd terra nr 46         → #B48250
-  "OU103"  = c(115, 95, 80),    # Obränd umbra nr 103        → #735F50
-  "BU100"  = c(90, 60, 45),     # Bränd umbra nr 100         → #5A3C2D
-  "BRU39"  = c(105, 85, 70),    # Brun umbra nr 39           → #695546
-  "GRAU36" = c(100, 95, 90),    # Grå umbra nr 36            → #645F5A
-  "J663"   = c(120, 80, 60),    # Järnoxidbrunt nr 663       → #78503C
-  "J686"   = c(105, 70, 55),    # Järnoxidbrunt nr 686       → #694637
-  "J318"   = c(35, 35, 38)      # Järnoxidsvart nr 318 (används också som djupsvart bas)
+  # REDS & ORANGES - IRON OXIDES
+  "44300" = c(139, 69, 19),      # Transparent brunoxid
+  "44200" = c(178, 34, 34),      # Röd järnoxid transparent
+  "44210" = c(200, 70, 60),      # Röd järnoxid ljus
+  "44220" = c(160, 35, 35),      # Röd järnoxid mörk
+  "44510" = c(232, 97, 0)       # Orange järnoxid
 )
 
-rgb <- list(
-  # VITA BASER
-  "vitbas" = c(245, 245, 245),
-  "44100"  = c(248, 248, 248),
-  "44400"  = c(252, 252, 250),
-  
-  # RAÄ PIGMENTS (extracted from website images)
-  "BRU39" = c(97, 71, 44),
-  "BS98" = c(25, 25, 25),
-  "BT44" = c(131, 60, 38),
-  "BU100" = c(53, 38, 33),
-  "ER48A" = c(125, 52, 44),
-  "GO94" = c(189, 132, 53),
-  "GRAU36" = c(117, 118, 120),
-  "GU30" = c(67, 59, 40),
-  "J120N" = c(125, 52, 44),
-  "J180M" = c(101, 43, 39),
-  "J225" = c(125, 52, 44),
-  "J318" = c(25, 25, 25),
-  "J663" = c(68, 53, 48),
-  "J686" = c(68, 53, 48),
-  "J920" = c(188, 125, 30),
-  "KB28" = c(2, 80, 154),
-  "KG83" = c(84, 111, 68),
-  "LO92" = c(160, 107, 29),
-  "OT46" = c(142, 96, 37),
-  "OU103" = c(71, 54, 38),
-  "UB88" = c(25, 52, 95),
-  "ZG65" = c(73, 113, 50)
+# Sammanslagen RGB-lista
+rgb <- c(
+  lapply(raa_rgb_ncs, function(x) x$rgb),
+  rgb_kremer
 )
 
-# Lägg till RGB-värdena i din befintliga rgb-lista
-#rgb <- modifyList(rgb, sapply(raa_rgb_ncs, function(x) x$rgb))
-
-# Skapa en separat NCS-lista
-ncs_codes <- sapply(raa_rgb_ncs, function(x) x$ncs)
-names(ncs_codes) <- names(raa_rgb_ncs)
+# NCS-lista
+# ncs_codes <- sapply(raa_rgb_ncs, function(x) x$ncs)
+# names(ncs_codes) <- names(raa_rgb_ncs)
 
 # === GAMMA CORRECTION FOR sRGB DISPLAY ===
 # NCS->RGB conversion produces linear RGB values, but web browsers expect sRGB
 # Apply gamma correction (γ=1.6) to brighten colors and fix dark/greenish appearance
-rgb_original <- rgb  # Keep original for reference
-rgb <- lapply(rgb, function(color) {
-  # Skip pure white (already correct)
-  if(all(color == 255)) return(color)
-  # Apply gamma correction: sRGB = linear^(1/gamma)
-  linear <- color / 255
-  srgb <- (linear ^ (1/1)) * 255 # 1.6
-  return(round(srgb))
-})
+# rgb_original <- rgb  # Keep original for reference
+# rgb <- lapply(rgb, function(color) {
+#   # Skip pure white (already correct)
+#   if(all(color == 255)) return(color)
+#   # Apply gamma correction: sRGB = linear^(1/gamma)
+#   linear <- color / 255
+#   srgb <- (linear ^ (1/1)) * 255 # 1 = off; 1.6 = moderate; 2.2 = heavy
+#   return(round(srgb))
+# })
 
 # RAÄ KULTURKULÖR PIGMENTS
 # Updated to include all RAÄ pigments with harmonized keys and NCS-based RGB values
@@ -880,7 +761,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.5.7-rgbtest-3, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.5.8, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -923,7 +804,7 @@ ui <- dashboardPage(
                h2("Blanda pigment"),
                fluidRow(
                  column(6,
-                        checkboxInput("raa_only", "Visa endast Kulturkulör-pigment (RAÄ)", TRUE),
+                        checkboxInput("raa_only", "Använd endast Kulturkulör-pigment (RAÄ)", TRUE),
                         pickerInput("p1", "Pigment 1", choices = all_choices, selected = "vitbas",
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),
                         conditionalPanel("input.p1", sliderInput("pct1","Andel (%)",0,100,70,1)),
@@ -952,7 +833,7 @@ ui <- dashboardPage(
                  )
                ),
                hr(),
-               actionButton("to_step2","Nästa steg", class="btn-primary next-btn"),
+               actionButton("to_step2","Nästa", class="btn-primary next-btn"),
                div(class="footer-ref", "Masstone baserade på data från Riksantikvarieämbetet (RAÄ) Kulturkulör och Kremer Pigmente")
     )),
     
@@ -973,11 +854,11 @@ ui <- dashboardPage(
                    "Oavsett vilket förhållande du väljer, blir resultatet detsamma kulörmässigt."
                  ),
                  br(),
-                 sliderInput("zinc_ratio","Zinkvitt i vitbas (%)",0,100,15,5,post="% zinkoxid"),
+                 sliderInput("zinc_ratio","Andel zinkvitt i vitbasen (%)",0,100,15,5,post="% zinkoxid"),
                ), ),
                hr(),
-               actionButton("back1","Föregående steg", class="btn-default back-btn"),
-               actionButton("to_step3","Nästa steg", class="btn-primary next-btn"),
+               actionButton("back1","Föregående", class="btn-default back-btn"),
+               actionButton("to_step3","Nästa", class="btn-primary next-btn"),
                div(class="footer-ref", "Kubelka-Munk-funktionen används för att bibehålla färgande pigments styrka i vitbasen konstant")
     )),
     
@@ -988,18 +869,16 @@ ui <- dashboardPage(
                         numericInput("area","Yta att måla (m²)",10,1,2000,1),
                         selectInput("substrate","Underlag (absorptionsfaktor)",
                                     choices=list(
-                                      "Tidigare målat trä (lägst åtgång)" = 0.90,
-                                      "Hyvlat obehandlat trä" = 1.20,
-                                      "Sågad råspont (ej hyvlad)" = 1.50,
-                                      "Metall / plåt (grundmålad)" = 1.00,
-                                      "Puts / betong" = 2.00,
-                                      "Gips / sten" = 1.30
+                                      "Tidigare målat trä (lägst åtgång)" =	1.0,	# Base rate
+                                      "Hyvlat trä" = 1.2,	                        # Less absorption
+                                      "Sågat trä" = 0.8,                          # More absorption
+                                      "Poröst material (högst åtgång)" = 0.5      # Maximum absorption
                                     ),
-                                    selected = 1.20),
+                                    selected = 1.2),
                         radioButtons("use","Antal strykningar",choices=list("1 strykning"=1,"2 strykningar (rekommenderas inomhus)"=2,"3 strykningar (rekommenderas utomhus)"=3),selected=3),
                         hr(),
-                        sliderInput("extra_oil","Extra kokt linolja (CPV-faktor)",1,2.2,1.8,0.05,post="× CPV"),
-                        p("Reglaget ökar endast mängden kokt linolja i receptet (pigmentmängderna är fixerade). En liten ökad mängd linolja utöver den minsta mängd som krävs för pigmenten underlättar både tillredningen med färgblandare i borrmaskin och ger bra strykbarhet. Öka gärna till 1,6–2,2× det kritiska oljetalet (CPV)."),
+                        sliderInput("extra_oil","Extra kokt linolja (CPV-faktor)",1,2.5,1.8,0.05,post="× CPV"),
+                        p("Reglaget ökar endast mängden kokt linolja i receptet (pigmentmängderna är fixerade). En viss mängd extra linolja, utöver den minsta mängd som krävs för pigmenten, underlättar både tillredningen med färgblandare i borrmaskin och färgens strykbarhet med penseln. En ökning med 1,6–2,2× det kritiska oljetalet (CPV) rekommenderas."),
                  ),
                  column(6,class="ready-box",
                         h3("Färdigt recept"),
@@ -1012,7 +891,7 @@ ui <- dashboardPage(
                  )
                ),
                hr(),
-               actionButton("back2","Föregående steg", class="btn-default back-btn"),
+               actionButton("back2","Föregående", class="btn-default back-btn"),
                actionButton("restart","Börja om från början", class="btn-default"),
                div(class="footer-ref", "Åtgång per m²: data från RAÄ Byggnadsvård, m. fl., uppskattningarna är ungefärliga")
     ))
@@ -1254,7 +1133,7 @@ server <- function(input, output, session) {
         tags$br(),
         tags$div(
           style = "margin-top: 0.5em;",
-          actionButton("normalize_values", "← Använd normaliserade värden", class = "btn-default btn-sm")
+          actionButton("normalize_values", "Justera reglage till normaliserade värden", class = "btn-default btn-sm")
         )
       )
     }
@@ -1306,30 +1185,75 @@ server <- function(input, output, session) {
   observeEvent(input$back2, { hide("step3"); if(mix()$has_white) show("step2") else show("step1") })
   observeEvent(input$to_step3, { hide("step2"); show("step3") })
   
-  values <- reactiveValues(area=50, use=3, substrate=1.20, extra_oil=1.1, zinc_ratio=60)
-  observe({
-    values$area <- parse_numeric(input$area, 50)
-    values$use <- parse_numeric(input$use, 3)
-    values$substrate <- parse_numeric(input$substrate, 1.20)
-    values$extra_oil <- parse_numeric(input$extra_oil, 1.1)
-    values$zinc_ratio <- parse_numeric(input$zinc_ratio, 60)
-  })
-  
+  # Simply use input values directly with req() to ensure they're available
+  # No need for intermediate reactive values
   calc <- reactive({
-    # use values are in L/100m², need to convert to L/m²
-    # substrate factor: 1.0 = baseline, <1.0 = less material, >1.0 = more material
-    # Calculate target paint volume needed
-    target_liters <- values$area * (values$use / 100) * values$substrate
-    list(target_liters = round(target_liters, 2))
+    # Ensure all inputs are available before calculating
+    req(input$area, input$use, input$substrate, input$extra_oil, input$zinc_ratio)
+    
+    # Convert all inputs to numeric explicitly
+    area_num <- as.numeric(input$area)
+    use_num <- as.numeric(input$use)
+    substrate_num <- as.numeric(input$substrate)  # selectInput returns character
+    extra_oil_num <- as.numeric(input$extra_oil)
+    zinc_ratio_num <- as.numeric(input$zinc_ratio)
+    
+    # Validate they're all numeric
+    req(is.numeric(area_num), is.numeric(use_num), is.numeric(substrate_num),
+        is.numeric(extra_oil_num), is.numeric(zinc_ratio_num))
+    
+    # Paint coverage calculation
+    # Baseline: 15 m²/L per coat for smooth wood
+    # Substrate factor adjusts coverage:
+    #   > 1.0 = smoother surface = better coverage (less paint needed)
+    #   < 1.0 = rougher/porous = worse coverage (more paint needed)
+    coverage_m2_per_liter <- 15  # baseline m²/L per coat
+    
+    # Total area to cover (area × number of coats)
+    total_area_m2 <- area_num * use_num
+    
+    # Adjust coverage by substrate factor
+    # Higher substrate factor = better coverage = less paint needed
+    adjusted_coverage <- coverage_m2_per_liter * substrate_num
+    
+    # Calculate liters needed
+    target_liters <- total_area_m2 / adjusted_coverage
+    
+    list(
+      target_liters = round(target_liters, 2),
+      area = area_num,
+      use = use_num,
+      substrate = substrate_num,
+      extra_oil = extra_oil_num,
+      zinc_ratio = zinc_ratio_num
+    )
   })
   
-  output$needed_volume <- renderText(format_swe(calc()$target_liters, 2))
-  output$needed_pigment <- renderText({
-    recipe <- final_recipe()
-    total_pigment <- recipe$zn + recipe$ti + sum(recipe$color)
-    format_swe(total_pigment, 0)
+  output$needed_volume <- renderText({
+    tryCatch({
+      format_swe(calc()$target_liters, 2)
+    }, error = function(e) {
+      paste("ERROR in needed_volume:", e$message)
+    })
   })
-  output$total_volume <- renderText(format_swe(total_paint_volume(), 2))
+  
+  output$needed_pigment <- renderText({
+    tryCatch({
+      recipe <- final_recipe()
+      total_pigment <- recipe$zn + recipe$ti + sum(recipe$color)
+      format_swe(total_pigment, 0)
+    }, error = function(e) {
+      paste("ERROR in needed_pigment:", e$message)
+    })
+  })
+  
+  output$total_volume <- renderText({
+    tryCatch({
+      format_swe(total_paint_volume(), 2)
+    }, error = function(e) {
+      paste("ERROR in total_volume:", e$message)
+    })
+  })
   
   recipe_df <- reactive({
     r <- final_recipe()
@@ -1344,6 +1268,7 @@ server <- function(input, output, session) {
   # Calculate actual total volume of finished paint (pigment + oil)
   total_paint_volume <- reactive({
     recipe <- final_recipe()
+    c <- calc()  # Get calc values
     
     # Total pigment weight (grams)
     pigment_total_g <- recipe$zn + recipe$ti + sum(recipe$color)
@@ -1351,7 +1276,7 @@ server <- function(input, output, session) {
     
     # Calculate weighted average density from recipe
     m <- mix()
-    zinc_ratio <- values$zinc_ratio/100
+    zinc_ratio <- c$zinc_ratio / 100  # Use calc() value
     normalized_pcts <- (m$pct / m$total) * 100
     
     total_density <- 0
@@ -1380,9 +1305,10 @@ server <- function(input, output, session) {
   
   
   final_recipe <- reactive({
-    target_liters <- calc()$target_liters
+    c <- calc()  # Get all values from calc()
+    target_liters <- c$target_liters
     m <- mix()
-    zinc_ratio <- values$zinc_ratio/100
+    zinc_ratio <- c$zinc_ratio / 100
     
     # CRITICAL FIX: Always normalize percentages to 100%
     # Regardless of what user entered, treat their ratios as parts of 100%
@@ -1427,7 +1353,7 @@ server <- function(input, output, session) {
     base_oil_g <- total_pigment_g * base_oil_absorption
     
     # Apply CPV factor ONLY to oil (pigment stays fixed)
-    final_oil_g <- base_oil_g * values$extra_oil
+    final_oil_g <- base_oil_g * c$extra_oil
     
     # Distribute pigments according to normalized percentages
     zn_g <- ti_g <- 0
@@ -1463,10 +1389,11 @@ server <- function(input, output, session) {
     content = function(file) {
       df <- recipe_df()
       recipe <- final_recipe()
+      c <- calc()  # Get calc values
       
       txt <- paste0("Paint-o-matic – recept ", Sys.Date(), "\n\n",
                     "Färgkod: ", final_hex(), "\n",
-                    "Yta: ", format_swe(values$area, 0), " m²\n\n")
+                    "Yta: ", format_swe(c$area, 0), " m²\n\n")
       
       # Recipe ingredients
       for(i in 1:nrow(df)) {

@@ -778,7 +778,7 @@ ui <- dashboardPage(
       .ready-box {padding: 20px;}
       .ready-box h3 {margin-top:0; }
       .rmargin-box {margin-right:20px;}
-      .btn {margin: .12px 12px 0 0;}
+      .btn {margin: .5em .5em 0 0;}
       .btn-primary { color:white;}
       .kulturkulor-swatch { 
         display:inline-block; width:24px; height:24px; border-radius:50%; 

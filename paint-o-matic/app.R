@@ -761,7 +761,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.6.3-K-M, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.6.4-K-M, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -843,18 +843,10 @@ ui <- dashboardPage(
                h2("Blanda vitbas"),
                fluidRow(column(
                  12,
-                 p(
-                   "Ange förhållandet mellan zinkoxid (zinkvitt) och titaniumdioxid (titanvitt) i vitbasen."
-                 ),
-                 p(
-                   "För utomhusfärg, välj en högre andel zinkvitt i vitbasen (gärna 30 %, om det fungerar med den önskade kulören), så blir den färdiga färgen mer motståndskraftig mot alger och mögelpåväxt."
-                 ),
-                 p(
-                   "För inomhusfärg, välj en lägre andel zinkvitt i vitbasen (0–15 %). Zink gör å ena sidan färgfilmen hårdare, men å den andra blir den också känsligare för krackelering över tid."
-                 ),
-                 p(
-                   "Oavsett vilket förhållande du väljer, blir resultatet detsamma kulörmässigt."
-                 ),
+                 p("Ange förhållandet mellan zinkoxid (zinkvitt) och titaniumdioxid (titanvitt) i vitbasen."),
+                 p("För ", tags$b("utomhusfärg"), "– välj en högre andel zinkvitt i vitbasen (gärna 30 %, om det fungerar med den önskade kulören), så blir den färdiga färgen mer motståndskraftig mot alger och mögelpåväxt."),
+                 p("För ", tags$b("inomhusfärg"), "– välj en lägre andel zinkvitt i vitbasen (0–15 %). Zink gör å ena sidan färgfilmen hårdare, men å den andra blir den också sprödare och känsligare över tid."),
+                 #p("Oavsett vilket förhållande du väljer blir den färdiga färgpastan kulörmässigt identisk, eftersom alla färgande pigment automatiskt justeras med Kubelka-Munk-kompensationen."),
                  br(),
                  sliderInput("zinc_ratio","Andel zinkvitt i vitbasen (%)",0,100,15,5,post="% zinkoxid"),
                ), ),
@@ -882,7 +874,7 @@ ui <- dashboardPage(
                         sliderInput("extra_oil","Extra kokt linolja (CPV-faktor)",1,2.5,1.8,0.05,post="× CPV"),
                         p("Reglaget ökar endast mängden kokt linolja i receptet (pigmentmängderna är fixerade). En viss mängd extra linolja, utöver den minsta mängd som krävs för pigmenten, underlättar både tillredningen av pastan med färgblandare i borrmaskin och dess strykbarhet med penseln. En ökning med 1,6–2,2× det kritiska oljetalet (CPV) rekommenderas."),
                         hr(),
-                        p("Pastan du blandar är lämplig för ", tags$b("grundmålning"), " och utgör basen för ett komplett system för linoljefärgsmålning."),
+                        p("Pastan du blandar är lämplig direkt för ", tags$b("grundmålning"), " och utgör basen för ett komplett system för linoljefärgsmålning."),
                         p("Till färg för ", tags$b("mellanstrykning"), " kan du tillför ytterligare kokt linolja, precis upp till den mängd som medger att färgen struken på en glasskiva förblir ogenomskinlig."),
                         p("Till färg för ", tags$b("slutstrykning"), " kan du därutöver med fördel tillsätta 10% soloxiderad olja."),
                  ),

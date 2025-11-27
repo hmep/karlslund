@@ -761,7 +761,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.6.2-K-M, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.6.3-K-M, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -871,20 +871,24 @@ ui <- dashboardPage(
                         numericInput("area","Yta att måla (m²)",10,1,2000,1),
                         selectInput("substrate","Underlag (absorptionsfaktor)",
                                     choices=list(
-                                      "Tidigare målat trä (lägst åtgång)" =	1.0,	# Base rate
-                                      "Hyvlat trä" = 1.2,	                        # Less absorption
+                                      "Tidigare målat trä (lägst åtgång)" =	1.2,	# Base rate
+                                      "Hyvlat trä" = 1.0,	                        # Less absorption
                                       "Sågat trä" = 0.8,                          # More absorption
                                       "Poröst material (högst åtgång)" = 0.5      # Maximum absorption
                                     ),
-                                    selected = 1.2),
+                                    selected = 1.0),
                         radioButtons("use","Antal strykningar",choices=list("1 strykning"=1,"2 strykningar (rekommenderas inomhus)"=2,"3 strykningar (rekommenderas utomhus)"=3),selected=3),
                         hr(),
                         sliderInput("extra_oil","Extra kokt linolja (CPV-faktor)",1,2.5,1.8,0.05,post="× CPV"),
-                        p("Reglaget ökar endast mängden kokt linolja i receptet (pigmentmängderna är fixerade). En viss mängd extra linolja, utöver den minsta mängd som krävs för pigmenten, underlättar både tillredningen med färgblandare i borrmaskin och färgens strykbarhet med penseln. En ökning med 1,6–2,2× det kritiska oljetalet (CPV) rekommenderas."),
+                        p("Reglaget ökar endast mängden kokt linolja i receptet (pigmentmängderna är fixerade). En viss mängd extra linolja, utöver den minsta mängd som krävs för pigmenten, underlättar både tillredningen av pastan med färgblandare i borrmaskin och dess strykbarhet med penseln. En ökning med 1,6–2,2× det kritiska oljetalet (CPV) rekommenderas."),
+                        hr(),
+                        p("Pastan du blandar är lämplig för ", tags$b("grundmålning"), " och utgör basen för ett komplett system för linoljefärgsmålning."),
+                        p("Till färg för ", tags$b("mellanstrykning"), " kan du tillför ytterligare kokt linolja, precis upp till den mängd som medger att färgen struken på en glasskiva förblir ogenomskinlig."),
+                        p("Till färg för ", tags$b("slutstrykning"), " kan du därutöver med fördel tillsätta 10% soloxiderad olja."),
                  ),
                  column(6,class="ready-box",
-                        h3("Färdigt recept"),
-                        tags$p("Du blandar cirka ",textOutput("total_volume",inline=TRUE)," liter färdig färg, med sammanlagt ",textOutput("needed_pigment",inline=TRUE)," g pigment."),
+                        h3("Recept för linoljefärgspasta"),
+                        tags$p("Du blandar cirka ",textOutput("total_volume",inline=TRUE)," liter färdig färgpasta, med sammanlagt ",textOutput("needed_pigment",inline=TRUE)," g pigment."),
                         uiOutput("final_preview"),br(),
                         tableOutput("final_recipe"),
                         downloadButton("download_txt","Spara som textfil",class="btn btn-primary"),

@@ -63,9 +63,9 @@ parse_numeric <- function(x, default = NA) {
 
 km <- list(
   # BASE WHITES
-  "vitbas" = list(name = "Vitbas (titan/zink-blandning)", oil = 17, K = 0.00, S = 2.20, density = 4.2),
-  "44100" = list(name = "Zinkvitt PW4", oil = 20, K = 0.00, S = 1.66, density = 5.6),
-  "44400" = list(name = "Titanvitt Rutile PW6", oil = 15, K = 0.00, S = 2.55, density = 4.2),
+  "vitbas" = list(name = "Vitbas (K-M-kompenserad titan/zink-blandning)", oil = 17, K = 0.00, S = 2.20, density = 4.2),
+  #"44100" = list(name = "Zinkvitt PW4", oil = 20, K = 0.00, S = 1.66, density = 5.6),
+  #"44400" = list(name = "Titanvitt Rutile PW6", oil = 15, K = 0.00, S = 2.55, density = 4.2),
   
   # GREENS
   "40400" = list(name = "Viridian PG18", oil = 40, K = 1.20, S = 1.50, density = 3.5),
@@ -132,8 +132,8 @@ km <- list(
 raa_rgb_ncs <- list(
   # VITA BASER (används i alla RAÄ-recept)
   "vitbas" = list(rgb = c(245, 245, 245), ncs = "S 0500-N"),     # Neutral vit (zink+titan-blandning)
-  "44100"  = list(rgb = c(248, 248, 248), ncs = "S 0502-B"),     # Zinkvitt PW4 (något blåtonat)
-  "44400"  = list(rgb = c(252, 252, 250), ncs = "S 0500-N"),     # Titanvitt Rutile PW6 (neutralt)
+  #"44100"  = list(rgb = c(248, 248, 248), ncs = "S 0502-B"),     # Zinkvitt PW4 (något blåtonat)
+  #"44400"  = list(rgb = c(252, 252, 250), ncs = "S 0500-N"),     # Titanvitt Rutile PW6 (neutralt)
   
   # GRÖNA
   "KG83"      = list(rgb = c(74, 117, 82),    ncs = "S 5020-G30Y"),  # Kromoxidgrönt GN 83
@@ -236,7 +236,7 @@ rgb <- c(
 # Updated to include all RAÄ pigments with harmonized keys and NCS-based RGB values
 raa_pigments <- c(
   # Base whites (always included)
-  "vitbas", "44100", "44400",
+  "vitbas", #"44100", "44400",
   
   # RAÄ specific pigments (from Kulturkulör system with NCS codes)
   "J225",       # Järnoxidrött nr 225
@@ -761,7 +761,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.5.8, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.6.0-KM, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -1279,10 +1279,13 @@ server <- function(input, output, session) {
     zinc_ratio <- c$zinc_ratio / 100  # Use calc() value
     normalized_pcts <- (m$pct / m$total) * 100
     
+    # Apply K-M compensation (same as in final_recipe)
+    compensated_pcts <- km_compensate_vitbas(normalized_pcts, m$ids, zinc_ratio)
+    
     total_density <- 0
     for(i in seq_along(m$ids)) {
       id <- m$ids[i]
-      weight_fraction <- normalized_pcts[i] / 100
+      weight_fraction <- compensated_pcts[i] / 100  # Use compensated values
       
       if(id == "vitbas") {
         total_density <- total_density + 
@@ -1303,6 +1306,114 @@ server <- function(input, output, session) {
     round(total_L, 2)
   })
   
+  # === KUBELKA-MUNK COMPENSATION FOR VITBAS ===
+  # When vitbas is present, adjust colored pigment amounts to maintain constant color
+  # as zinc/titanium ratio changes from a reference point
+  km_compensate_vitbas <- function(normalized_pcts, ids, zinc_ratio) {
+    # Only compensate if vitbas is present
+    if (!("vitbas" %in% ids)) {
+      return(normalized_pcts)
+    }
+    
+    # K and S values for whites (from pigment database)
+    K_zinc <- 0.00
+    S_zinc <- 1.66
+    K_titanium <- 0.00
+    S_titanium <- 2.55
+    
+    # REFERENCE POINT: Use 15% zinc as the baseline (typical default)
+    # All compensations are relative to this reference
+    zinc_ratio_ref <- 0.15
+    S_vitbas_ref <- zinc_ratio_ref * S_zinc + (1 - zinc_ratio_ref) * S_titanium
+    
+    # Calculate S for current vitbas mix
+    S_vitbas_current <- zinc_ratio * S_zinc + (1 - zinc_ratio) * S_titanium
+    
+    # Find vitbas index
+    vitbas_idx <- NULL
+    for(i in seq_along(ids)) {
+      if(ids[i] == "vitbas") {
+        vitbas_idx <- i
+        break
+      }
+    }
+    
+    # If only vitbas (no colored pigments), no compensation needed
+    if(length(ids) == 1 || is.null(vitbas_idx)) {
+      return(normalized_pcts)
+    }
+    
+    # Calculate K and S for colored pigments only (at reference concentrations)
+    vitbas_pct <- normalized_pcts[vitbas_idx]
+    colored_pcts <- normalized_pcts[-vitbas_idx]
+    colored_ids <- ids[-vitbas_idx]
+    
+    c_vitbas <- vitbas_pct / 100
+    
+    K_colored <- 0
+    S_colored <- 0
+    for(i in seq_along(colored_ids)) {
+      id <- colored_ids[i]
+      c_i <- colored_pcts[i] / 100
+      K_colored <- K_colored + c_i * km[[id]]$K
+      S_colored <- S_colored + c_i * km[[id]]$S
+    }
+    
+    # Calculate the TARGET K/S ratio using reference zinc_ratio
+    # This is the color we want to maintain
+    K_mix_ref <- K_colored  # Vitbas contributes K=0
+    S_mix_ref <- c_vitbas * S_vitbas_ref + S_colored
+    
+    if(S_mix_ref <= 0) {
+      return(normalized_pcts)
+    }
+    
+    KS_ratio_target <- K_mix_ref / S_mix_ref
+    
+    # Now find the scaling factor 'alpha' for colored pigments
+    # such that at the CURRENT zinc_ratio, we maintain the TARGET K/S ratio
+    # K_mix / S_mix = KS_target
+    # (alpha * K_colored) / (c_vitbas * S_vitbas_current + alpha * S_colored) = KS_target
+    
+    # Solving for alpha:
+    # alpha * K_colored = KS_target * (c_vitbas * S_vitbas_current + alpha * S_colored)
+    # alpha * K_colored = KS_target * c_vitbas * S_vitbas_current + KS_target * alpha * S_colored
+    # alpha * (K_colored - KS_target * S_colored) = KS_target * c_vitbas * S_vitbas_current
+    
+    denominator <- K_colored - KS_ratio_target * S_colored
+    
+    if(abs(denominator) < 1e-10) {
+      # Edge case - no adjustment needed or unstable
+      return(normalized_pcts)
+    }
+    
+    alpha <- (KS_ratio_target * c_vitbas * S_vitbas_current) / denominator
+    
+    # Check if alpha is reasonable (between 0.3 and 3.0 for safety)
+    if(alpha < 0.3 || alpha > 3.0) {
+      # Compensation would be too extreme - return original
+      return(normalized_pcts)
+    }
+    
+    # Scale colored pigment percentages by alpha
+    colored_pcts_compensated <- colored_pcts * alpha
+    total_colored_compensated <- sum(colored_pcts_compensated)
+    vitbas_pct_compensated <- 100 - total_colored_compensated
+    
+    # Ensure vitbas percentage is reasonable (between 0 and 100)
+    if(vitbas_pct_compensated < 0 || vitbas_pct_compensated > 100) {
+      # Compensation failed - return original
+      return(normalized_pcts)
+    }
+    
+    # Reconstruct the compensated percentages vector
+    compensated_pcts <- normalized_pcts
+    compensated_pcts[vitbas_idx] <- vitbas_pct_compensated
+    compensated_pcts[-vitbas_idx] <- colored_pcts_compensated
+    
+    return(compensated_pcts)
+  }
+  
   
   final_recipe <- reactive({
     c <- calc()  # Get all values from calc()
@@ -1314,13 +1425,19 @@ server <- function(input, output, session) {
     # Regardless of what user entered, treat their ratios as parts of 100%
     normalized_pcts <- (m$pct / m$total) * 100
     
+    # === APPLY KUBELKA-MUNK COMPENSATION ===
+    # If vitbas is present, adjust colored pigment amounts to maintain constant color
+    # as zinc/titanium ratio changes
+    compensated_pcts <- km_compensate_vitbas(normalized_pcts, m$ids, zinc_ratio)
+    
     # Calculate weighted average pigment properties (WITHOUT extra oil factor)
+    # Use compensated percentages for accurate K-M calculations
     base_oil_absorption <- 0
     total_density <- 0
     
     for(i in seq_along(m$ids)) {
       id <- m$ids[i]
-      weight_fraction <- normalized_pcts[i] / 100
+      weight_fraction <- compensated_pcts[i] / 100  # Use compensated values
       
       if(id == "vitbas") {
         # Vitbas is a mix of zinc and titanium
@@ -1355,13 +1472,13 @@ server <- function(input, output, session) {
     # Apply CPV factor ONLY to oil (pigment stays fixed)
     final_oil_g <- base_oil_g * c$extra_oil
     
-    # Distribute pigments according to normalized percentages
+    # Distribute pigments according to K-M compensated percentages
     zn_g <- ti_g <- 0
     color_g <- numeric()
     
     for(i in seq_along(m$ids)){
       id <- m$ids[i]
-      weight_fraction <- normalized_pcts[i] / 100
+      weight_fraction <- compensated_pcts[i] / 100  # Use compensated values
       weight_g <- total_pigment_g * weight_fraction
       
       if(id == "vitbas"){

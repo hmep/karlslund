@@ -8,50 +8,43 @@ library(shinydashboard)
 library(shinyjs)
 library(shinyWidgets)
 
-# === SWEDISH LOCALE CONFIGURATION ===
+# === SWEDISH LOCALE CONFIGURATION === 
 # Set Swedish locale for number formatting (cross-platform)
 swedish_locale_set <- FALSE
 locale_options <- c("sv_SE.UTF-8", "sv_SE", "Swedish_Sweden.1252", "Swedish")
 
-for (locale in locale_options) {
+for(locale in locale_options) {
   result <- tryCatch({
     Sys.setlocale("LC_NUMERIC", locale)
     TRUE
-  }, warning = function(w)
-    FALSE, error = function(e)
-      FALSE)
+  }, warning = function(w) FALSE, error = function(e) FALSE)
   
-  if (result && result != "C") {
+  if(result && result != "C") {
     swedish_locale_set <- TRUE
     message("Swedish locale set successfully: ", locale)
     break
   }
 }
 
-if (!swedish_locale_set) {
+if(!swedish_locale_set) {
   message("Could not set Swedish locale, using manual formatting only")
 }
 
 # Helper functions for Swedish number formatting
 format_swe <- function(x, digits = 1) {
-  if (is.null(x) || is.na(x))
-    return("0")
-  formatted <- format(
-    round(x, digits),
-    nsmall = digits,
-    decimal.mark = ",",
-    big.mark = " ",
-    trim = TRUE
-  )
+  if(is.null(x) || is.na(x)) return("0")
+  formatted <- format(round(x, digits), 
+                      nsmall = digits, 
+                      decimal.mark = ",", 
+                      big.mark = " ",
+                      trim = TRUE)
   return(formatted)
 }
 
 # Locale-independent numeric parser (handles both dots and commas from any source)
 parse_numeric <- function(x, default = NA) {
-  if (is.null(x) || length(x) == 0)
-    return(default)
-  if (is.numeric(x))
-    return(x)
+  if(is.null(x) || length(x) == 0) return(default)
+  if(is.numeric(x)) return(x)
   
   # Convert to character and replace comma with dot
   x_char <- as.character(x)
@@ -59,8 +52,7 @@ parse_numeric <- function(x, default = NA) {
   x_char <- gsub(" ", "", x_char)  # Remove spaces (thousand separators)
   
   result <- suppressWarnings(as.numeric(x_char))
-  if (is.na(result))
-    return(default)
+  if(is.na(result)) return(default)
   return(result)
 }
 
@@ -71,467 +63,157 @@ parse_numeric <- function(x, default = NA) {
 
 km <- list(
   # BASE WHITES
-  "vitbas" = list(
-    name = "Vitbas (K-M-kompenserad titan/zink-blandning)",
-    oil = 17,
-    K = 0.00,
-    S = 2.20,
-    density = 4.2
-  ),
+  "vitbas" = list(name = "Vitbas (K-M-kompenserad titan/zink-blandning)", oil = 17, K = 0.00, S = 2.20, density = 4.2),
   #"44100" = list(name = "Zinkvitt PW4", oil = 20, K = 0.00, S = 1.66, density = 5.6),
   #"44400" = list(name = "Titanvitt Rutile PW6", oil = 15, K = 0.00, S = 2.55, density = 4.2),
   
   # GREENS
-  "40400" = list(
-    name = "Viridian PG18",
-    oil = 40,
-    K = 1.20,
-    S = 1.50,
-    density = 3.5
-  ),
-  "41700" = list(
-    name = "Malakit naturlig",
-    oil = 45,
-    K = 0.90,
-    S = 0.80,
-    density = 4.0
-  ),
-  "11100" = list(
-    name = "Phthalogrön PG7",
-    oil = 50,
-    K = 1.50,
-    S = 1.40,
-    density = 2.0
-  ),
-  "KG83" = list(
-    name = "Kromoxidgrönt nr GN 83 (RAÄ)",
-    oil = 18,
-    K = 1.15,
-    S = 1.75,
-    density = 5.2
-  ),
-  "ZG65" = list(
-    name = "Zinkgrönt nr 65 (RAÄ)",
-    oil = 19,
-    K = 1.00,
-    S = 1.60,
-    density = 4.8
-  ),
-  "40850" = list(
-    name = "Grön jord Böhmen",
-    oil = 35,
-    K = 0.60,
-    S = 0.55,
-    density = 3.2
-  ),
-  "40860" = list(
-    name = "Grön jord Verona",
-    oil = 35,
-    K = 0.65,
-    S = 0.60,
-    density = 3.2
-  ),
-  "GU30" = list(
-    name = "Grön umbra nr 30 (RAÄ)",
-    oil = 50,
-    K = 0.85,
-    S = 0.48,
-    density = 3.5
-  ),
+  "40400" = list(name = "Viridian PG18", oil = 40, K = 1.20, S = 1.50, density = 3.5),
+  "41700" = list(name = "Malakit naturlig", oil = 45, K = 0.90, S = 0.80, density = 4.0),
+  "11100" = list(name = "Phthalogrön PG7", oil = 50, K = 1.50, S = 1.40, density = 2.0),
+  "KG83" = list(name = "Kromoxidgrönt nr GN 83 (RAÄ)", oil = 18, K = 1.15, S = 1.75, density = 5.2),
+  "ZG65" = list(name = "Zinkgrönt nr 65 (RAÄ)", oil = 19, K = 1.00, S = 1.60, density = 4.8),
+  "40850" = list(name = "Grön jord Böhmen", oil = 35, K = 0.60, S = 0.55, density = 3.2),
+  "40860" = list(name = "Grön jord Verona", oil = 35, K = 0.65, S = 0.60, density = 3.2),
+  "GU30" = list(name = "Grön umbra nr 30 (RAÄ)", oil = 50, K = 0.85, S = 0.48, density = 3.5),
   
   # BLACKS
-  "44450" = list(
-    name = "Svartoxid PBk11",
-    oil = 15,
-    K = 2.40,
-    S = 1.10,
-    density = 5.2
-  ),
-  "J318" = list(
-    name = "Järnoxidsvart nr 318 (RAÄ)",
-    oil = 16,
-    K = 2.35,
-    S = 1.08,
-    density = 5.1
-  ),
-  "BS98" = list(
-    name = "Bensvart nr 98 (RAÄ)",
-    oil = 50,
-    K = 2.60,
-    S = 0.95,
-    density = 2.0
-  ),
+  "44450" = list(name = "Svartoxid PBk11", oil = 15, K = 2.40, S = 1.10, density = 5.2),
+  "J318" = list(name = "Järnoxidsvart nr 318 (RAÄ)", oil = 16, K = 2.35, S = 1.08, density = 5.1),
+  "BS98" = list(name = "Bensvart nr 98 (RAÄ)", oil = 50, K = 2.60, S = 0.95, density = 2.0),
   
   # BLUES
-  "11670" = list(
-    name = "Phthaloblå PB15:3",
-    oil = 45,
-    K = 1.80,
-    S = 1.20,
-    density = 2.0
-  ),
-  "UB88" = list(
-    name = "Ultramarinblått nr 88 (RAÄ)",
-    oil = 42,
-    K = 1.65,
-    S = 0.88,
-    density = 2.4
-  ),
-  "KB28" = list(
-    name = "Koboltblått nr 28 (RAÄ)",
-    oil = 35,
-    K = 1.40,
-    S = 0.92,
-    density = 4.0
-  ),
+  "11670" = list(name = "Phthaloblå PB15:3", oil = 45, K = 1.80, S = 1.20, density = 2.0),
+  "UB88" = list(name = "Ultramarinblått nr 88 (RAÄ)", oil = 42, K = 1.65, S = 0.88, density = 2.4),
+  "KB28" = list(name = "Koboltblått nr 28 (RAÄ)", oil = 35, K = 1.40, S = 0.92, density = 4.0),
   
   # EARTH COLORS - TERRA & POZZUOLI
-  "40820" = list(
-    name = "Terra di Pozzuoli",
-    oil = 40,
-    K = 0.70,
-    S = 0.55,
-    density = 3.3
-  ),
-  "40800" = list(
-    name = "Terra di Siena natur",
-    oil = 40,
-    K = 0.60,
-    S = 0.50,
-    density = 3.3
-  ),
-  "40830" = list(
-    name = "Terra di Ercolano",
-    oil = 40,
-    K = 0.75,
-    S = 0.55,
-    density = 3.3
-  ),
-  "BT44" = list(
-    name = "Bränd terra nr 44 (RAÄ)",
-    oil = 38,
-    K = 0.78,
-    S = 0.52,
-    density = 3.4
-  ),
-  "OT46" = list(
-    name = "Obränd terra nr 46 (RAÄ)",
-    oil = 38,
-    K = 0.62,
-    S = 0.48,
-    density = 3.3
-  ),
+  "40820" = list(name = "Terra di Pozzuoli", oil = 40, K = 0.70, S = 0.55, density = 3.3),
+  "40800" = list(name = "Terra di Siena natur", oil = 40, K = 0.60, S = 0.50, density = 3.3),
+  "40830" = list(name = "Terra di Ercolano", oil = 40, K = 0.75, S = 0.55, density = 3.3),
+  "BT44" = list(name = "Bränd terra nr 44 (RAÄ)", oil = 38, K = 0.78, S = 0.52, density = 3.4),
+  "OT46" = list(name = "Obränd terra nr 46 (RAÄ)", oil = 38, K = 0.62, S = 0.48, density = 3.3),
   
   # YELLOWS & OCHRES
-  "44082" = list(
-    name = "Gul ockra ljus",
-    oil = 20,
-    K = 0.48,
-    S = 0.38,
-    density = 3.5
-  ),
-  "44086" = list(
-    name = "Gul ockra mörk",
-    oil = 20,
-    K = 0.55,
-    S = 0.45,
-    density = 3.5
-  ),
-  "44150" = list(
-    name = "Naples Yellow light",
-    oil = 35,
-    K = 0.40,
-    S = 0.70,
-    density = 6.0
-  ),
-  "44160" = list(
-    name = "Naples Yellow dark",
-    oil = 35,
-    K = 0.50,
-    S = 0.65,
-    density = 6.0
-  ),
-  "J920" = list(
-    name = "Järnoxidgult nr 920 (RAÄ)",
-    oil = 22,
-    K = 0.52,
-    S = 0.42,
-    density = 4.0
-  ),
-  "LO92" = list(
-    name = "Ljusockra nr 92 (RAÄ)",
-    oil = 21,
-    K = 0.46,
-    S = 0.40,
-    density = 3.5
-  ),
-  "GO94" = list(
-    name = "Guldockra nr 94 (RAÄ)",
-    oil = 23,
-    K = 0.58,
-    S = 0.46,
-    density = 3.6
-  ),
-  "GO94_GU30" = list(
-    name = "50% Guldockra + 50% Grön umbra (RAÄ)",
-    oil = 40,
-    K = 0.72,
-    S = 0.47,
-    density = 3.5
-  ),
+  "44082" = list(name = "Gul ockra ljus", oil = 20, K = 0.48, S = 0.38, density = 3.5),
+  "44086" = list(name = "Gul ockra mörk", oil = 20, K = 0.55, S = 0.45, density = 3.5),
+  "44150" = list(name = "Naples Yellow light", oil = 35, K = 0.40, S = 0.70, density = 6.0),
+  "44160" = list(name = "Naples Yellow dark", oil = 35, K = 0.50, S = 0.65, density = 6.0),
+  "J920" = list(name = "Järnoxidgult nr 920 (RAÄ)", oil = 22, K = 0.52, S = 0.42, density = 4.0),
+  "LO92" = list(name = "Ljusockra nr 92 (RAÄ)", oil = 21, K = 0.46, S = 0.40, density = 3.5),
+  "GO94" = list(name = "Guldockra nr 94 (RAÄ)", oil = 23, K = 0.58, S = 0.46, density = 3.6),
+  "GO94_GU30" = list(name = "50% Guldockra + 50% Grön umbra (RAÄ)", oil = 40, K = 0.72, S = 0.47, density = 3.5),
   
   # SIENNAS & UMBERS
-  "44650" = list(
-    name = "Raw Sienna Italien",
-    oil = 45,
-    K = 0.55,
-    S = 0.45,
-    density = 3.3
-  ),
-  "44620" = list(
-    name = "Burnt Sienna Italien",
-    oil = 50,
-    K = 0.75,
-    S = 0.50,
-    density = 3.5
-  ),
-  "OU103" = list(
-    name = "Obränd umbra nr 103 (RAÄ)",
-    oil = 52,
-    K = 0.92,
-    S = 0.46,
-    density = 3.4
-  ),
-  "BU100" = list(
-    name = "Bränd umbra nr 100 (RAÄ)",
-    oil = 56,
-    K = 1.12,
-    S = 0.52,
-    density = 3.5
-  ),
-  "BRU39" = list(
-    name = "Brun umbra nr 39 (RAÄ)",
-    oil = 54,
-    K = 1.05,
-    S = 0.48,
-    density = 3.4
-  ),
-  "GRAU36" = list(
-    name = "Grå umbra nr 36 (RAÄ)",
-    oil = 48,
-    K = 1.20,
-    S = 0.55,
-    density = 3.5
-  ),
+  "44650" = list(name = "Raw Sienna Italien", oil = 45, K = 0.55, S = 0.45, density = 3.3),
+  "44620" = list(name = "Burnt Sienna Italien", oil = 50, K = 0.75, S = 0.50, density = 3.5),
+  "OU103" = list(name = "Obränd umbra nr 103 (RAÄ)", oil = 52, K = 0.92, S = 0.46, density = 3.4),
+  "BU100" = list(name = "Bränd umbra nr 100 (RAÄ)", oil = 56, K = 1.12, S = 0.52, density = 3.5),
+  "BRU39" = list(name = "Brun umbra nr 39 (RAÄ)", oil = 54, K = 1.05, S = 0.48, density = 3.4),
+  "GRAU36" = list(name = "Grå umbra nr 36 (RAÄ)", oil = 48, K = 1.20, S = 0.55, density = 3.5),
   
   # REDS & ORANGES - IRON OXIDES
-  "44300" = list(
-    name = "Transparent brunoxid",
-    oil = 50,
-    K = 0.80,
-    S = 0.22,
-    density = 5.0
-  ),
-  "44200" = list(
-    name = "Röd järnoxid transparent",
-    oil = 47,
-    K = 0.90,
-    S = 0.12,
-    density = 5.2
-  ),
-  "44210" = list(
-    name = "Röd järnoxid ljus",
-    oil = 47,
-    K = 0.80,
-    S = 0.25,
-    density = 5.1
-  ),
-  "44220" = list(
-    name = "Röd järnoxid mörk",
-    oil = 47,
-    K = 1.00,
-    S = 0.35,
-    density = 5.2
-  ),
-  "44510" = list(
-    name = "Orange järnoxid",
-    oil = 47,
-    K = 0.55,
-    S = 0.85,
-    density = 4.8
-  ),
-  "J225" = list(
-    name = "Järnoxidrött nr 225 (RAÄ)",
-    oil = 48,
-    K = 0.95,
-    S = 0.32,
-    density = 5.1
-  ),
-  "J180M" = list(
-    name = "Järnoxidrött nr 180M Caput Mortuum (RAÄ)",
-    oil = 48,
-    K = 1.15,
-    S = 0.28,
-    density = 5.2
-  ),
-  "J120N" = list(
-    name = "Järnoxidrött nr 120N (RAÄ)",
-    oil = 47,
-    K = 0.85,
-    S = 0.30,
-    density = 5.0
-  ),
-  "ER48A" = list(
-    name = "Engelskt rött nr 48A (RAÄ)",
-    oil = 30,
-    K = 0.75,
-    S = 0.40,
-    density = 4.9
-  ),
+  "44300" = list(name = "Transparent brunoxid", oil = 50, K = 0.80, S = 0.22, density = 5.0),
+  "44200" = list(name = "Röd järnoxid transparent", oil = 47, K = 0.90, S = 0.12, density = 5.2),
+  "44210" = list(name = "Röd järnoxid ljus", oil = 47, K = 0.80, S = 0.25, density = 5.1),
+  "44220" = list(name = "Röd järnoxid mörk", oil = 47, K = 1.00, S = 0.35, density = 5.2),
+  "44510" = list(name = "Orange järnoxid", oil = 47, K = 0.55, S = 0.85, density = 4.8),
+  "J225" = list(name = "Järnoxidrött nr 225 (RAÄ)", oil = 48, K = 0.95, S = 0.32, density = 5.1),
+  "J180M" = list(name = "Järnoxidrött nr 180M Caput Mortuum (RAÄ)", oil = 48, K = 1.15, S = 0.28, density = 5.2),
+  "J120N" = list(name = "Järnoxidrött nr 120N (RAÄ)", oil = 47, K = 0.85, S = 0.30, density = 5.0),
+  "ER48A" = list(name = "Engelskt rött nr 48A (RAÄ)", oil = 30, K = 0.75, S = 0.40, density = 4.9),
   
   # BROWNS - IRON OXIDES
-  "J663" = list(
-    name = "Järnoxidbrunt nr 663 (RAÄ)",
-    oil = 50,
-    K = 0.88,
-    S = 0.38,
-    density = 5.0
-  ),
-  "J686" = list(
-    name = "Järnoxidbrunt nr 686 (RAÄ)",
-    oil = 52,
-    K = 0.92,
-    S = 0.35,
-    density = 5.1
-  )
+  "J663" = list(name = "Järnoxidbrunt nr 663 (RAÄ)", oil = 50, K = 0.88, S = 0.38, density = 5.0),
+  "J686" = list(name = "Järnoxidbrunt nr 686 (RAÄ)", oil = 52, K = 0.92, S = 0.35, density = 5.1)
 )
 
 # === RGB MASSTONE VALUES ===
 raa_rgb_ncs <- list(
   # VITA BASER (används i alla RAÄ-recept)
-  "vitbas" = list(rgb = c(245, 245, 245), ncs = "S 0500-N"),
-  # Neutral vit (zink+titan-blandning)
+  "vitbas" = list(rgb = c(245, 245, 245), ncs = "S 0500-N"),     # Neutral vit (zink+titan-blandning)
   #"44100"  = list(rgb = c(248, 248, 248), ncs = "S 0502-B"),     # Zinkvitt PW4 (något blåtonat)
   #"44400"  = list(rgb = c(252, 252, 250), ncs = "S 0500-N"),     # Titanvitt Rutile PW6 (neutralt)
   
   # GRÖNA
-  "KG83"      = list(rgb = c(74, 117, 82), ncs = "S 5020-G30Y"),
-  # Kromoxidgrönt GN 83
-  "ZG65"      = list(rgb = c(110, 145, 105), ncs = "S 4030-G40Y"),
-  # Zinkgrönt nr 65
-  "GU30"      = list(rgb = c(95, 100, 70), ncs = "S 6005-G50Y"),
-  # Grön umbra nr 30
+  "KG83"      = list(rgb = c(74, 117, 82),    ncs = "S 5020-G30Y"),  # Kromoxidgrönt GN 83
+  "ZG65"      = list(rgb = c(110, 145, 105),  ncs = "S 4030-G40Y"),  # Zinkgrönt nr 65
+  "GU30"      = list(rgb = c(95, 100, 70),    ncs = "S 6005-G50Y"),  # Grön umbra nr 30
   
   # SVARTA
-  "J318"      = list(rgb = c(35, 35, 38), ncs =  "S 8505-R20B"),
-  # Järnoxidsvart nr 318
-  "BS98"      = list(rgb = c(28, 28, 32), ncs =  "S 9000-N"),
-  # Bensvart nr 98
+  "J318"      = list(rgb = c(35, 35, 38),     ncs =  "S 8505-R20B"), # Järnoxidsvart nr 318
+  "BS98"      = list(rgb = c(28, 28, 32),     ncs =  "S 9000-N"),     # Bensvart nr 98
   
   # BLÅ
-  "UB88"      = list(rgb = c(45, 60, 130), ncs = "S 4050-R80B"),
-  # Ultramarinblått nr 88
-  "KB28"      = list(rgb = c(70, 95, 155), ncs = "S 3040-R90B"),
-  # Koboltblått nr 28
+  "UB88"      = list(rgb = c(45, 60, 130),    ncs = "S 4050-R80B"),  # Ultramarinblått nr 88
+  "KB28"      = list(rgb = c(70, 95, 155),    ncs = "S 3040-R90B"),  # Koboltblått nr 28
   
   # GULA & OCKROR
-  "J920"      = list(rgb = c(195, 165, 85), ncs = "S 2040-Y10R"),
-  # Järnoxidgult nr 920
-  "LO92"      = list(rgb = c(210, 185, 135), ncs = "S 2030-Y20R"),
-  # Ljusockra nr 92
-  "GO94"      = list(rgb = c(185, 155, 90), ncs = "S 3040-Y10R"),
-  # Guldockra nr 94
-  "GO94_GU30" = list(rgb = c(135, 130, 85), ncs = "S  S 5020-G80Y"),
-  # 50/50-blandning (RAÄ original)
+  "J920"      = list(rgb = c(195, 165, 85),   ncs = "S 2040-Y10R"),   # Järnoxidgult nr 920
+  "LO92"      = list(rgb = c(210, 185, 135),  ncs = "S 2030-Y20R"),  # Ljusockra nr 92
+  "GO94"      = list(rgb = c(185, 155, 90),   ncs = "S 3040-Y10R"),   # Guldockra nr 94
+  "GO94_GU30" = list(rgb = c(135, 130, 85),   ncs = "S  S 5020-G80Y"), # 50/50-blandning (RAÄ original)
   
   # RÖDA
-  "J225"      = list(rgb = c(142, 52, 52), ncs = "S 4050-Y90R"),
-  # Järnoxidrött nr 225
-  "J180M"     = list(rgb = c(105, 45, 55), ncs = "S 4550-Y90R"),
-  # Caput Mortuum nr 180M
-  "J120N"     = list(rgb = c(155, 65, 60), ncs = "S 3550-Y90R"),
-  # Järnoxidrött nr 120N
-  "ER48A"     = list(rgb = c(175, 80, 70), ncs = "S 3050-Y90R"),
-  # Engelskt rött nr 48A
+  "J225"      = list(rgb = c(142, 52, 52),    ncs = "S 4050-Y90R"),  # Järnoxidrött nr 225
+  "J180M"     = list(rgb = c(105, 45, 55),    ncs = "S 4550-Y90R"),  # Caput Mortuum nr 180M
+  "J120N"     = list(rgb = c(155, 65, 60),    ncs = "S 3550-Y90R"),  # Järnoxidrött nr 120N
+  "ER48A"     = list(rgb = c(175, 80, 70),    ncs = "S 3050-Y90R"),  # Engelskt rött nr 48A
   
   # BRUNA & TERRA
-  "BT44"      = list(rgb = c(170, 110, 70), ncs = "S 3040-Y40R"),
-  # Bränd terra nr 44
-  "OT46"      = list(rgb = c(180, 130, 80), ncs = "S 3030-Y30R"),
-  # Obränd terra nr 46
+  "BT44"      = list(rgb = c(170, 110, 70),   ncs = "S 3040-Y40R"),  # Bränd terra nr 44
+  "OT46"      = list(rgb = c(180, 130, 80),   ncs = "S 3030-Y30R"),  # Obränd terra nr 46
   
   # UMBROR
-  "OU103"     = list(rgb = c(115, 95, 80), ncs = "S 5010-Y50R"),
-  # Obränd umbra nr 103
-  "BU100"     = list(rgb = c(90, 60, 45), ncs = "S 6020-Y60R"),
-  # Bränd umbra nr 100
-  "BRU39"     = list(rgb = c(105, 85, 70), ncs = "S 5020-Y50R"),
-  # Brun umbra nr 39
-  "GRAU36"    = list(rgb = c(100, 95, 90), ncs = "S 5502-Y"),
-  # Grå umbra nr 36
+  "OU103"     = list(rgb = c(115, 95, 80),    ncs = "S 5010-Y50R"),  # Obränd umbra nr 103
+  "BU100"     = list(rgb = c(90, 60, 45),     ncs = "S 6020-Y60R"),  # Bränd umbra nr 100
+  "BRU39"     = list(rgb = c(105, 85, 70),    ncs = "S 5020-Y50R"),  # Brun umbra nr 39
+  "GRAU36"    = list(rgb = c(100, 95, 90),    ncs = "S 5502-Y"),     # Grå umbra nr 36
   
   # BRUNA JÄRNOXIDER
-  "J663"      = list(rgb = c(120, 80, 60), ncs = "S 5020-Y70R"),
-  # Järnoxidbrunt nr 663
-  "J686"      = list(rgb = c(105, 70, 55), ncs = "S 5520-Y70R")   # Järnoxidbrunt nr 686
+  "J663"      = list(rgb = c(120, 80, 60),    ncs = "S 5020-Y70R"),  # Järnoxidbrunt nr 663
+  "J686"      = list(rgb = c(105, 70, 55),    ncs = "S 5520-Y70R")   # Järnoxidbrunt nr 686
 )
 
 rgb_kremer <- list(
   # GREENS
-  "40400" = c(30, 120, 80),
-  # Viridian - transparent bluish green
-  "41700" = c(70, 160, 100),
-  # Malachite - bright mineral green
-  "11100" = c(0, 100, 50),
-  # Phthalo green - intense dark green
-  "40850" = c(90, 120, 70),
-  # Grön jord Böhmen - earthy green
-  "40860" = c(100, 130, 80),
-  # Grön jord Verona
+  "40400" = c(30, 120, 80),      # Viridian - transparent bluish green
+  "41700" = c(70, 160, 100),     # Malachite - bright mineral green
+  "11100" = c(0, 100, 50),       # Phthalo green - intense dark green
+  "40850" = c(90, 120, 70),      # Grön jord Böhmen - earthy green
+  "40860" = c(100, 130, 80),     # Grön jord Verona
   
   # BLUES
-  "11670" = c(0, 70, 130),
-  # Phthalo blue - deep cyan blue
+  "11670" = c(0, 70, 130),       # Phthalo blue - deep cyan blue
   
   # EARTH COLORS - TERRA
-  "40820" = c(180, 80, 60),
-  # Terra di Pozzuoli - reddish earth
-  "40800" = c(170, 110, 70),
-  # Terra di Siena natur - warm brown
-  "40830" = c(175, 85, 65),
-  # Terra di Ercolano - dark red earth
+  "40820" = c(180, 80, 60),      # Terra di Pozzuoli - reddish earth
+  "40800" = c(170, 110, 70),     # Terra di Siena natur - warm brown
+  "40830" = c(175, 85, 65),      # Terra di Ercolano - dark red earth
   
   # YELLOWS & OCHRES
-  "44082" = c(210, 180, 120),
-  # Gul ockra ljus - light yellow ochre
-  "44086" = c(160, 120, 70),
-  # Gul ockra mörk - dark yellow ochre
-  "44150" = c(240, 220, 130),
-  # Naples Yellow light
-  "44160" = c(220, 190, 100),
-  # Naples Yellow dark
+  "44082" = c(210, 180, 120),    # Gul ockra ljus - light yellow ochre
+  "44086" = c(160, 120, 70),     # Gul ockra mörk - dark yellow ochre
+  "44150" = c(240, 220, 130),    # Naples Yellow light
+  "44160" = c(220, 190, 100),    # Naples Yellow dark
   
   # SIENNAS & UMBERS
-  "44650" = c(180, 130, 70),
-  # Raw Sienna - warm orange brown
-  "44620" = c(160, 82, 45),
-  # Burnt Sienna - deep red brown
+  "44650" = c(180, 130, 70),     # Raw Sienna - warm orange brown
+  "44620" = c(160, 82, 45),      # Burnt Sienna - deep red brown
   
   # REDS & ORANGES - IRON OXIDES
-  "44300" = c(139, 69, 19),
-  # Transparent brunoxid
-  "44200" = c(178, 34, 34),
-  # Röd järnoxid transparent
-  "44210" = c(200, 70, 60),
-  # Röd järnoxid ljus
-  "44220" = c(160, 35, 35),
-  # Röd järnoxid mörk
+  "44300" = c(139, 69, 19),      # Transparent brunoxid
+  "44200" = c(178, 34, 34),      # Röd järnoxid transparent
+  "44210" = c(200, 70, 60),      # Röd järnoxid ljus
+  "44220" = c(160, 35, 35),      # Röd järnoxid mörk
   "44510" = c(232, 97, 0)       # Orange järnoxid
 )
 
 # Sammanslagen RGB-lista
-rgb <- c(lapply(raa_rgb_ncs, function(x)
-  x$rgb), rgb_kremer)
+rgb <- c(
+  lapply(raa_rgb_ncs, function(x) x$rgb),
+  rgb_kremer
+)
 
 # NCS-lista
 # ncs_codes <- sapply(raa_rgb_ncs, function(x) x$ncs)
@@ -554,54 +236,31 @@ rgb <- c(lapply(raa_rgb_ncs, function(x)
 # Updated to include all RAÄ pigments with harmonized keys and NCS-based RGB values
 raa_pigments <- c(
   # Base whites (always included)
-  "vitbas",
-  #"44100", "44400",
+  "vitbas", #"44100", "44400",
   
   # RAÄ specific pigments (from Kulturkulör system with NCS codes)
-  "J225",
-  # Järnoxidrött nr 225
-  "J180M",
-  # Caput Mortuum 180M
-  "J120N",
-  # Järnoxidrött nr 120 N
-  "ER48A",
-  # Engelskt rött nr 48 A
-  "J663",
-  # Järnoxidbrunt nr 663
-  "J686",
-  # Järnoxidbrunt nr 686
-  "J920",
-  # Järnoxidgult nr 920
-  "J318",
-  # Järnoxidsvart nr 318
-  "LO92",
-  # Ljusockra nr 92
-  "GO94",
-  # Guldockra nr 94
-  "GO94_GU30",
-  # 50% Guldockra + 50% Grön umbra
-  "OU103",
-  # Obränd Umbra nr 103
-  "BU100",
-  # Bränd Umbra nr 100
-  "BRU39",
-  # Brun Umbra nr 39
-  "GU30",
-  # Grön Umbra nr 30
-  "GRAU36",
-  # Grå Umbra nr 36
-  "BT44",
-  # Bränd Terra nr 44
-  "OT46",
-  # Obränd Terra nr 46
-  "BS98",
-  # Bensvart nr 98
-  "KG83",
-  # Kromoxidgrönt nr GN 83
-  "ZG65",
-  # Zinkgrönt nr 65
-  "UB88",
-  # Ultramarinblått nr 88
+  "J225",       # Järnoxidrött nr 225
+  "J180M",      # Caput Mortuum 180M
+  "J120N",      # Järnoxidrött nr 120 N
+  "ER48A",      # Engelskt rött nr 48 A
+  "J663",       # Järnoxidbrunt nr 663
+  "J686",       # Järnoxidbrunt nr 686
+  "J920",       # Järnoxidgult nr 920
+  "J318",       # Järnoxidsvart nr 318
+  "LO92",       # Ljusockra nr 92
+  "GO94",       # Guldockra nr 94
+  "GO94_GU30",  # 50% Guldockra + 50% Grön umbra
+  "OU103",      # Obränd Umbra nr 103
+  "BU100",      # Bränd Umbra nr 100
+  "BRU39",      # Brun Umbra nr 39
+  "GU30",       # Grön Umbra nr 30
+  "GRAU36",     # Grå Umbra nr 36
+  "BT44",       # Bränd Terra nr 44
+  "OT46",       # Obränd Terra nr 46
+  "BS98",       # Bensvart nr 98
+  "KG83",       # Kromoxidgrönt nr GN 83
+  "ZG65",       # Zinkgrönt nr 65
+  "UB88",       # Ultramarinblått nr 88
   "KB28"        # Koboltblått nr 28
 )
 
@@ -820,6 +479,7 @@ kremer_links <- list(
 
 # KREMER MATCHES FOR RAÄ PIGMENTS
 raa_kremer_matches <- list(
+  
   # GREENS
   "KG83" = list(
     name = "Kromoxidgrönt nr GN 83 (RAÄ)",
@@ -1029,16 +689,11 @@ raa_kremer_matches <- list(
 )
 
 # Safe null-coalescing operator
-`%||%` <- function(a, b)
-  if (is.null(a))
-    b
-else
-  a
+`%||%` <- function(a, b) if (is.null(a)) b else a
 
 # Enkel och säker choices-lista
 make_choices <- function(ids) {
-  setNames(ids, sapply(ids, function(id)
-    paste0(km[[id]]$name, " (#", id, ")")))
+  setNames(ids, sapply(ids, function(id) paste0(km[[id]]$name, " (#", id, ")")))
 }
 all_choices <- c("Välj pigment" = "", make_choices(names(km)))
 
@@ -1050,52 +705,38 @@ source("kulturkulor_recipes_part3.r")
 kulturkulor_complete <- c(kulturkulor, kulturkulor_part2, kulturkulor_part3)
 
 pigment_name_to_id <- list(
-  "Järnoxidrött nr 225" = "J225",
-  "Järnoxidrött nr 180 M (Caput Mortuum)" = "J180M",
-  "Järnoxidrött nr 120 N" = "J120N",
-  "Engelskt rött nr 48 A" = "ER48A",
-  "Järnoxidbrunt nr 663" = "J663",
-  "Järnoxidbrunt nr 686" = "J686",
-  "Järnoxidgult nr 920" = "J920",
-  "Järnoxidsvart nr 318" = "J318",
-  "Ljusockra nr 92" = "LO92",
-  "Guldockra nr 94" = "GO94",
+  "Järnoxidrött nr 225" = "J225", "Järnoxidrött nr 180 M (Caput Mortuum)" = "J180M",
+  "Järnoxidrött nr 120 N" = "J120N", "Engelskt rött nr 48 A" = "ER48A",
+  "Järnoxidbrunt nr 663" = "J663", "Järnoxidbrunt nr 686" = "J686",
+  "Järnoxidgult nr 920" = "J920", "Järnoxidsvart nr 318" = "J318",
+  "Ljusockra nr 92" = "LO92", "Guldockra nr 94" = "GO94",
   "50% Guldockra nr 94 + 50% Grön umbra nr 30" = "GO94_GU30",
-  "Obränd Umbra nr 103" = "OU103",
-  "Bränd Umbra nr 100" = "BU100",
-  "Brun Umbra nr 39" = "BRU39",
-  "Grön Umbra nr 30" = "GU30",
-  "Grå Umbra nr 36" = "GRAU36",
-  "Bränd Terra nr 44" = "BT44",
-  "Obränd Terra nr 46" = "OT46",
-  "Bensvart nr 98" = "BS98",
-  "Kromoxidgrönt nr GN 83" = "KG83",
-  "Ultramarinblått nr 88" = "UB88",
-  "Koboltblått nr 28" = "KB28"
+  "Obränd Umbra nr 103" = "OU103", "Bränd Umbra nr 100" = "BU100",
+  "Brun Umbra nr 39" = "BRU39", "Grön Umbra nr 30" = "GU30", "Grå Umbra nr 36" = "GRAU36",
+  "Bränd Terra nr 44" = "BT44", "Obränd Terra nr 46" = "OT46", "Bensvart nr 98" = "BS98",
+  "Kromoxidgrönt nr GN 83" = "KG83", "Ultramarinblått nr 88" = "UB88", "Koboltblått nr 28" = "KB28"
 )
 
 # Calculate preview colors for each recipe using same method as main preview
 calculate_recipe_color <- function(recipe) {
   base_id <- pigment_name_to_id[[recipe$pigment]]
-  if (is.null(base_id) ||
-      !base_id %in% names(rgb))
-    return(c(200, 200, 200))
+  if(is.null(base_id) || !base_id %in% names(rgb)) return(c(200, 200, 200))
   
   # Build list of pigments with their percentages (same as main preview logic)
   ids <- character()
   pcts <- numeric()
   
-  if (recipe$basfarg > 0) {
+  if(recipe$basfarg > 0) {
     ids <- c(ids, base_id)
     pcts <- c(pcts, recipe$basfarg)
   }
   
-  if (recipe$vit > 0) {
+  if(recipe$vit > 0) {
     ids <- c(ids, "vitbas")
     pcts <- c(pcts, recipe$vit)
   }
   
-  if (recipe$svart > 0) {
+  if(recipe$svart > 0) {
     ids <- c(ids, "J318")
     pcts <- c(pcts, recipe$svart)
   }
@@ -1103,7 +744,7 @@ calculate_recipe_color <- function(recipe) {
   # Weighted average mixing (same as current_color() in main preview)
   total <- sum(pcts)
   r <- g <- b <- 0
-  for (i in seq_along(ids)) {
+  for(i in seq_along(ids)) {
     col <- rgb[[ids[i]]] %||% c(255, 255, 255)
     w <- pcts[i] / total
     r <- r + w * col[1]
@@ -1120,22 +761,16 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(
-        href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE",
-        class = "version-text",
-        "version 0.6.1-K-M, © 2025 Tobias Hagberg, licens GPLv3"
-      )
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.6.1-K-M, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
   dashboardBody(
     useShinyjs(),
-    tags$head(tags$style(
-      HTML(
-        "
+    tags$head(tags$style(HTML("
       .content-wrapper {background: #ccc !important;}
       .step { padding:24px; padding-bottom:64px; background:#fff; border-radius:12px; margin:20px 20px 80px 20px; position:relative; min-width: 360px; max-width:840px;margin:auto;}
-      .footer-ref { position:relative; bottom:-44px; left:0; right:0; font-size:12px; color:#555; text-align:center;
+      .footer-ref { position:relative; bottom:-44px; left:0; right:0; font-size:12px; color:#555; text-align:center; 
                     padding:12px 12px 0; border-top:1px solid #ddd; }
       .preview { display:block; height:300px; width:300px; border:8px solid #333; border-radius:150px; margin: auto; }
       .normalized-box, .info-box, .alert { background:#eee; drop-shadow: 0 0; color:black; border: 0; padding:12px; border-radius:6px;margin:1em 0;}
@@ -1145,211 +780,121 @@ ui <- dashboardPage(
       .rmargin-box {margin-right:20px;}
       .btn {margin: .12px 12px 0 0;}
       .btn-primary { color:white;}
-      .kulturkulor-swatch {
-        display:inline-block; width:24px; height:24px; border-radius:50%;
+      .kulturkulor-swatch { 
+        display:inline-block; width:24px; height:24px; border-radius:50%; 
         margin:3px; cursor:pointer; border:2px solid #999;
         transition: transform 0.1s, border-color 0.1s;
       }
-      .kulturkulor-swatch:hover {
+      .kulturkulor-swatch:hover { 
         transform:scale(1.3); border-color:#333; z-index:10; position:relative;
       }
-      .kulturkulor-gallery {
+      .kulturkulor-gallery { 
         max-height:200px; overflow-y:auto; overflow-x:hidden;
         padding:8px; background:#fff; border:1px solid #ddd; border-radius:4px;
         margin-top:8px;
       }
       h2 {margin: 0 0 .5em;padding:0}
       .navbar-custom-menu .navbar-nav > li > a.version-text { font-size: 11px; color: #aaa; padding-top: 15px; padding-bottom: 15px;}
-    "
-      )
-    )),
+    "))),
     
     tags$script(HTML('
     ')),
     
-    hidden(
-      div(
-        id = "step1",
-        class = "step",
-        h2("Blanda pigment"),
-        fluidRow(
-          column(
-            6,
-            checkboxInput("raa_only", "Använd endast Kulturkulör-pigment (RAÄ)", TRUE),
-            pickerInput(
-              "p1",
-              "Pigment 1",
-              choices = all_choices,
-              selected = "vitbas",
-              options = pickerOptions(`live-search` = TRUE, size = 12)
-            ),
-            conditionalPanel("input.p1", sliderInput("pct1", "Andel (%)", 0, 100, 70, 1)),
-            pickerInput(
-              "p2",
-              "Pigment 2",
-              choices = all_choices,
-              selected = "",
-              options = pickerOptions(`live-search` = TRUE, size = 12)
-            ),
-            conditionalPanel("input.p2", sliderInput("pct2", "Andel (%)", 0, 100, 0, 1)),
-            pickerInput(
-              "p3",
-              "Pigment 3",
-              choices = all_choices,
-              selected = "",
-              options = pickerOptions(`live-search` = TRUE, size = 12)
-            ),
-            conditionalPanel("input.p3", sliderInput("pct3", "Andel (%)", 0, 100, 0, 1)),
-            pickerInput(
-              "p4",
-              "Pigment 4",
-              choices = all_choices,
-              selected = "",
-              options = pickerOptions(`live-search` = TRUE, size = 12)
-            ),
-            conditionalPanel("input.p4", sliderInput("pct4", "Andel (%)", 0, 100, 0, 1)),
-            hr(),
-            actionButton("reset_pigments", "Nollställ pigment", class =
-                           "btn-default"),
-          ),
-          column(
-            6,
-            h3("Färgprov"),
-            uiOutput("preview1"),
-            br(),
-            tags$b("Total andel: "),
-            textOutput("total_pct", inline = TRUE),
-            " %",
-            uiOutput("total_warning"),
-            tags$div(
-              style = "margin-top:2em;",
-              tags$b("RAÄ Kulturkulörs fördefinierade recept"),
-              br(),
-              tags$small("Klicka på en färg för att ladda receptet."),
-              uiOutput("kulturkulor_swatches")
-            )
-          )
-        ),
-        hr(),
-        actionButton("to_step2", "Nästa", class = "btn-primary next-btn"),
-        div(
-          class = "footer-ref",
-          "Masstone baserade på data från Riksantikvarieämbetet (RAÄ) Kulturkulör, Kremer Pigmente, m. fl."
-        )
-      )
-    ),
+    hidden(div(id="step1", class="step",
+               h2("Blanda pigment"),
+               fluidRow(
+                 column(6,
+                        checkboxInput("raa_only", "Använd endast Kulturkulör-pigment (RAÄ)", TRUE),
+                        pickerInput("p1", "Pigment 1", choices = all_choices, selected = "vitbas",
+                                    options = pickerOptions(`live-search` = TRUE, size = 12)),
+                        conditionalPanel("input.p1", sliderInput("pct1","Andel (%)",0,100,70,1)),
+                        pickerInput("p2", "Pigment 2", choices = all_choices, selected = "",
+                                    options = pickerOptions(`live-search` = TRUE, size = 12)),
+                        conditionalPanel("input.p2", sliderInput("pct2","Andel (%)",0,100,0,1)),
+                        pickerInput("p3", "Pigment 3", choices = all_choices, selected = "",
+                                    options = pickerOptions(`live-search` = TRUE, size = 12)),
+                        conditionalPanel("input.p3", sliderInput("pct3","Andel (%)",0,100,0,1)),
+                        pickerInput("p4", "Pigment 4", choices = all_choices, selected = "",
+                                    options = pickerOptions(`live-search` = TRUE, size = 12)),
+                        conditionalPanel("input.p4", sliderInput("pct4","Andel (%)",0,100,0,1)),
+                        hr(),
+                        actionButton("reset_pigments", "Nollställ pigment", class="btn-default"),
+                 ),
+                 column(6,
+                        h3("Färgprov"),
+                        uiOutput("preview1"), br(),
+                        tags$b("Total andel: "), textOutput("total_pct",inline=TRUE), " %", 
+                        uiOutput("total_warning"), 
+                        tags$div(style="margin-top:2em;",
+                                 tags$b("RAÄ Kulturkulörs fördefinierade recept"), br(),
+                                 tags$small("Klicka på en färg för att ladda receptet."),
+                                 uiOutput("kulturkulor_swatches")
+                        )
+                 )
+               ),
+               hr(),
+               actionButton("to_step2","Nästa", class="btn-primary next-btn"),
+               div(class="footer-ref", "Masstone baserade på data från Riksantikvarieämbetet (RAÄ) Kulturkulör, Kremer Pigmente, m. fl.")
+    )),
     
-    hidden(
-      div(
-        id = "step2",
-        class = "step",
-        h2("Blanda vitbas"),
-        fluidRow(column(
-          12,
-          p(
-            "Ange förhållandet mellan zinkoxid (zinkvitt) och titaniumdioxid (titanvitt) i vitbasen."
-          ),
-          p(
-            "För utomhusfärg, välj en högre andel zinkvitt i vitbasen (gärna 30 %, om det fungerar med den önskade kulören), så blir den färdiga färgen mer motståndskraftig mot alger och mögelpåväxt."
-          ),
-          p(
-            "För inomhusfärg, välj en lägre andel zinkvitt i vitbasen (0–15 %). Zink gör å ena sidan färgfilmen hårdare, men å den andra blir den också känsligare för krackelering över tid."
-          ),
-          p(
-            "Oavsett vilket förhållande du väljer, blir resultatet detsamma kulörmässigt."
-          ),
-          br(),
-          sliderInput("zinc_ratio", "Andel zinkvitt i vitbasen (%)", 0, 100, 15, 5, post =
-                        "% zinkoxid"),
-        ), ),
-        hr(),
-        actionButton("back1", "Föregående", class = "btn-default back-btn"),
-        actionButton("to_step3", "Nästa", class = "btn-primary next-btn"),
-        div(
-          class = "footer-ref",
-          "Kubelka-Munk-funktionen används för att bibehålla färgande pigments styrka i vitbasen konstant"
-        )
-      )
-    ),
+    hidden(div(id="step2", class="step",
+               h2("Blanda vitbas"),
+               fluidRow(column(
+                 12,
+                 p(
+                   "Ange förhållandet mellan zinkoxid (zinkvitt) och titaniumdioxid (titanvitt) i vitbasen."
+                 ),
+                 p(
+                   "För utomhusfärg, välj en högre andel zinkvitt i vitbasen (gärna 30 %, om det fungerar med den önskade kulören), så blir den färdiga färgen mer motståndskraftig mot alger och mögelpåväxt."
+                 ),
+                 p(
+                   "För inomhusfärg, välj en lägre andel zinkvitt i vitbasen (0–15 %). Zink gör å ena sidan färgfilmen hårdare, men å den andra blir den också känsligare för krackelering över tid."
+                 ),
+                 p(
+                   "Oavsett vilket förhållande du väljer, blir resultatet detsamma kulörmässigt."
+                 ),
+                 br(),
+                 sliderInput("zinc_ratio","Andel zinkvitt i vitbasen (%)",0,100,15,5,post="% zinkoxid"),
+               ), ),
+               hr(),
+               actionButton("back1","Föregående", class="btn-default back-btn"),
+               actionButton("to_step3","Nästa", class="btn-primary next-btn"),
+               div(class="footer-ref", "Kubelka-Munk-funktionen används för att bibehålla färgande pigments styrka i vitbasen konstant")
+    )),
     
-    hidden(
-      div(
-        id = "step3",
-        class = "step",
-        h2("Beräkna åtgång och spara recept"),
-        fluidRow(
-          column(
-            6,
-            numericInput("area", "Yta att måla (m²)", 10, 1, 2000, 1),
-            selectInput(
-              "substrate",
-              "Underlag (absorptionsfaktor)",
-              choices = list(
-                "Tidigare målat trä (lägst åtgång)" =	1.0,
-                # Base rate
-                "Hyvlat trä" = 1.2,
-                # Less absorption
-                "Sågat trä" = 0.8,
-                # More absorption
-                "Poröst material (högst åtgång)" = 0.5      # Maximum absorption
-              ),
-              selected = 1.2
-            ),
-            radioButtons(
-              "use",
-              "Antal strykningar",
-              choices = list(
-                "1 strykning" = 1,
-                "2 strykningar (rekommenderas inomhus)" = 2,
-                "3 strykningar (rekommenderas utomhus)" = 3
-              ),
-              selected = 3
-            ),
-            hr(),
-            sliderInput(
-              "extra_oil",
-              "Extra kokt linolja (CPV-faktor)",
-              1,
-              2.5,
-              1.8,
-              0.05,
-              post = "× CPV"
-            ),
-            p(
-              "Reglaget ökar endast mängden kokt linolja i receptet (pigmentmängderna är fixerade). En viss mängd extra linolja, utöver den minsta mängd som krävs för pigmenten, underlättar både tillredningen med färgblandare i borrmaskin och färgens strykbarhet med penseln. En ökning med 1,6–2,2× det kritiska oljetalet (CPV) rekommenderas."
-            ),
-          ),
-          column(
-            6,
-            class = "ready-box",
-            h3("Färdigt recept"),
-            tags$p(
-              "Du blandar cirka ",
-              textOutput("total_volume", inline = TRUE),
-              " liter färdig färg, med sammanlagt ",
-              textOutput("needed_pigment", inline = TRUE),
-              " g pigment."
-            ),
-            uiOutput("final_preview"),
-            br(),
-            tableOutput("final_recipe"),
-            downloadButton("download_txt", "Spara som textfil", class =
-                             "btn btn-primary"),
-            actionButton("copy_share_link", "Kopiera delningslänk", class =
-                           "btn btn-default"),
-            tags$input(id = "share_url_hidden", type = "hidden", value =
-                         "")
-          )
-        ),
-        hr(),
-        actionButton("back2", "Föregående", class = "btn-default back-btn"),
-        actionButton("restart", "Börja om från början", class = "btn-default"),
-        div(
-          class = "footer-ref",
-          "Åtgång per m²: praktiska test, data från RAÄ Byggnadsvård, m. fl., uppskattningarna är ungefärliga och beror också på målarstil"
-        )
-      )
-    )
+    hidden(div(id="step3", class="step",
+               h2("Beräkna åtgång och spara recept"),
+               fluidRow(
+                 column(6,
+                        numericInput("area","Yta att måla (m²)",10,1,2000,1),
+                        selectInput("substrate","Underlag (absorptionsfaktor)",
+                                    choices=list(
+                                      "Tidigare målat trä (lägst åtgång)" =	1.0,	# Base rate
+                                      "Hyvlat trä" = 1.2,	                        # Less absorption
+                                      "Sågat trä" = 0.8,                          # More absorption
+                                      "Poröst material (högst åtgång)" = 0.5      # Maximum absorption
+                                    ),
+                                    selected = 1.2),
+                        radioButtons("use","Antal strykningar",choices=list("1 strykning"=1,"2 strykningar (rekommenderas inomhus)"=2,"3 strykningar (rekommenderas utomhus)"=3),selected=3),
+                        hr(),
+                        sliderInput("extra_oil","Extra kokt linolja (CPV-faktor)",1,2.5,1.8,0.05,post="× CPV"),
+                        p("Reglaget ökar endast mängden kokt linolja i receptet (pigmentmängderna är fixerade). En viss mängd extra linolja, utöver den minsta mängd som krävs för pigmenten, underlättar både tillredningen med färgblandare i borrmaskin och färgens strykbarhet med penseln. En ökning med 1,6–2,2× det kritiska oljetalet (CPV) rekommenderas."),
+                 ),
+                 column(6,class="ready-box",
+                        h3("Färdigt recept"),
+                        tags$p("Du blandar cirka ",textOutput("total_volume",inline=TRUE)," liter färdig färg, med sammanlagt ",textOutput("needed_pigment",inline=TRUE)," g pigment."),
+                        uiOutput("final_preview"),br(),
+                        tableOutput("final_recipe"),
+                        downloadButton("download_txt","Spara som textfil",class="btn btn-primary"),
+                        actionButton("copy_share_link","Kopiera delningslänk",class="btn btn-default"),
+                        tags$input(id="share_url_hidden", type="hidden", value="")
+                 )
+               ),
+               hr(),
+               actionButton("back2","Föregående", class="btn-default back-btn"),
+               actionButton("restart","Börja om från början", class="btn-default"),
+               div(class="footer-ref", "Åtgång per m²: praktiska test, data från RAÄ Byggnadsvård, m. fl., uppskattningarna är ungefärliga och beror också på målarstil")
+    ))
   )
 )
 
@@ -1357,45 +902,34 @@ server <- function(input, output, session) {
   # === LOAD RECIPE FROM URL ===
   observe({
     query <- parseQueryString(session$clientData$url_search)
-    if (length(query) > 0 &&
-        any(c("p1", "p2", "p3", "p4") %in% names(query))) {
+    if(length(query) > 0 && any(c("p1", "p2", "p3", "p4") %in% names(query))) {
       # Wait for app to be ready
       delay(500, {
         # Load pigments and percentages
-        if ("p1" %in% names(query) && query$p1 != "") {
+        if("p1" %in% names(query) && query$p1 != "") {
           updatePickerInput(session, "p1", selected = query$p1)
-          if ("pct1" %in% names(query))
-            updateSliderInput(session, "pct1", value = as.numeric(query$pct1))
+          if("pct1" %in% names(query)) updateSliderInput(session, "pct1", value = as.numeric(query$pct1))
         }
-        if ("p2" %in% names(query) && query$p2 != "") {
+        if("p2" %in% names(query) && query$p2 != "") {
           updatePickerInput(session, "p2", selected = query$p2)
-          if ("pct2" %in% names(query))
-            updateSliderInput(session, "pct2", value = as.numeric(query$pct2))
+          if("pct2" %in% names(query)) updateSliderInput(session, "pct2", value = as.numeric(query$pct2))
         }
-        if ("p3" %in% names(query) && query$p3 != "") {
+        if("p3" %in% names(query) && query$p3 != "") {
           updatePickerInput(session, "p3", selected = query$p3)
-          if ("pct3" %in% names(query))
-            updateSliderInput(session, "pct3", value = as.numeric(query$pct3))
+          if("pct3" %in% names(query)) updateSliderInput(session, "pct3", value = as.numeric(query$pct3))
         }
-        if ("p4" %in% names(query) && query$p4 != "") {
+        if("p4" %in% names(query) && query$p4 != "") {
           updatePickerInput(session, "p4", selected = query$p4)
-          if ("pct4" %in% names(query))
-            updateSliderInput(session, "pct4", value = as.numeric(query$pct4))
+          if("pct4" %in% names(query)) updateSliderInput(session, "pct4", value = as.numeric(query$pct4))
         }
         
         # Load other parameters
-        if ("area" %in% names(query))
-          updateNumericInput(session, "area", value = as.numeric(query$area))
-        if ("zinc_ratio" %in% names(query))
-          updateSliderInput(session, "zinc_ratio", value = as.numeric(query$zinc_ratio))
-        if ("extra_oil" %in% names(query))
-          updateSliderInput(session, "extra_oil", value = as.numeric(query$extra_oil))
-        if ("use" %in% names(query))
-          updateRadioButtons(session, "use", selected = query$use)
+        if("area" %in% names(query)) updateNumericInput(session, "area", value = as.numeric(query$area))
+        if("zinc_ratio" %in% names(query)) updateSliderInput(session, "zinc_ratio", value = as.numeric(query$zinc_ratio))
+        if("extra_oil" %in% names(query)) updateSliderInput(session, "extra_oil", value = as.numeric(query$extra_oil))
+        if("use" %in% names(query)) updateRadioButtons(session, "use", selected = query$use)
         
-        showNotification("Recept laddades från länk!",
-                         type = "message",
-                         duration = 3)
+        showNotification("Recept laddades från länk!", type = "message", duration = 3)
       })
     }
   })
@@ -1420,10 +954,7 @@ server <- function(input, output, session) {
   
   # RAÄ-filter
   observeEvent(input$raa_only, {
-    ids <- if (input$raa_only)
-      raa_pigments
-    else
-      names(km)
+    ids <- if(input$raa_only) raa_pigments else names(km)
     choices_list <- c("Välj pigment" = "", make_choices(ids))
     current_p1 <- input$p1 %||% "vitbas"
     updatePickerInput(session, "p1", choices = choices_list, selected = current_p1)
@@ -1440,15 +971,14 @@ server <- function(input, output, session) {
     swatch_elements <- list()
     last_pigment <- NULL
     
-    for (code in recipe_codes) {
+    for(code in recipe_codes) {
       recipe <- kulturkulor_complete[[code]]
       
       # Use pigment name as grouping key (most reliable)
       current_pigment <- recipe$pigment
       
       # If pigment changed, add line break
-      if (!is.null(last_pigment) &&
-          current_pigment != last_pigment) {
+      if(!is.null(last_pigment) && current_pigment != last_pigment) {
         swatch_elements[[length(swatch_elements) + 1]] <- tags$br()
       }
       last_pigment <- current_pigment
@@ -1457,24 +987,15 @@ server <- function(input, output, session) {
       color_rgb <- calculate_recipe_color(recipe)
       hex_color <- rgb(color_rgb[1], color_rgb[2], color_rgb[3], maxColorValue = 255)
       
-      tooltip <- sprintf(
-        "%s: %s (Bas %g%%, Vit %g%%, Svart %g%%)",
-        code,
-        recipe$pigment,
-        recipe$basfarg,
-        recipe$vit,
-        recipe$svart
-      )
+      tooltip <- sprintf("%s: %s (Bas %g%%, Vit %g%%, Svart %g%%)", 
+                         code, recipe$pigment, recipe$basfarg, recipe$vit, recipe$svart)
       
       # Add swatch
       swatch_elements[[length(swatch_elements) + 1]] <- tags$span(
         class = "kulturkulor-swatch",
         style = sprintf("background-color:%s;", hex_color),
         title = tooltip,
-        onclick = sprintf(
-          "Shiny.setInputValue('swatch_click', '%s', {priority: 'event'});",
-          code
-        )
+        onclick = sprintf("Shiny.setInputValue('swatch_click', '%s', {priority: 'event'});", code)
       )
     }
     
@@ -1488,8 +1009,7 @@ server <- function(input, output, session) {
     recipe <- kulturkulor_complete[[input$swatch_click]]
     base_id <- pigment_name_to_id[[recipe$pigment]]
     
-    if (is.null(base_id))
-      return()
+    if(is.null(base_id)) return()
     
     # Round to integers (sliders only accept integers with step=1)
     pct_base <- round(recipe$basfarg)
@@ -1498,12 +1018,12 @@ server <- function(input, output, session) {
     
     # Ensure they sum to exactly 100 by adjusting the largest component
     total <- pct_base + pct_vit + pct_svart
-    if (total != 100) {
+    if(total != 100) {
       diff <- 100 - total
       # Find largest percentage and adjust it
-      if (pct_base >= pct_vit && pct_base >= pct_svart) {
+      if(pct_base >= pct_vit && pct_base >= pct_svart) {
         pct_base <- pct_base + diff
-      } else if (pct_vit >= pct_svart) {
+      } else if(pct_vit >= pct_svart) {
         pct_vit <- pct_vit + diff
       } else {
         pct_svart <- pct_svart + diff
@@ -1513,7 +1033,7 @@ server <- function(input, output, session) {
     updatePickerInput(session, "p1", selected = base_id)
     updateSliderInput(session, "pct1", value = pct_base)
     
-    if (pct_vit > 0) {
+    if(pct_vit > 0) {
       updatePickerInput(session, "p2", selected = "vitbas")
       updateSliderInput(session, "pct2", value = pct_vit)
     } else {
@@ -1521,7 +1041,7 @@ server <- function(input, output, session) {
       updateSliderInput(session, "pct2", value = 0)
     }
     
-    if (pct_svart > 0) {
+    if(pct_svart > 0) {
       updatePickerInput(session, "p3", selected = "J318")
       updateSliderInput(session, "pct3", value = pct_svart)
     } else {
@@ -1536,19 +1056,15 @@ server <- function(input, output, session) {
   # Blandning
   mix <- reactive({
     ids <- c(input$p1, input$p2, input$p3, input$p4)
-    pct <- c(input$pct1 %||% 0,
-             input$pct2 %||% 0,
-             input$pct3 %||% 0,
-             input$pct4 %||% 0)
+    pct <- c(input$pct1 %||% 0, input$pct2 %||% 0, input$pct3 %||% 0, input$pct4 %||% 0)
     
     # Filter: must have valid ID AND percentage > 0
     valid <- sapply(seq_along(ids), function(i) {
-      !is.na(ids[i]) &&
-        !is.null(ids[i]) &&
-        length(ids[i]) > 0 &&
-        nchar(as.character(ids[i])) > 0 &&
-        # Extra check for empty strings
-        ids[i] != "" &&
+      !is.na(ids[i]) && 
+        !is.null(ids[i]) && 
+        length(ids[i]) > 0 && 
+        nchar(as.character(ids[i])) > 0 &&  # Extra check for empty strings
+        ids[i] != "" && 
         !is.na(pct[i]) &&
         pct[i] > 0
     })
@@ -1557,9 +1073,9 @@ server <- function(input, output, session) {
     pct_valid <- pct[valid]
     
     # Remove duplicates: if same pigment appears multiple times, sum the percentages
-    if (length(ids_valid) > 0) {
+    if(length(ids_valid) > 0) {
       unique_ids <- unique(ids_valid)
-      if (length(unique_ids) < length(ids_valid)) {
+      if(length(unique_ids) < length(ids_valid)) {
         # There are duplicates - combine them
         combined_pct <- sapply(unique_ids, function(id) {
           sum(pct_valid[ids_valid == id])
@@ -1570,35 +1086,25 @@ server <- function(input, output, session) {
     }
     
     total <- sum(pct_valid)
-    list(
-      ids = ids_valid,
-      pct = pct_valid,
-      total = ifelse(total == 0, 1, total),
-      has_white = "vitbas" %in% ids_valid
-    )
+    list(ids = ids_valid, pct = pct_valid, total = ifelse(total==0,1,total),
+         has_white = "vitbas" %in% ids_valid)
   })
   
   current_color <- reactive({
     m <- mix()
     r <- g <- b <- 0
-    for (i in seq_along(m$ids)) {
-      col <- rgb[[m$ids[i]]] %||% c(255, 255, 255)
-      w <- m$pct[i] / m$total
-      r <- r + w * col[1]
-      g <- g + w * col[2]
-      b <- b + w * col[3]
+    for(i in seq_along(m$ids)){
+      col <- rgb[[m$ids[i]]] %||% c(255,255,255)
+      w <- m$pct[i]/m$total
+      r <- r + w*col[1]; g <- g + w*col[2]; b <- b + w*col[3]
     }
     hex <- sprintf("#%02X%02X%02X", round(r), round(g), round(b))
-    final_hex(hex)
-    hex
+    final_hex(hex); hex
   })
   
   output$total_pct <- renderText(format_swe(mix()$total, 1))
   output$hex1 <- renderText(current_color())
-  output$preview1 <- renderUI(tags$div(
-    class = "preview",
-    style = paste0("background:", current_color())
-  ))
+  output$preview1 <- renderUI(tags$div(class="preview", style=paste0("background:", current_color())))
   
   output$total_warning <- renderUI({
     m <- mix()
@@ -1608,17 +1114,14 @@ server <- function(input, output, session) {
       
       # Filter out any entries with 0 or near-0 normalized percentages
       keep <- normalized > 0.05
-      if (sum(keep) == 0)
-        return(NULL)
+      if(sum(keep) == 0) return(NULL)
       
       ids_filtered <- m$ids[keep]
       normalized_filtered <- round(normalized[keep], 1)
       
       # Get pigment names and format
-      pigment_names <- sapply(ids_filtered, function(id)
-        km[[id]]$name)
-      normalized_swe <- sapply(normalized_filtered, function(x)
-        format_swe(x, 1))
+      pigment_names <- sapply(ids_filtered, function(id) km[[id]]$name)
+      normalized_swe <- sapply(normalized_filtered, function(x) format_swe(x, 1))
       
       text_lines <- paste0(pigment_names, ": ", normalized_swe, " %", collapse = " • ")
       icon_type <- "exclamation-triangle"
@@ -1626,17 +1129,11 @@ server <- function(input, output, session) {
       tags$div(
         class = "alert",
         icon(icon_type),
-        " ",
-        msg,
-        text_lines,
+        " ", msg, text_lines,
         tags$br(),
         tags$div(
           style = "margin-top: 0.5em;",
-          actionButton(
-            "normalize_values",
-            "Snabbjustera reglage till normaliserade värden",
-            class = "btn-default btn-sm"
-          )
+          actionButton("normalize_values", "Snabbjustera reglage till normaliserade värden", class = "btn-default btn-sm")
         )
       )
     }
@@ -1654,7 +1151,7 @@ server <- function(input, output, session) {
       
       # Ensure they sum to exactly 100 by adjusting largest
       total_normalized <- sum(normalized_int)
-      if (total_normalized != 100) {
+      if(total_normalized != 100) {
         diff <- 100 - total_normalized
         max_idx <- which.max(normalized_int)
         normalized_int[max_idx] <- normalized_int[max_idx] + diff
@@ -1665,58 +1162,34 @@ server <- function(input, output, session) {
       current_inputs <- c(input$p1, input$p2, input$p3, input$p4)
       
       # Update sliders for each pigment
-      for (i in seq_along(m$ids)) {
+      for(i in seq_along(m$ids)) {
         pigment_id <- m$ids[i]
         new_pct <- normalized_int[i]
         
         # Find which input slot this pigment is in
         slot_idx <- which(current_inputs == pigment_id)[1]
         
-        if (!is.na(slot_idx) && slot_idx <= 4) {
+        if(!is.na(slot_idx) && slot_idx <= 4) {
           input_name <- paste0("pct", slot_idx)
           updateSliderInput(session, input_name, value = new_pct)
         }
       }
       
-      showNotification("Värdena har normaliserats till 100%",
-                       type = "message",
-                       duration = 2)
+      showNotification("Värdena har normaliserats till 100%", type = "message", duration = 2)
     }
   })
   
   # Navigation
-  observeEvent(input$to_step2, {
-    hide("step1")
-    if (mix()$has_white)
-      show("step2")
-    else
-      show("step3")
-  })
-  observeEvent(input$back1, {
-    hide("step2")
-    show("step1")
-  })
-  observeEvent(input$back2, {
-    hide("step3")
-    if (mix()$has_white)
-      show("step2")
-    else
-      show("step1")
-  })
-  observeEvent(input$to_step3, {
-    hide("step2")
-    show("step3")
-  })
+  observeEvent(input$to_step2, { hide("step1"); if(mix()$has_white) show("step2") else show("step3") })
+  observeEvent(input$back1, { hide("step2"); show("step1") })
+  observeEvent(input$back2, { hide("step3"); if(mix()$has_white) show("step2") else show("step1") })
+  observeEvent(input$to_step3, { hide("step2"); show("step3") })
   
   # Simply use input values directly with req() to ensure they're available
   # No need for intermediate reactive values
   calc <- reactive({
     # Ensure all inputs are available before calculating
-    req(input$area,
-        input$use,
-        input$substrate,
-        input$extra_oil,
-        input$zinc_ratio)
+    req(input$area, input$use, input$substrate, input$extra_oil, input$zinc_ratio)
     
     # Convert all inputs to numeric explicitly
     area_num <- as.numeric(input$area)
@@ -1726,13 +1199,8 @@ server <- function(input, output, session) {
     zinc_ratio_num <- as.numeric(input$zinc_ratio)
     
     # Validate they're all numeric
-    req(
-      is.numeric(area_num),
-      is.numeric(use_num),
-      is.numeric(substrate_num),
-      is.numeric(extra_oil_num),
-      is.numeric(zinc_ratio_num)
-    )
+    req(is.numeric(area_num), is.numeric(use_num), is.numeric(substrate_num),
+        is.numeric(extra_oil_num), is.numeric(zinc_ratio_num))
     
     # Paint coverage calculation
     # Baseline: 15 m²/L per coat for smooth wood
@@ -1789,17 +1257,11 @@ server <- function(input, output, session) {
   
   recipe_df <- reactive({
     r <- final_recipe()
-    df <- data.frame(
-      Ingrediens = "Kallpressad kokt linolja",
-      Gram = r$oil,
-      stringsAsFactors = FALSE
-    )
-    if (r$zn > 0.1)
-      df <- rbind(df, c("Zinkvitt PW4 (#44100)", r$zn))
-    if (r$ti > 0.1)
-      df <- rbind(df, c("Titanvitt Rutile PW6 (#44400)", r$ti))
-    for (id in names(r$color))
-      df <- rbind(df, c(paste0(km[[id]]$name, " (#", id, ")"), r$color[id]))
+    df <- data.frame(Ingrediens = "Kallpressad kokt linolja", Gram = r$oil, stringsAsFactors = FALSE)
+    if(r$zn > 0.1) df <- rbind(df, c("Zinkvitt PW4 (#44100)", r$zn))
+    if(r$ti > 0.1) df <- rbind(df, c("Titanvitt Rutile PW6 (#44400)", r$ti))
+    for(id in names(r$color))
+      df <- rbind(df, c(paste0(km[[id]]$name," (#",id,")"), r$color[id]))
     df
   })
   
@@ -1821,13 +1283,13 @@ server <- function(input, output, session) {
     compensated_pcts <- km_compensate_vitbas(normalized_pcts, m$ids, zinc_ratio)
     
     total_density <- 0
-    for (i in seq_along(m$ids)) {
+    for(i in seq_along(m$ids)) {
       id <- m$ids[i]
       weight_fraction <- compensated_pcts[i] / 100  # Use compensated values
       
-      if (id == "vitbas") {
-        total_density <- total_density +
-          weight_fraction * (zinc_ratio * 5.6 + (1 - zinc_ratio) * 4.2)
+      if(id == "vitbas") {
+        total_density <- total_density + 
+          weight_fraction * (zinc_ratio * 5.6 + (1-zinc_ratio) * 4.2)
       } else {
         total_density <- total_density + weight_fraction * km[[id]]$density
       }
@@ -1869,15 +1331,15 @@ server <- function(input, output, session) {
     
     # Find vitbas index
     vitbas_idx <- NULL
-    for (i in seq_along(ids)) {
-      if (ids[i] == "vitbas") {
+    for(i in seq_along(ids)) {
+      if(ids[i] == "vitbas") {
         vitbas_idx <- i
         break
       }
     }
     
     # If only vitbas (no colored pigments), no compensation needed
-    if (length(ids) == 1 || is.null(vitbas_idx)) {
+    if(length(ids) == 1 || is.null(vitbas_idx)) {
       return(normalized_pcts)
     }
     
@@ -1890,7 +1352,7 @@ server <- function(input, output, session) {
     
     K_colored <- 0
     S_colored <- 0
-    for (i in seq_along(colored_ids)) {
+    for(i in seq_along(colored_ids)) {
       id <- colored_ids[i]
       c_i <- colored_pcts[i] / 100
       K_colored <- K_colored + c_i * km[[id]]$K
@@ -1902,7 +1364,7 @@ server <- function(input, output, session) {
     K_mix_ref <- K_colored  # Vitbas contributes K=0
     S_mix_ref <- c_vitbas * S_vitbas_ref + S_colored
     
-    if (S_mix_ref <= 0) {
+    if(S_mix_ref <= 0) {
       return(normalized_pcts)
     }
     
@@ -1920,7 +1382,7 @@ server <- function(input, output, session) {
     
     denominator <- K_colored - KS_ratio_target * S_colored
     
-    if (abs(denominator) < 1e-10) {
+    if(abs(denominator) < 1e-10) {
       # Edge case - no adjustment needed or unstable
       return(normalized_pcts)
     }
@@ -1928,7 +1390,7 @@ server <- function(input, output, session) {
     alpha <- (KS_ratio_target * c_vitbas * S_vitbas_current) / denominator
     
     # Check if alpha is reasonable (between 0.3 and 3.0 for safety)
-    if (alpha < 0.3 || alpha > 3.0) {
+    if(alpha < 0.3 || alpha > 3.0) {
       # Compensation would be too extreme - return original
       return(normalized_pcts)
     }
@@ -1939,8 +1401,7 @@ server <- function(input, output, session) {
     vitbas_pct_compensated <- 100 - total_colored_compensated
     
     # Ensure vitbas percentage is reasonable (between 0 and 100)
-    if (vitbas_pct_compensated < 0 ||
-        vitbas_pct_compensated > 100) {
+    if(vitbas_pct_compensated < 0 || vitbas_pct_compensated > 100) {
       # Compensation failed - return original
       return(normalized_pcts)
     }
@@ -1974,20 +1435,20 @@ server <- function(input, output, session) {
     base_oil_absorption <- 0
     total_density <- 0
     
-    for (i in seq_along(m$ids)) {
+    for(i in seq_along(m$ids)) {
       id <- m$ids[i]
       weight_fraction <- compensated_pcts[i] / 100  # Use compensated values
       
-      if (id == "vitbas") {
+      if(id == "vitbas") {
         # Vitbas is a mix of zinc and titanium
-        base_oil_absorption <- base_oil_absorption +
-          weight_fraction * (zinc_ratio * 0.20 + (1 - zinc_ratio) * 0.15)
-        total_density <- total_density +
-          weight_fraction * (zinc_ratio * 5.6 + (1 - zinc_ratio) * 4.2)
+        base_oil_absorption <- base_oil_absorption + 
+          weight_fraction * (zinc_ratio * 0.20 + (1-zinc_ratio) * 0.15)
+        total_density <- total_density + 
+          weight_fraction * (zinc_ratio * 5.6 + (1-zinc_ratio) * 4.2)
       } else {
-        base_oil_absorption <- base_oil_absorption +
+        base_oil_absorption <- base_oil_absorption + 
           weight_fraction * (km[[id]]$oil / 100)
-        total_density <- total_density +
+        total_density <- total_density + 
           weight_fraction * km[[id]]$density
       }
     }
@@ -2015,65 +1476,46 @@ server <- function(input, output, session) {
     zn_g <- ti_g <- 0
     color_g <- numeric()
     
-    for (i in seq_along(m$ids)) {
+    for(i in seq_along(m$ids)){
       id <- m$ids[i]
       weight_fraction <- compensated_pcts[i] / 100  # Use compensated values
       weight_g <- total_pigment_g * weight_fraction
       
-      if (id == "vitbas") {
+      if(id == "vitbas"){
         zn_g <- zn_g + weight_g * zinc_ratio
-        ti_g <- ti_g + weight_g * (1 - zinc_ratio)
+        ti_g <- ti_g + weight_g * (1-zinc_ratio)
       } else {
         color_g[id] <- weight_g
       }
     }
     
-    list(
-      zn = round(zn_g, 1),
-      ti = round(ti_g, 1),
-      color = round(color_g, 1),
-      oil = round(final_oil_g, 1),
-      hex = final_hex()
-    )
+    list(zn=round(zn_g,1), ti=round(ti_g,1), color=round(color_g,1), 
+         oil=round(final_oil_g,1), hex=final_hex())
   })
   
   output$final_recipe <- renderTable({
     df <- recipe_df()
     # Format the Gram column with Swedish decimals
-    df$Gram <- sapply(df$Gram, function(x)
-      format_swe(parse_numeric(x), 1))
+    df$Gram <- sapply(df$Gram, function(x) format_swe(parse_numeric(x), 1))
     df
-  }, striped = TRUE, bordered = TRUE, width = "100%", align = "lr", sanitize.text.function = function(x)
-    x)
-  output$final_preview <- renderUI(tags$div(
-    class = "preview",
-    style = paste0("background:", final_hex())
-  ))
+  }, striped=TRUE, bordered=TRUE, width="100%", align="lr", sanitize.text.function = function(x) x)
+  output$final_preview <- renderUI(tags$div(class="preview", style=paste0("background:", final_hex())))
   
   output$download_txt <- downloadHandler(
-    filename = function()
-      paste0("fargrecept_", Sys.Date(), ".txt"),
+    filename = function() paste0("fargrecept_", Sys.Date(), ".txt"),
     content = function(file) {
       df <- recipe_df()
       recipe <- final_recipe()
       c <- calc()  # Get calc values
       
-      txt <- paste0(
-        "Paint-o-matic – recept ",
-        Sys.Date(),
-        "\n\n",
-        "Färgkod: ",
-        final_hex(),
-        "\n",
-        "Yta: ",
-        format_swe(c$area, 0),
-        " m²\n\n"
-      )
+      txt <- paste0("Paint-o-matic – recept ", Sys.Date(), "\n\n",
+                    "Färgkod: ", final_hex(), "\n",
+                    "Yta: ", format_swe(c$area, 0), " m²\n\n")
       
       # Recipe ingredients
-      for (i in 1:nrow(df)) {
-        gram_val <- format_swe(parse_numeric(df[i, 2]), 1)
-        txt <- paste0(txt, df[i, 1], ": ", gram_val, " g\n")
+      for(i in 1:nrow(df)) {
+        gram_val <- format_swe(parse_numeric(df[i,2]), 1)
+        txt <- paste0(txt, df[i,1], ": ", gram_val, " g\n")
       }
       
       # Add sourcing section
@@ -2083,39 +1525,36 @@ server <- function(input, output, session) {
       
       # Collect all pigment IDs used in recipe
       pigment_ids <- c()
-      if (recipe$zn > 0.1)
-        pigment_ids <- c(pigment_ids, "44100")
-      if (recipe$ti > 0.1)
-        pigment_ids <- c(pigment_ids, "44400")
-      if (length(recipe$color) > 0)
-        pigment_ids <- c(pigment_ids, names(recipe$color))
+      if(recipe$zn > 0.1) pigment_ids <- c(pigment_ids, "44100")
+      if(recipe$ti > 0.1) pigment_ids <- c(pigment_ids, "44400")
+      if(length(recipe$color) > 0) pigment_ids <- c(pigment_ids, names(recipe$color))
       
       # Add supplier links for each pigment
       suppliers_found <- FALSE
-      for (id in pigment_ids) {
+      for(id in pigment_ids) {
         # Check both raa_kremer_matches and kremer_links
         match_info <- NULL
-        if (id %in% names(raa_kremer_matches)) {
+        if(id %in% names(raa_kremer_matches)) {
           match_info <- raa_kremer_matches[[id]]
-        } else if (id %in% names(kremer_links)) {
+        } else if(id %in% names(kremer_links)) {
           match_info <- kremer_links[[id]]
         }
         
-        if (!is.null(match_info)) {
+        if(!is.null(match_info)) {
           suppliers_found <- TRUE
           
           txt <- paste0(txt, km[[id]]$name, "\n")
           
           # Kremer Pigmente
-          if (!is.null(match_info$kremer_match)) {
+          if(!is.null(match_info$kremer_match)) {
             txt <- paste0(txt, "  Kremer Pigmente:\n")
             txt <- paste0(txt, "    - Matchning: ", match_info$kremer_match, "\n")
             txt <- paste0(txt, "    - Produkt-ID: ", match_info$kremer_id, "\n")
             
             # Handle multiple URLs (e.g., for GO94_GU30)
-            if (length(match_info$kremer_url) > 1) {
+            if(length(match_info$kremer_url) > 1) {
               txt <- paste0(txt, "    - Webbadresser:\n")
-              for (url in match_info$kremer_url) {
+              for(url in match_info$kremer_url) {
                 txt <- paste0(txt, "      ", url, "\n")
               }
             } else {
@@ -2124,21 +1563,21 @@ server <- function(input, output, session) {
           }
           
           # Ottosson Färgmakeri
-          if (!is.null(match_info$ottosson_match)) {
+          if(!is.null(match_info$ottosson_match)) {
             txt <- paste0(txt, "  Ottosson Färgmakeri (Sverige):\n")
             txt <- paste0(txt, "    - Produkt: ", match_info$ottosson_match, "\n")
             txt <- paste0(txt, "    - Webbadress: ", match_info$ottosson_url, "\n")
           }
           
           # Claessons Trätjära
-          if (!is.null(match_info$claessons_match)) {
+          if(!is.null(match_info$claessons_match)) {
             txt <- paste0(txt, "  Claessons Trätjära (Sverige):\n")
             txt <- paste0(txt, "    - Produkt: ", match_info$claessons_match, "\n")
             txt <- paste0(txt, "    - Webbadress: ", match_info$claessons_url, "\n")
           }
           
           # Gysinge
-          if (!is.null(match_info$gysinge_match)) {
+          if(!is.null(match_info$gysinge_match)) {
             txt <- paste0(txt, "  Gysinge (Sverige):\n")
             txt <- paste0(txt, "    - Produkt: ", match_info$gysinge_match, "\n")
             txt <- paste0(txt, "    - Webbadress: ", match_info$gysinge_url, "\n")
@@ -2149,14 +1588,12 @@ server <- function(input, output, session) {
       }
       
       # Add general supplier info
-      if (suppliers_found) {
+      if(suppliers_found) {
         txt <- paste0(txt, strrep("-", 60), "\n")
         txt <- paste0(txt, "LEVERANTÖRER\n\n")
         txt <- paste0(txt, "Kremer Pigmente GmbH & Co. KG (Tyskland)\n")
-        txt <- paste0(txt,
-                      "  Webbplats: https://www.kremer-pigmente.com/en/shop/pigments\n")
-        txt <- paste0(txt,
-                      "  Internationell leverantör av högkvalitativa pigment\n\n")
+        txt <- paste0(txt, "  Webbplats: https://www.kremer-pigmente.com/en/shop/pigments\n")
+        txt <- paste0(txt, "  Internationell leverantör av högkvalitativa pigment\n\n")
         txt <- paste0(txt, "Ottosson Färgmakeri (Sverige)\n")
         txt <- paste0(txt, "  Webbplats: https://ottossonfarg.com/\n")
         txt <- paste0(txt, "  Svensktillverkad linoljefärg och pigment\n\n")
@@ -2166,10 +1603,8 @@ server <- function(input, output, session) {
         txt <- paste0(txt, "Andra svenska leverantörer:\n")
         txt <- paste0(txt, "  - Gysinge: https://gysinge.se/\n")
       } else {
-        txt <- paste0(txt,
-                      "Inga leverantörslänkar tillgängliga för dessa pigment.\n")
-        txt <- paste0(txt,
-                      "Kontakta Kremer Pigmente, Ottosson, Claessons eller Gysinge.\n")
+        txt <- paste0(txt, "Inga leverantörslänkar tillgängliga för dessa pigment.\n")
+        txt <- paste0(txt, "Kontakta Kremer Pigmente, Ottosson, Claessons eller Gysinge.\n")
       }
       
       con <- file(file, open = "wt", encoding = "UTF-8")
@@ -2184,43 +1619,34 @@ server <- function(input, output, session) {
     params <- list()
     
     # Add pigments and percentages (only if pigment is selected)
-    if (!is.null(input$p1) && input$p1 != "") {
+    if(!is.null(input$p1) && input$p1 != "") {
       params$p1 <- input$p1
       params$pct1 <- input$pct1
     }
-    if (!is.null(input$p2) && input$p2 != "") {
+    if(!is.null(input$p2) && input$p2 != "") {
       params$p2 <- input$p2
       params$pct2 <- input$pct2
     }
-    if (!is.null(input$p3) && input$p3 != "") {
+    if(!is.null(input$p3) && input$p3 != "") {
       params$p3 <- input$p3
       params$pct3 <- input$pct3
     }
-    if (!is.null(input$p4) && input$p4 != "") {
+    if(!is.null(input$p4) && input$p4 != "") {
       params$p4 <- input$p4
       params$pct4 <- input$pct4
     }
     
     # Add other parameters (only if not default values)
-    if (!is.null(input$area) &&
-        input$area != 20)
-      params$area <- input$area
-    if (!is.null(input$zinc_ratio) &&
-        input$zinc_ratio != 15)
-      params$zinc_ratio <- input$zinc_ratio
-    if (!is.null(input$extra_oil) &&
-        input$extra_oil != 1.8)
-      params$extra_oil <- input$extra_oil
-    if (!is.null(input$use) &&
-        input$use != 3)
-      params$use <- input$use
+    if(!is.null(input$area) && input$area != 20) params$area <- input$area
+    if(!is.null(input$zinc_ratio) && input$zinc_ratio != 15) params$zinc_ratio <- input$zinc_ratio
+    if(!is.null(input$extra_oil) && input$extra_oil != 1.8) params$extra_oil <- input$extra_oil
+    if(!is.null(input$use) && input$use != 3) params$use <- input$use
     
     # Build URL
-    if (length(params) > 0) {
+    if(length(params) > 0) {
       base_url <- session$clientData$url_protocol
       base_url <- paste0(base_url, "//", session$clientData$url_hostname)
-      if (!is.null(session$clientData$url_port) &&
-          session$clientData$url_port != "") {
+      if(!is.null(session$clientData$url_port) && session$clientData$url_port != "") {
         base_url <- paste0(base_url, ":", session$clientData$url_port)
       }
       base_url <- paste0(base_url, session$clientData$url_pathname)
@@ -2234,19 +1660,13 @@ server <- function(input, output, session) {
       share_url <- paste0(base_url, "?", query_string)
       
       # Update hidden input with share URL
-      runjs(
-        sprintf(
-          "document.getElementById('share_url_hidden').value = '%s';",
-          share_url
-        )
-      )
+      runjs(sprintf("document.getElementById('share_url_hidden').value = '%s';", share_url))
     }
   })
   
   # === COPY SHARE LINK BUTTON ===
   observeEvent(input$copy_share_link, {
-    runjs(
-      "
+    runjs("
       var url = document.getElementById('share_url_hidden').value;
       if(url) {
         navigator.clipboard.writeText(url).then(function() {
@@ -2257,15 +1677,12 @@ server <- function(input, output, session) {
       } else {
         alert('Välj pigment först för att skapa en delningslänk.');
       }
-    "
-    )
+    ")
   })
   
   observeEvent(input$restart, {
     final_hex("#FFFFFF")
-    hide("step3")
-    hide("step2")
-    show("step1")
+    hide("step3"); hide("step2"); show("step1")
   })
 }
 

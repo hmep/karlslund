@@ -761,7 +761,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.6.4-K-M, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.6.5-K-M, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -863,10 +863,11 @@ ui <- dashboardPage(
                         numericInput("area","Yta att måla (m²)",10,1,2000,1),
                         selectInput("substrate","Underlag (absorptionsfaktor)",
                                     choices=list(
-                                      "Tidigare målat trä (lägst åtgång)" =	1.2,	# Base rate
-                                      "Hyvlat trä" = 1.0,	                        # Less absorption
-                                      "Sågat trä" = 0.8,                          # More absorption
-                                      "Poröst material (högst åtgång)" = 0.5      # Maximum absorption
+                                      "Metall, grundmålad (lägst åtgång)" = 1.3,  # Primed metal (very smooth)
+                                      "Tidigare målat trä " =	1.2,	              # Previously painted wood
+                                      "Hyvlat trä" = 1.0,	                        # Planed wood (baseline)
+                                      "Sågat trä" = 0.8,                          # Rough sawn wood
+                                      "Porös puts, gips (högst åtgång)" = 0.45    # Porous (gypsum, rough masonry)
                                     ),
                                     selected = 1.0),
                         radioButtons("use","Antal strykningar",choices=list("1 strykning"=1,"2 strykningar (rekommenderas inomhus)"=2,"3 strykningar (rekommenderas utomhus)"=3),selected=3),
@@ -1505,10 +1506,45 @@ server <- function(input, output, session) {
       df <- recipe_df()
       recipe <- final_recipe()
       c <- calc()  # Get calc values
+      m <- mix()  # Get mix info for K-M status
       
       txt <- paste0("Paint-o-matic – recept ", Sys.Date(), "\n\n",
                     "Färgkod: ", final_hex(), "\n",
-                    "Yta: ", format_swe(c$area, 0), " m²\n\n")
+                    "Yta: ", format_swe(c$area, 0), " m²\n")
+      
+      # Add K-M compensation info if vitbas is used
+      if("vitbas" %in% m$ids) {
+        txt <- paste0(txt, "\nKUBELKA-MUNK KOMPENSATION:\n")
+        txt <- paste0(txt, "  Vitbas-recept med K-M-kompensering aktiverad\n")
+        txt <- paste0(txt, "  Zinkandel: ", format_swe(c$zinc_ratio, 0), "%\n")
+        txt <- paste0(txt, "  Referenspunkt: 15% zink (neutralt)\n")
+        
+        # Calculate and show alpha factor
+        normalized_pcts <- (m$pct / m$total) * 100
+        zinc_ratio <- c$zinc_ratio / 100
+        compensated_pcts <- km_compensate_vitbas(normalized_pcts, m$ids, zinc_ratio)
+        
+        # Find vitbas index
+        vitbas_idx <- which(m$ids == "vitbas")[1]
+        if(length(vitbas_idx) > 0 && length(m$ids) > 1) {
+          # Calculate alpha (compensation factor)
+          original_colored_pct <- sum(normalized_pcts[-vitbas_idx])
+          compensated_colored_pct <- sum(compensated_pcts[-vitbas_idx])
+          alpha <- compensated_colored_pct / original_colored_pct
+          
+          txt <- paste0(txt, "  Kompenseringsfaktor (α): ", format_swe(alpha, 3), "\n")
+          
+          if(alpha > 1.01) {
+            txt <- paste0(txt, "  (Mer färgpigment p.g.a. hög zinkandel)\n")
+          } else if(alpha < 0.99) {
+            txt <- paste0(txt, "  (Mindre färgpigment p.g.a. låg zinkandel)\n")
+          } else {
+            txt <- paste0(txt, "  (Vid referenspunkten, ingen justering)\n")
+          }
+        }
+      }
+      
+      txt <- paste0(txt, "\n")
       
       # Recipe ingredients
       for(i in 1:nrow(df)) {

@@ -935,7 +935,7 @@ server <- function(input, output, session) {
         if("extra_oil" %in% names(query)) updateSliderInput(session, "extra_oil", value = as.numeric(query$extra_oil))
         if("use" %in% names(query)) updateRadioButtons(session, "use", selected = query$use)
         
-        showNotification("Recept laddades från länk!", type = "message", duration = 3)
+        showNotification("Recept laddades från länk", type = "message", duration = 3)
       })
     }
   })
@@ -1676,7 +1676,7 @@ server <- function(input, output, session) {
       var url = document.getElementById('share_url_hidden').value;
       if(url) {
         navigator.clipboard.writeText(url).then(function() {
-          alert('Delningslänk kopierad till urklipp!');
+          alert('Delningslänk kopierad till urklipp');
         }).catch(function(err) {
           prompt('Kopiera denna länk:', url);
         });

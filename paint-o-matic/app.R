@@ -761,7 +761,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.6.6-K-M, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.6.7-K-M, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -863,11 +863,10 @@ ui <- dashboardPage(
                         numericInput("area","Yta att måla (m²)",10,1,2000,1),
                         selectInput("substrate","Underlag (absorptionsfaktor)",
                                     choices=list(
-                                      "Metall, grundmålad (lägst åtgång)" = 1.3,  # Primed metal (very smooth)
-                                      "Tidigare målat trä " =	1.2,	              # Previously painted wood
-                                      "Hyvlat trä (normal åtgång)" = 1.0,	        # Planed wood (baseline)
-                                      "Sågat trä" = 0.8,                          # Rough sawn wood
-                                      "Porös puts, gips (högst åtgång)" = 0.45    # Porous (gypsum, rough masonry)
+                                      "Tidigare målat trä (lägst åtgång)" =	1.2,	# Base rate
+                                      "Hyvlat trä" = 1.0,	                        # Less absorption
+                                      "Sågat trä" = 0.8,                          # More absorption
+                                      "Poröst material (högst åtgång)" = 0.5      # Maximum absorption
                                     ),
                                     selected = 1.0),
                         radioButtons("use","Antal strykningar",choices=list("1 strykning"=1,"2 strykningar (rekommenderas inomhus)"=2,"3 strykningar (rekommenderas utomhus)"=3),selected=3),
@@ -876,7 +875,7 @@ ui <- dashboardPage(
                         p("Reglaget ökar endast mängden kokt linolja i receptet (pigmentmängderna är fixerade). En viss mängd extra linolja, utöver den minsta mängd som krävs för pigmenten, underlättar både tillredningen av pastan med färgblandare i borrmaskin och dess strykbarhet med penseln. En ökning med 1,6–2,2× det kritiska oljetalet (CPV) rekommenderas."),
                         hr(),
                         p("Pastan du blandar är lämplig direkt för tunn ", tags$b("grundmålning"), " (enligt principen från magert till fett) och utgör basen för ett komplett system för linoljefärgsmålning."),
-                        p("Till färg för ", tags$b("mellanstrykning"), " kan du tillför ytterligare kokt linolja, precis upp till den maximala mängd som fortfarande medger att färgen struken på en glasskiva förblir ogenomskinlig."),
+                        p("Till färg för ", tags$b("mellanstrykning"), " kan du tillföra ytterligare kokt linolja, precis upp till den maximala mängd som fortfarande medger att färgen struken på en glasskiva förblir ogenomskinlig."),
                         p("Till färg för ", tags$b("slutstrykning"), " kan du därutöver med fördel tillsätta 10% kokt eller ännu hellre soloxiderad olja."),
                         p("En burk till alla strykningar – tillsätt bara lite mer linolja efter hand!"),
                  ),
@@ -899,6 +898,34 @@ ui <- dashboardPage(
 )
 
 server <- function(input, output, session) {
+  # === STORE LAST VALID INPUT VALUES ===
+  # This prevents crashes when user clears text boxes temporarily
+  last_valid <- reactiveValues(
+    area = 10,
+    extra_oil = 1.8,
+    zinc_ratio = 15
+  )
+  
+  # Update stored values when inputs are valid
+  # Use isTRUE() to safely handle NA values in conditions
+  observe({
+    if(isTRUE(!is.null(input$area) && !is.na(input$area) && input$area > 0)) {
+      last_valid$area <- input$area
+    }
+  })
+  
+  observe({
+    if(isTRUE(!is.null(input$extra_oil) && !is.na(input$extra_oil) && input$extra_oil >= 1)) {
+      last_valid$extra_oil <- input$extra_oil
+    }
+  })
+  
+  observe({
+    if(isTRUE(!is.null(input$zinc_ratio) && !is.na(input$zinc_ratio) && input$zinc_ratio >= 0)) {
+      last_valid$zinc_ratio <- input$zinc_ratio
+    }
+  })
+  
   # === LOAD RECIPE FROM URL ===
   observe({
     query <- parseQueryString(session$clientData$url_search)
@@ -1188,17 +1215,30 @@ server <- function(input, output, session) {
   # Simply use input values directly with req() to ensure they're available
   # No need for intermediate reactive values
   calc <- reactive({
-    # Ensure all inputs are available before calculating
-    req(input$area, input$use, input$substrate, input$extra_oil, input$zinc_ratio)
+    # Use last valid values to prevent crashes when inputs are temporarily empty
+    # Use isTRUE() to safely handle NA values in conditions
+    area_num <- if(isTRUE(!is.null(input$area) && !is.na(input$area) && input$area > 0)) {
+      as.numeric(input$area)
+    } else {
+      last_valid$area
+    }
     
-    # Convert all inputs to numeric explicitly
-    area_num <- as.numeric(input$area)
-    use_num <- as.numeric(input$use)
-    substrate_num <- as.numeric(input$substrate)  # selectInput returns character
-    extra_oil_num <- as.numeric(input$extra_oil)
-    zinc_ratio_num <- as.numeric(input$zinc_ratio)
+    use_num <- as.numeric(input$use)  # Radio button, always has value
+    substrate_num <- as.numeric(input$substrate)  # selectInput, always has value
     
-    # Validate they're all numeric
+    extra_oil_num <- if(isTRUE(!is.null(input$extra_oil) && !is.na(input$extra_oil) && input$extra_oil >= 1)) {
+      as.numeric(input$extra_oil)
+    } else {
+      last_valid$extra_oil
+    }
+    
+    zinc_ratio_num <- if(isTRUE(!is.null(input$zinc_ratio) && !is.na(input$zinc_ratio) && input$zinc_ratio >= 0)) {
+      as.numeric(input$zinc_ratio)
+    } else {
+      last_valid$zinc_ratio
+    }
+    
+    # Validate they're all numeric (should always be true now)
     req(is.numeric(area_num), is.numeric(use_num), is.numeric(substrate_num),
         is.numeric(extra_oil_num), is.numeric(zinc_ratio_num))
     
@@ -1507,45 +1547,10 @@ server <- function(input, output, session) {
       df <- recipe_df()
       recipe <- final_recipe()
       c <- calc()  # Get calc values
-      m <- mix()  # Get mix info for K-M status
       
       txt <- paste0("Paint-o-matic – recept ", Sys.Date(), "\n\n",
                     "Färgkod: ", final_hex(), "\n",
-                    "Yta: ", format_swe(c$area, 0), " m²\n")
-      
-      # Add K-M compensation info if vitbas is used
-      if("vitbas" %in% m$ids) {
-        txt <- paste0(txt, "\nKUBELKA-MUNK KOMPENSATION:\n")
-        txt <- paste0(txt, "  Vitbas-recept med K-M-kompensering aktiverad\n")
-        txt <- paste0(txt, "  Zinkandel: ", format_swe(c$zinc_ratio, 0), "%\n")
-        txt <- paste0(txt, "  Referenspunkt: 15% zink (neutralt)\n")
-        
-        # Calculate and show alpha factor
-        normalized_pcts <- (m$pct / m$total) * 100
-        zinc_ratio <- c$zinc_ratio / 100
-        compensated_pcts <- km_compensate_vitbas(normalized_pcts, m$ids, zinc_ratio)
-        
-        # Find vitbas index
-        vitbas_idx <- which(m$ids == "vitbas")[1]
-        if(length(vitbas_idx) > 0 && length(m$ids) > 1) {
-          # Calculate alpha (compensation factor)
-          original_colored_pct <- sum(normalized_pcts[-vitbas_idx])
-          compensated_colored_pct <- sum(compensated_pcts[-vitbas_idx])
-          alpha <- compensated_colored_pct / original_colored_pct
-          
-          txt <- paste0(txt, "  Kompenseringsfaktor (α): ", format_swe(alpha, 3), "\n")
-          
-          if(alpha > 1.01) {
-            txt <- paste0(txt, "  (Mer färgpigment p.g.a. hög zinkandel)\n")
-          } else if(alpha < 0.99) {
-            txt <- paste0(txt, "  (Mindre färgpigment p.g.a. låg zinkandel)\n")
-          } else {
-            txt <- paste0(txt, "  (Vid referenspunkten, ingen justering)\n")
-          }
-        }
-      }
-      
-      txt <- paste0(txt, "\n")
+                    "Yta: ", format_swe(c$area, 0), " m²\n\n")
       
       # Recipe ingredients
       for(i in 1:nrow(df)) {
@@ -1654,28 +1659,28 @@ server <- function(input, output, session) {
     params <- list()
     
     # Add pigments and percentages (only if pigment is selected)
-    if(!is.null(input$p1) && input$p1 != "") {
+    if(isTRUE(!is.null(input$p1) && input$p1 != "")) {
       params$p1 <- input$p1
       params$pct1 <- input$pct1
     }
-    if(!is.null(input$p2) && input$p2 != "") {
+    if(isTRUE(!is.null(input$p2) && input$p2 != "")) {
       params$p2 <- input$p2
       params$pct2 <- input$pct2
     }
-    if(!is.null(input$p3) && input$p3 != "") {
+    if(isTRUE(!is.null(input$p3) && input$p3 != "")) {
       params$p3 <- input$p3
       params$pct3 <- input$pct3
     }
-    if(!is.null(input$p4) && input$p4 != "") {
+    if(isTRUE(!is.null(input$p4) && input$p4 != "")) {
       params$p4 <- input$p4
       params$pct4 <- input$pct4
     }
     
     # Add other parameters (only if not default values)
-    if(!is.null(input$area) && input$area != 20) params$area <- input$area
-    if(!is.null(input$zinc_ratio) && input$zinc_ratio != 15) params$zinc_ratio <- input$zinc_ratio
-    if(!is.null(input$extra_oil) && input$extra_oil != 1.8) params$extra_oil <- input$extra_oil
-    if(!is.null(input$use) && input$use != 3) params$use <- input$use
+    if(isTRUE(!is.null(input$area) && !is.na(input$area) && input$area != 20)) params$area <- input$area
+    if(isTRUE(!is.null(input$zinc_ratio) && !is.na(input$zinc_ratio) && input$zinc_ratio != 15)) params$zinc_ratio <- input$zinc_ratio
+    if(isTRUE(!is.null(input$extra_oil) && !is.na(input$extra_oil) && input$extra_oil != 1.8)) params$extra_oil <- input$extra_oil
+    if(isTRUE(!is.null(input$use) && input$use != 3)) params$use <- input$use
     
     # Build URL
     if(length(params) > 0) {

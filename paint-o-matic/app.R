@@ -829,7 +829,7 @@ ui <- dashboardPage(
                         uiOutput("total_warning"), 
                         tags$div(style="margin-top:2em;",
                                  tags$b("RAÄ Kulturkulörs fördefinierade recept"), br(),
-                                 tags$small("Klicka på en färg för att ladda receptet."),
+                                 tags$small("Välj en färg för att ladda receptet."),
                                  uiOutput("kulturkulor_swatches")
                         )
                  )
@@ -863,10 +863,11 @@ ui <- dashboardPage(
                         numericInput("area","Yta att måla (m²)",10,1,2000,1),
                         selectInput("substrate","Underlag (absorptionsfaktor)",
                                     choices=list(
-                                      "Tidigare målat trä (lägst åtgång)" =	1.2,	# Base rate
-                                      "Hyvlat trä" = 1.0,	                        # Less absorption
-                                      "Sågat trä" = 0.8,                          # More absorption
-                                      "Poröst material (högst åtgång)" = 0.5      # Maximum absorption
+                                      "Metall, grundmålad (lägst åtgång)" = 1.3,  # Primed metal (very smooth)
+                                      "Tidigare målat trä " =	1.2,	              # Previously painted wood
+                                      "Hyvlat trä (normal åtgång)" = 1.0,	        # Planed wood (baseline)
+                                      "Sågat trä" = 0.8,                          # Rough sawn wood
+                                      "Porös puts, gips (högst åtgång)" = 0.45    # Porous (gypsum, rough masonry)
                                     ),
                                     selected = 1.0),
                         radioButtons("use","Antal strykningar",choices=list("1 strykning"=1,"2 strykningar (rekommenderas inomhus)"=2,"3 strykningar (rekommenderas utomhus)"=3),selected=3),

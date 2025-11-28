@@ -854,8 +854,6 @@ ui <- dashboardPage(
       .rmargin-box {margin-right:20px;}
       .btn {margin: .5em .5em 0 0;}
       .btn-primary { color:white;}
-      div.checkbox { padding:0; margin: 0;}
-      div.form-group.shiny-input-container { margin-bottom: 0px;}
       .kulturkulor-swatch { 
         display:inline-block; width:24px; height:24px; border-radius:50%; 
         margin:3px; cursor:pointer; border:2px solid #999;
@@ -992,9 +990,9 @@ ui <- dashboardPage(
                         h5(style="font-weight:bold;","Inställningar"),
                         checkboxInput("raa_only", "Använd endast Kulturkulör-pigment (RAÄ)", TRUE),
                         checkboxInput("use_tinting_strength", 
-                                      "Realistisk färgblandning (K+S-viktad)", 
-                                      FALSE),
-                        tags$small(style="color:#666; margin-left:20px; display:block; margin-top:0; margin-bottom:10px;",
+                                      "Realistisk färgblandning", 
+                                      TRUE),
+                        tags$small(style="color:#666; margin-left:20px; display:block; margin-top:-1em; margin-bottom:10px;",
                                    "Väger pigment efter faktiska färgstyrka (K- och S-värden)"),
                         hr(),
                         pickerInput("p1", "Pigment 1", choices = all_choices, selected = "vitbas",

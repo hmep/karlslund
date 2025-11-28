@@ -33,11 +33,20 @@ if(!swedish_locale_set) {
 # Helper functions for Swedish number formatting
 format_swe <- function(x, digits = 1) {
   if(is.null(x) || is.na(x)) return("0")
-  formatted <- format(round(x, digits), 
-                      nsmall = digits, 
-                      decimal.mark = ",", 
-                      big.mark = " ",
-                      trim = TRUE)
+  
+  # If value is whole number (or very close to it), omit decimal
+  if(abs(x - round(x, 0)) < 0.01) {
+    formatted <- format(round(x, 0), 
+                        decimal.mark = ",", 
+                        big.mark = " ",
+                        trim = TRUE)
+  } else {
+    formatted <- format(round(x, digits), 
+                        nsmall = digits, 
+                        decimal.mark = ",", 
+                        big.mark = " ",
+                        trim = TRUE)
+  }
   return(formatted)
 }
 
@@ -54,6 +63,106 @@ parse_numeric <- function(x, default = NA) {
   result <- suppressWarnings(as.numeric(x_char))
   if(is.na(result)) return(default)
   return(result)
+}
+
+# Smart rounding based on weight - improves readability and practicality
+smart_round <- function(weight) {
+  if(weight < 10) {
+    # Small amounts need precision (e.g., 3.5g, 8.2g)
+    return(round(weight, 1))
+  } else if(weight < 100) {
+    # Medium amounts: whole grams (e.g., 45g, 87g)
+    return(round(weight, 0))
+  } else if(weight < 500) {
+    # Large amounts: round to 5g (e.g., 235g, 340g)
+    return(round(weight / 5) * 5)
+  } else {
+    # Very large amounts: round to 10g (e.g., 780g, 1250g)
+    return(round(weight / 10) * 10)
+  }
+}
+
+# === GENERIC RECIPE HELPER FUNCTIONS ===
+
+# Calculate base oil absorption and density for pigment mix
+calculate_base_properties <- function(m, compensated_pcts, zinc_ratio, km) {
+  base_oil_absorption <- 0
+  total_density <- 0
+  
+  for(i in seq_along(m$ids)) {
+    id <- m$ids[i]
+    weight_fraction <- compensated_pcts[i] / 100
+    
+    if(id == "vitbas") {
+      base_oil_absorption <- base_oil_absorption + 
+        weight_fraction * (zinc_ratio * 0.20 + (1-zinc_ratio) * 0.15)
+      total_density <- total_density + 
+        weight_fraction * (zinc_ratio * 5.6 + (1-zinc_ratio) * 4.2)
+    } else {
+      base_oil_absorption <- base_oil_absorption + 
+        weight_fraction * (km[[id]]$oil / 100)
+      total_density <- total_density + 
+        weight_fraction * km[[id]]$density
+    }
+  }
+  
+  list(oil_absorption = base_oil_absorption, density = total_density)
+}
+
+# Calculate pigment amounts for target volume
+calculate_pigment_amounts <- function(target_liters, oil_absorption, density) {
+  V_pigment_per_gram <- 1 / density
+  V_oil_per_gram_min <- oil_absorption / 0.92
+  pvc_base <- V_pigment_per_gram / (V_pigment_per_gram + V_oil_per_gram_min)
+  
+  pigment_volume_L <- target_liters * pvc_base
+  total_pigment_g <- pigment_volume_L * 1000 * density
+  base_oil_g <- total_pigment_g * oil_absorption
+  
+  list(
+    total_pigment_g = total_pigment_g,
+    base_oil_g = base_oil_g,
+    pvc_base = pvc_base,
+    pigment_volume_L = pigment_volume_L
+  )
+}
+
+# Distribute pigments according to compensated percentages
+distribute_pigments <- function(m, compensated_pcts, total_pigment_g, zinc_ratio) {
+  zn_g <- ti_g <- 0
+  color_g <- numeric()
+  
+  for(i in seq_along(m$ids)){
+    id <- m$ids[i]
+    weight_fraction <- compensated_pcts[i] / 100
+    weight_g <- total_pigment_g * weight_fraction
+    
+    if(id == "vitbas"){
+      zn_g <- zn_g + weight_g * zinc_ratio
+      ti_g <- ti_g + weight_g * (1-zinc_ratio)
+    } else {
+      color_g[id] <- weight_g
+    }
+  }
+  
+  list(zn = zn_g, ti = ti_g, color = color_g)
+}
+
+# Calculate average density for a pigment mix (used in volume calculations)
+calculate_avg_density <- function(m, compensated_pcts, zinc_ratio, km) {
+  total_density <- 0
+  for(i in seq_along(m$ids)) {
+    id <- m$ids[i]
+    weight_fraction <- compensated_pcts[i] / 100
+    
+    if(id == "vitbas") {
+      total_density <- total_density + 
+        weight_fraction * (zinc_ratio * 5.6 + (1-zinc_ratio) * 4.2)
+    } else {
+      total_density <- total_density + weight_fraction * km[[id]]$density
+    }
+  }
+  total_density
 }
 
 # === HELPER FUNCTIONS ===
@@ -182,6 +291,20 @@ generate_share_url <- function(session, input = NULL, mix_data = NULL) {
       params$extra_oil <- input$extra_oil
     if(isTRUE(!is.null(input$use) && input$use != 3)) 
       params$use <- input$use
+    
+    # Add paint type (only if not default linseed)
+    if(isTRUE(!is.null(input$paint_type) && input$paint_type != "linseed")) {
+      params$paint_type <- input$paint_type
+      
+      # Add paint-type-specific parameters
+      if(input$paint_type == "egg_oil" && !is.null(input$egg_filler)) {
+        params$egg_filler <- input$egg_filler
+      }
+      if(input$paint_type == "tar") {
+        if(!is.null(input$tar_category)) params$tar_category <- input$tar_category
+        if(!is.null(input$tar_extra_oil) && input$tar_extra_oil != 1.6) params$tar_extra_oil <- input$tar_extra_oil
+      }
+    }
   }
   
   # Build URL if we have parameters
@@ -836,13 +959,13 @@ misc_materials <- list(
 # Tar masstone RGB values (research documented in TAR_RGB_RESEARCH.txt)
 tar_colors <- list(
   "Dalbränd trätjära (finast)" = list(
-    rgb = c(90, 60, 35),
-    hex = "#5A3C23",
-    description = "Mörk chokladbrun med rödaktig ton"
-  ),
-  "Ljus trätjära" = list(
     rgb = c(140, 95, 45),
     hex = "#8C5F2D",
+    description = "Ljus och ren, gyllengul"
+  ),
+  "Ljus trätjära" = list(
+    rgb = c(90, 60, 35),
+    hex = "#5A3C23",
     description = "Honungs- eller bärnstenfärg"
   ),
   "Mörk trätjära" = list(
@@ -1063,7 +1186,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.8.3-äot-test, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.9.0, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -1226,18 +1349,15 @@ ui <- dashboardPage(
                  column(6,
                         h5(style="font-weight:bold;","Inställningar"),
                         checkboxInput("raa_only", "Använd endast Kulturkulör-pigment (RAÄ)", TRUE),
-                        checkboxInput("use_tinting_strength", 
-                                      "Realistisk färgblandning", 
-                                      TRUE),
-                        tags$small(style="color:#666; margin-left:20px; display:block; margin-top:-1em; margin-bottom:10px;",
-                                   "Väger pigment efter faktiska färgstyrka (K- och S-värden)"),
+                        checkboxInput("use_tinting_strength","Avancerad färgblandning",TRUE),
+                        tags$small(style="color:#666; margin-left:20px; display:block; margin-top:-1em; margin-bottom:10px;","Väger pigment efter faktiska färgstyrka (K- och S-värden)"),
                         hr(),
                         pickerInput("p1", "Pigment 1", choices = all_choices, selected = "vitbas",
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),
                         conditionalPanel("input.p1", sliderInput("pct1","Andel (%)",0,100,70,1)),
-                        pickerInput("p2", "Pigment 2", choices = all_choices, selected = "",
+                        pickerInput("p2", "Pigment 2", choices = all_choices, selected = "J920",
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),
-                        conditionalPanel("input.p2", sliderInput("pct2","Andel (%)",0,100,0,1)),
+                        conditionalPanel("input.p2", sliderInput("pct2","Andel (%)",0,100,30,1)),
                         pickerInput("p3", "Pigment 3", choices = all_choices, selected = "",
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),
                         conditionalPanel("input.p3", sliderInput("pct3","Andel (%)",0,100,0,1)),
@@ -1261,7 +1381,7 @@ ui <- dashboardPage(
                ),
                hr(),
                actionButton("to_step2","Nästa", class="btn-primary next-btn"),
-               div(class="footer-ref", "Masstone baserade på data från Riksantikvarieämbetet (RAÄ) Kulturkulör, Kremer Pigmente, m. fl.")
+               div(class="footer-ref", "Masstone baserade på data från Riksantikvarieämbetet (RAÄ) Kulturkulör, Kremer Pigmente, m. fl. Tänk på att en skärm inte exakt kan simulera hur ljus som absorberas/reflekteras mot en målad yta uppfattas")
     )),
     
     hidden(div(id="step2", class="step",
@@ -1287,6 +1407,13 @@ ui <- dashboardPage(
                  column(6,
                         numericInput("area","Yta att måla (m²)",10,1,2000,1),
                         
+                        # Common setting: Number of coats (applies to all paint types)
+                        radioButtons("use","Antal strykningar",
+                                     choices=list("1 strykning"=1,
+                                                  "2 strykningar"=2,
+                                                  "3 strykningar"=3),
+                                     selected=2),
+                        
                         # Paint type selector
                         selectInput("paint_type", "Typ av färg",
                                     choices = list(
@@ -1309,10 +1436,9 @@ ui <- dashboardPage(
                                                  "Porös puts, gips (högst åtgång)" = 0.45    # Porous (gypsum, rough masonry)
                                                ),
                                                selected = 1.0),
-                                   radioButtons("use","Antal strykningar",choices=list("1 strykning"=1,"2 strykningar (rekommenderas inomhus)"=2,"3 strykningar (rekommenderas utomhus)"=3),selected=3),
                                    hr(),
                                    sliderInput("extra_oil","Extra kokt linolja (CPVC-faktor)",1,2.5,1.6,0.05,post="× CPVC"),
-                                   p("Reglaget ökar endast mängden kokt linolja i receptet (pigmentmängderna är fixerade). En viss mängd extra linolja, utöver den minsta mängd som krävs för pigmenten, underlättar både tillredningen av linoljefärgspastan med blandare i borrmaskin och dess strykbarhet med penseln. En oljeökning med 1,6–2,2 gånger det kritiska oljetalet (CPVC) rekommenderas för linoljefärg."),
+                                   p("Reglaget ökar endast mängden kokt linolja i receptet (pigmentmängderna är fixerade). En viss mängd extra bindmedel, utöver den minsta mängd som krävs för pigmenten, underlättar både tillredningen av färgen med blandare i borrmaskin och dess strykbarhet med penseln. Du kan utan problem lägga till 1,6–2,2 gånger av CPVC av bindmedel."),
                                    hr(),
                                    p("Pastan du blandar är lämplig direkt som ", tags$b("grundstrykning"), " med gnuggande målningsstil (enligt principen från magert till fett) och utgör basen för ett komplett system för linoljefärgsmålning."),
                                    p("Till färg för ", tags$b("mellanstrykning"), " kan du tillföra ytterligare kokt linolja, precis upp till den maximala mängd som fortfarande medger att färgen struken på en glasskiva förblir ogenomskinlig."),
@@ -1336,16 +1462,12 @@ ui <- dashboardPage(
                           condition = "input.paint_type == 'tar'",
                           tags$div(class = "paint-type-box",
                                    selectInput("tar_category", "Typ av trätjära",
-                                               choices = list(
-                                                 "Dalbränd (finast kvalitet)" = "Dalbränd trätjära (finast)",
-                                                 "Ljus (genomträngande)" = "Ljus trätjära",
-                                                 "Mörk (skyddande)" = "Mörk trätjära"
-                                               ),
-                                               selected = "Dalbränd trätjära (finast)"),
+                                               choices = names(tar_colors),
+                                               selected = names(tar_colors)[1]),
                                    hr(),
                                    sliderInput("tar_extra_oil", "Extra olja/tjära (CPVC-faktor)", 
                                                1, 2.5, 1.6, 0.05, post = "× CPVC"),
-                                   p("Reglaget ökar mängden olja och tjära proportionellt. Högre värde ger mer flytande färg och bättre strykbarhet.")
+                                   p("Reglaget ökar mängden olja och tjära proportionellt. Högre värde ger mer flytande färg och bättre strykbarhet. Du kan utan problem lägga till 1,6–2,2 gånger av CPVC av bindmedel."),
                           )
                         )
                         
@@ -1421,6 +1543,20 @@ server <- function(input, output, session) {
         if("zinc_ratio" %in% names(query)) updateSliderInput(session, "zinc_ratio", value = as.numeric(query$zinc_ratio))
         if("extra_oil" %in% names(query)) updateSliderInput(session, "extra_oil", value = as.numeric(query$extra_oil))
         if("use" %in% names(query)) updateRadioButtons(session, "use", selected = query$use)
+        
+        # Load paint type and related parameters
+        if("paint_type" %in% names(query)) {
+          updateSelectInput(session, "paint_type", selected = query$paint_type)
+          
+          # Load paint-type-specific parameters
+          if(query$paint_type == "egg_oil" && "egg_filler" %in% names(query)) {
+            updateSelectInput(session, "egg_filler", selected = query$egg_filler)
+          }
+          if(query$paint_type == "tar") {
+            if("tar_category" %in% names(query)) updateSelectInput(session, "tar_category", selected = query$tar_category)
+            if("tar_extra_oil" %in% names(query)) updateSliderInput(session, "tar_extra_oil", value = as.numeric(query$tar_extra_oil))
+          }
+        }
         
         showNotification("Recept laddades från länk", type = "message", duration = 3)
       })
@@ -1820,15 +1956,9 @@ server <- function(input, output, session) {
   output$recipe_description <- renderUI({
     paint_type <- input$paint_type %||% "linseed"
     
-    if(paint_type == "egg_oil") {
-      tags$p("Du blandar cirka ", textOutput("total_volume", inline=TRUE), 
-             " liter färdig färg, med sammanlagt ", textOutput("needed_pigment", inline=TRUE), 
-             " g pigment och fyllmedel.")
-    } else {
-      tags$p("Du blandar cirka ", textOutput("total_volume", inline=TRUE), 
-             " liter färdig färgpasta, med sammanlagt ", textOutput("needed_pigment", inline=TRUE), 
-             " g pigment.")
-    }
+    tags$p("Du blandar cirka ", textOutput("total_volume", inline=TRUE), 
+           " liter färdig färg, med sammanlagt ", textOutput("needed_pigment", inline=TRUE), 
+           " g pigment.")
   })
   
   output$total_volume <- renderText({
@@ -1863,8 +1993,7 @@ server <- function(input, output, session) {
       
     } else if(paint_type == "tar") {
       # Tar oil paint recipe format
-      tar_name <- tar_colors[[r$tar_category]]$description
-      rows <- c(rows, list(list(paste0("Trätjära (", tar_name, ")"), r$tar)))
+      rows <- c(rows, list(list(r$tar_category, r$tar)))
       rows <- c(rows, list(list("Kallpressad kokt linolja", r$oil)))
       rows <- c(rows, list(list("Balsamterpentin", r$balsamterpentin)))
       
@@ -1895,300 +2024,124 @@ server <- function(input, output, session) {
     recipe <- final_recipe()
     c <- calc()
     paint_type <- input$paint_type %||% "linseed"
+    m <- mix()
+    zinc_ratio <- c$zinc_ratio / 100
+    
+    # Common calculations (used by all paint types)
+    normalized_pcts <- (m$pct / m$total) * 100
+    compensated_pcts <- km_compensate_vitbas(normalized_pcts, m$ids, zinc_ratio)
+    avg_density <- calculate_avg_density(m, compensated_pcts, zinc_ratio, km)
+    
+    # Packing factor constant
+    PACKING_FACTOR <- 0.85
     
     if(paint_type == "egg_oil") {
-      # Egg-oil tempera volume calculation
-      # Total pigment weight (including extra filler)
-      pigment_total_g <- recipe$zn + recipe$ti + sum(recipe$color) + recipe$filler_g
-      oil_g <- recipe$oil
-      eggs_g <- recipe$eggs
-      water_g <- recipe$water
-      
-      # Calculate average density for base pigments
-      m <- mix()
-      zinc_ratio <- c$zinc_ratio / 100
-      normalized_pcts <- (m$pct / m$total) * 100
-      compensated_pcts <- km_compensate_vitbas(normalized_pcts, m$ids, zinc_ratio)
-      
-      total_density <- 0
-      for(i in seq_along(m$ids)) {
-        id <- m$ids[i]
-        weight_fraction <- compensated_pcts[i] / 100
-        
-        if(id == "vitbas") {
-          total_density <- total_density + 
-            weight_fraction * (zinc_ratio * 5.6 + (1-zinc_ratio) * 4.2)
-        } else {
-          total_density <- total_density + weight_fraction * km[[id]]$density
-        }
-      }
-      
-      # Include filler density in calculation
+      # Include filler density in weighted average
       filler_density <- km[[recipe$filler_id]]$density
       base_pigment_g <- recipe$zn + recipe$ti + sum(recipe$color)
+      pigment_total_g <- base_pigment_g + recipe$filler_g
       
-      # Weighted average density including filler
       if(pigment_total_g > 0) {
-        avg_density <- (base_pigment_g * total_density + recipe$filler_g * filler_density) / pigment_total_g
-      } else {
-        avg_density <- total_density
+        avg_density <- (base_pigment_g * avg_density + recipe$filler_g * filler_density) / pigment_total_g
       }
       
-      # Convert to volumes using densities
-      pigment_volume_L <- pigment_total_g / (avg_density * 1000)
-      oil_volume_L <- oil_g / 920  # Linseed oil density
-      eggs_volume_L <- eggs_g / 1030  # Egg density ~1.03 g/mL
-      water_volume_L <- water_g / 1000  # Water density
-      
-      # Total volume (with packing factor for pigment-liquid interaction)
-      total_L <- (pigment_volume_L + oil_volume_L + eggs_volume_L + water_volume_L) * 0.85
+      # Convert to volumes
+      total_L <- (pigment_total_g / (avg_density * 1000) +
+                    recipe$oil / 920 +
+                    recipe$eggs / 1030 +
+                    recipe$water / 1000) * PACKING_FACTOR
       
       return(round(total_L, 2))
     }
     
     if(paint_type == "tar") {
-      # Tar oil paint volume calculation
       pigment_total_g <- recipe$zn + recipe$ti + sum(recipe$color)
-      tar_g <- recipe$tar
-      oil_g <- recipe$oil
-      balsamterpentin_g <- recipe$balsamterpentin
       
-      # Calculate average density for pigments
-      m <- mix()
-      zinc_ratio <- c$zinc_ratio / 100
-      normalized_pcts <- (m$pct / m$total) * 100
-      compensated_pcts <- km_compensate_vitbas(normalized_pcts, m$ids, zinc_ratio)
-      
-      total_density <- 0
-      for(i in seq_along(m$ids)) {
-        id <- m$ids[i]
-        weight_fraction <- compensated_pcts[i] / 100
-        
-        if(id == "vitbas") {
-          total_density <- total_density + 
-            weight_fraction * (zinc_ratio * 5.6 + (1-zinc_ratio) * 4.2)
-        } else {
-          total_density <- total_density + weight_fraction * km[[id]]$density
-        }
-      }
-      
-      # Convert to volumes using densities
-      pigment_volume_L <- pigment_total_g / (total_density * 1000)
-      tar_volume_L <- tar_g / 1080  # Wood tar density ~1.08 g/mL
-      oil_volume_L <- oil_g / 920  # Linseed oil density
-      turpentine_volume_L <- balsamterpentin_g / 868  # Turpentine density ~0.868 g/mL
-      
-      # Total volume (with packing factor)
-      total_L <- (pigment_volume_L + tar_volume_L + oil_volume_L + turpentine_volume_L) * 0.85
+      total_L <- (pigment_total_g / (avg_density * 1000) +
+                    recipe$tar / 1080 +
+                    recipe$oil / 920 +
+                    recipe$balsamterpentin / 868) * PACKING_FACTOR
       
       return(round(total_L, 2))
     }
     
-    # === LINSEED OIL PAINT VOLUME (original) ===
-    # Total pigment weight (grams)
+    # Linseed oil paint (default)
     pigment_total_g <- recipe$zn + recipe$ti + sum(recipe$color)
-    oil_g <- recipe$oil
-    
-    # Calculate weighted average density from recipe
-    m <- mix()
-    zinc_ratio <- c$zinc_ratio / 100
-    normalized_pcts <- (m$pct / m$total) * 100
-    
-    # Apply K-M compensation (same as in final_recipe)
-    compensated_pcts <- km_compensate_vitbas(normalized_pcts, m$ids, zinc_ratio)
-    
-    total_density <- 0
-    for(i in seq_along(m$ids)) {
-      id <- m$ids[i]
-      weight_fraction <- compensated_pcts[i] / 100
-      
-      if(id == "vitbas") {
-        total_density <- total_density + 
-          weight_fraction * (zinc_ratio * 5.6 + (1-zinc_ratio) * 4.2)
-      } else {
-        total_density <- total_density + weight_fraction * km[[id]]$density
-      }
-    }
-    
-    # Convert to volumes using densities
-    pigment_volume_L <- pigment_total_g / (total_density * 1000)
-    oil_volume_L <- oil_g / 920
-    
-    # Note: Total volume is less than sum of parts due to oil filling pigment voids
-    # Empirical reduction factor ~0.85 for oil-pigment packing
-    total_L <- (pigment_volume_L + oil_volume_L) * 0.85
+    total_L <- (pigment_total_g / (avg_density * 1000) + recipe$oil / 920) * PACKING_FACTOR
     
     round(total_L, 2)
   })
   
   # === TAR OIL PAINT RECIPE CALCULATOR ===
   calculate_tar_oil_recipe <- function(c, m, zinc_ratio) {
-    # Normalize percentages from user input
+    # Normalize and compensate
     normalized_pcts <- (m$pct / m$total) * 100
-    
-    # Apply K-M compensation
     compensated_pcts <- km_compensate_vitbas(normalized_pcts, m$ids, zinc_ratio)
     
-    # Calculate base CPVC oil for pigments (same as linseed oil paint)
-    base_oil_absorption <- 0
-    total_density <- 0
+    # Use generic helper for base properties
+    props <- calculate_base_properties(m, compensated_pcts, zinc_ratio, km)
     
-    for(i in seq_along(m$ids)) {
-      id <- m$ids[i]
-      weight_fraction <- compensated_pcts[i] / 100
-      
-      if(id == "vitbas") {
-        base_oil_absorption <- base_oil_absorption + 
-          weight_fraction * (zinc_ratio * 0.20 + (1-zinc_ratio) * 0.15)
-        total_density <- total_density + 
-          weight_fraction * (zinc_ratio * 5.6 + (1-zinc_ratio) * 4.2)
-      } else {
-        base_oil_absorption <- base_oil_absorption + 
-          weight_fraction * (km[[id]]$oil / 100)
-        total_density <- total_density + 
-          weight_fraction * km[[id]]$density
-      }
-    }
+    # Use generic helper for pigment amounts
+    amounts <- calculate_pigment_amounts(c$target_liters, props$oil_absorption, props$density)
     
-    # Calculate pigment amount for target volume at base CPVC
-    V_pigment_per_gram <- 1 / total_density
-    V_oil_per_gram_min <- base_oil_absorption / 0.92
-    pvc_base <- V_pigment_per_gram / (V_pigment_per_gram + V_oil_per_gram_min)
-    
-    pigment_volume_L <- c$target_liters * pvc_base
-    total_pigment_g <- pigment_volume_L * 1000 * total_density
-    
-    # Base oil at CPVC
-    base_oil_g <- total_pigment_g * base_oil_absorption
-    
-    # Apply CPVC factor (user's tar_extra_oil slider)
+    # Apply CPVC factor
     tar_extra_oil <- input$tar_extra_oil %||% 1.6
-    total_oil_with_factor <- base_oil_g * tar_extra_oil
+    total_oil_with_factor <- amounts$base_oil_g * tar_extra_oil
     
-    # Split oil amount:
-    # 50% becomes tar
-    # 50% becomes linseed oil, but increase by 20% to compensate for tar solvents
+    # Split: 50% tar, 50% oil (+20% compensation)
     tar_g <- total_oil_with_factor * 0.5
-    linseed_oil_g <- total_oil_with_factor * 0.5 * 1.2  # +20% compensation
-    
-    # Add balsamterpentin equal to tar amount
+    linseed_oil_g <- total_oil_with_factor * 0.5 * 1.2
     balsamterpentin_g <- tar_g
     
-    # Distribute pigments according to compensated percentages
-    zn_g <- ti_g <- 0
-    color_g <- numeric()
-    
-    for(i in seq_along(m$ids)){
-      id <- m$ids[i]
-      weight_fraction <- compensated_pcts[i] / 100
-      weight_g <- total_pigment_g * weight_fraction
-      
-      if(id == "vitbas"){
-        zn_g <- zn_g + weight_g * zinc_ratio
-        ti_g <- ti_g + weight_g * (1-zinc_ratio)
-      } else {
-        color_g[id] <- weight_g
-      }
-    }
+    # Use generic helper to distribute pigments
+    pigments <- distribute_pigments(m, compensated_pcts, amounts$total_pigment_g, zinc_ratio)
     
     list(
-      zn = round(zn_g, 1), 
-      ti = round(ti_g, 1), 
-      color = round(color_g, 1),
+      zn = smart_round(pigments$zn), 
+      ti = smart_round(pigments$ti), 
+      color = sapply(pigments$color, smart_round),
       tar_category = input$tar_category,
-      tar = round(tar_g, 1),
-      oil = round(linseed_oil_g, 1),
-      balsamterpentin = round(balsamterpentin_g, 1),
+      tar = smart_round(tar_g),
+      oil = smart_round(linseed_oil_g),
+      balsamterpentin = smart_round(balsamterpentin_g),
       hex = final_hex()
     )
   }
   
   # === EGG-OIL TEMPERA RECIPE CALCULATOR ===
   calculate_egg_oil_recipe <- function(c, m, zinc_ratio) {
-    # Normalize percentages from user input
+    # Normalize and compensate
     normalized_pcts <- (m$pct / m$total) * 100
-    
-    # Apply K-M compensation
     compensated_pcts <- km_compensate_vitbas(normalized_pcts, m$ids, zinc_ratio)
     
-    # STEP 1: Calculate base CPVC oil for pigments from Steps 1-2
-    base_oil_absorption <- 0
-    total_density <- 0
+    # Use generic helpers for base properties
+    props <- calculate_base_properties(m, compensated_pcts, zinc_ratio, km)
+    amounts <- calculate_pigment_amounts(c$target_liters, props$oil_absorption, props$density)
     
-    for(i in seq_along(m$ids)) {
-      id <- m$ids[i]
-      weight_fraction <- compensated_pcts[i] / 100
-      
-      if(id == "vitbas") {
-        base_oil_absorption <- base_oil_absorption + 
-          weight_fraction * (zinc_ratio * 0.20 + (1-zinc_ratio) * 0.15)
-        total_density <- total_density + 
-          weight_fraction * (zinc_ratio * 5.6 + (1-zinc_ratio) * 4.2)
-      } else {
-        base_oil_absorption <- base_oil_absorption + 
-          weight_fraction * (km[[id]]$oil / 100)
-        total_density <- total_density + 
-          weight_fraction * km[[id]]$density
-      }
-    }
-    
-    # Calculate base pigment amount (for target volume at base CPVC)
-    V_pigment_per_gram <- 1 / total_density
-    V_oil_per_gram_min <- base_oil_absorption / 0.92
-    pvc_base <- V_pigment_per_gram / (V_pigment_per_gram + V_oil_per_gram_min)
-    
-    pigment_volume_L <- c$target_liters * pvc_base
-    total_pigment_g <- pigment_volume_L * 1000 * total_density
-    
-    # Base oil at CPVC for these pigments
-    base_oil_g <- total_pigment_g * base_oil_absorption
-    
-    # STEP 2: Add extra filler to overshoot CPVC by 20%
+    # Add extra filler (20% overshoot)
     filler_id <- input$egg_filler
-    filler_oil_absorption <- km[[filler_id]]$oil / 100
-    filler_density <- km[[filler_id]]$density
+    extra_filler_volume_L <- amounts$pigment_volume_L * 0.20
+    extra_filler_g <- extra_filler_volume_L * 1000 * km[[filler_id]]$density
     
-    # We want 120% CPVC, meaning 20% more pigment volume
-    # Calculate filler amount that gives us 20% more volume
-    extra_filler_volume_L <- pigment_volume_L * 0.20
-    extra_filler_g <- extra_filler_volume_L * 1000 * filler_density
+    # Split oil into oil + eggs (50/50)
+    linseed_oil_g <- amounts$base_oil_g * 0.5
+    eggs_g <- amounts$base_oil_g * 0.5
+    eggs_count <- eggs_g / 50
+    water_g <- amounts$base_oil_g
     
-    # STEP 3: Split oil into oil + eggs (50/50 by weight)
-    # Use base_oil_g (NOT including oil for extra filler)
-    linseed_oil_g <- base_oil_g * 0.5
-    eggs_g <- base_oil_g * 0.5
-    eggs_count <- eggs_g / 50  # 50g per egg
-    
-    # STEP 4: Add water equal to base oil amount
-    water_g <- base_oil_g
-    
-    # Distribute base pigments according to compensated percentages
-    zn_g <- ti_g <- 0
-    color_g <- numeric()
-    
-    for(i in seq_along(m$ids)){
-      id <- m$ids[i]
-      weight_fraction <- compensated_pcts[i] / 100
-      weight_g <- total_pigment_g * weight_fraction
-      
-      if(id == "vitbas"){
-        zn_g <- zn_g + weight_g * zinc_ratio
-        ti_g <- ti_g + weight_g * (1-zinc_ratio)
-      } else {
-        color_g[id] <- weight_g
-      }
-    }
+    # Use generic helper to distribute pigments
+    pigments <- distribute_pigments(m, compensated_pcts, amounts$total_pigment_g, zinc_ratio)
     
     list(
-      zn = round(zn_g, 1), 
-      ti = round(ti_g, 1), 
-      color = round(color_g, 1),
+      zn = smart_round(pigments$zn), 
+      ti = smart_round(pigments$ti), 
+      color = sapply(pigments$color, smart_round),
       filler_id = filler_id,
-      filler_g = round(extra_filler_g, 1),
-      oil = round(linseed_oil_g, 1),
-      eggs = round(eggs_g, 1),
+      filler_g = smart_round(extra_filler_g),
+      oil = smart_round(linseed_oil_g),
+      eggs = smart_round(eggs_g),
       eggs_count = round(eggs_count, 1),
-      water = round(water_g, 1),
+      water = smart_round(water_g),
       hex = final_hex()
     )
   }
@@ -2290,71 +2243,21 @@ server <- function(input, output, session) {
     normalized_pcts <- (m$pct / m$total) * 100
     
     # === APPLY KUBELKA-MUNK COMPENSATION ===
-    # If vitbas is present, adjust colored pigment amounts to maintain constant color
-    # as zinc/titanium ratio changes
     compensated_pcts <- km_compensate_vitbas(normalized_pcts, m$ids, zinc_ratio)
     
-    # Calculate weighted average pigment properties (WITHOUT extra oil factor)
-    # Use compensated percentages for accurate K-M calculations
-    base_oil_absorption <- 0
-    total_density <- 0
+    # Use generic helpers for base properties and amounts
+    props <- calculate_base_properties(m, compensated_pcts, zinc_ratio, km)
+    amounts <- calculate_pigment_amounts(target_liters, props$oil_absorption, props$density)
     
-    for(i in seq_along(m$ids)) {
-      id <- m$ids[i]
-      weight_fraction <- compensated_pcts[i] / 100  # Use compensated values
-      
-      if(id == "vitbas") {
-        # Vitbas is a mix of zinc and titanium
-        base_oil_absorption <- base_oil_absorption + 
-          weight_fraction * (zinc_ratio * 0.20 + (1-zinc_ratio) * 0.15)
-        total_density <- total_density + 
-          weight_fraction * (zinc_ratio * 5.6 + (1-zinc_ratio) * 4.2)
-      } else {
-        base_oil_absorption <- base_oil_absorption + 
-          weight_fraction * (km[[id]]$oil / 100)
-        total_density <- total_density + 
-          weight_fraction * km[[id]]$density
-      }
-    }
+    # Apply CPVC factor to oil
+    final_oil_g <- amounts$base_oil_g * c$extra_oil
     
-    # Calculate PVC with BASE oil (minimum required)
-    # V_pigment per gram of pigment
-    V_pigment_per_gram <- 1 / total_density  # cm³
-    # V_oil per gram of pigment (minimum)
-    V_oil_per_gram_min <- base_oil_absorption / 0.92  # cm³
+    # Use generic helper to distribute pigments
+    pigments <- distribute_pigments(m, compensated_pcts, amounts$total_pigment_g, zinc_ratio)
     
-    # PVC with minimum oil
-    pvc_base <- V_pigment_per_gram / (V_pigment_per_gram + V_oil_per_gram_min)
-    
-    # Calculate pigment amount needed for target volume with base PVC
-    pigment_volume_L <- target_liters * pvc_base
-    total_pigment_g <- pigment_volume_L * 1000 * total_density
-    
-    # Calculate MINIMUM oil needed for these pigments
-    base_oil_g <- total_pigment_g * base_oil_absorption
-    
-    # Apply CPV factor ONLY to oil (pigment stays fixed)
-    final_oil_g <- base_oil_g * c$extra_oil
-    
-    # Distribute pigments according to K-M compensated percentages
-    zn_g <- ti_g <- 0
-    color_g <- numeric()
-    
-    for(i in seq_along(m$ids)){
-      id <- m$ids[i]
-      weight_fraction <- compensated_pcts[i] / 100  # Use compensated values
-      weight_g <- total_pigment_g * weight_fraction
-      
-      if(id == "vitbas"){
-        zn_g <- zn_g + weight_g * zinc_ratio
-        ti_g <- ti_g + weight_g * (1-zinc_ratio)
-      } else {
-        color_g[id] <- weight_g
-      }
-    }
-    
-    list(zn=round(zn_g,1), ti=round(ti_g,1), color=round(color_g,1), 
-         oil=round(final_oil_g,1), hex=final_hex())
+    list(zn=smart_round(pigments$zn), ti=smart_round(pigments$ti), 
+         color=sapply(pigments$color, smart_round), 
+         oil=smart_round(final_oil_g), hex=final_hex())
   })
   
   output$final_recipe <- renderTable({
@@ -2363,7 +2266,14 @@ server <- function(input, output, session) {
     df$Gram <- sapply(df$Gram, function(x) format_swe(parse_numeric(x), 1))
     df
   }, striped=TRUE, bordered=TRUE, width="100%", align="lr", sanitize.text.function = function(x) x)
-  output$final_preview <- renderUI(render_preview(final_hex(), "final_preview"))
+  output$final_preview <- renderUI({
+    # Force explicit dependencies on color-affecting reactives
+    m <- mix()  # Depend on pigment mix
+    current_color()  # Depend on current color calculation
+    
+    # Re-render preview with current final_hex value
+    render_preview(final_hex(), "final_preview")
+  })
   
   output$download_txt <- downloadHandler(
     filename = function() paste0("fargrecept_", Sys.Date(), ".txt"),
@@ -2372,7 +2282,18 @@ server <- function(input, output, session) {
       recipe <- final_recipe()
       c <- calc()  # Get calc values
       
-      txt <- paste0("Paint-o-matic – recept ", Sys.Date(), "\n\n",
+      # Get paint type
+      paint_type <- input$paint_type %||% "linseed"
+      paint_type_name <- switch(paint_type,
+                                "linseed" = "Linoljefärg",
+                                "egg_oil" = "Äggoljetemperafärg",
+                                "tar" = "Tjäroljefärg",
+                                "Linoljefärg")  # fallback
+      
+      txt <- paste0(strrep("=", 60), "\n")
+      txt <- paste0(txt, "Paint-o-matic – recept ", Sys.Date(), "\n")
+      txt <- paste0(txt, strrep("=", 60), "\n\n",
+                    "Typ av färg: ", paint_type_name, "\n",
                     "Färgkod: ", final_hex(), "\n",
                     "Yta: ", format_swe(c$area, 0), " m²\n\n")
       
@@ -2384,24 +2305,23 @@ server <- function(input, output, session) {
       
       # Add sharing URL section
       txt <- paste0(txt, "\n", strrep("=", 60), "\n")
-      txt <- paste0(txt, "DELNINGSLÄNK\n")
+      txt <- paste0(txt, "Dela och samarbeta om receptet med andra\n")
       txt <- paste0(txt, strrep("=", 60), "\n\n")
       
       # Generate share URL using helper
       share_url <- generate_share_url(session, input = input, mix_data = mix())
       
       if(!is.null(share_url)) {
-        txt <- paste0(txt, "Återskapa detta recept genom att öppna följande länk:\n")
-        txt <- paste0(txt, share_url, "\n\n")
-        txt <- paste0(txt, "Länken innehåller alla pigment, andelar och inställningar.\n")
+        txt <- paste0(txt, "Återskapa detta recept genom att öppna följande länk, som återställer alla ingredienser, vikter och inställningar:\n")
+        txt <- paste0(txt, share_url, "\n")
       } else {
         txt <- paste0(txt, "Ingen delningslänk tillgänglig.\n")
       }
       
       # Add sourcing section
       txt <- paste0(txt, "\n", strrep("=", 60), "\n")
-      txt <- paste0(txt, "PIGMENTKÄLLOR\n")
-      txt <- paste0(txt, strrep("=", 60), "\n")
+      txt <- paste0(txt, "Skaffa ingredienserna till din färg här\n")
+      txt <- paste0(txt, strrep("=", 60), "\n\n")
       
       # Collect all pigment IDs used in recipe
       pigment_ids <- c()
@@ -2469,8 +2389,10 @@ server <- function(input, output, session) {
       
       # Add general supplier info
       if(suppliers_found) {
-        txt <- paste0(txt, strrep("-", 60), "\n")
-        txt <- paste0(txt, "LEVERANTÖRER\n\n")
+        #txt <- paste0(txt, strrep("-", 60), "\n")
+        txt <- paste0(txt, "\n", strrep("=", 60), "\n")
+        txt <- paste0(txt, "Pålitliga leverantörer till byggnadsvårdare\n")
+        txt <- paste0(txt, strrep("=", 60), "\n\n")
         txt <- paste0(txt, "Kremer Pigmente GmbH & Co. KG (Tyskland)\n")
         txt <- paste0(txt, "  Webbplats: https://www.kremer-pigmente.com/en/shop/pigments\n")
         txt <- paste0(txt, "  Internationell leverantör av högkvalitativa pigment\n\n")

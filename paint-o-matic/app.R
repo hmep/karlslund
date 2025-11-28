@@ -802,7 +802,7 @@ pigment_name_to_id <- list(
 )
 
 # Calculate preview colors for each recipe using same method as main preview
-calculate_recipe_color <- function(recipe) {
+calculate_recipe_color <- function(recipe, use_tinting = FALSE) {
   base_id <- pigment_name_to_id[[recipe$pigment]]
   if(is.null(base_id) || !base_id %in% names(km)) return(c(200, 200, 200))
   
@@ -825,8 +825,8 @@ calculate_recipe_color <- function(recipe) {
   
   if(length(ids) == 0) return(c(200, 200, 200))
   
-  # Note: Always use simple mixing for Kulturkulör swatches (historical recipes)
-  mix_colors(ids, pcts, km, use_tinting = FALSE)
+  # Use tinting strength setting from toggle
+  mix_colors(ids, pcts, km, use_tinting = use_tinting)
 }
 
 ui <- dashboardPage(
@@ -835,7 +835,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.8.0-tintingtest, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.8.1-tintingtest, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -854,6 +854,8 @@ ui <- dashboardPage(
       .rmargin-box {margin-right:20px;}
       .btn {margin: .5em .5em 0 0;}
       .btn-primary { color:white;}
+      div.checkbox { padding:0; margin: 0;}
+      div.form-group.shiny-input-container { margin-bottom: 0px;}
       .kulturkulor-swatch { 
         display:inline-block; width:24px; height:24px; border-radius:50%; 
         margin:3px; cursor:pointer; border:2px solid #999;
@@ -987,12 +989,14 @@ ui <- dashboardPage(
                h2("Blanda pigment"),
                fluidRow(
                  column(6,
+                        h5(style="font-weight:bold;","Inställningar"),
                         checkboxInput("raa_only", "Använd endast Kulturkulör-pigment (RAÄ)", TRUE),
                         checkboxInput("use_tinting_strength", 
                                       "Realistisk färgblandning (K+S-viktad)", 
                                       FALSE),
-                        tags$small(style="color:#666; display:block; margin-top:-10px; margin-bottom:10px;",
-                                   "Väger pigment efter deras faktiska färgstyrka baserat på K- och S-värden"),
+                        tags$small(style="color:#666; margin-left:20px; display:block; margin-top:0; margin-bottom:10px;",
+                                   "Väger pigment efter faktiska färgstyrka (K- och S-värden)"),
+                        hr(),
                         pickerInput("p1", "Pigment 1", choices = all_choices, selected = "vitbas",
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),
                         conditionalPanel("input.p1", sliderInput("pct1","Andel (%)",0,100,70,1)),
@@ -1221,6 +1225,9 @@ server <- function(input, output, session) {
   })
   
   output$kulturkulor_swatches <- renderUI({
+    # React to tinting strength toggle
+    use_tinting <- isTRUE(input$use_tinting_strength)
+    
     # Group recipes by pigment base
     recipe_codes <- names(kulturkulor_complete)
     
@@ -1240,8 +1247,8 @@ server <- function(input, output, session) {
       }
       last_pigment <- current_pigment
       
-      # Calculate color
-      color_rgb <- calculate_recipe_color(recipe)
+      # Calculate color with current tinting strength setting
+      color_rgb <- calculate_recipe_color(recipe, use_tinting = use_tinting)
       hex_color <- rgb(color_rgb[1], color_rgb[2], color_rgb[3], maxColorValue = 255)
       
       tooltip <- sprintf("%s: %s (Bas %g%%, Vit %g%%, Svart %g%%)", 

@@ -180,7 +180,7 @@ safe_input <- function(input, name, default, test = function(x) TRUE) {
 
 # Mix colors using vectorized operations
 # use_tinting: if TRUE, weights colors by K+S tinting strength for realistic mixing
-mix_colors <- function(ids, weights, pigment_list, use_tinting = FALSE) {
+mix_colors <- function(ids, weights, pigment_list, use_tinting = TRUE) {
   if(length(ids) == 0) return(c(255, 255, 255))
   
   # Build color matrix - manually to avoid sapply issues
@@ -1349,8 +1349,8 @@ ui <- dashboardPage(
                  column(6,
                         h5(style="font-weight:bold;","Inställningar"),
                         checkboxInput("raa_only", "Använd endast Kulturkulör-pigment (RAÄ)", TRUE),
-                        checkboxInput("use_tinting_strength","Avancerad färgblandning",TRUE),
-                        tags$small(style="color:#666; margin-left:20px; display:block; margin-top:-1em; margin-bottom:10px;","Väger pigment efter faktiska färgstyrka (K- och S-värden)"),
+                        #checkboxInput("use_tinting_strength","Avancerad färgblandning",TRUE),
+                        #tags$small(style="color:#666; margin-left:20px; display:block; margin-top:-1em; margin-bottom:10px;","Väger pigment efter faktiska färgstyrka (K- och S-värden)"),
                         hr(),
                         pickerInput("p1", "Pigment 1", choices = all_choices, selected = "vitbas",
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),

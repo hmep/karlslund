@@ -106,6 +106,14 @@ km <- list(
   #"44100" = list(name = "Zinkvitt PW4", oil = 20, K = 0.00, S = 1.66, density = 5.6),
   #"44400" = list(name = "Titanvitt Rutile PW6", oil = 15, K = 0.00, S = 2.55, density = 4.2),
   
+  # === FILLERS ===
+  "599930" = list(name = "Kiselgur (diatoméjord)", oil = 70, K = 0.00, S = 0.05, density = 2.2, rgb = c(250, 248, 245)),
+  "58000"  = list(name = "Krita från Champagne", oil = 12, K = 0.00, S = 0.10, density = 2.7, rgb = c(255, 255, 255)),
+  "58010"  = list(name = "Krita från Ruegen", oil = 14, K = 0.00, S = 0.12, density = 2.7, rgb = c(248, 248, 246)),
+  "58162"  = list(name = "Stenkrita vit", oil = 10, K = 0.00, S = 0.15, density = 2.7, rgb = c(255, 255, 255)),
+  "58900"  = list(name = "Bentonit", oil = 180, K = 0.00, S = 0.08, density = 2.5, rgb = c(235, 232, 220)),
+  "58250"  = list(name = "Kaolin gulaktig", oil = 45, K = 0.00, S = 0.20, density = 2.6, rgb = c(245, 242, 230)),
+  
   # GREENS
   "40400" = list(name = "Viridian PG18", oil = 40, K = 1.20, S = 1.50, density = 3.5, rgb = c(30, 120, 80)),
   "41700" = list(name = "Malakit naturlig", oil = 45, K = 0.90, S = 0.80, density = 4.0, rgb = c(70, 160, 100)),
@@ -120,6 +128,8 @@ km <- list(
   "44450" = list(name = "Svartoxid PBk11", oil = 15, K = 2.40, S = 1.10, density = 5.21, rgb = c(28, 38, 38)),
   "J318" = list(name = "Järnoxidsvart nr 318 (RAÄ)", oil = 16, K = 2.35, S = 1.08, density = 5.1, rgb = c(35, 35, 38)),
   "BS98" = list(name = "Bensvart nr 98 (RAÄ)", oil = 50, K = 2.60, S = 0.95, density = 2.0, rgb = c(28, 28, 32)),
+  "47501" = list(name = "Mangansvart", oil = 22, K = 2.50, S = 1.15, density = 4.8, rgb = c(32, 32, 32)),
+  "47400" = list(name = "Spinel-svart", oil = 33, K = 2.80, S = 1.25, density = 4.5, rgb = c(20, 20, 20)),
   
   # BLUES
   "11670" = list(name = "Phthaloblå PB15:3", oil = 45, K = 1.80, S = 1.20, density = 2.0, rgb = c(0, 70, 130)),
@@ -164,7 +174,9 @@ km <- list(
   
   # BROWNS - IRON OXIDES
   "J663" = list(name = "Järnoxidbrunt nr 663 (RAÄ)", oil = 50, K = 0.88, S = 0.38, density = 5.0, rgb = c(120, 80, 60)),
-  "J686" = list(name = "Järnoxidbrunt nr 686 (RAÄ)", oil = 52, K = 0.92, S = 0.35, density = 5.1, rgb = c(105, 70, 55))
+  "J686" = list(name = "Järnoxidbrunt nr 686 (RAÄ)", oil = 52, K = 0.92, S = 0.35, density = 5.1, rgb = c(105, 70, 55)),
+  "48330" = list(name = "Järnmanganbrunt 645 T", oil = 50, K = 0.90, S = 0.40, density = 4.8, rgb = c(95, 65, 45))
+  
 )
 
 # RAÄ KULTURKULÖR PIGMENTS
@@ -222,6 +234,55 @@ suppliers <- list(
     notes = "Rutiltyp titanvitt med högsta täckförmåga. Standard vitpigment för linoljefärg."
   ),
   
+  # FILLERS
+  "599930" = list(
+    name = "Tripoli, Rotten Stone, light",
+    kremer_match = "Tripoli, Rotten Stone, light",
+    kremer_id = "599930",
+    kremer_url = "https://shop.kremerpigments.com/us/shop/fillers-building-materials/599930-tripoli-rotten-stone-light.html",
+    notes = "Kiselgur (diatoméjord), mycket fin poleringsfyllnad. Mycket hög oljeabsorption. Används för fin polering och som mattande tillsats."
+  ),
+  
+  "58000" = list(
+    name = "Chalk from Champagne",
+    kremer_match = "Chalk from Champagne",
+    kremer_id = "58000",
+    kremer_url = "https://shop.kremerpigments.com/us/shop/fillers-building-materials/58000-chalk-from-champagne.html",
+    notes = "Naturlig kalciumkarbonat från Frankrike (CaCO3). Används för grundningar, stuckatur och som fyllmedel i färg. Färgindex: PW 18.77220. Låg oljeabsorption."
+  ),
+  
+  "58010" = list(
+    name = "Chalk from Ruegen",
+    kremer_match = "Chalk from Ruegen",
+    kremer_id = "58010",
+    kremer_url = "https://shop.kremerpigments.com/us/shop/fillers-building-materials/58010-chalk-from-ruegen.html",
+    notes = "Naturlig kalciumkarbonat från Tyskland, ca 40 µ. Något grövre och mer gråaktig än Champagnekrita. Färgindex: PW 18.77220. Används i väggfärg och grundningar."
+  ),
+  
+  "58162" = list(
+    name = "Stone Chalk, white",
+    kremer_match = "Stone Chalk, white",
+    kremer_id = "58162",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/fillers-building-materials/58162-stone-chalk-white.html",
+    notes = "Mycket fin stenkrita, ca 4 µ. Finaste kvalitet krita för högkvalitativa applikationer. Lägst oljeabsorption av alla kritor."
+  ),
+  
+  "58900" = list(
+    name = "Bentonite",
+    kremer_match = "Bentonite",
+    kremer_id = "58900",
+    kremer_url = "https://shop.kremerpigments.com/us/shop/fillers-building-materials/58900-bentonite.html",
+    notes = "Förtjockningsmedel, särskilt för oljefärg. Mycket hög oljeabsorption (180%). Lera som sväller i kontakt med olja. Färgindex: PW 19.77004. Används sparsamt (1-5%)."
+  ),
+  
+  "58250" = list(
+    name = "Kaolin, yellowish",
+    kremer_match = "Kaolin, yellowish",
+    kremer_id = "58250",
+    kremer_url = "https://shop.kremerpigments.com/us/shop/fillers-building-materials/58250-kaolin-yellowish.html",
+    notes = "Vit bolus, gulaktig kaolin-lera. Används som fyllmedel och för att öka opacitet. Färgindex: PW 19. Måttlig oljeabsorption (45%)."
+  ),
+  
   # GREENS
   "40400" = list(
     name = "Viridian PG18",
@@ -274,6 +335,14 @@ suppliers <- list(
     claessons_match = "Järnoxidsvart 9313",
     claessons_url = "https://claessons.com/svarta/jarnoxidsvart-9313-losvikt/",
     notes = "Järnoxidsvart med hög täckförmåga. Finns hos Kremer, Ottosson och Claessons."
+  ),
+  
+  "47400" = list(
+    name = "Spinel Black",
+    kremer_match = "Spinel Black",
+    kremer_id = "47400",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/47400-spinel-black.html",
+    notes = "Enda 'sanna' svarta - jämnt icke-reflekterande över hela spektrumet. Djupaste svarta pigmentet tillgängligt (förutom Vanta Black). Järn-mangan spinell (Fe,Mn)₃O₄. Färgindex: PBk 26.77494. Utmärkt ljusäkthet (8/8/8). Värmebeständig >500°C. Mycket fin partikelstorlek (~0.5 µm). Kräver hög oljeabsorption (65-70%). Säker att använda. Premium kvalitet."
   ),
   
   # BLUES
@@ -679,7 +748,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.7.0-opt, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.7.1-opt, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -1200,7 +1269,8 @@ server <- function(input, output, session) {
     if(r$zn > 0.1) rows <- c(rows, list(list("Zinkvitt PW4 (#44100)", r$zn)))
     if(r$ti > 0.1) rows <- c(rows, list(list("Titanvitt Rutile PW6 (#44400)", r$ti)))
     for(id in names(r$color)) {
-      rows <- c(rows, list(list(paste0(km[[id]]$name, " (#", id, ")"), r$color[id])))
+      # Use as.numeric() to extract the value without names
+      rows <- c(rows, list(list(paste0(km[[id]]$name, " (#", id, ")"), as.numeric(r$color[id]))))
     }
     df <- as.data.frame(do.call(rbind, rows), stringsAsFactors = FALSE)
     colnames(df) <- c("Ingrediens", "Gram")

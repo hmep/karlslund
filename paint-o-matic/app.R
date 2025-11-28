@@ -694,7 +694,51 @@ suppliers <- list(
 make_choices <- function(ids) {
   setNames(ids, sapply(ids, function(id) paste0(km[[id]]$name, " (#", id, ")")))
 }
-all_choices <- c("Välj pigment" = "", make_choices(names(km)))
+
+# Create grouped choices for optgroups (Swedish categories)
+create_grouped_choices <- function() {
+  list(
+    "Vitbas" = make_choices(c("vitbas")),
+    
+    "Fyllmedel" = make_choices(c(
+      "599930", "58000", "58010", "58162", "58900", "58250"
+    )),
+    
+    "Gröna" = make_choices(c(
+      "40400", "41700", "11100", "KG83", "ZG65", "40850", "40860", "GU30"
+    )),
+    
+    "Svarta" = make_choices(c(
+      "44450", "J318", "BS98", "47501", "47400"
+    )),
+    
+    "Blåa" = make_choices(c(
+      "11670", "UB88", "KB28"
+    )),
+    
+    "Terra & Pozzuoli" = make_choices(c(
+      "40820", "40800", "40830", "BT44", "OT46"
+    )),
+    
+    "Gula & Ockror" = make_choices(c(
+      "44082", "44086", "44150", "44160", "J920", "LO92", "GO94", "GO94_GU30"
+    )),
+    
+    "Siennas & Umbror" = make_choices(c(
+      "44650", "44620", "OU103", "BU100", "BRU39", "GRAU36"
+    )),
+    
+    "Röda & Orange" = make_choices(c(
+      "44300", "44200", "44210", "44220", "44510", "J225", "J180M", "J120N", "ER48A"
+    )),
+    
+    "Bruna" = make_choices(c(
+      "J663", "J686", "48330"
+    ))
+  )
+}
+
+all_choices <- c("Välj pigment" = "", create_grouped_choices())
 
 
 # === KULTURKULÖR PRESET SYSTEM ===
@@ -748,7 +792,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.7.1-opt, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.7.2-opt, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -784,10 +828,117 @@ ui <- dashboardPage(
       table tr td:first-of-type { white-space: wrap; }
       h2 {margin: 0 0 .5em;padding:0}
       .navbar-custom-menu .navbar-nav > li > a.version-text { font-size: 11px; color: #aaa; padding-top: 15px; padding-bottom: 15px;}
+      
+      /* Fullscreen preview styles */
+      .preview-container {
+        position: relative;
+        display: inline-block;
+      }
+      .zoom-icon {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background: white;
+        border: none;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        font-size: 24px;
+        cursor: pointer;
+        color: #333;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 300;
+        line-height: 1;
+      }
+      .zoom-icon:hover {
+        background: #f0f0f0;
+        transform: scale(1.1);
+        box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+      }
+      .fullscreen-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+      }
+      .fullscreen-overlay.active {
+        display: flex;
+      }
+      .fullscreen-preview {
+        width: 90%;
+        height: 90%;
+        border: 8px solid white;
+        box-shadow: 0 0 40px rgba(0,0,0,0.5);
+      }
+      .fullscreen-close {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        background: white;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        font-size: 30px;
+        cursor: pointer;
+        color: #333;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .fullscreen-close:hover {
+        background: #f0f0f0;
+        transform: scale(1.1);
+      }
     "))),
     
     tags$script(HTML('
+      // Fullscreen preview functionality
+      function openFullscreen(previewId) {
+        var preview = document.querySelector("#" + previewId + " .preview");
+        if (!preview) return;
+        
+        var color = window.getComputedStyle(preview).backgroundColor;
+        var overlay = document.getElementById("fullscreen-overlay");
+        var fullPreview = document.getElementById("fullscreen-preview");
+        
+        fullPreview.style.background = color;
+        overlay.classList.add("active");
+        document.body.style.overflow = "hidden"; // Prevent scrolling
+      }
+      
+      function closeFullscreen() {
+        var overlay = document.getElementById("fullscreen-overlay");
+        overlay.classList.remove("active");
+        document.body.style.overflow = ""; // Restore scrolling
+      }
+      
+      // Close on ESC key
+      document.addEventListener("keydown", function(e) {
+        if (e.key === "Escape") {
+          closeFullscreen();
+        }
+      });
     ')),
+    
+    # Fullscreen overlay (shared for both previews)
+    tags$div(id = "fullscreen-overlay", class = "fullscreen-overlay", onclick = "closeFullscreen()",
+             tags$button(class = "fullscreen-close", onclick = "closeFullscreen()", 
+                         HTML("&times;")),
+             tags$div(id = "fullscreen-preview", class = "fullscreen-preview")
+    ),
     
     hidden(div(id="step1", class="step",
                h2("Blanda pigment"),
@@ -965,7 +1116,55 @@ server <- function(input, output, session) {
   # RAÄ-filter
   observeEvent(input$raa_only, {
     ids <- if(input$raa_only) raa_pigments else names(km)
-    choices_list <- c("Välj pigment" = "", make_choices(ids))
+    
+    # Create grouped choices based on filter
+    create_filtered_grouped_choices <- function(filter_ids) {
+      list(
+        "Vitbas" = make_choices(intersect(c("vitbas"), filter_ids)),
+        
+        "Fyllmedel" = make_choices(intersect(c(
+          "599930", "58000", "58010", "58162", "58900", "58250"
+        ), filter_ids)),
+        
+        "Gröna" = make_choices(intersect(c(
+          "40400", "41700", "11100", "KG83", "ZG65", "40850", "40860", "GU30"
+        ), filter_ids)),
+        
+        "Svarta" = make_choices(intersect(c(
+          "44450", "J318", "BS98", "47501", "47400"
+        ), filter_ids)),
+        
+        "Blåa" = make_choices(intersect(c(
+          "11670", "UB88", "KB28"
+        ), filter_ids)),
+        
+        "Terra & Pozzuoli" = make_choices(intersect(c(
+          "40820", "40800", "40830", "BT44", "OT46"
+        ), filter_ids)),
+        
+        "Gula & Ockror" = make_choices(intersect(c(
+          "44082", "44086", "44150", "44160", "J920", "LO92", "GO94", "GO94_GU30"
+        ), filter_ids)),
+        
+        "Siennas & Umbror" = make_choices(intersect(c(
+          "44650", "44620", "OU103", "BU100", "BRU39", "GRAU36"
+        ), filter_ids)),
+        
+        "Röda & Orange" = make_choices(intersect(c(
+          "44300", "44200", "44210", "44220", "44510", "J225", "J180M", "J120N", "ER48A"
+        ), filter_ids)),
+        
+        "Bruna" = make_choices(intersect(c(
+          "J663", "J686", "48330"
+        ), filter_ids))
+      )
+    }
+    
+    # Filter out empty groups
+    grouped <- create_filtered_grouped_choices(ids)
+    grouped <- grouped[sapply(grouped, length) > 0]
+    
+    choices_list <- c("Välj pigment" = "", grouped)
     current_p1 <- input$p1 %||% "vitbas"
     updatePickerInput(session, "p1", choices = choices_list, selected = current_p1)
     updatePickerInput(session, "p2", choices = choices_list, selected = input$p2)
@@ -1111,7 +1310,14 @@ server <- function(input, output, session) {
   
   output$total_pct <- renderText(format_swe(mix()$total, 1))
   output$hex1 <- renderText(current_color())
-  output$preview1 <- renderUI(tags$div(class="preview", style=paste0("background:", current_color())))
+  output$preview1 <- renderUI({
+    tags$div(class = "preview-container",
+             tags$div(class = "preview", style = paste0("background:", current_color())),
+             tags$span(class = "zoom-icon", onclick = "openFullscreen('preview1')",
+                       title = "Visa i helskärm",
+                       HTML("+"))  # Plus sign in circle
+    )
+  })
   
   output$total_warning <- renderUI({
     m <- mix()
@@ -1473,7 +1679,14 @@ server <- function(input, output, session) {
     df$Gram <- sapply(df$Gram, function(x) format_swe(parse_numeric(x), 1))
     df
   }, striped=TRUE, bordered=TRUE, width="100%", align="lr", sanitize.text.function = function(x) x)
-  output$final_preview <- renderUI(tags$div(class="preview", style=paste0("background:", final_hex())))
+  output$final_preview <- renderUI({
+    tags$div(class = "preview-container",
+             tags$div(class = "preview", style = paste0("background:", final_hex())),
+             tags$span(class = "zoom-icon", onclick = "openFullscreen('final_preview')",
+                       title = "Visa i helskärm",
+                       HTML("+"))  # Plus sign in circle
+    )
+  })
   
   output$download_txt <- downloadHandler(
     filename = function() paste0("fargrecept_", Sys.Date(), ".txt"),

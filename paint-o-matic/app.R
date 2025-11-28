@@ -1642,7 +1642,7 @@ server <- function(input, output, session) {
   
   output$kulturkulor_swatches <- renderUI({
     # React to tinting strength toggle
-    use_tinting <- isTRUE(input$use_tinting_strength)
+    use_tinting <- TRUE #isTRUE(input$use_tinting_strength)
     
     # Group recipes by pigment base
     recipe_codes <- names(kulturkulor_complete)
@@ -1775,7 +1775,7 @@ server <- function(input, output, session) {
     if(length(m$ids) == 0) return("#FFFFFF")
     
     # Use tinting strength if checkbox is enabled
-    use_tinting <- isTRUE(input$use_tinting_strength)
+    use_tinting <- TRUE #isTRUE(input$use_tinting_strength)
     cols <- mix_colors(m$ids, m$pct, km, use_tinting = use_tinting)
     
     hex <- sprintf("#%02X%02X%02X", round(cols[1]), round(cols[2]), round(cols[3]))

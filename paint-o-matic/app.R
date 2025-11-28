@@ -70,7 +70,8 @@ safe_input <- function(input, name, default, test = function(x) TRUE) {
 `%||%` <- function(a, b) if(is.null(a)) b else a
 
 # Mix colors using vectorized operations
-mix_colors <- function(ids, weights, pigment_list) {
+# use_tinting: if TRUE, weights colors by K+S tinting strength for realistic mixing
+mix_colors <- function(ids, weights, pigment_list, use_tinting = FALSE) {
   if(length(ids) == 0) return(c(255, 255, 255))
   
   # Build color matrix - manually to avoid sapply issues
@@ -86,8 +87,37 @@ mix_colors <- function(ids, weights, pigment_list) {
     }
   }
   
-  # Weight and sum
-  w <- as.numeric(weights) / sum(as.numeric(weights))
+  # Calculate weights
+  if(use_tinting) {
+    # REALISTIC MIXING: Weight by tinting strength (K+S values)
+    tinting_strengths <- numeric(n)
+    
+    for(i in seq_along(ids)) {
+      pigment <- pigment_list[[ids[i]]]
+      K <- pigment$K %||% 0
+      S <- pigment$S %||% 0
+      
+      # Combined optical power - use square root to soften the effect
+      # This prevents ultra-high tinting pigments from completely dominating
+      tinting_strengths[i] <- sqrt(K + S + 0.1)  # +0.1 prevents zero division
+    }
+    
+    # Adjust weights by tinting strength
+    adjusted_weights <- as.numeric(weights) * tinting_strengths
+    
+    # Normalize
+    if(sum(adjusted_weights) > 0) {
+      w <- adjusted_weights / sum(adjusted_weights)
+    } else {
+      # Fallback to simple weighting
+      w <- as.numeric(weights) / sum(as.numeric(weights))
+    }
+  } else {
+    # SIMPLE MIXING: Equal tinting strength for all pigments
+    w <- as.numeric(weights) / sum(as.numeric(weights))
+  }
+  
+  # Mix RGB values
   r <- sum(cols[, 1] * w)
   g <- sum(cols[, 2] * w)
   b <- sum(cols[, 3] * w)
@@ -794,7 +824,9 @@ calculate_recipe_color <- function(recipe) {
   }
   
   if(length(ids) == 0) return(c(200, 200, 200))
-  mix_colors(ids, pcts, km)
+  
+  # Note: Always use simple mixing for Kulturkulör swatches (historical recipes)
+  mix_colors(ids, pcts, km, use_tinting = FALSE)
 }
 
 ui <- dashboardPage(
@@ -803,7 +835,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.7.4-opt, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.8.0-tintingtest, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -956,6 +988,11 @@ ui <- dashboardPage(
                fluidRow(
                  column(6,
                         checkboxInput("raa_only", "Använd endast Kulturkulör-pigment (RAÄ)", TRUE),
+                        checkboxInput("use_tinting_strength", 
+                                      "Realistisk färgblandning (K+S-viktad)", 
+                                      FALSE),
+                        tags$small(style="color:#666; display:block; margin-top:-10px; margin-bottom:10px;",
+                                   "Väger pigment efter deras faktiska färgstyrka baserat på K- och S-värden"),
                         pickerInput("p1", "Pigment 1", choices = all_choices, selected = "vitbas",
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),
                         conditionalPanel("input.p1", sliderInput("pct1","Andel (%)",0,100,70,1)),
@@ -1313,7 +1350,11 @@ server <- function(input, output, session) {
   current_color <- reactive({
     m <- mix()
     if(length(m$ids) == 0) return("#FFFFFF")
-    cols <- mix_colors(m$ids, m$pct, km)
+    
+    # Use tinting strength if checkbox is enabled
+    use_tinting <- isTRUE(input$use_tinting_strength)
+    cols <- mix_colors(m$ids, m$pct, km, use_tinting = use_tinting)
+    
     hex <- sprintf("#%02X%02X%02X", round(cols[1]), round(cols[2]), round(cols[3]))
     final_hex(hex)
     hex

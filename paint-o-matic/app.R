@@ -95,6 +95,17 @@ mix_colors <- function(ids, weights, pigment_list) {
   c(r, g, b)
 }
 
+# Render color preview with fullscreen zoom icon
+render_preview <- function(color_hex, preview_id) {
+  tags$div(class = "preview-container",
+           tags$div(class = "preview", style = paste0("background:", color_hex)),
+           tags$span(class = "zoom-icon", 
+                     onclick = paste0("openFullscreen('", preview_id, "')"),
+                     title = "Visa i helskärm",
+                     HTML("+"))
+  )
+}
+
 # === PIGMENTDATABAS ===
 # Extended with RAÄ Kulturkulör pigments
 # K and S values estimated based on pigment type and characteristics
@@ -792,7 +803,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.7.2-opt, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.7.3-opt, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -836,8 +847,8 @@ ui <- dashboardPage(
       }
       .zoom-icon {
         position: absolute;
-        top: 8px;
-        right: 8px;
+        top: 4px;
+        right: 4px;
         background: white;
         border: none;
         border-radius: 50%;
@@ -846,7 +857,7 @@ ui <- dashboardPage(
         font-size: 24px;
         cursor: pointer;
         color: #333;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
         transition: all 0.2s;
         display: flex;
         align-items: center;
@@ -855,9 +866,9 @@ ui <- dashboardPage(
         line-height: 1;
       }
       .zoom-icon:hover {
-        background: #f0f0f0;
+        background: black;
+        color: white;
         transform: scale(1.1);
-        box-shadow: 0 3px 6px rgba(0,0,0,0.15);
       }
       .fullscreen-overlay {
         display: none;
@@ -898,7 +909,8 @@ ui <- dashboardPage(
         justify-content: center;
       }
       .fullscreen-close:hover {
-        background: #f0f0f0;
+        background: black;
+        color: white;
         transform: scale(1.1);
       }
     "))),
@@ -1309,14 +1321,7 @@ server <- function(input, output, session) {
   
   output$total_pct <- renderText(format_swe(mix()$total, 1))
   output$hex1 <- renderText(current_color())
-  output$preview1 <- renderUI({
-    tags$div(class = "preview-container",
-             tags$div(class = "preview", style = paste0("background:", current_color())),
-             tags$span(class = "zoom-icon", onclick = "openFullscreen('preview1')",
-                       title = "Visa i helskärm",
-                       HTML("+"))  # Plus sign in circle
-    )
-  })
+  output$preview1 <- renderUI(render_preview(current_color(), "preview1"))
   
   output$total_warning <- renderUI({
     m <- mix()
@@ -1678,14 +1683,7 @@ server <- function(input, output, session) {
     df$Gram <- sapply(df$Gram, function(x) format_swe(parse_numeric(x), 1))
     df
   }, striped=TRUE, bordered=TRUE, width="100%", align="lr", sanitize.text.function = function(x) x)
-  output$final_preview <- renderUI({
-    tags$div(class = "preview-container",
-             tags$div(class = "preview", style = paste0("background:", final_hex())),
-             tags$span(class = "zoom-icon", onclick = "openFullscreen('final_preview')",
-                       title = "Visa i helskärm",
-                       HTML("+"))  # Plus sign in circle
-    )
-  })
+  output$final_preview <- renderUI(render_preview(final_hex(), "final_preview"))
   
   output$download_txt <- downloadHandler(
     filename = function() paste0("fargrecept_", Sys.Date(), ".txt"),

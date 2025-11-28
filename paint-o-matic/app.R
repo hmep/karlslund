@@ -875,10 +875,9 @@ ui <- dashboardPage(
         display: flex;
       }
       .fullscreen-preview {
-        width: 90%;
-        height: 90%;
-        border: 8px solid white;
-        box-shadow: 0 0 40px rgba(0,0,0,0.5);
+        width: 100%;
+        height: 100%;
+        border: 0px solid white;
       }
       .fullscreen-close {
         position: absolute;

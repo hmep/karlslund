@@ -1403,7 +1403,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.9.2-swatches, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.9.3-swatches, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -1570,6 +1570,12 @@ ui <- dashboardPage(
         overlay.classList.add("active");
         document.body.style.overflow = "hidden"; // Prevent scrolling
         
+        // CRITICAL: Always clear the div first to prevent stale content
+        if (colorNameDiv) {
+          colorNameDiv.textContent = "";
+          colorNameDiv.style.display = "none";
+        }
+        
         // Get color name from input field (try step 3 first, then step 1)
         var colorName = "";
         var colorNameStep3 = document.getElementById("color_name_step3");
@@ -1581,15 +1587,13 @@ ui <- dashboardPage(
           colorName = colorNameStep1.value;
         }
         
-        // Update color name display
+        // Update color name display (only if there is a name)
         if (colorName && colorNameDiv) {
           colorNameDiv.textContent = colorName;
           colorNameDiv.style.display = "block";
           
           // Set text color based on background luminance
           colorNameDiv.style.color = getTextColorForBackground(color);
-        } else if (colorNameDiv) {
-          colorNameDiv.style.display = "none";
         }
       }
       

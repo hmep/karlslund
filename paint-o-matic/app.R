@@ -1565,14 +1565,14 @@ ui <- dashboardPage(
                fluidRow(
                  column(6,
                         h5(style="font-weight:bold;","Inställningar"),
-                        checkboxInput("raa_only", "Använd endast Kulturkulör-pigment (RAÄ)", TRUE),
+                        checkboxInput("raa_only", "Använd endast Kulturkulör-pigment (RAÄ)", FALSE),
                         #checkboxInput("use_tinting_strength","Avancerad färgblandning",TRUE),
                         #tags$small(style="color:#666; margin-left:20px; display:block; margin-top:-1em; margin-bottom:10px;","Väger pigment efter faktiska färgstyrka (K- och S-värden)"),
                         hr(),
-                        pickerInput("p1", "Pigment 1", choices = all_choices, selected = "vitbas",
+                        pickerInput("p1", "Pigment 1", choices = all_choices, selected = "J225",
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),
                         conditionalPanel("input.p1", sliderInput("pct1","Andel (%)",0,100,70,1)),
-                        pickerInput("p2", "Pigment 2", choices = all_choices, selected = "J920",
+                        pickerInput("p2", "Pigment 2", choices = all_choices, selected = "vitbas",
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),
                         conditionalPanel("input.p2", sliderInput("pct2","Andel (%)",0,100,30,1)),
                         pickerInput("p3", "Pigment 3", choices = all_choices, selected = "",
@@ -1614,7 +1614,7 @@ ui <- dashboardPage(
                                  
                                  conditionalPanel(
                                    condition = "input.recipe_set == 'extended'",
-                                   tags$small("Receptpaletter med toning- och skuggningsserier för alla pigment som är tillgängliga i Paint-o-matic."),
+                                   tags$small("Receptpaletter med toning- och skuggningsserier för alla pigment som är tillgängliga i Paint-o-matic. Välj skuggningsfärg nedan."),
                                    br(), br(),
                                    selectInput("shading_pigment", "Skuggningsfärg",
                                                choices = shading_pigments,

@@ -968,7 +968,7 @@ tar_colors <- list(
     hex = "#5A3C23",
     description = "Honungs- eller bärnstenfärg"
   ),
-  "Mörk trätjära" = list(
+  "Mörk trätjära (billigast)" = list(
     rgb = c(50, 35, 22),
     hex = "#32231B",
     description = "Mycket mörk brun, nästan svart"
@@ -1139,6 +1139,210 @@ source("kulturkulor_recipes_part2.r")
 source("kulturkulor_recipes_part3.r")
 kulturkulor_complete <- c(kulturkulor, kulturkulor_part2, kulturkulor_part3)
 
+# === UNIFIED SWATCH MATRIX SYSTEM ===
+
+# Generic function to generate swatch matrices for any pigment set
+# Parameters:
+#   pigments: vector of pigment IDs to generate swatches for
+#   vitbas_increments: vector of vitbas percentages (e.g., c(0, 15, 30, 45, 60, 75, 90))
+#   shade_increments: vector of shading percentages
+#   shade_pigment: ID of shading pigment to use
+#   code_prefix: prefix for swatch codes (e.g., "RAA" or "EXT")
+#   mask: optional logical matrix or function to filter combinations
+#         - matrix: TRUE/FALSE for each (vitbas, shade) combination
+#         - function: takes (pigment_id, vitbas_pct, shade_pct, basfarg_pct) and returns TRUE/FALSE
+generate_swatch_matrix <- function(pigments, vitbas_increments, shade_increments, 
+                                   shade_pigment, code_prefix = "MAT", mask = NULL) {
+  all_swatches <- list()
+  
+  for(base_id in pigments) {
+    swatch_index <- 0
+    
+    for(i_shade in seq_along(shade_increments)) {
+      shade_pct <- shade_increments[i_shade]
+      
+      for(i_vitbas in seq_along(vitbas_increments)) {
+        vitbas_pct <- vitbas_increments[i_vitbas]
+        swatch_index <- swatch_index + 1
+        
+        # Calculate base percentage
+        base_pct <- 100 - vitbas_pct - shade_pct
+        
+        if(base_pct >= 0) {
+          # Apply mask if provided
+          include_swatch <- TRUE
+          
+          if(!is.null(mask)) {
+            if(is.function(mask)) {
+              # Mask is a function - call it
+              include_swatch <- mask(base_id, vitbas_pct, shade_pct, base_pct)
+            } else if(is.matrix(mask) || is.data.frame(mask)) {
+              # Mask is a matrix - check dimensions and index
+              if(i_shade <= nrow(mask) && i_vitbas <= ncol(mask)) {
+                include_swatch <- mask[i_shade, i_vitbas]
+              } else {
+                include_swatch <- FALSE  # Out of bounds = exclude
+              }
+            } else if(is.logical(mask) && length(mask) == 1) {
+              # Single TRUE/FALSE applies to all
+              include_swatch <- mask
+            } else if(is.logical(mask)) {
+              # Vector mask - use by index
+              if(swatch_index <= length(mask)) {
+                include_swatch <- mask[swatch_index]
+              } else {
+                include_swatch <- FALSE
+              }
+            }
+          }
+          
+          # Only create swatch if mask allows it
+          if(include_swatch) {
+            # Generate unique code (use %g for numeric - handles both integers and decimals)
+            swatch_code <- sprintf("%s_%s_%gV%gS", code_prefix, 
+                                   toupper(substr(base_id, 1, 4)), vitbas_pct, shade_pct)
+            
+            all_swatches[[swatch_code]] <- list(
+              base_pigment = base_id,
+              base_pct = base_pct,
+              vitbas_pct = vitbas_pct,
+              shade_pigment = shade_pigment,
+              shade_pct = shade_pct
+            )
+          }
+        }
+      }
+    }
+  }
+  
+  all_swatches
+}
+
+# === DYNAMIC SWATCH GENERATOR FOR NON-RAÄ PIGMENTS ===
+
+# Define shading pigments available for user selection (ONLY existing pigments)
+shading_pigments <- list(
+  "Svartoxid PBk11 (#44450)" = "44450",
+  "Järnoxidsvart nr 318 (#J318)" = "J318",
+  "Bensvart nr 98 (#BS98)" = "BS98",
+  "Mangansvart (#47501)" = "47501",
+  "Spinel-svart (#47400)" = "47400",
+  "Obränd umbra PBr7 (#OU103)" = "OU103",
+  "Bränd umbra PBr7 (#BU100)" = "BU100",
+  "Brun umbra (#BRU39)" = "BRU39",
+  "Grön umbra nr 30 (#GU30)" = "GU30",
+  "Ljusockra PY43 (#LO92)" = "LO92",
+  "Guldockra PY43 (#GO94)" = "GO94"
+)
+
+# Get list of shading pigment IDs (to exclude from base colors)
+shading_pigment_ids <- unlist(shading_pigments, use.names = FALSE)
+
+# Get list of ALL pigments for extended swatches (including RAÄ, excluding whites, fillers, and shading pigments)
+get_extended_base_pigments <- function() {
+  filler_ids <- c("599930", "58000", "58010", "58162", "58900", "58250")
+  white_ids <- c("vitbas", "44100", "44400")
+  # Only exclude fillers, whites, and shading pigments - INCLUDE RAÄ pigments as base colors
+  exclude_ids <- c(filler_ids, white_ids, shading_pigment_ids)
+  
+  # Get all pigment IDs except excluded ones
+  all_ids <- names(km)
+  base_pigments <- setdiff(all_ids, exclude_ids)
+  
+  base_pigments
+}
+
+# Generate swatch code for a pigment
+# Generate all swatches for all base pigments (including RAÄ) - uses generic matrix generator  
+generate_all_extended_swatches <- function(shade_pigment_id = "44450") {
+  base_pigments <- get_extended_base_pigments()
+  
+  # Extended pattern: 10% steps for vitbas (x-axis, more light variants)
+  #                   20% steps for shade (y-axis, fewer dark variants)
+  vitbas_increments <- c(0, 10, 20, 30, 40, 50, 60, 70, 80, 90)  # 10 levels
+  shade_increments <- c(0, 20, 40, 60, 80)  # 5 levels
+  
+  generate_swatch_matrix(base_pigments, vitbas_increments, shade_increments, shade_pigment_id, "EXT")
+}
+
+# === RAÄ KULTURKULÖR EXACT RECIPE SPECIFICATION ===
+
+# RAÄ exact vitbas and svart increments (from their published data)
+RAA_VITBAS_INCREMENTS <- c(0, 14.28, 15, 29.27, 30, 41.86, 42.85, 45, 57.14, 60, 73.17, 75, 85.71, 90)
+RAA_SHADE_INCREMENTS <- c(0, 2.44, 4.76, 6.97)
+
+# RAÄ Mask Matrix (14 vitbas × 4 shade)
+# TRUE = RAÄ publishes this combination, FALSE = not published
+# Rows = shade levels (0, 2.44, 4.76, 6.97)
+# Cols = vitbas levels (0, 14.28, 15, 29.27, 30, 41.86, 42.85, 45, 57.14, 60, 73.17, 75, 85.71, 90)
+RAA_MASK_PATTERN_A <- matrix(c(
+  # Shade 0% (A series: 1A, 2A, 3A, 4A, 5A, 6A, 7A)
+  TRUE,  FALSE, TRUE,  FALSE, TRUE,  FALSE, FALSE, TRUE,  FALSE, TRUE,  FALSE, TRUE,  FALSE, TRUE,
+  # Shade 2.44% (B series: 1B, 3B, 6B)
+  TRUE,  FALSE, FALSE, TRUE,  FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE,  FALSE, FALSE, FALSE,
+  # Shade 4.76% (C series: 1C, 2C, 4C, 5C, 7C)
+  TRUE,  TRUE,  FALSE, FALSE, FALSE, FALSE, TRUE,  FALSE, TRUE,  FALSE, FALSE, FALSE, TRUE,  FALSE,
+  # Shade 6.97% (D series: 1D, 4D)
+  TRUE,  FALSE, FALSE, FALSE, FALSE, TRUE,  FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE
+), nrow = 4, byrow = TRUE)
+
+# Pattern B: Pure tinting only (7 combinations - only row 1)
+RAA_MASK_PATTERN_B <- matrix(c(
+  # Shade 0% only (A series: 1A through 7A)
+  TRUE,  FALSE, TRUE,  FALSE, TRUE,  FALSE, FALSE, TRUE,  FALSE, TRUE,  FALSE, TRUE,  FALSE, TRUE,
+  # No other shade levels
+  FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE,
+  FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE,
+  FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE
+), nrow = 4, byrow = TRUE)
+
+# Generate RAÄ swatches using exact masks
+generate_all_raa_swatches <- function(shade_pigment_id = "J318") {
+  # Pattern A pigments (17 recipes each - full mask)
+  pattern_a_pigments <- c("J225", "J180M", "J120N", "ER48A", "J663", "J686", "J920",
+                          "LO92", "GO94", "OU103", "BU100", "BRU39", 
+                          "BT44", "OT46", "KG83", "UB88", "KB28")
+  
+  # Pattern B pigments (7 recipes each - tinting only mask)
+  pattern_b_pigments <- c("J318", "GO94_GU30", "GU30", "GRAU36", "BS98")
+  
+  all_swatches <- list()
+  
+  # Generate Pattern A swatches (with Pattern A mask)
+  for(pigment in pattern_a_pigments) {
+    if(pigment %in% shading_pigment_ids) next
+    
+    swatches <- generate_swatch_matrix(
+      c(pigment), 
+      RAA_VITBAS_INCREMENTS, 
+      RAA_SHADE_INCREMENTS, 
+      shade_pigment_id, 
+      "RAA",
+      mask = RAA_MASK_PATTERN_A  # Apply Pattern A mask
+    )
+    all_swatches <- c(all_swatches, swatches)
+  }
+  
+  # Generate Pattern B swatches (with Pattern B mask)
+  for(pigment in pattern_b_pigments) {
+    if(pigment %in% shading_pigment_ids) next
+    
+    swatches <- generate_swatch_matrix(
+      c(pigment), 
+      RAA_VITBAS_INCREMENTS, 
+      RAA_SHADE_INCREMENTS, 
+      shade_pigment_id, 
+      "RAA",
+      mask = RAA_MASK_PATTERN_B  # Apply Pattern B mask
+    )
+    all_swatches <- c(all_swatches, swatches)
+  }
+  
+  all_swatches
+}
+
+# Note: extended_swatches generated reactively in server function (not here)
+
 pigment_name_to_id <- list(
   "Järnoxidrött nr 225" = "J225", "Järnoxidrött nr 180 M (Caput Mortuum)" = "J180M",
   "Järnoxidrött nr 120 N" = "J120N", "Engelskt rött nr 48 A" = "ER48A",
@@ -1186,7 +1390,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.9.0, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.9.1-swatches, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -1373,15 +1577,42 @@ ui <- dashboardPage(
                         tags$b("Total andel: "), textOutput("total_pct",inline=TRUE), " %", 
                         uiOutput("total_warning"), 
                         tags$div(style="margin-top:2em;",
-                                 tags$b("RAÄ Kulturkulörs fördefinierade recept"), br(),
-                                 tags$small("Välj en färg för att ladda receptet."),
-                                 uiOutput("kulturkulor_swatches")
+                                 h5(style="font-weight:bold;","Samlingar med fördefinierade recept"),
+                                 selectInput("recipe_set", NULL,
+                                             choices = list(
+                                               "RAÄ Kulturkulör" = "raa",
+                                               "Paint-o-matic-recept" = "extended"
+                                             ),
+                                             selected = "raa"),
+                                 
+                                 # Show description based on selected set
+                                 conditionalPanel(
+                                   condition = "input.recipe_set == 'raa'",
+                                   tags$small(a("Kulturkulör från Riksantikvarieämbetet (RAÄ)", href="https://www.raa.se/kulturarv/byggnader/byggnadsvard/kulturkulor-ett-fargsystem-for-linoljefarg/")," är ett färgsystem för historiskt trogen färgsättning. Den rätta skuggningsfärgen för Kulturkulör är ", tags$b("Järnoxidsvart nr 318 (RAÄ) (#J318)"), " men du kan också välja en annan om du vill blanda ett eget recept."),
+                                   br(), br(),
+                                   selectInput("shading_pigment_raa", "Skuggningsfärg",
+                                               choices = shading_pigments,
+                                               selected = "J318")
+                                 ),
+                                 
+                                 conditionalPanel(
+                                   condition = "input.recipe_set == 'extended'",
+                                   tags$small("Receptpaletter med toning- och skuggningsserier för alla pigment som är tillgängliga i Paint-o-matic."),
+                                   br(), br(),
+                                   selectInput("shading_pigment", "Skuggningsfärg",
+                                               choices = shading_pigments,
+                                               selected = "J318")
+                                 ),
+                                 
+                                 div(style = "width: 100%; height: 300px; overflow-y: auto; overflow-x: auto; border: 1px solid #ddd; padding: 10px;",
+                                     uiOutput("recipe_swatches")
+                                 )
                         )
                  )
                ),
                hr(),
                actionButton("to_step2","Nästa", class="btn-primary next-btn"),
-               div(class="footer-ref", "Masstone baserade på data från Riksantikvarieämbetet (RAÄ) Kulturkulör, Kremer Pigmente, m. fl. Tänk på att en skärm inte exakt kan simulera hur ljus som absorberas/reflekteras mot en målad yta uppfattas")
+               div(class="footer-ref", "Masstone baserad på data från Riksantikvarieämbetet (RAÄ) Kulturkulör, Kremer Pigmente, m. fl. Färgmixningen tar hänsyn till olika pigments fysikaliska egenskaper (K- och S-värden). Trots detta, notera att en skärm inte exakt kan simulera hur ljus som absorberas av eller reflekteras från en målad yta uppfattas.")
     )),
     
     hidden(div(id="step2", class="step",
@@ -1582,6 +1813,13 @@ server <- function(input, output, session) {
   })
   
   # RAÄ-filter
+  # Uncheck RAÄ-only when user selects extended recipes
+  observeEvent(input$recipe_set, {
+    if(!is.null(input$recipe_set) && input$recipe_set == "extended") {
+      updateCheckboxInput(session, "raa_only", value = FALSE)
+    }
+  })
+  
   observeEvent(input$raa_only, {
     ids <- if(input$raa_only) raa_pigments else names(km)
     
@@ -1640,97 +1878,221 @@ server <- function(input, output, session) {
     updatePickerInput(session, "p4", choices = choices_list, selected = input$p4)
   })
   
-  output$kulturkulor_swatches <- renderUI({
-    # React to tinting strength toggle
-    use_tinting <- TRUE #isTRUE(input$use_tinting_strength)
+  # Reactive for extended swatches - regenerate when shading pigment changes
+  extended_swatches_reactive <- reactive({
+    shade_pigment <- input$shading_pigment %||% "44450"
+    generate_all_extended_swatches(shade_pigment)
+  })
+  
+  # Reactive for RAÄ swatches - regenerate when shading pigment changes
+  raa_swatches_reactive <- reactive({
+    shade_pigment <- input$shading_pigment_raa %||% "J318"
+    generate_all_raa_swatches(shade_pigment)
+  })
+  
+  # Generic function to render swatch matrix
+  render_swatch_matrix <- function(recipes, base_pigments, vitbas_increments, shade_increments, shade_pigment, use_tinting) {
+    shade_name <- km[[shade_pigment]]$name
     
-    # Group recipes by pigment base
-    recipe_codes <- names(kulturkulor_complete)
-    
-    # Track last pigment to detect series changes
-    swatch_elements <- list()
-    last_pigment <- NULL
-    
-    for(code in recipe_codes) {
-      recipe <- kulturkulor_complete[[code]]
-      
-      # Use pigment name as grouping key (most reliable)
-      current_pigment <- recipe$pigment
-      
-      # If pigment changed, add line break
-      if(!is.null(last_pigment) && current_pigment != last_pigment) {
-        swatch_elements[[length(swatch_elements) + 1]] <- tags$br()
-      }
-      last_pigment <- current_pigment
-      
-      # Calculate color with current tinting strength setting
-      color_rgb <- calculate_recipe_color(recipe, use_tinting = use_tinting)
-      hex_color <- rgb(color_rgb[1], color_rgb[2], color_rgb[3], maxColorValue = 255)
-      
-      tooltip <- sprintf("%s: %s (Bas %g%%, Vit %g%%, Svart %g%%)", 
-                         code, recipe$pigment, recipe$basfarg, recipe$vit, recipe$svart)
-      
-      # Add swatch
-      swatch_elements[[length(swatch_elements) + 1]] <- tags$span(
-        class = "kulturkulor-swatch",
-        style = sprintf("background-color:%s;", hex_color),
-        title = tooltip,
-        onclick = sprintf("Shiny.setInputValue('swatch_click', '%s', {priority: 'event'});", code)
-      )
+    if(length(recipes) == 0) {
+      return(tags$p("Inga recept tillgängliga."))
     }
     
-    tags$div(class = "kulturkulor-gallery", swatch_elements)
+    matrix_elements <- list()
+    
+    for(base_id in base_pigments) {
+      base_name <- km[[base_id]]$name
+      
+      # Add pigment heading
+      matrix_elements[[length(matrix_elements) + 1]] <- tags$div(
+        style = "margin-top: 1em; margin-bottom: 0.5em; font-weight: bold;",
+        sprintf("%s med %s", base_name, shade_name)
+      )
+      
+      matrix_rows <- list()
+      
+      # Build matrix: rows = shade levels, columns = vitbas levels
+      for(shade_pct in shade_increments) {
+        row_swatches <- list()
+        
+        for(vitbas_pct in vitbas_increments) {
+          # Find the matching swatch
+          matching_swatch <- NULL
+          for(code in names(recipes)) {
+            recipe <- recipes[[code]]
+            if(recipe$base_pigment == base_id && 
+               recipe$vitbas_pct == vitbas_pct && 
+               recipe$shade_pct == shade_pct) {
+              matching_swatch <- list(code = code, recipe = recipe)
+              break
+            }
+          }
+          
+          if(!is.null(matching_swatch)) {
+            recipe <- matching_swatch$recipe
+            code <- matching_swatch$code
+            base_pct <- recipe$base_pct
+            
+            # Build mix for color calculation
+            ids <- c()
+            pcts <- c()
+            
+            if(base_pct > 0) {
+              ids <- c(ids, base_id)
+              pcts <- c(pcts, base_pct)
+            }
+            if(vitbas_pct > 0) {
+              ids <- c(ids, "vitbas")
+              pcts <- c(pcts, vitbas_pct)
+            }
+            if(shade_pct > 0) {
+              ids <- c(ids, shade_pigment)
+              pcts <- c(pcts, shade_pct)
+            }
+            
+            # Calculate color
+            if(length(ids) > 0) {
+              color_rgb <- mix_colors(ids, pcts, km, use_tinting = use_tinting)
+              hex_color <- rgb(color_rgb[1], color_rgb[2], color_rgb[3], maxColorValue = 255)
+            } else {
+              hex_color <- "#FFFFFF"
+            }
+            
+            paint_name <- sprintf("%s: %s (%g%% + %gV + %gS)", 
+                                  code, base_name, base_pct, vitbas_pct, shade_pct)
+            
+            # Add swatch to row
+            row_swatches[[length(row_swatches) + 1]] <- tags$span(
+              class = "kulturkulor-swatch",
+              style = sprintf("background-color:%s;", hex_color),
+              title = paint_name,
+              onclick = sprintf("Shiny.setInputValue('swatch_click', '%s', {priority: 'event'});", code)
+            )
+          }
+        }
+        
+        # Add row to matrix (only if it has swatches)
+        if(length(row_swatches) > 0) {
+          matrix_rows[[length(matrix_rows) + 1]] <- tags$div(
+            class = "swatch-row",
+            style = "white-space: nowrap;",
+            row_swatches
+          )
+        }
+      }
+      
+      # Add matrix to elements (only if it has rows)
+      if(length(matrix_rows) > 0) {
+        matrix_elements[[length(matrix_elements) + 1]] <- tags$div(
+          class = "swatch-matrix",
+          matrix_rows
+        )
+      }
+    }
+    
+    tags$div(class = "swatch-matrices", matrix_elements)
+  }
+  
+  output$recipe_swatches <- renderUI({
+    recipe_set <- input$recipe_set %||% "raa"
+    use_tinting <- TRUE
+    
+    if(recipe_set == "raa") {
+      # RAÄ swatches with matrix display
+      recipes_to_show <- raa_swatches_reactive()
+      shade_pigment <- input$shading_pigment_raa %||% "J318"
+      
+      # RAÄ base pigments (excluding shading pigments)
+      pattern_a_pigments <- c("J225", "J180M", "J120N", "ER48A", "J663", "J686", "J920",
+                              "LO92", "GO94", "OU103", "BU100", "BRU39", 
+                              "BT44", "OT46", "KG83", "UB88", "KB28")
+      pattern_b_pigments <- c("J318", "GO94_GU30", "GU30", "GRAU36", "BS98")
+      
+      # Filter out shading pigments
+      pattern_a_pigments <- setdiff(pattern_a_pigments, shading_pigment_ids)
+      pattern_b_pigments <- setdiff(pattern_b_pigments, shading_pigment_ids)
+      
+      raa_base_pigments <- c(pattern_a_pigments, pattern_b_pigments)
+      
+      # RAÄ uses per-pigment increments - will be determined from recipes
+      # For render_swatch_matrix, we need to extract unique values per pigment
+      vitbas_all <- c(0, 14.28, 15, 29.27, 30, 41.86, 42.85, 45, 57.14, 60, 73.17, 75, 85.71, 90)
+      shade_all <- c(0, 2.44, 4.76, 6.97)
+      
+      return(render_swatch_matrix(recipes_to_show, raa_base_pigments, vitbas_all, 
+                                  shade_all, shade_pigment, use_tinting))
+    }
+    
+    if(recipe_set == "extended") {
+      # Extended swatches with matrix display
+      recipes_to_show <- extended_swatches_reactive()
+      shade_pigment <- input$shading_pigment %||% "44450"
+      
+      base_pigments <- get_extended_base_pigments()
+      
+      # Extended pattern: 10% vitbas steps, 20% shade steps
+      vitbas_increments <- c(0, 10, 20, 30, 40, 50, 60, 70, 80, 90)  # 10 levels
+      shade_increments <- c(0, 20, 40, 60, 80)  # 5 levels
+      
+      return(render_swatch_matrix(recipes_to_show, base_pigments, vitbas_increments, 
+                                  shade_increments, shade_pigment, use_tinting))
+    }
   })
   
   # Handle swatch clicks
   observeEvent(input$swatch_click, {
     req(input$swatch_click)
     
-    recipe <- kulturkulor_complete[[input$swatch_click]]
-    base_id <- pigment_name_to_id[[recipe$pigment]]
+    recipe_set <- input$recipe_set %||% "raa"
+    code <- input$swatch_click
     
-    if(is.null(base_id)) return()
+    # Both RAÄ and extended now use the same recipe structure
+    if(recipe_set == "extended") {
+      recipes <- extended_swatches_reactive()
+    } else {
+      recipes <- raa_swatches_reactive()
+    }
     
-    # Round to integers (sliders only accept integers with step=1)
-    pct_base <- round(recipe$basfarg)
-    pct_vit <- round(recipe$vit)
-    pct_svart <- round(recipe$svart)
+    recipe <- recipes[[code]]
+    if(is.null(recipe)) return()
     
-    # Ensure they sum to exactly 100 by adjusting the largest component
-    total <- pct_base + pct_vit + pct_svart
+    # Load recipe: base_pigment + vitbas + shade_pigment
+    base_id <- recipe$base_pigment
+    base_pct <- round(recipe$base_pct)
+    vitbas_pct <- round(recipe$vitbas_pct)
+    shade_pct <- round(recipe$shade_pct)
+    shade_id <- recipe$shade_pigment
+    
+    # Ensure they sum to 100
+    total <- base_pct + vitbas_pct + shade_pct
     if(total != 100) {
       diff <- 100 - total
-      # Find largest percentage and adjust it
-      if(pct_base >= pct_vit && pct_base >= pct_svart) {
-        pct_base <- pct_base + diff
-      } else if(pct_vit >= pct_svart) {
-        pct_vit <- pct_vit + diff
-      } else {
-        pct_svart <- pct_svart + diff
-      }
+      base_pct <- base_pct + diff
     }
     
-    updatePickerInput(session, "p1", selected = base_id)
-    updateSliderInput(session, "pct1", value = pct_base)
-    
-    if(pct_vit > 0) {
-      updatePickerInput(session, "p2", selected = "vitbas")
-      updateSliderInput(session, "pct2", value = pct_vit)
-    } else {
-      updatePickerInput(session, "p2", selected = "")
-      updateSliderInput(session, "pct2", value = 0)
-    }
-    
-    if(pct_svart > 0) {
-      updatePickerInput(session, "p3", selected = "J318")
-      updateSliderInput(session, "pct3", value = pct_svart)
-    } else {
-      updatePickerInput(session, "p3", selected = "")
-      updateSliderInput(session, "pct3", value = 0)
-    }
-    
-    updatePickerInput(session, "p4", selected = "")
+    # CRITICAL: Clear ALL slots first (p2, p3, p4) before loading anything
+    updatePickerInput(session, "p2", selected = character(0))
+    updateSliderInput(session, "pct2", value = 0)
+    updatePickerInput(session, "p3", selected = character(0))
+    updateSliderInput(session, "pct3", value = 0)
+    updatePickerInput(session, "p4", selected = character(0))
     updateSliderInput(session, "pct4", value = 0)
+    
+    # Load base pigment (always present in p1)
+    updatePickerInput(session, "p1", selected = base_id)
+    updateSliderInput(session, "pct1", value = base_pct)
+    
+    # Load vitbas if needed (always in p2)
+    if(vitbas_pct > 0) {
+      updatePickerInput(session, "p2", selected = "vitbas")
+      updateSliderInput(session, "pct2", value = vitbas_pct)
+    }
+    
+    # Load shading pigment if needed (always in p3)
+    if(shade_pct > 0) {
+      updatePickerInput(session, "p3", selected = shade_id)
+      updateSliderInput(session, "pct3", value = shade_pct)
+    }
   })
   
   # Blandning
@@ -1841,8 +2203,13 @@ server <- function(input, output, session) {
       }
       
       # Map back to p1, p2, p3, p4 inputs
-      # Get current inputs to determine mapping
-      current_inputs <- c(input$p1, input$p2, input$p3, input$p4)
+      # CRITICAL: Use a list to preserve empty slots, not c() which drops them!
+      current_inputs <- list(
+        p1 = if(is.null(input$p1) || length(input$p1) == 0) NA else input$p1,
+        p2 = if(is.null(input$p2) || length(input$p2) == 0) NA else input$p2,
+        p3 = if(is.null(input$p3) || length(input$p3) == 0) NA else input$p3,
+        p4 = if(is.null(input$p4) || length(input$p4) == 0) NA else input$p4
+      )
       
       # Update sliders for each pigment
       for(i in seq_along(m$ids)) {
@@ -1850,7 +2217,7 @@ server <- function(input, output, session) {
         new_pct <- normalized_int[i]
         
         # Find which input slot this pigment is in
-        slot_idx <- which(current_inputs == pigment_id)[1]
+        slot_idx <- which(sapply(current_inputs, function(x) !is.na(x) && x == pigment_id))[1]
         
         if(!is.na(slot_idx) && slot_idx <= 4) {
           input_name <- paste0("pct", slot_idx)

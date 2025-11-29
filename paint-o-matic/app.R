@@ -2217,8 +2217,20 @@ server <- function(input, output, session) {
   
   # Blandning
   mix <- reactive({
-    ids <- c(input$p1, input$p2, input$p3, input$p4)
+    # CRITICAL: Don't use c() because it drops empty values and misaligns the arrays!
+    # Keep as explicit vectors to maintain alignment
+    ids <- character(4)
+    ids[1] <- if(!is.null(input$p1) && length(input$p1) > 0 && input$p1 != "") input$p1 else ""
+    ids[2] <- if(!is.null(input$p2) && length(input$p2) > 0 && input$p2 != "") input$p2 else ""
+    ids[3] <- if(!is.null(input$p3) && length(input$p3) > 0 && input$p3 != "") input$p3 else ""
+    ids[4] <- if(!is.null(input$p4) && length(input$p4) > 0 && input$p4 != "") input$p4 else ""
+    
     pct <- c(input$pct1 %||% 0, input$pct2 %||% 0, input$pct3 %||% 0, input$pct4 %||% 0)
+    
+    # Debug: show what we received
+    cat("mix() reactive debug:\n")
+    cat("Raw ids:", paste(ids, collapse=", "), "\n")
+    cat("Raw pct:", paste(pct, collapse=", "), "\n")
     
     # Filter: must have valid ID AND percentage > 0
     valid <- sapply(seq_along(ids), function(i) {
@@ -2231,8 +2243,13 @@ server <- function(input, output, session) {
         pct[i] > 0
     })
     
+    cat("Valid flags:", paste(valid, collapse=", "), "\n")
+    
     ids_valid <- ids[valid]
     pct_valid <- pct[valid]
+    
+    cat("After filtering - ids_valid:", paste(ids_valid, collapse=", "), "\n")
+    cat("After filtering - pct_valid:", paste(pct_valid, collapse=", "), "\n")
     
     # Remove duplicates: if same pigment appears multiple times, sum the percentages
     if(length(ids_valid) > 0) {
@@ -2283,7 +2300,13 @@ server <- function(input, output, session) {
       normalized_filtered <- round(normalized[keep], 1)
       
       # Get pigment names and format
-      pigment_names <- sapply(ids_filtered, function(id) km[[id]]$name)
+      pigment_names <- sapply(ids_filtered, function(id) {
+        name <- km[[id]]$name
+        if(is.null(name) || length(name) == 0) {
+          return(id)  # Fallback to ID if name not found
+        }
+        return(name)
+      })
       normalized_swe <- sapply(normalized_filtered, function(x) format_swe(x, 1))
       
       text_lines <- paste0(pigment_names, ": ", normalized_swe, " %", collapse = " • ")
@@ -2325,23 +2348,36 @@ server <- function(input, output, session) {
       # Map back to p1, p2, p3, p4 inputs
       # CRITICAL: Use a list to preserve empty slots, not c() which drops them!
       current_inputs <- list(
-        p1 = if(is.null(input$p1) || length(input$p1) == 0) NA else input$p1,
-        p2 = if(is.null(input$p2) || length(input$p2) == 0) NA else input$p2,
-        p3 = if(is.null(input$p3) || length(input$p3) == 0) NA else input$p3,
-        p4 = if(is.null(input$p4) || length(input$p4) == 0) NA else input$p4
+        p1 = if(is.null(input$p1) || length(input$p1) == 0 || input$p1 == "") NA else input$p1,
+        p2 = if(is.null(input$p2) || length(input$p2) == 0 || input$p2 == "") NA else input$p2,
+        p3 = if(is.null(input$p3) || length(input$p3) == 0 || input$p3 == "") NA else input$p3,
+        p4 = if(is.null(input$p4) || length(input$p4) == 0 || input$p4 == "") NA else input$p4
       )
+      
+      # Debug: print what we're working with
+      cat("Normalize debug:\n")
+      cat("m$ids:", paste(m$ids, collapse=", "), "\n")
+      cat("current_inputs:", paste(names(current_inputs), "=", current_inputs, collapse="; "), "\n")
       
       # Update sliders for each pigment
       for(i in seq_along(m$ids)) {
         pigment_id <- m$ids[i]
         new_pct <- normalized_int[i]
         
+        cat("Looking for pigment", pigment_id, "with new pct", new_pct, "\n")
+        
         # Find which input slot this pigment is in
         slot_idx <- which(sapply(current_inputs, function(x) !is.na(x) && x == pigment_id))[1]
         
+        cat("Found in slot:", slot_idx, "\n")
+        
         if(!is.na(slot_idx) && slot_idx <= 4) {
           input_name <- paste0("pct", slot_idx)
+          cat("Updating", input_name, "to", new_pct, "\n")
           updateSliderInput(session, input_name, value = new_pct)
+        } else {
+          # Debug: pigment not found in any slot
+          cat("ERROR: Could not find slot for pigment:", pigment_id, "\n")
         }
       }
       

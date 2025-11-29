@@ -1403,7 +1403,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.9.1-swatches, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.9.2-swatches, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -1489,6 +1489,19 @@ ui <- dashboardPage(
         width: 100%;
         height: 100%;
         border: 0px solid white;
+        position: relative;
+      }
+      .fullscreen-color-name {
+        position: absolute;
+        bottom: 60px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 300;
+        letter-spacing: 0.5px;
+        padding: 0 20px;
+        transition: color 0.3s;
       }
       .fullscreen-close {
         position: absolute;
@@ -1507,6 +1520,7 @@ ui <- dashboardPage(
         display: flex;
         align-items: center;
         justify-content: center;
+        z-index: 10000;
       }
       .fullscreen-close:hover {
         background: black;
@@ -1525,6 +1539,23 @@ ui <- dashboardPage(
     "))),
     
     tags$script(HTML('
+      // Helper function to calculate luminance and choose text color
+      function getTextColorForBackground(bgColor) {
+        // Parse RGB from background color string
+        var rgb = bgColor.match(/\\d+/g);
+        if (!rgb || rgb.length < 3) return "white";
+        
+        var r = parseInt(rgb[0]);
+        var g = parseInt(rgb[1]);
+        var b = parseInt(rgb[2]);
+        
+        // Calculate relative luminance (WCAG formula)
+        var luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+        
+        // Return black for light backgrounds, white for dark backgrounds
+        return luminance > 0.5 ? "black" : "white";
+      }
+      
       // Fullscreen preview functionality
       function openFullscreen(previewId) {
         var preview = document.querySelector("#" + previewId + " .preview");
@@ -1533,10 +1564,33 @@ ui <- dashboardPage(
         var color = window.getComputedStyle(preview).backgroundColor;
         var overlay = document.getElementById("fullscreen-overlay");
         var fullPreview = document.getElementById("fullscreen-preview");
+        var colorNameDiv = document.getElementById("fullscreen-color-name");
         
         fullPreview.style.background = color;
         overlay.classList.add("active");
         document.body.style.overflow = "hidden"; // Prevent scrolling
+        
+        // Get color name from input field (try step 3 first, then step 1)
+        var colorName = "";
+        var colorNameStep3 = document.getElementById("color_name_step3");
+        var colorNameStep1 = document.getElementById("color_name");
+        
+        if (colorNameStep3 && colorNameStep3.value) {
+          colorName = colorNameStep3.value;
+        } else if (colorNameStep1 && colorNameStep1.value) {
+          colorName = colorNameStep1.value;
+        }
+        
+        // Update color name display
+        if (colorName && colorNameDiv) {
+          colorNameDiv.textContent = colorName;
+          colorNameDiv.style.display = "block";
+          
+          // Set text color based on background luminance
+          colorNameDiv.style.color = getTextColorForBackground(color);
+        } else if (colorNameDiv) {
+          colorNameDiv.style.display = "none";
+        }
       }
       
       function closeFullscreen() {
@@ -1557,7 +1611,10 @@ ui <- dashboardPage(
     tags$div(id = "fullscreen-overlay", class = "fullscreen-overlay", onclick = "closeFullscreen()",
              tags$button(class = "fullscreen-close", onclick = "closeFullscreen()", 
                          HTML("&times;")),
-             tags$div(id = "fullscreen-preview", class = "fullscreen-preview")
+             tags$div(id = "fullscreen-preview", class = "fullscreen-preview",
+                      tags$div(id = "fullscreen-color-name", class = "fullscreen-color-name", 
+                               style = "display: none;")
+             )
     ),
     
     hidden(div(id="step1", class="step",

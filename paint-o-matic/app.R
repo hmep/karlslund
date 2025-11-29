@@ -301,9 +301,22 @@ generate_share_url <- function(session, input = NULL, mix_data = NULL) {
         params$egg_filler <- input$egg_filler
       }
       if(input$paint_type == "tar") {
-        if(!is.null(input$tar_category)) params$tar_category <- input$tar_category
-        if(!is.null(input$tar_extra_oil) && input$tar_extra_oil != 1.6) params$tar_extra_oil <- input$tar_extra_oil
+        # Use index instead of full name for tar_category (much shorter!)
+        if(!is.null(input$tar_category)) {
+          tar_index <- which(names(tar_colors) == input$tar_category)[1]
+          if(!is.na(tar_index)) {
+            params$tar_cat <- tar_index  # Shortened parameter name
+          }
+        }
+        if(!is.null(input$tar_extra_oil) && input$tar_extra_oil != 1.6) 
+          params$tar_extra_oil <- input$tar_extra_oil
       }
+    }
+    
+    # Add color name if provided (from either step 1 or step 3)
+    color_name <- input$color_name_step3 %||% input$color_name %||% ""
+    if(nchar(color_name) > 0) {
+      params$name <- color_name
     }
   }
   
@@ -1569,6 +1582,10 @@ ui <- dashboardPage(
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),
                         conditionalPanel("input.p4", sliderInput("pct4","Andel (%)",0,100,0,1)),
                         hr(),
+                        textInput("color_name", "Valfritt färgnamn", 
+                                  value = "", 
+                                  placeholder = "Dörrkarm 1923"),
+                        hr(),
                         actionButton("reset_pigments", "Nollställ pigment", class="btn-default"),
                  ),
                  column(6,
@@ -1708,6 +1725,11 @@ ui <- dashboardPage(
                         uiOutput("recipe_description"),
                         uiOutput("final_preview"),br(),
                         tableOutput("final_recipe"),
+                        hr(),
+                        textInput("color_name_step3", "Valfritt färgnamn", 
+                                  value = "", 
+                                  placeholder = "Dörrkarm 1923"),
+                        hr(),
                         downloadButton("download_txt","Spara som textfil",class="btn btn-primary"),
                         actionButton("copy_share_link","Kopiera delningslänk",class="btn btn-default"),
                         tags$input(id="share_url_hidden", type="hidden", value="")
@@ -1784,9 +1806,26 @@ server <- function(input, output, session) {
             updateSelectInput(session, "egg_filler", selected = query$egg_filler)
           }
           if(query$paint_type == "tar") {
-            if("tar_category" %in% names(query)) updateSelectInput(session, "tar_category", selected = query$tar_category)
-            if("tar_extra_oil" %in% names(query)) updateSliderInput(session, "tar_extra_oil", value = as.numeric(query$tar_extra_oil))
+            # Handle both old format (tar_category) and new short format (tar_cat)
+            if("tar_cat" %in% names(query)) {
+              # New short format - convert index to name
+              tar_index <- as.numeric(query$tar_cat)
+              if(!is.na(tar_index) && tar_index >= 1 && tar_index <= length(tar_colors)) {
+                tar_name <- names(tar_colors)[tar_index]
+                updateSelectInput(session, "tar_category", selected = tar_name)
+              }
+            } else if("tar_category" %in% names(query)) {
+              # Old long format - direct name
+              updateSelectInput(session, "tar_category", selected = query$tar_category)
+            }
+            if("tar_extra_oil" %in% names(query)) 
+              updateSliderInput(session, "tar_extra_oil", value = as.numeric(query$tar_extra_oil))
           }
+        }
+        
+        # Load color name if present
+        if("name" %in% names(query) && nchar(query$name) > 0) {
+          updateTextInput(session, "color_name", value = query$name)
         }
         
         showNotification("Recept laddades från länk", type = "message", duration = 3)
@@ -1810,6 +1849,7 @@ server <- function(input, output, session) {
     updateSliderInput(session, "pct2", value = 0)
     updateSliderInput(session, "pct3", value = 0)
     updateSliderInput(session, "pct4", value = 0)
+    updateTextInput(session, "color_name", value = "")  # Clear color name
   })
   
   # RAÄ-filter
@@ -2093,6 +2133,25 @@ server <- function(input, output, session) {
       updatePickerInput(session, "p3", selected = shade_id)
       updateSliderInput(session, "pct3", value = shade_pct)
     }
+    
+    # Generate and populate color name
+    # Get pigment names
+    base_name <- if(!is.null(km[[base_id]]$name)) km[[base_id]]$name else base_id
+    shade_name <- if(!is.null(km[[shade_id]]$name)) km[[shade_id]]$name else shade_id
+    
+    # Create descriptive name
+    color_name <- paste0(base_name)
+    
+    if(vitbas_pct > 0) {
+      color_name <- paste0(color_name, " + ", vitbas_pct, "% vit")
+    }
+    
+    if(shade_pct > 0) {
+      color_name <- paste0(color_name, " + ", shade_pct, "% ", shade_name)
+    }
+    
+    # Update the color name field
+    updateTextInput(session, "color_name", value = color_name)
   })
   
   # Blandning
@@ -2230,10 +2289,27 @@ server <- function(input, output, session) {
   })
   
   # Navigation
-  observeEvent(input$to_step2, { hide("step1"); if(mix()$has_white) show("step2") else show("step3") })
+  observeEvent(input$to_step2, { 
+    hide("step1"); 
+    if(mix()$has_white) show("step2") else {
+      show("step3")
+      # Sync color name to step 3
+      updateTextInput(session, "color_name_step3", value = input$color_name %||% "")
+    }
+  })
   observeEvent(input$back1, { hide("step2"); show("step1") })
-  observeEvent(input$back2, { hide("step3"); if(mix()$has_white) show("step2") else show("step1") })
-  observeEvent(input$to_step3, { hide("step2"); show("step3") })
+  observeEvent(input$back2, { 
+    hide("step3"); 
+    if(mix()$has_white) show("step2") else show("step1")
+    # Sync color name back to step 1
+    updateTextInput(session, "color_name", value = input$color_name_step3 %||% "")
+  })
+  observeEvent(input$to_step3, { 
+    hide("step2"); 
+    show("step3")
+    # Sync color name to step 3
+    updateTextInput(session, "color_name_step3", value = input$color_name %||% "")
+  })
   
   # Simply use input values directly with req() to ensure they're available
   # No need for intermediate reactive values
@@ -2659,7 +2735,15 @@ server <- function(input, output, session) {
       
       txt <- paste0(strrep("=", 60), "\n")
       txt <- paste0(txt, "Paint-o-matic – recept ", Sys.Date(), "\n")
-      txt <- paste0(txt, strrep("=", 60), "\n\n",
+      txt <- paste0(txt, strrep("=", 60), "\n\n")
+      
+      # Add color name if provided
+      color_name <- input$color_name_step3 %||% input$color_name %||% ""
+      if(nchar(color_name) > 0) {
+        txt <- paste0(txt, "Färgnamn: ", color_name, "\n")
+      }
+      
+      txt <- paste0(txt,
                     "Typ av färg: ", paint_type_name, "\n",
                     "Färgkod: ", final_hex(), "\n",
                     "Yta: ", format_swe(c$area, 0), " m²\n\n")

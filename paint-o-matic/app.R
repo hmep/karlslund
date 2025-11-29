@@ -1597,8 +1597,8 @@ ui <- dashboardPage(
                                  h5(style="font-weight:bold;","Samlingar med fördefinierade recept"),
                                  selectInput("recipe_set", NULL,
                                              choices = list(
-                                               "RAÄ Kulturkulör" = "raa",
-                                               "Paint-o-matic-recept" = "extended"
+                                               "Riksantikvarieämbetet (RAÄ) Kulturkulör" = "raa",
+                                               "Paint-o-matic" = "extended"
                                              ),
                                              selected = "raa"),
                                  

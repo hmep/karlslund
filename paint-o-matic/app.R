@@ -1662,7 +1662,7 @@ ui <- dashboardPage(
                         tags$b("Total andel: "), textOutput("total_pct",inline=TRUE), " %", 
                         uiOutput("total_warning"), 
                         tags$div(style="margin-top:2em;",
-                                 h5(style="font-weight:bold;","Färdiga och sparade recept"),
+                                 h5(style="font-weight:bold;","Färdiga färgblandningar och sparade favoriter"),
                                  selectInput("recipe_set", NULL,
                                              choices = list(
                                                "Riksantikvarieämbetet (RAÄ) Kulturkulör" = "raa",

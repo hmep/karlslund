@@ -1404,7 +1404,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.9.4, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.9.4-debug, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -1529,14 +1529,34 @@ ui <- dashboardPage(
       // Favorites management with localStorage
       const MAX_FAVORITES = 50;
       const STORAGE_KEY = "paintomatic_favorites";
+      const DEBUG = true; // Enable debug logging
+      
+      // Debug logger
+      function debugLog(message, data) {
+        if (DEBUG) {
+          console.log("[localStorage Debug]", message, data || "");
+        }
+      }
       
       // Get all favorites from localStorage
       function getFavorites() {
         try {
+          debugLog("Getting favorites from localStorage...");
           const data = localStorage.getItem(STORAGE_KEY);
-          return data ? JSON.parse(data) : [];
+          debugLog("Raw data from localStorage:", data ? data.substring(0, 100) + "..." : "null");
+          
+          if (!data) {
+            debugLog("No favorites found in localStorage");
+            return [];
+          }
+          
+          const parsed = JSON.parse(data);
+          debugLog("Parsed favorites count:", parsed.length);
+          return parsed;
         } catch(e) {
           console.error("Error loading favorites:", e);
+          debugLog("Parse error, clearing corrupted data");
+          localStorage.removeItem(STORAGE_KEY);
           return [];
         }
       }
@@ -1544,16 +1564,31 @@ ui <- dashboardPage(
       // Save all favorites to localStorage
       function saveFavorites(favorites) {
         try {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites));
-          return true;
+          debugLog("Saving favorites to localStorage, count:", favorites.length);
+          const jsonString = JSON.stringify(favorites);
+          debugLog("JSON string length:", jsonString.length);
+          
+          localStorage.setItem(STORAGE_KEY, jsonString);
+          
+          // Verify it was saved
+          const verification = localStorage.getItem(STORAGE_KEY);
+          if (verification) {
+            debugLog("✓ Successfully saved and verified in localStorage");
+            return true;
+          } else {
+            console.error("✗ Save verification failed - data not in localStorage!");
+            return false;
+          }
         } catch(e) {
           console.error("Error saving favorites:", e);
+          debugLog("Save error details:", e.message);
           return false;
         }
       }
       
       // Add a new favorite
       function addFavorite(favorite) {
+        debugLog("Adding new favorite...", favorite);
         let favorites = getFavorites();
         
         // Check limit
@@ -1565,22 +1600,30 @@ ui <- dashboardPage(
         // Add timestamp and ID
         favorite.id = Date.now().toString();
         favorite.timestamp = new Date().toISOString();
+        debugLog("Generated ID:", favorite.id);
         
         // Add to beginning of array (most recent first)
         favorites.unshift(favorite);
+        debugLog("Total favorites after add:", favorites.length);
         
-        saveFavorites(favorites);
+        const saved = saveFavorites(favorites);
+        debugLog("Save result:", saved);
         
         // Notify Shiny that favorites changed
         Shiny.setInputValue("favorites_updated", Math.random(), {priority: "event"});
         
-        return true;
+        return saved;
       }
       
       // Delete a favorite by ID
       function deleteFavorite(id) {
+        debugLog("Deleting favorite with ID:", id);
         let favorites = getFavorites();
+        const beforeCount = favorites.length;
+        
         favorites = favorites.filter(f => f.id !== id);
+        debugLog("Favorites before/after delete:", beforeCount + "/" + favorites.length);
+        
         saveFavorites(favorites);
         
         // Update Shiny with new list (as JSON string)
@@ -1591,22 +1634,58 @@ ui <- dashboardPage(
       // Clear all favorites
       function clearAllFavorites() {
         if (confirm("Är du säker på att du vill ta bort alla sparade favoriter?")) {
+          debugLog("Clearing all favorites");
           localStorage.removeItem(STORAGE_KEY);
           Shiny.setInputValue("favorites_list", JSON.stringify([]));
           Shiny.setInputValue("favorites_updated", Math.random(), {priority: "event"});
         }
       }
       
-      // Send favorites to Shiny on page load
-      $(document).ready(function() {
-        Shiny.setInputValue("favorites_list", JSON.stringify(getFavorites()));
+      // Check localStorage availability
+      function checkLocalStorage() {
+        try {
+          const testKey = "test_" + Date.now();
+          localStorage.setItem(testKey, "test");
+          const result = localStorage.getItem(testKey);
+          localStorage.removeItem(testKey);
+          debugLog("localStorage availability test:", result === "test" ? "PASSED" : "FAILED");
+          return result === "test";
+        } catch(e) {
+          console.error("localStorage is not available:", e);
+          return false;
+        }
+      }
+      
+      // Send favorites to Shiny on page load - wait for Shiny to be ready
+      $(document).on("shiny:connected", function() {
+        debugLog("=== Shiny connected, initializing favorites ===");
+        debugLog("localStorage available:", checkLocalStorage());
+        
+        const favorites = getFavorites();
+        debugLog("Sending to Shiny, favorites count:", favorites.length);
+        
+        Shiny.setInputValue("favorites_list", JSON.stringify(favorites));
+        
+        // Log storage usage
+        if (typeof(Storage) !== "undefined") {
+          let totalSize = 0;
+          for (let key in localStorage) {
+            if (localStorage.hasOwnProperty(key)) {
+              totalSize += localStorage[key].length + key.length;
+            }
+          }
+          debugLog("Total localStorage usage:", Math.round(totalSize / 1024) + " KB");
+        }
       });
       
       // Custom message handlers
       Shiny.addCustomMessageHandler("save_favorite", function(favorite) {
+        debugLog("Received save_favorite message from Shiny");
         if (addFavorite(favorite)) {
           // Update Shiny with new favorites list (as JSON string)
-          Shiny.setInputValue("favorites_list", JSON.stringify(getFavorites()));
+          const updatedList = getFavorites();
+          debugLog("Sending updated list to Shiny, count:", updatedList.length);
+          Shiny.setInputValue("favorites_list", JSON.stringify(updatedList));
         }
       });
       
@@ -1614,6 +1693,47 @@ ui <- dashboardPage(
         clearAllFavorites();
         Shiny.setInputValue("favorites_list", JSON.stringify(getFavorites()));
       });
+      
+      // Log when page is about to unload
+      window.addEventListener("beforeunload", function() {
+        debugLog("=== Page unloading ===");
+        const favorites = getFavorites();
+        debugLog("Final favorites count in storage:", favorites.length);
+      });
+      
+      // Global helper function for manual debugging (available in console)
+      window.inspectFavorites = function() {
+        console.log("=== Manual Favorites Inspection ===");
+        console.log("Storage Key:", STORAGE_KEY);
+        
+        const raw = localStorage.getItem(STORAGE_KEY);
+        console.log("Raw data exists:", raw !== null);
+        console.log("Raw data length:", raw ? raw.length : 0);
+        
+        if (raw) {
+          try {
+            const parsed = JSON.parse(raw);
+            console.log("Parsed successfully, count:", parsed.length);
+            console.log("Favorites:", parsed);
+            
+            // Show each favorite
+            parsed.forEach((fav, idx) => {
+              console.log(`  [${idx}] ID: ${fav.id}, Name: ${fav.name || "unnamed"}, Time: ${fav.timestamp}`);
+            });
+          } catch(e) {
+            console.error("Failed to parse:", e);
+            console.log("Raw content:", raw);
+          }
+        } else {
+          console.log("No favorites in localStorage");
+        }
+        
+        // Show all localStorage keys
+        console.log("All localStorage keys:", Object.keys(localStorage));
+      };
+      
+      console.log("=== Favorites Debug Mode Active ===");
+      console.log("Type inspectFavorites() in console to manually inspect localStorage");
     ')),
     
     # Fullscreen overlay (shared for both previews)

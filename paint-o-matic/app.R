@@ -7,6 +7,7 @@ library(shiny)
 library(shinydashboard)
 library(shinyjs)
 library(shinyWidgets)
+library(jsonlite)
 
 # === SWEDISH LOCALE CONFIGURATION === 
 # Set Swedish locale for number formatting (cross-platform)
@@ -1403,139 +1404,51 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.9.3-swatches, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.9.4, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
   dashboardBody(
     useShinyjs(),
     tags$head(tags$style(HTML("
-      .content-wrapper {background: #ccc !important;}
-      .step { padding:24px; padding-bottom:64px; background:#fff; border-radius:12px; margin:20px 20px 80px 20px; position:relative; min-width: 360px; max-width:840px;margin:auto;}
-      .footer-ref { position:relative; bottom:-44px; left:0; right:0; font-size:12px; color:#555; text-align:center; 
-                    padding:12px 12px 0; border-top:1px solid #ddd; }
-      .preview { display:block; height:300px; width:300px; border:8px solid #333; border-radius:150px; margin: auto; }
-      .normalized-box, .info-box, .alert { background:#eee; drop-shadow: 0 0; color:black; border: 0; padding:12px; border-radius:6px;margin:1em 0;}
-      .normalized-box { margin:10px 0;}
-      .ready-box {padding: 20px;}
-      .ready-box h3 {margin-top:0; }
+      /* Layout */
+      .content-wrapper {background:#ccc !important;}
+      .step {padding:24px 24px 64px; background:#fff; border-radius:12px; margin:20px auto 80px; position:relative; min-width:360px; max-width:840px;}
+      .footer-ref {position:relative; bottom:-44px; left:0; right:0; font-size:12px; color:#555; text-align:center; padding:12px 12px 0; border-top:1px solid #ddd;}
+      .ready-box {padding:20px;}
+      .ready-box h3, h2 {margin:0 0 .5em; padding:0;}
       .rmargin-box {margin-right:20px;}
-      .btn {margin: .5em .5em 0 0;}
-      .btn-primary { color:white;}
-      .kulturkulor-swatch { 
-        display:inline-block; width:24px; height:24px; border-radius:50%; 
-        margin:3px; cursor:pointer; border:2px solid #999;
-        transition: transform 0.1s, border-color 0.1s;
-      }
-      .kulturkulor-swatch:hover { 
-        transform:scale(1.3); border-color:#333; z-index:10; position:relative;
-      }
-      .kulturkulor-gallery { 
-        max-height:200px; overflow-y:auto; overflow-x:hidden;
-        padding:8px; background:#fff; border:1px solid #ddd; border-radius:4px;
-        margin-top:8px;
-      }
-      table tr td { white-space: nowrap; }
-      table tr td:first-of-type { white-space: wrap; }
-      h2 {margin: 0 0 .5em;padding:0}
-      .navbar-custom-menu .navbar-nav > li > a.version-text { font-size: 11px; color: #aaa; padding-top: 15px; padding-bottom: 15px;}
       
-      /* Fullscreen preview styles */
-      .preview-container {
-        position: relative;
-        display: inline-block;
-      }
-      .zoom-icon {
-        position: absolute;
-        top: 4px;
-        right: 4px;
-        background: white;
-        border: none;
-        border-radius: 50%;
-        width: 36px;
-        height: 36px;
-        font-size: 24px;
-        cursor: pointer;
-        color: #333;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        transition: all 0.2s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 300;
-        line-height: 1;
-      }
-      .zoom-icon:hover {
-        background: black;
-        color: white;
-        transform: scale(1.1);
-      }
-      .fullscreen-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.95);
-        z-index: 9999;
-        justify-content: center;
-        align-items: center;
-      }
-      .fullscreen-overlay.active {
-        display: flex;
-      }
-      .fullscreen-preview {
-        width: 100%;
-        height: 100%;
-        border: 0px solid white;
-        position: relative;
-      }
-      .fullscreen-color-name {
-        position: absolute;
-        bottom: 60px;
-        left: 0;
-        right: 0;
-        text-align: center;
-        font-size: 16px;
-        font-weight: 300;
-        letter-spacing: 0.5px;
-        padding: 0 20px;
-        transition: color 0.3s;
-      }
-      .fullscreen-close {
-        position: absolute;
-        top: 20px;
-        right: 30px;
-        background: white;
-        border: none;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        font-size: 30px;
-        cursor: pointer;
-        color: #333;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        transition: all 0.2s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 10000;
-      }
-      .fullscreen-close:hover {
-        background: black;
-        color: white;
-        transform: scale(1.1);
-      }
+      /* Preview and swatches */
+      .preview {display:block; height:300px; width:300px; border:8px solid #333; border-radius:150px; margin:auto;}
+      .kulturkulor-swatch {display:inline-block; width:24px; height:24px; border-radius:50%; margin:3px; cursor:pointer; border:2px solid #999; transition:transform 0.1s, border-color 0.1s;}
+      .kulturkulor-swatch:hover {transform:scale(1.3); border-color:#333; z-index:10; position:relative;}
+      .kulturkulor-gallery {max-height:200px; overflow-y:auto; overflow-x:hidden; padding:8px; background:#fff; border:1px solid #ddd; border-radius:4px; margin-top:8px;}
       
-      /* Paint type box styling */
-      .paint-type-box {
-        background: #f8f9fa;
-        border: 1px solid #dee2e6;
-        border-radius: 8px;
-        padding: 20px;
-        margin-top: 15px;
-      }
+      /* Boxes and alerts */
+      .normalized-box, .info-box, .alert {background:#eee; color:black; border:0; padding:12px; border-radius:6px; margin:1em 0;}
+      .normalized-box {margin:10px 0;}
+      .paint-type-box {background:#f8f9fa; border:1px solid #dee2e6; border-radius:8px; padding:20px; margin-top:15px;}
+      
+      /* Buttons */
+      .btn {margin:.5em .5em 0 0;}
+      .btn-primary {color:white;}
+      
+      /* Tables */
+      table tr td {white-space:nowrap;}
+      table tr td:first-of-type {white-space:wrap;}
+      .navbar-custom-menu .navbar-nav > li > a.version-text {font-size:11px; color:#aaa; padding:15px 0;}
+      
+      /* Fullscreen preview - shared button styles */
+      .preview-container {position:relative; display:inline-block;}
+      .zoom-icon, .fullscreen-close {background:white; border:none; border-radius:50%; cursor:pointer; color:#333; transition:all 0.2s; display:flex; align-items:center; justify-content:center;}
+      .zoom-icon {position:absolute; top:4px; right:4px; width:36px; height:36px; font-size:24px; font-weight:300; line-height:1; box-shadow:0 2px 4px rgba(0,0,0,0.3);}
+      .zoom-icon:hover, .fullscreen-close:hover {background:black; color:white; transform:scale(1.1);}
+      .fullscreen-overlay {display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:9999; justify-content:center; align-items:center;}
+      .fullscreen-overlay.active {display:flex;}
+      .fullscreen-preview {width:100%; height:100%; border:0; position:relative;}
+      .fullscreen-color-name {position:absolute; bottom:60px; left:0; right:0; text-align:center; font-size:16px; font-weight:300; letter-spacing:0.5px; padding:0 20px; transition:color 0.3s;}
+      .fullscreen-close {position:absolute; top:20px; right:30px; width:50px; height:50px; font-size:30px; box-shadow:0 4px 8px rgba(0,0,0,0.3); z-index:10000;}
     "))),
     
     tags$script(HTML('
@@ -1611,6 +1524,98 @@ ui <- dashboardPage(
       });
     ')),
     
+    # Favorites localStorage JavaScript
+    tags$script(HTML('
+      // Favorites management with localStorage
+      const MAX_FAVORITES = 50;
+      const STORAGE_KEY = "paintomatic_favorites";
+      
+      // Get all favorites from localStorage
+      function getFavorites() {
+        try {
+          const data = localStorage.getItem(STORAGE_KEY);
+          return data ? JSON.parse(data) : [];
+        } catch(e) {
+          console.error("Error loading favorites:", e);
+          return [];
+        }
+      }
+      
+      // Save all favorites to localStorage
+      function saveFavorites(favorites) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites));
+          return true;
+        } catch(e) {
+          console.error("Error saving favorites:", e);
+          return false;
+        }
+      }
+      
+      // Add a new favorite
+      function addFavorite(favorite) {
+        let favorites = getFavorites();
+        
+        // Check limit
+        if (favorites.length >= MAX_FAVORITES) {
+          alert("Du har nått gränsen på " + MAX_FAVORITES + " sparade favoriter. Ta bort några för att spara fler.");
+          return false;
+        }
+        
+        // Add timestamp and ID
+        favorite.id = Date.now().toString();
+        favorite.timestamp = new Date().toISOString();
+        
+        // Add to beginning of array (most recent first)
+        favorites.unshift(favorite);
+        
+        saveFavorites(favorites);
+        
+        // Notify Shiny that favorites changed
+        Shiny.setInputValue("favorites_updated", Math.random(), {priority: "event"});
+        
+        return true;
+      }
+      
+      // Delete a favorite by ID
+      function deleteFavorite(id) {
+        let favorites = getFavorites();
+        favorites = favorites.filter(f => f.id !== id);
+        saveFavorites(favorites);
+        
+        // Update Shiny with new list (as JSON string)
+        Shiny.setInputValue("favorites_list", JSON.stringify(getFavorites()));
+        Shiny.setInputValue("favorites_updated", Math.random(), {priority: "event"});
+      }
+      
+      // Clear all favorites
+      function clearAllFavorites() {
+        if (confirm("Är du säker på att du vill ta bort alla sparade favoriter?")) {
+          localStorage.removeItem(STORAGE_KEY);
+          Shiny.setInputValue("favorites_list", JSON.stringify([]));
+          Shiny.setInputValue("favorites_updated", Math.random(), {priority: "event"});
+        }
+      }
+      
+      // Send favorites to Shiny on page load
+      $(document).ready(function() {
+        Shiny.setInputValue("favorites_list", JSON.stringify(getFavorites()));
+      });
+      
+      // Custom message handlers
+      Shiny.addCustomMessageHandler("save_favorite", function(favorite) {
+        if (addFavorite(favorite)) {
+          // Update Shiny with new favorites list (as JSON string)
+          Shiny.setInputValue("favorites_list", JSON.stringify(getFavorites()));
+        }
+      });
+      
+      Shiny.addCustomMessageHandler("clear_all_favorites", function(msg) {
+        clearAllFavorites();
+        Shiny.setInputValue("favorites_list", JSON.stringify(getFavorites()));
+      });
+    ')),
+    
     # Fullscreen overlay (shared for both previews)
     tags$div(id = "fullscreen-overlay", class = "fullscreen-overlay", onclick = "closeFullscreen()",
              tags$button(class = "fullscreen-close", onclick = "closeFullscreen()", 
@@ -1646,6 +1651,8 @@ ui <- dashboardPage(
                         textInput("color_name", "Valfritt färgnamn", 
                                   value = "", 
                                   placeholder = "Dörrkarm 1923"),
+                        actionButton("save_favorite", "Spara som favorit", class="btn-default btn-sm", 
+                                     icon = icon("star")),
                         hr(),
                         actionButton("reset_pigments", "Nollställ pigment", class="btn-default"),
                  ),
@@ -1655,18 +1662,19 @@ ui <- dashboardPage(
                         tags$b("Total andel: "), textOutput("total_pct",inline=TRUE), " %", 
                         uiOutput("total_warning"), 
                         tags$div(style="margin-top:2em;",
-                                 h5(style="font-weight:bold;","Samlingar med fördefinierade recept"),
+                                 h5(style="font-weight:bold;","Färdiga och sparade recept"),
                                  selectInput("recipe_set", NULL,
                                              choices = list(
                                                "Riksantikvarieämbetet (RAÄ) Kulturkulör" = "raa",
-                                               "Paint-o-matic" = "extended"
+                                               "Paint-o-matic-recept" = "extended",
+                                               "Sparade favoriter" = "saved"
                                              ),
                                              selected = "raa"),
                                  
                                  # Show description based on selected set
                                  conditionalPanel(
                                    condition = "input.recipe_set == 'raa'",
-                                   tags$small(a("Kulturkulör från Riksantikvarieämbetet (RAÄ)", href="https://www.raa.se/kulturarv/byggnader/byggnadsvard/kulturkulor-ett-fargsystem-for-linoljefarg/")," är ett färgsystem för historiskt trogen färgsättning. Den rätta skuggningsfärgen för Kulturkulör är ", tags$b("Järnoxidsvart nr 318 (RAÄ) (#J318)"), " men du kan också välja en annan om du vill blanda ett eget recept."),
+                                   tags$small(a("Kulturkulör från Riksantikvarieämbetet (RAÄ)", href="https://www.raa.se/kulturarv/byggnader/byggnadsvard/kulturkulor-ett-fargsystem-for-linoljefarg/")," är ett färgsystem för historiskt trogen färgsättning. Den rätta skuggningsfärgen för Kulturkulör är ", tags$b("Järnoxidsvart nr 318 (RAÄ) (#J318)"), " men du kan också välja en annan om du vill göra en egen färblandning."),
                                    br(), br(),
                                    selectInput("shading_pigment_raa", "Skuggningsfärg",
                                                choices = shading_pigments,
@@ -1675,11 +1683,17 @@ ui <- dashboardPage(
                                  
                                  conditionalPanel(
                                    condition = "input.recipe_set == 'extended'",
-                                   tags$small("Receptpaletter med toning- och skuggningsserier för alla pigment som är tillgängliga i Paint-o-matic. Välj skuggningsfärg nedan."),
+                                   tags$small("Paletter med toning- och skuggningsblandningar för alla pigment som är tillgängliga i Paint-o-matic. Välj skuggningsfärg nedan."),
                                    br(), br(),
                                    selectInput("shading_pigment", "Skuggningsfärg",
                                                choices = shading_pigments,
                                                selected = "J318")
+                                 ),
+                                 
+                                 conditionalPanel(
+                                   condition = "input.recipe_set == 'saved'",
+                                   tags$small("Alla dina sparade favorit-kulörblandningar lagras på din enhet."),
+                                   br(), br()
                                  ),
                                  
                                  div(style = "width: 100%; height: 300px; overflow-y: auto; overflow-x: auto; border: 1px solid #ddd; padding: 10px;",
@@ -1812,6 +1826,30 @@ server <- function(input, output, session) {
     extra_oil = 1.8,
     zinc_ratio = 15
   )
+  
+  # === HELPER FUNCTIONS ===
+  
+  # Clear all pigment slots
+  clear_all_pigments <- function() {
+    updatePickerInput(session, "p1", selected = character(0))
+    updateSliderInput(session, "pct1", value = 0)
+    updatePickerInput(session, "p2", selected = character(0))
+    updateSliderInput(session, "pct2", value = 0)
+    updatePickerInput(session, "p3", selected = character(0))
+    updateSliderInput(session, "pct3", value = 0)
+    updatePickerInput(session, "p4", selected = character(0))
+    updateSliderInput(session, "pct4", value = 0)
+  }
+  
+  # Safe value extraction from list/favorites
+  safe_get <- function(obj, key, default = "") {
+    if(is.list(obj) && key %in% names(obj)) {
+      val <- obj[[key]]
+      if(is.null(val) || length(val) == 0) return(default)
+      return(val)
+    }
+    return(default)
+  }
   
   # Update stored values when inputs are valid (combined for efficiency)
   observe({
@@ -2138,6 +2176,142 @@ server <- function(input, output, session) {
       return(render_swatch_matrix(recipes_to_show, base_pigments, vitbas_increments, 
                                   shade_increments, shade_pigment, use_tinting))
     }
+    
+    if(recipe_set == "saved") {
+      # Saved favorites from localStorage
+      favorites_raw <- input$favorites_list
+      
+      # Parse JSON if it's a string
+      favorites <- if(is.character(favorites_raw) && nchar(favorites_raw) > 0) {
+        tryCatch({
+          jsonlite::fromJSON(favorites_raw, simplifyVector = FALSE)
+        }, error = function(e) {
+          cat("Error parsing favorites JSON:", e$message, "\n")
+          list()
+        })
+      } else if(is.list(favorites_raw)) {
+        favorites_raw
+      } else {
+        list()
+      }
+      
+      if(is.null(favorites) || length(favorites) == 0) {
+        return(tags$div(
+          style = "text-align: center; padding: 40px; color: #666;",
+          icon("star", style = "font-size: 48px; color: #ddd;"), br(), br(),
+          tags$p("Inga sparade favoriter än."),
+          tags$p(tags$small("Blanda en färg och klicka på 'Spara som favorit' för att spara den här."))
+        ))
+      }
+      
+      # Convert favorites to a simple list format for rendering
+      tryCatch({
+        swatch_elements <- list()
+        
+        for(i in seq_along(favorites)) {
+          # Get favorite - handle both list and atomic vector cases
+          fav_item <- favorites[[i]]
+          
+          # Skip if not a list
+          if(!is.list(fav_item)) next
+          
+          # Safe extraction using names
+          get_safe <- function(name, default = "") {
+            if(name %in% names(fav_item)) {
+              val <- fav_item[[name]]
+              if(is.null(val) || length(val) == 0) return(default)
+              return(as.character(val))
+            }
+            return(default)
+          }
+          
+          # Extract values
+          p1 <- get_safe("p1", "")
+          pct1 <- as.numeric(get_safe("pct1", "0"))
+          p2 <- get_safe("p2", "")
+          pct2 <- as.numeric(get_safe("pct2", "0"))
+          p3 <- get_safe("p3", "")
+          pct3 <- as.numeric(get_safe("pct3", "0"))
+          p4 <- get_safe("p4", "")
+          pct4 <- as.numeric(get_safe("pct4", "0"))
+          fav_name <- get_safe("name", "")
+          fav_id <- get_safe("id", as.character(i))
+          
+          # Build pigment mix
+          ids <- c()
+          pcts <- c()
+          
+          if(p1 != "" && !is.na(pct1) && pct1 > 0) {
+            ids <- c(ids, p1)
+            pcts <- c(pcts, pct1)
+          }
+          if(p2 != "" && !is.na(pct2) && pct2 > 0) {
+            ids <- c(ids, p2)
+            pcts <- c(pcts, pct2)
+          }
+          if(p3 != "" && !is.na(pct3) && pct3 > 0) {
+            ids <- c(ids, p3)
+            pcts <- c(pcts, pct3)
+          }
+          if(p4 != "" && !is.na(pct4) && pct4 > 0) {
+            ids <- c(ids, p4)
+            pcts <- c(pcts, pct4)
+          }
+          
+          # Calculate color
+          hex_color <- "#FFFFFF"
+          if(length(ids) > 0) {
+            tryCatch({
+              color_rgb <- mix_colors(ids, pcts, km, use_tinting = TRUE)
+              hex_color <- rgb(color_rgb[1], color_rgb[2], color_rgb[3], maxColorValue = 255)
+            }, error = function(e) {
+              hex_color <<- "#FFFFFF"
+            })
+          }
+          
+          # Create swatch with delete button
+          display_name <- if(fav_name != "") fav_name else "Namnlös"
+          
+          swatch_elements[[length(swatch_elements) + 1]] <- tags$span(
+            style = "position: relative; display: inline-block; margin: 5px;",
+            tags$span(
+              class = "kulturkulor-swatch",
+              style = sprintf("background-color:%s; width: 48px; height: 48px;", hex_color),
+              title = display_name,
+              onclick = sprintf("Shiny.setInputValue('favorite_click', '%s', {priority: 'event'});", fav_id)
+            ),
+            # Delete button (small circle with X)
+            tags$span(
+              class = "favorite-delete-btn",
+              style = "position: absolute; top: -8px; right: -8px; width: 24px; height: 24px; background: white; border: 1px solid #ccc; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; color: #000; box-shadow: 0 2px 4px rgba(0,0,0,0.2);",
+              onclick = sprintf("event.stopPropagation(); deleteFavorite('%s'); return false;", fav_id),
+              title = "Ta bort favorit",
+              "×"
+            )
+          )
+        }
+        
+        tagList(
+          tags$div(
+            style = "margin-bottom: 20px;",
+            swatch_elements
+          ),
+          tags$div(
+            style = "margin-top: 20px; text-align: center;",
+            actionButton("clear_all_favorites", "Rensa alla favoriter", 
+                         class = "btn btn-default btn-sm",
+                         icon = icon("trash-alt"))
+          )
+        )
+      }, error = function(e) {
+        return(tags$div(
+          style = "text-align: center; padding: 40px; color: #d9534f;",
+          icon("exclamation-triangle", style = "font-size: 48px;"), br(), br(),
+          tags$p("Fel vid laddning av favoriter."),
+          tags$p(tags$small(paste("Felmeddelande:", e$message)))
+        ))
+      })
+    }
   })
   
   # Handle swatch clicks
@@ -2171,13 +2345,8 @@ server <- function(input, output, session) {
       base_pct <- base_pct + diff
     }
     
-    # CRITICAL: Clear ALL slots first (p2, p3, p4) before loading anything
-    updatePickerInput(session, "p2", selected = character(0))
-    updateSliderInput(session, "pct2", value = 0)
-    updatePickerInput(session, "p3", selected = character(0))
-    updateSliderInput(session, "pct3", value = 0)
-    updatePickerInput(session, "p4", selected = character(0))
-    updateSliderInput(session, "pct4", value = 0)
+    # Clear all slots first before loading
+    clear_all_pigments()
     
     # Load base pigment (always present in p1)
     updatePickerInput(session, "p1", selected = base_id)
@@ -2215,6 +2384,129 @@ server <- function(input, output, session) {
     updateTextInput(session, "color_name", value = color_name)
   })
   
+  # Save favorite
+  observeEvent(input$save_favorite, {
+    # Get current mix
+    m <- mix()
+    if(length(m$ids) == 0 || m$total == 0) {
+      showNotification("Ingen färg att spara. Välj pigment först.", type = "warning", duration = 3)
+      return()
+    }
+    
+    # Build favorite object
+    favorite <- list(
+      p1 = input$p1 %||% "",
+      pct1 = input$pct1 %||% 0,
+      p2 = input$p2 %||% "",
+      pct2 = input$pct2 %||% 0,
+      p3 = input$p3 %||% "",
+      pct3 = input$pct3 %||% 0,
+      p4 = input$p4 %||% "",
+      pct4 = input$pct4 %||% 0,
+      name = input$color_name %||% ""
+    )
+    
+    # Send to JavaScript to save in localStorage
+    session$sendCustomMessage("save_favorite", favorite)
+    
+    showNotification("Favorit sparad!", type = "message", duration = 2)
+  })
+  
+  # Handle favorite click (load from saved)
+  observeEvent(input$favorite_click, {
+    req(input$favorite_click)
+    fav_id <- input$favorite_click
+    
+    # Get favorite from localStorage via JavaScript
+    # The favorites_list input contains all favorites
+    favorites_raw <- input$favorites_list
+    
+    # Parse JSON if it's a string
+    favorites <- if(is.character(favorites_raw) && nchar(favorites_raw) > 0) {
+      tryCatch({
+        jsonlite::fromJSON(favorites_raw, simplifyVector = FALSE)
+      }, error = function(e) {
+        list()
+      })
+    } else if(is.list(favorites_raw)) {
+      favorites_raw
+    } else {
+      list()
+    }
+    
+    if(is.null(favorites) || length(favorites) == 0) return()
+    
+    # Find the clicked favorite
+    fav <- NULL
+    for(i in seq_along(favorites)) {
+      f <- favorites[[i]]
+      f_id <- if(is.list(f) && !is.null(f[["id"]])) f[["id"]] else NULL
+      if(!is.null(f_id) && f_id == fav_id) {
+        fav <- f
+        break
+      }
+    }
+    
+    if(is.null(fav)) return()
+    
+    # Safe access function
+    get_val <- function(key, default = "") {
+      val <- fav[[key]]
+      if(is.null(val) || length(val) == 0) return(default)
+      return(val)
+    }
+    
+    # Clear all slots first
+    clear_all_pigments()
+    
+    # Load favorite data
+    p1 <- get_val("p1", "")
+    pct1 <- as.numeric(get_val("pct1", 0))
+    if(p1 != "" && pct1 > 0) {
+      updatePickerInput(session, "p1", selected = p1)
+      updateSliderInput(session, "pct1", value = pct1)
+    }
+    
+    p2 <- get_val("p2", "")
+    pct2 <- as.numeric(get_val("pct2", 0))
+    if(p2 != "" && pct2 > 0) {
+      updatePickerInput(session, "p2", selected = p2)
+      updateSliderInput(session, "pct2", value = pct2)
+    }
+    
+    p3 <- get_val("p3", "")
+    pct3 <- as.numeric(get_val("pct3", 0))
+    if(p3 != "" && pct3 > 0) {
+      updatePickerInput(session, "p3", selected = p3)
+      updateSliderInput(session, "pct3", value = pct3)
+    }
+    
+    p4 <- get_val("p4", "")
+    pct4 <- as.numeric(get_val("pct4", 0))
+    if(p4 != "" && pct4 > 0) {
+      updatePickerInput(session, "p4", selected = p4)
+      updateSliderInput(session, "pct4", value = pct4)
+    }
+    
+    # Load color name if exists
+    fav_name <- get_val("name", "")
+    if(fav_name != "") {
+      updateTextInput(session, "color_name", value = fav_name)
+    }
+    
+    showNotification("Favorit laddad", type = "message", duration = 2)
+  })
+  
+  # Clear all favorites
+  observeEvent(input$clear_all_favorites, {
+    session$sendCustomMessage("clear_all_favorites", list())
+  })
+  
+  # Refresh favorites list when updated
+  observeEvent(input$favorites_updated, {
+    # Re-render will happen automatically via favorites_list reactive
+  })
+  
   # Blandning
   mix <- reactive({
     # CRITICAL: Don't use c() because it drops empty values and misaligns the arrays!
@@ -2227,29 +2519,19 @@ server <- function(input, output, session) {
     
     pct <- c(input$pct1 %||% 0, input$pct2 %||% 0, input$pct3 %||% 0, input$pct4 %||% 0)
     
-    # Debug: show what we received
-    cat("mix() reactive debug:\n")
-    cat("Raw ids:", paste(ids, collapse=", "), "\n")
-    cat("Raw pct:", paste(pct, collapse=", "), "\n")
-    
     # Filter: must have valid ID AND percentage > 0
     valid <- sapply(seq_along(ids), function(i) {
       !is.na(ids[i]) && 
         !is.null(ids[i]) && 
         length(ids[i]) > 0 && 
-        nchar(as.character(ids[i])) > 0 &&  # Extra check for empty strings
+        nchar(as.character(ids[i])) > 0 &&
         ids[i] != "" && 
         !is.na(pct[i]) &&
         pct[i] > 0
     })
     
-    cat("Valid flags:", paste(valid, collapse=", "), "\n")
-    
     ids_valid <- ids[valid]
     pct_valid <- pct[valid]
-    
-    cat("After filtering - ids_valid:", paste(ids_valid, collapse=", "), "\n")
-    cat("After filtering - pct_valid:", paste(pct_valid, collapse=", "), "\n")
     
     # Remove duplicates: if same pigment appears multiple times, sum the percentages
     if(length(ids_valid) > 0) {
@@ -2354,30 +2636,17 @@ server <- function(input, output, session) {
         p4 = if(is.null(input$p4) || length(input$p4) == 0 || input$p4 == "") NA else input$p4
       )
       
-      # Debug: print what we're working with
-      cat("Normalize debug:\n")
-      cat("m$ids:", paste(m$ids, collapse=", "), "\n")
-      cat("current_inputs:", paste(names(current_inputs), "=", current_inputs, collapse="; "), "\n")
-      
       # Update sliders for each pigment
       for(i in seq_along(m$ids)) {
         pigment_id <- m$ids[i]
         new_pct <- normalized_int[i]
         
-        cat("Looking for pigment", pigment_id, "with new pct", new_pct, "\n")
-        
         # Find which input slot this pigment is in
         slot_idx <- which(sapply(current_inputs, function(x) !is.na(x) && x == pigment_id))[1]
         
-        cat("Found in slot:", slot_idx, "\n")
-        
         if(!is.na(slot_idx) && slot_idx <= 4) {
           input_name <- paste0("pct", slot_idx)
-          cat("Updating", input_name, "to", new_pct, "\n")
           updateSliderInput(session, input_name, value = new_pct)
-        } else {
-          # Debug: pigment not found in any slot
-          cat("ERROR: Could not find slot for pigment:", pigment_id, "\n")
         }
       }
       

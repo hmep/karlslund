@@ -1721,7 +1721,7 @@ ui <- dashboardPage(
                ),
                hr(),
                actionButton("to_step2","Nästa", class="btn-primary next-btn", icon = icon(class="icon-next","circle-arrow-right")),
-               div(class="footer-ref", "Masstone baserad på data från Riksantikvarieämbetet (RAÄ) Kulturkulör, Kremer Pigmente, m. fl. Färgmixningen tar hänsyn till olika pigments fysikaliska egenskaper (K- och S-värden). Trots detta, notera att en skärm inte exakt kan simulera hur ljus som absorberas av eller reflekteras från en målad yta uppfattas.")
+               div(class="footer-ref", "Masstone baserad på data från Riksantikvarieämbetet (RAÄ) Kulturkulör, Kremer Pigmente, m. fl. Mixningen tar hänsyn till pigmentens ljusbrytande egenskaper. Tänk på att en skärm inte exakt kan återge hur ögat uppfattar ljus som träffar en målad yta.")
     )),
     
     hidden(div(id="step2", class="step",

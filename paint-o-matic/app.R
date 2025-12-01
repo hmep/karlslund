@@ -1691,20 +1691,20 @@ ui <- dashboardPage(
                                  # Show description based on selected set
                                  conditionalPanel(
                                    condition = "input.recipe_set == 'raa'",
-                                   tags$small(a("Kulturkulör från Riksantikvarieämbetet (RAÄ)", href="https://www.raa.se/kulturarv/byggnader/byggnadsvard/kulturkulor-ett-fargsystem-for-linoljefarg/")," är ett system för historiskt trogen färgsättning med jordpigment och järnoxider. Det angivna skuggningspigmentet för Kulturkulör är ", tags$b("Järnoxidsvart nr 318 (#J318)"), " men du kan också välja ett annat om du mixa en egen kulör."),
+                                   tags$small(a("Kulturkulör från Riksantikvarieämbetet (RAÄ)", href="https://www.raa.se/kulturarv/byggnader/byggnadsvard/kulturkulor-ett-fargsystem-for-linoljefarg/")," är ett system för historiskt trogen färgsättning med jordpigment och järnoxider."),
                                    br(), br(),
-                                   selectInput("shading_pigment_raa", "Skuggningspigment",
-                                               choices = shading_pigments,
-                                               selected = "J318")
+                                   #selectInput("shading_pigment_raa", "Skuggningspigment",
+                                   #             choices = shading_pigments,
+                                   #             selected = "J318")
                                  ),
                                  
                                  conditionalPanel(
                                    condition = "input.recipe_set == 'extended'",
-                                   tags$small("Kulörpaletter med tonings- och skuggningsmixer för alla pigment som är tillgängliga i Paint-o-matic. Välj skuggningspigment nedan. Modifiera gärna mixen efter eget tycke!"),
+                                   tags$small("Kulörpaletter med tonings- och skuggningsmixer för alla pigment som är tillgängliga i Paint-o-matic. Modifiera gärna mixen efter eget tycke!"),
                                    br(), br(),
-                                   selectInput("shading_pigment", "Skuggningspigment",
-                                               choices = shading_pigments,
-                                               selected = "J318")
+                                   #selectInput("shading_pigment", "Skuggningspigment",
+                                   #             choices = shading_pigments,
+                                   #             selected = "J318")
                                  ),
                                  
                                  conditionalPanel(

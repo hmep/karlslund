@@ -364,48 +364,48 @@ km <- list(
   "40400" = list(name = "Viridian PG18", oil = 40, K = 1.20, S = 1.50, density = 3.5, rgb = c(30, 120, 80)),
   "41700" = list(name = "Malakit naturlig", oil = 45, K = 0.90, S = 0.80, density = 4.0, rgb = c(70, 160, 100)),
   "11100" = list(name = "Phthalogrön PG7", oil = 50, K = 1.50, S = 1.40, density = 2.0, rgb = c(0, 100, 50)),
-  "KG83" = list(name = "Kromoxidgrönt nr GN 83 (RAÄ)", oil = 18, K = 1.15, S = 1.75, density = 5.2, rgb = c(74, 117, 82)),
-  "ZG65" = list(name = "Zinkgrönt nr 65 (RAÄ)", oil = 19, K = 1.00, S = 1.60, density = 4.8, rgb = c(110, 145, 105)),
+  "KG83" = list(name = "Kromoxidgrönt nr GN 83", oil = 18, K = 1.15, S = 1.75, density = 5.2, rgb = c(74, 117, 82)),
+  "ZG65" = list(name = "Zinkgrönt nr 65", oil = 19, K = 1.00, S = 1.60, density = 4.8, rgb = c(110, 145, 105)),
   "40850" = list(name = "Grön jord Böhmen", oil = 35, K = 0.60, S = 0.55, density = 3.2, rgb = c(90, 120, 70)),
   "40860" = list(name = "Grön jord Verona", oil = 35, K = 0.65, S = 0.60, density = 3.2, rgb = c(100, 130, 80)),
-  "GU30" = list(name = "Grön umbra nr 30 (RAÄ)", oil = 50, K = 0.85, S = 0.48, density = 3.5, rgb = c(95, 100, 70)),
+  "GU30" = list(name = "Grön umbra nr 30", oil = 50, K = 0.85, S = 0.48, density = 3.5, rgb = c(95, 100, 70)),
   
   # BLACKS
   "44450" = list(name = "Svartoxid PBk11", oil = 15, K = 2.40, S = 1.10, density = 5.21, rgb = c(28, 38, 38)),
-  "J318" = list(name = "Järnoxidsvart nr 318 (RAÄ)", oil = 16, K = 2.35, S = 1.08, density = 5.1, rgb = c(35, 35, 38)),
-  "BS98" = list(name = "Bensvart nr 98 (RAÄ)", oil = 50, K = 2.60, S = 0.95, density = 2.0, rgb = c(28, 28, 32)),
+  "J318" = list(name = "Järnoxidsvart nr 318", oil = 16, K = 2.35, S = 1.08, density = 5.1, rgb = c(35, 35, 38)),
+  "BS98" = list(name = "Bensvart nr 98", oil = 50, K = 2.60, S = 0.95, density = 2.0, rgb = c(28, 28, 32)),
   "47501" = list(name = "Mangansvart", oil = 22, K = 2.50, S = 1.15, density = 4.8, rgb = c(32, 32, 32)),
   "47400" = list(name = "Spinel-svart", oil = 33, K = 2.80, S = 1.25, density = 4.5, rgb = c(20, 20, 20)),
   
   # BLUES
   "11670" = list(name = "Phthaloblå PB15:3", oil = 45, K = 1.80, S = 1.20, density = 2.0, rgb = c(0, 70, 130)),
-  "UB88" = list(name = "Ultramarinblått nr 88 (RAÄ)", oil = 42, K = 1.65, S = 0.88, density = 2.4, rgb = c(45, 60, 130)),
-  "KB28" = list(name = "Koboltblått nr 28 (RAÄ)", oil = 35, K = 1.40, S = 0.92, density = 4.0, rgb = c(70, 95, 155)),
+  "UB88" = list(name = "Ultramarinblått nr 88", oil = 42, K = 1.65, S = 0.88, density = 2.4, rgb = c(45, 60, 130)),
+  "KB28" = list(name = "Koboltblått nr 28", oil = 35, K = 1.40, S = 0.92, density = 4.0, rgb = c(70, 95, 155)),
   
   # EARTH COLORS - TERRA & POZZUOLI
   "40820" = list(name = "Terra di Pozzuoli", oil = 40, K = 0.70, S = 0.55, density = 3.3, rgb = c(180, 80, 60)),
   "40800" = list(name = "Terra di Siena natur", oil = 40, K = 0.60, S = 0.50, density = 3.3, rgb = c(170, 110, 70)),
   "40830" = list(name = "Terra di Ercolano", oil = 40, K = 0.75, S = 0.55, density = 3.3, rgb = c(175, 85, 65)),
-  "BT44" = list(name = "Bränd terra nr 44 (RAÄ)", oil = 38, K = 0.78, S = 0.52, density = 3.4, rgb = c(170, 110, 70)),
-  "OT46" = list(name = "Obränd terra nr 46 (RAÄ)", oil = 38, K = 0.62, S = 0.48, density = 3.3, rgb = c(180, 130, 80)),
+  "BT44" = list(name = "Bränd terra nr 44", oil = 38, K = 0.78, S = 0.52, density = 3.4, rgb = c(170, 110, 70)),
+  "OT46" = list(name = "Obränd terra nr 46", oil = 38, K = 0.62, S = 0.48, density = 3.3, rgb = c(180, 130, 80)),
   
   # YELLOWS & OCHRES
   "44082" = list(name = "Gul ockra ljus", oil = 20, K = 0.48, S = 0.38, density = 3.5, rgb = c(210, 180, 120)),
   "44086" = list(name = "Gul ockra mörk", oil = 20, K = 0.55, S = 0.45, density = 3.5, rgb = c(160, 120, 70)),
   "44150" = list(name = "Naples Yellow light", oil = 35, K = 0.40, S = 0.70, density = 6.0, rgb = c(240, 220, 130)),
   "44160" = list(name = "Naples Yellow dark", oil = 35, K = 0.50, S = 0.65, density = 6.0, rgb = c(220, 190, 100)),
-  "J920" = list(name = "Järnoxidgult nr 920 (RAÄ)", oil = 22, K = 0.52, S = 0.42, density = 4.0, rgb = c(195, 165, 85)),
-  "LO92" = list(name = "Ljusockra nr 92 (RAÄ)", oil = 21, K = 0.46, S = 0.40, density = 3.5, rgb = c(210, 185, 135)),
-  "GO94" = list(name = "Guldockra nr 94 (RAÄ)", oil = 23, K = 0.58, S = 0.46, density = 3.6, rgb = c(185, 155, 90)),
-  "GO94_GU30" = list(name = "50% Guldockra + 50% Grön umbra (RAÄ)", oil = 40, K = 0.72, S = 0.47, density = 3.5, rgb = c(135, 130, 85)),
+  "J920" = list(name = "Järnoxidgult nr 920", oil = 22, K = 0.52, S = 0.42, density = 4.0, rgb = c(195, 165, 85)),
+  "LO92" = list(name = "Ljusockra nr 92", oil = 21, K = 0.46, S = 0.40, density = 3.5, rgb = c(210, 185, 135)),
+  "GO94" = list(name = "Guldockra nr 94", oil = 23, K = 0.58, S = 0.46, density = 3.6, rgb = c(185, 155, 90)),
+  "GO94_GU30" = list(name = "50% Guldockra + 50% Grön umbra", oil = 40, K = 0.72, S = 0.47, density = 3.5, rgb = c(135, 130, 85)),
   
   # SIENNAS & UMBERS
   "44650" = list(name = "Raw Sienna Italien", oil = 45, K = 0.55, S = 0.45, density = 3.3, rgb = c(180, 130, 70)),
   "44620" = list(name = "Burnt Sienna Italien", oil = 50, K = 0.75, S = 0.50, density = 3.5, rgb = c(160, 82, 45)),
-  "OU103" = list(name = "Obränd umbra nr 103 (RAÄ)", oil = 52, K = 0.92, S = 0.46, density = 3.4, rgb = c(115, 95, 80)),
-  "BU100" = list(name = "Bränd umbra nr 100 (RAÄ)", oil = 56, K = 1.12, S = 0.52, density = 3.5, rgb = c(90, 60, 45)),
-  "BRU39" = list(name = "Brun umbra nr 39 (RAÄ)", oil = 54, K = 1.05, S = 0.48, density = 3.4, rgb = c(105, 85, 70)),
-  "GRAU36" = list(name = "Grå umbra nr 36 (RAÄ)", oil = 48, K = 1.20, S = 0.55, density = 3.5, rgb = c(100, 95, 90)),
+  "OU103" = list(name = "Obränd umbra nr 103", oil = 52, K = 0.92, S = 0.46, density = 3.4, rgb = c(115, 95, 80)),
+  "BU100" = list(name = "Bränd umbra nr 100", oil = 56, K = 1.12, S = 0.52, density = 3.5, rgb = c(90, 60, 45)),
+  "BRU39" = list(name = "Brun umbra nr 39", oil = 54, K = 1.05, S = 0.48, density = 3.4, rgb = c(105, 85, 70)),
+  "GRAU36" = list(name = "Grå umbra nr 36", oil = 48, K = 1.20, S = 0.55, density = 3.5, rgb = c(100, 95, 90)),
   
   # REDS & ORANGES - IRON OXIDES
   "44300" = list(name = "Transparent brunoxid", oil = 50, K = 0.80, S = 0.22, density = 5.0, rgb = c(139, 69, 19)),
@@ -413,14 +413,14 @@ km <- list(
   "44210" = list(name = "Röd järnoxid ljus", oil = 47, K = 0.80, S = 0.25, density = 5.1, rgb = c(200, 70, 60)),
   "44220" = list(name = "Röd järnoxid mörk", oil = 47, K = 1.00, S = 0.35, density = 5.2, rgb = c(160, 35, 35)),
   "44510" = list(name = "Orange järnoxid", oil = 47, K = 0.55, S = 0.85, density = 4.8, rgb = c(232, 97, 0)),
-  "J225" = list(name = "Järnoxidrött nr 225 (RAÄ)", oil = 48, K = 0.95, S = 0.32, density = 5.1, rgb = c(142, 52, 52)),
-  "J180M" = list(name = "Järnoxidrött nr 180M Caput Mortuum (RAÄ)", oil = 48, K = 1.15, S = 0.28, density = 5.2, rgb = c(105, 45, 55)),
-  "J120N" = list(name = "Järnoxidrött nr 120N (RAÄ)", oil = 47, K = 0.85, S = 0.30, density = 5.0, rgb = c(155, 65, 60)),
-  "ER48A" = list(name = "Engelskt rött nr 48A (RAÄ)", oil = 30, K = 0.75, S = 0.40, density = 4.9, rgb = c(175, 80, 70)),
+  "J225" = list(name = "Järnoxidrött nr 225", oil = 48, K = 0.95, S = 0.32, density = 5.1, rgb = c(142, 52, 52)),
+  "J180M" = list(name = "Järnoxidrött nr 180M Caput Mortuum", oil = 48, K = 1.15, S = 0.28, density = 5.2, rgb = c(105, 45, 55)),
+  "J120N" = list(name = "Järnoxidrött nr 120N", oil = 47, K = 0.85, S = 0.30, density = 5.0, rgb = c(155, 65, 60)),
+  "ER48A" = list(name = "Engelskt rött nr 48A", oil = 30, K = 0.75, S = 0.40, density = 4.9, rgb = c(175, 80, 70)),
   
   # BROWNS - IRON OXIDES
-  "J663" = list(name = "Järnoxidbrunt nr 663 (RAÄ)", oil = 50, K = 0.88, S = 0.38, density = 5.0, rgb = c(120, 80, 60)),
-  "J686" = list(name = "Järnoxidbrunt nr 686 (RAÄ)", oil = 52, K = 0.92, S = 0.35, density = 5.1, rgb = c(105, 70, 55)),
+  "J663" = list(name = "Järnoxidbrunt nr 663", oil = 50, K = 0.88, S = 0.38, density = 5.0, rgb = c(120, 80, 60)),
+  "J686" = list(name = "Järnoxidbrunt nr 686", oil = 52, K = 0.92, S = 0.35, density = 5.1, rgb = c(105, 70, 55)),
   "48330" = list(name = "Järnmanganbrunt 645 T", oil = 50, K = 0.90, S = 0.40, density = 4.8, rgb = c(95, 65, 45))
   
 )
@@ -729,7 +729,7 @@ suppliers <- list(
   # === RAÄ PIGMENTS ===
   # GREENS
   "KG83" = list(
-    name = "Kromoxidgrönt nr GN 83 (RAÄ)",
+    name = "Kromoxidgrönt nr GN 83",
     kremer_match = "Chrome Oxide Green (PG17)",
     kremer_id = "44200",
     kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/44200-chrome-oxide-green",
@@ -737,7 +737,7 @@ suppliers <- list(
   ),
   
   "ZG65" = list(
-    name = "Zinkgrönt nr 65 (RAÄ)",
+    name = "Zinkgrönt nr 65",
     kremer_match = "Cobalt Green Dark (PG19) or Cobalt Zinc Silicate",
     kremer_id = "44350",
     kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/44350-cobalt-green-dark",
@@ -745,7 +745,7 @@ suppliers <- list(
   ),
   
   "GU30" = list(
-    name = "Grön umbra nr 30 (RAÄ)",
+    name = "Grön umbra nr 30",
     kremer_match = "Raw Umber, greenish (PBr8)",
     kremer_id = "40630",
     kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40630-raw-umber-greenish",
@@ -754,7 +754,7 @@ suppliers <- list(
   
   # BLACKS
   "J318" = list(
-    name = "Järnoxidsvart nr 318 (RAÄ)",
+    name = "Järnoxidsvart nr 318",
     kremer_match = "Iron Oxide Black 318 (PBk11)",
     kremer_id = "48400",
     kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48400-iron-oxide-black-318-high-tinting",
@@ -766,7 +766,7 @@ suppliers <- list(
   ),
   
   "BS98" = list(
-    name = "Bensvart nr 98 (RAÄ)",
+    name = "Bensvart nr 98",
     kremer_match = "Bone Black (PBk9)",
     kremer_id = "47100",
     kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/47100-bone-black",
@@ -777,7 +777,7 @@ suppliers <- list(
   
   # BLUES
   "UB88" = list(
-    name = "Ultramarinblått nr 88 (RAÄ)",
+    name = "Ultramarinblått nr 88",
     kremer_match = "Ultramarine Blue, very dark (PB29)",
     kremer_id = "45000",
     kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/45000-ultramarine-blue-very-dark",
@@ -785,7 +785,7 @@ suppliers <- list(
   ),
   
   "KB28" = list(
-    name = "Koboltblått nr 28 (RAÄ)",
+    name = "Koboltblått nr 28",
     kremer_match = "Cobalt Blue Medium (PB28)",
     kremer_id = "45710",
     kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/45710-cobalt-blue-medium",
@@ -794,7 +794,7 @@ suppliers <- list(
   
   # TERRA & EARTH COLORS
   "BT44" = list(
-    name = "Bränd terra nr 44 (RAÄ)",
+    name = "Bränd terra nr 44",
     kremer_match = "Burnt Sienna, Italian (PR101)",
     kremer_id = "44620",
     kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40450-burnt-sienna-italian",
@@ -802,7 +802,7 @@ suppliers <- list(
   ),
   
   "OT46" = list(
-    name = "Obränd terra nr 46 (RAÄ)",
+    name = "Obränd terra nr 46",
     kremer_match = "Raw Sienna, Italian (PY43)",
     kremer_id = "40400",
     kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40400-raw-sienna-italian",
@@ -811,7 +811,7 @@ suppliers <- list(
   
   # YELLOWS & OCHRES
   "J920" = list(
-    name = "Järnoxidgult nr 920 (RAÄ)",
+    name = "Järnoxidgult nr 920",
     kremer_match = "Yellow Ochre, dark (PY42/43)",
     kremer_id = "40030",
     kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40030-yellow-ochre-dark",
@@ -819,7 +819,7 @@ suppliers <- list(
   ),
   
   "LO92" = list(
-    name = "Ljusockra nr 92 (RAÄ)",
+    name = "Ljusockra nr 92",
     kremer_match = "Yellow Ochre, light (PY42/43)",
     kremer_id = "40010",
     kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40010-yellow-ochre-light",
@@ -827,7 +827,7 @@ suppliers <- list(
   ),
   
   "GO94" = list(
-    name = "Guldockra nr 94 (RAÄ)",
+    name = "Guldockra nr 94",
     kremer_match = "Yellow Ochre Golden, Italian (PY43)",
     kremer_id = "40015",
     kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40015-yellow-ochre-golden-italian",
@@ -837,7 +837,7 @@ suppliers <- list(
   ),
   
   "GO94_GU30" = list(
-    name = "50% Guldockra + 50% Grön umbra (RAÄ)",
+    name = "50% Guldockra + 50% Grön umbra",
     kremer_match = "Mix Yellow Ochre Golden + Raw Umber greenish",
     kremer_id = "40015 + 40630",
     kremer_url = c(
@@ -849,7 +849,7 @@ suppliers <- list(
   
   # UMBERS
   "OU103" = list(
-    name = "Obränd umbra nr 103 (RAÄ)",
+    name = "Obränd umbra nr 103",
     kremer_match = "Raw Umber, Cyprus (PBr8)",
     kremer_id = "40610",
     kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40610-raw-umber",
@@ -857,7 +857,7 @@ suppliers <- list(
   ),
   
   "BU100" = list(
-    name = "Bränd umbra nr 100 (RAÄ)",
+    name = "Bränd umbra nr 100",
     kremer_match = "Burnt Umber, dark brown (PBr7)",
     kremer_id = "40720",
     kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40720-burnt-umber-dark-brown",
@@ -869,7 +869,7 @@ suppliers <- list(
   ),
   
   "BRU39" = list(
-    name = "Brun umbra nr 39 (RAÄ)",
+    name = "Brun umbra nr 39",
     kremer_match = "Burnt Umber, reddish (PBr7)",
     kremer_id = "40700",
     kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40700-burnt-umber-reddish",
@@ -877,7 +877,7 @@ suppliers <- list(
   ),
   
   "GRAU36" = list(
-    name = "Grå umbra nr 36 (RAÄ)",
+    name = "Grå umbra nr 36",
     kremer_match = "Raw Umber, dark + small amount of blue pigment",
     kremer_id = "40660",
     kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40660-raw-umber-dark",
@@ -886,7 +886,7 @@ suppliers <- list(
   
   # IRON OXIDE REDS
   "J225" = list(
-    name = "Järnoxidrött nr 225 (RAÄ)",
+    name = "Järnoxidrött nr 225",
     kremer_match = "Red Iron Oxide, medium (PR101)",
     kremer_id = "48200",
     kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48200-red-iron-oxide-medium",
@@ -894,7 +894,7 @@ suppliers <- list(
   ),
   
   "J180M" = list(
-    name = "Caput Mortuum 180M (RAÄ)",
+    name = "Caput Mortuum 180M",
     kremer_match = "Caput Mortuum Violet (PR101)",
     kremer_id = "48280",
     kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48280-caput-mortuum-violet",
@@ -902,7 +902,7 @@ suppliers <- list(
   ),
   
   "J120N" = list(
-    name = "Järnoxidrött nr 120N (RAÄ)",
+    name = "Järnoxidrött nr 120N",
     kremer_match = "Red Iron Oxide, light (PR101)",
     kremer_id = "48220",
     kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48220-red-iron-oxide-light",
@@ -910,7 +910,7 @@ suppliers <- list(
   ),
   
   "ER48A" = list(
-    name = "Engelskt rött nr 48A (RAÄ)",
+    name = "Engelskt rött nr 48A",
     kremer_match = "English Red (PR101)",
     kremer_id = "42100",
     kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/42100-english-red",
@@ -919,7 +919,7 @@ suppliers <- list(
   
   # IRON OXIDE BROWNS
   "J663" = list(
-    name = "Järnoxidbrunt nr 663 (RAÄ)",
+    name = "Järnoxidbrunt nr 663",
     kremer_match = "Brown Iron Oxide 610 (PBr6/7)",
     kremer_id = "48610",
     kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48610-brown-iron-oxide-610",
@@ -927,7 +927,7 @@ suppliers <- list(
   ),
   
   "J686" = list(
-    name = "Järnoxidbrunt nr 686 (RAÄ)",
+    name = "Järnoxidbrunt nr 686",
     kremer_match = "Brown Iron Oxide 686 (PBr6/7)",
     kremer_id = "48686",
     kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48686-brown-iron-oxide-686",
@@ -1271,12 +1271,29 @@ get_extended_base_pigments <- function() {
 generate_all_extended_swatches <- function(shade_pigment_id = "44450") {
   base_pigments <- get_extended_base_pigments()
   
-  # Extended pattern: 10% steps for vitbas (x-axis, more light variants)
-  #                   20% steps for shade (y-axis, fewer dark variants)
-  vitbas_increments <- c(0, 10, 20, 30, 40, 50, 60, 70, 80, 90)  # 10 levels
-  shade_increments <- c(0, 20, 40, 60, 80)  # 5 levels
+  # Extended pattern: Logarithmic spacing for perceptually uniform steps
+  # More granular in light ranges where human perception is most sensitive
+  vitbas_increments <- c(0, 15, 30, 45, 60, 70, 78, 85, 90)  # 9 levels, logarithmic
+  shade_increments <- c(0, 8, 18, 32, 50)  # 5 levels
   
-  generate_swatch_matrix(base_pigments, vitbas_increments, shade_increments, shade_pigment_id, "EXT")
+  # Mask matrix: TRUE = show this swatch, FALSE = skip it
+  # Rows = shade levels (0, 8, 18, 32, 50)
+  # Cols = vitbas levels (0, 15, 30, 45, 60, 70, 78, 85, 90)
+  extended_mask <- matrix(c(
+    # Row 1: 0% shade
+    TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE,
+    # Row 2: 8% shade
+    TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE,
+    # Row 3: 18% shade
+    TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE,
+    # Row 4: 32% shade
+    TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE,
+    # Row 5: 50% shade
+    TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE
+  ), nrow = 5, byrow = TRUE)
+  
+  generate_swatch_matrix(base_pigments, vitbas_increments, shade_increments, 
+                         shade_pigment_id, "EXT", mask = extended_mask)
 }
 
 # === RAÄ KULTURKULÖR EXACT RECIPE SPECIFICATION ===
@@ -1404,7 +1421,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.9.4-debug, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.9.5, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -1433,6 +1450,10 @@ ui <- dashboardPage(
       /* Buttons */
       .btn {margin:.5em .5em 0 0;}
       .btn-primary {color:white;}
+      .btn, .back-btn {display:inline-flex; flex-direction:row; align-items:center;}
+      .btn i, .back-btn i {margin-right:6px; margin-left:0;}
+      .next-btn {display:inline-flex; flex-direction:row-reverse; align-items:center;}
+      .next-btn i {margin-left:6px; margin-right:0;}
       
       /* Tables */
       table tr td {white-space:nowrap;}
@@ -1529,33 +1550,15 @@ ui <- dashboardPage(
       // Favorites management with localStorage
       const MAX_FAVORITES = 50;
       const STORAGE_KEY = "paintomatic_favorites";
-      const DEBUG = true; // Enable debug logging
-      
-      // Debug logger
-      function debugLog(message, data) {
-        if (DEBUG) {
-          console.log("[localStorage Debug]", message, data || "");
-        }
-      }
       
       // Get all favorites from localStorage
       function getFavorites() {
         try {
-          debugLog("Getting favorites from localStorage...");
           const data = localStorage.getItem(STORAGE_KEY);
-          debugLog("Raw data from localStorage:", data ? data.substring(0, 100) + "..." : "null");
-          
-          if (!data) {
-            debugLog("No favorites found in localStorage");
-            return [];
-          }
-          
-          const parsed = JSON.parse(data);
-          debugLog("Parsed favorites count:", parsed.length);
-          return parsed;
+          if (!data) return [];
+          return JSON.parse(data);
         } catch(e) {
           console.error("Error loading favorites:", e);
-          debugLog("Parse error, clearing corrupted data");
           localStorage.removeItem(STORAGE_KEY);
           return [];
         }
@@ -1564,31 +1567,16 @@ ui <- dashboardPage(
       // Save all favorites to localStorage
       function saveFavorites(favorites) {
         try {
-          debugLog("Saving favorites to localStorage, count:", favorites.length);
-          const jsonString = JSON.stringify(favorites);
-          debugLog("JSON string length:", jsonString.length);
-          
-          localStorage.setItem(STORAGE_KEY, jsonString);
-          
-          // Verify it was saved
-          const verification = localStorage.getItem(STORAGE_KEY);
-          if (verification) {
-            debugLog("✓ Successfully saved and verified in localStorage");
-            return true;
-          } else {
-            console.error("✗ Save verification failed - data not in localStorage!");
-            return false;
-          }
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites));
+          return true;
         } catch(e) {
           console.error("Error saving favorites:", e);
-          debugLog("Save error details:", e.message);
           return false;
         }
       }
       
       // Add a new favorite
       function addFavorite(favorite) {
-        debugLog("Adding new favorite...", favorite);
         let favorites = getFavorites();
         
         // Check limit
@@ -1600,33 +1588,20 @@ ui <- dashboardPage(
         // Add timestamp and ID
         favorite.id = Date.now().toString();
         favorite.timestamp = new Date().toISOString();
-        debugLog("Generated ID:", favorite.id);
         
         // Add to beginning of array (most recent first)
         favorites.unshift(favorite);
-        debugLog("Total favorites after add:", favorites.length);
         
-        const saved = saveFavorites(favorites);
-        debugLog("Save result:", saved);
-        
-        // Notify Shiny that favorites changed
-        Shiny.setInputValue("favorites_updated", Math.random(), {priority: "event"});
-        
-        return saved;
+        return saveFavorites(favorites);
       }
       
       // Delete a favorite by ID
       function deleteFavorite(id) {
-        debugLog("Deleting favorite with ID:", id);
         let favorites = getFavorites();
-        const beforeCount = favorites.length;
-        
         favorites = favorites.filter(f => f.id !== id);
-        debugLog("Favorites before/after delete:", beforeCount + "/" + favorites.length);
-        
         saveFavorites(favorites);
         
-        // Update Shiny with new list (as JSON string)
+        // Update Shiny with new list
         Shiny.setInputValue("favorites_list", JSON.stringify(getFavorites()));
         Shiny.setInputValue("favorites_updated", Math.random(), {priority: "event"});
       }
@@ -1634,58 +1609,21 @@ ui <- dashboardPage(
       // Clear all favorites
       function clearAllFavorites() {
         if (confirm("Är du säker på att du vill ta bort alla sparade favoriter?")) {
-          debugLog("Clearing all favorites");
           localStorage.removeItem(STORAGE_KEY);
           Shiny.setInputValue("favorites_list", JSON.stringify([]));
           Shiny.setInputValue("favorites_updated", Math.random(), {priority: "event"});
         }
       }
       
-      // Check localStorage availability
-      function checkLocalStorage() {
-        try {
-          const testKey = "test_" + Date.now();
-          localStorage.setItem(testKey, "test");
-          const result = localStorage.getItem(testKey);
-          localStorage.removeItem(testKey);
-          debugLog("localStorage availability test:", result === "test" ? "PASSED" : "FAILED");
-          return result === "test";
-        } catch(e) {
-          console.error("localStorage is not available:", e);
-          return false;
-        }
-      }
-      
-      // Send favorites to Shiny on page load - wait for Shiny to be ready
+      // Send favorites to Shiny when connected
       $(document).on("shiny:connected", function() {
-        debugLog("=== Shiny connected, initializing favorites ===");
-        debugLog("localStorage available:", checkLocalStorage());
-        
-        const favorites = getFavorites();
-        debugLog("Sending to Shiny, favorites count:", favorites.length);
-        
-        Shiny.setInputValue("favorites_list", JSON.stringify(favorites));
-        
-        // Log storage usage
-        if (typeof(Storage) !== "undefined") {
-          let totalSize = 0;
-          for (let key in localStorage) {
-            if (localStorage.hasOwnProperty(key)) {
-              totalSize += localStorage[key].length + key.length;
-            }
-          }
-          debugLog("Total localStorage usage:", Math.round(totalSize / 1024) + " KB");
-        }
+        Shiny.setInputValue("favorites_list", JSON.stringify(getFavorites()));
       });
       
       // Custom message handlers
       Shiny.addCustomMessageHandler("save_favorite", function(favorite) {
-        debugLog("Received save_favorite message from Shiny");
         if (addFavorite(favorite)) {
-          // Update Shiny with new favorites list (as JSON string)
-          const updatedList = getFavorites();
-          debugLog("Sending updated list to Shiny, count:", updatedList.length);
-          Shiny.setInputValue("favorites_list", JSON.stringify(updatedList));
+          Shiny.setInputValue("favorites_list", JSON.stringify(getFavorites()));
         }
       });
       
@@ -1693,47 +1631,6 @@ ui <- dashboardPage(
         clearAllFavorites();
         Shiny.setInputValue("favorites_list", JSON.stringify(getFavorites()));
       });
-      
-      // Log when page is about to unload
-      window.addEventListener("beforeunload", function() {
-        debugLog("=== Page unloading ===");
-        const favorites = getFavorites();
-        debugLog("Final favorites count in storage:", favorites.length);
-      });
-      
-      // Global helper function for manual debugging (available in console)
-      window.inspectFavorites = function() {
-        console.log("=== Manual Favorites Inspection ===");
-        console.log("Storage Key:", STORAGE_KEY);
-        
-        const raw = localStorage.getItem(STORAGE_KEY);
-        console.log("Raw data exists:", raw !== null);
-        console.log("Raw data length:", raw ? raw.length : 0);
-        
-        if (raw) {
-          try {
-            const parsed = JSON.parse(raw);
-            console.log("Parsed successfully, count:", parsed.length);
-            console.log("Favorites:", parsed);
-            
-            // Show each favorite
-            parsed.forEach((fav, idx) => {
-              console.log(`  [${idx}] ID: ${fav.id}, Name: ${fav.name || "unnamed"}, Time: ${fav.timestamp}`);
-            });
-          } catch(e) {
-            console.error("Failed to parse:", e);
-            console.log("Raw content:", raw);
-          }
-        } else {
-          console.log("No favorites in localStorage");
-        }
-        
-        // Show all localStorage keys
-        console.log("All localStorage keys:", Object.keys(localStorage));
-      };
-      
-      console.log("=== Favorites Debug Mode Active ===");
-      console.log("Type inspectFavorites() in console to manually inspect localStorage");
     ')),
     
     # Fullscreen overlay (shared for both previews)
@@ -1755,12 +1652,12 @@ ui <- dashboardPage(
                         #checkboxInput("use_tinting_strength","Avancerad färgblandning",TRUE),
                         #tags$small(style="color:#666; margin-left:20px; display:block; margin-top:-1em; margin-bottom:10px;","Väger pigment efter faktiska färgstyrka (K- och S-värden)"),
                         hr(),
-                        pickerInput("p1", "Pigment 1", choices = all_choices, selected = "J225",
+                        pickerInput("p1", "Pigment 1", choices = all_choices, selected = "vitbas",
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),
                         conditionalPanel("input.p1", sliderInput("pct1","Andel (%)",0,100,70,1)),
-                        pickerInput("p2", "Pigment 2", choices = all_choices, selected = "vitbas",
+                        pickerInput("p2", "Pigment 2", choices = all_choices, selected = "",
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),
-                        conditionalPanel("input.p2", sliderInput("pct2","Andel (%)",0,100,30,1)),
+                        conditionalPanel("input.p2", sliderInput("pct2","Andel (%)",0,100,0,1)),
                         pickerInput("p3", "Pigment 3", choices = all_choices, selected = "",
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),
                         conditionalPanel("input.p3", sliderInput("pct3","Andel (%)",0,100,0,1)),
@@ -1774,7 +1671,7 @@ ui <- dashboardPage(
                         actionButton("save_favorite", "Spara som favorit", class="btn-default btn-sm", 
                                      icon = icon("star")),
                         hr(),
-                        actionButton("reset_pigments", "Nollställ pigment", class="btn-default"),
+                        actionButton("reset_pigments", "Nollställ pigment", class="btn-default", icon = icon("refresh")),
                  ),
                  column(6,
                         h3("Färgprov"),
@@ -1782,11 +1679,11 @@ ui <- dashboardPage(
                         tags$b("Total andel: "), textOutput("total_pct",inline=TRUE), " %", 
                         uiOutput("total_warning"), 
                         tags$div(style="margin-top:2em;",
-                                 h5(style="font-weight:bold;","Färdiga färgblandningar och sparade favoriter"),
+                                 h5(style="font-weight:bold;","Favoriter och färdiga kulörmixer"),
                                  selectInput("recipe_set", NULL,
                                              choices = list(
                                                "Riksantikvarieämbetet (RAÄ) Kulturkulör" = "raa",
-                                               "Paint-o-matic-recept" = "extended",
+                                               "Paint-o-matic-kulörer" = "extended",
                                                "Sparade favoriter" = "saved"
                                              ),
                                              selected = "raa"),
@@ -1794,18 +1691,18 @@ ui <- dashboardPage(
                                  # Show description based on selected set
                                  conditionalPanel(
                                    condition = "input.recipe_set == 'raa'",
-                                   tags$small(a("Kulturkulör från Riksantikvarieämbetet (RAÄ)", href="https://www.raa.se/kulturarv/byggnader/byggnadsvard/kulturkulor-ett-fargsystem-for-linoljefarg/")," är ett färgsystem för historiskt trogen färgsättning. Den rätta skuggningsfärgen för Kulturkulör är ", tags$b("Järnoxidsvart nr 318 (RAÄ) (#J318)"), " men du kan också välja en annan om du vill göra en egen färblandning."),
+                                   tags$small(a("Kulturkulör från Riksantikvarieämbetet (RAÄ)", href="https://www.raa.se/kulturarv/byggnader/byggnadsvard/kulturkulor-ett-fargsystem-for-linoljefarg/")," är ett system för historiskt trogen färgsättning med jordpigment och järnoxider. Det angivna skuggningspigmentet för Kulturkulör är ", tags$b("Järnoxidsvart nr 318 (#J318)"), " men du kan också välja ett annat om du mixa en egen kulör."),
                                    br(), br(),
-                                   selectInput("shading_pigment_raa", "Skuggningsfärg",
+                                   selectInput("shading_pigment_raa", "Skuggningspigment",
                                                choices = shading_pigments,
                                                selected = "J318")
                                  ),
                                  
                                  conditionalPanel(
                                    condition = "input.recipe_set == 'extended'",
-                                   tags$small("Paletter med toning- och skuggningsblandningar för alla pigment som är tillgängliga i Paint-o-matic. Välj skuggningsfärg nedan."),
+                                   tags$small("Kulörpaletter med tonings- och skuggningsmixer för alla pigment som är tillgängliga i Paint-o-matic. Välj skuggningspigment nedan. Modifiera gärna mixen efter eget tycke!"),
                                    br(), br(),
-                                   selectInput("shading_pigment", "Skuggningsfärg",
+                                   selectInput("shading_pigment", "Skuggningspigment",
                                                choices = shading_pigments,
                                                selected = "J318")
                                  ),
@@ -1823,7 +1720,7 @@ ui <- dashboardPage(
                  )
                ),
                hr(),
-               actionButton("to_step2","Nästa", class="btn-primary next-btn"),
+               actionButton("to_step2","Nästa", class="btn-primary next-btn", icon = icon(class="icon-next","circle-arrow-right")),
                div(class="footer-ref", "Masstone baserad på data från Riksantikvarieämbetet (RAÄ) Kulturkulör, Kremer Pigmente, m. fl. Färgmixningen tar hänsyn till olika pigments fysikaliska egenskaper (K- och S-värden). Trots detta, notera att en skärm inte exakt kan simulera hur ljus som absorberas av eller reflekteras från en målad yta uppfattas.")
     )),
     
@@ -1839,8 +1736,8 @@ ui <- dashboardPage(
                  sliderInput("zinc_ratio","Andel zinkvitt i vitbasen (%)",0,100,15,5,post="% zinkoxid"),
                ), ),
                hr(),
-               actionButton("back1","Föregående", class="btn-default back-btn"),
-               actionButton("to_step3","Nästa", class="btn-primary next-btn"),
+               actionButton("back1","Föregående", class="btn-default back-btn", icon = icon("circle-arrow-left")),
+               actionButton("to_step3","Nästa", class="btn-primary next-btn", icon = icon(class="icon-next","circle-arrow-right")),
                div(class="footer-ref", "Kubelka-Munk-funktionen används för att bibehålla färgande pigments styrka i vitbasen konstant")
     )),
     
@@ -1873,8 +1770,8 @@ ui <- dashboardPage(
                                    selectInput("substrate","Underlag (absorptionsfaktor)",
                                                choices=list(
                                                  "Metall, grundmålad (lägst åtgång)" = 1.3,  # Primed metal (very smooth)
-                                                 "Tidigare målat trä " =	1.2,	              # Previously painted wood
-                                                 "Hyvlat trä (normal åtgång)" = 1.0,	        # Planed wood (baseline)
+                                                 "Tidigare målat trä " =	1.2,	            # Previously painted wood
+                                                 "Hyvlat trä (normal åtgång)" = 1.0,	       # Planed wood (baseline)
                                                  "Sågat trä" = 0.8,                          # Rough sawn wood
                                                  "Porös puts, gips (högst åtgång)" = 0.45    # Porous (gypsum, rough masonry)
                                                ),
@@ -1926,13 +1823,13 @@ ui <- dashboardPage(
                                   placeholder = "Dörrkarm 1923"),
                         hr(),
                         downloadButton("download_txt","Spara som textfil",class="btn btn-primary"),
-                        actionButton("copy_share_link","Kopiera delningslänk",class="btn btn-default"),
+                        actionButton("copy_share_link", "Dela Länk", class="btn btn-default", icon=icon("link")),
                         tags$input(id="share_url_hidden", type="hidden", value="")
                  )
                ),
                hr(),
-               actionButton("back2","Föregående", class="btn-default back-btn"),
-               actionButton("restart","Börja om från början", class="btn-default"),
+               actionButton("back2","Föregående", class="btn-default back-btn", icon = icon("circle-arrow-left")),
+               actionButton("restart","Börja om från början", class="btn-default back-btn", icon = icon("fast-backward")),
                div(class="footer-ref", "Åtgång per m²: praktiska test, data från RAÄ Byggnadsvård, m. fl., uppskattningarna är ungefärliga och beror också på målningsstil")
     ))
   )
@@ -2087,10 +1984,6 @@ server <- function(input, output, session) {
       list(
         "Vitbas" = make_choices(intersect(c("vitbas"), filter_ids)),
         
-        "Fyllmedel" = make_choices(intersect(c(
-          "599930", "58000", "58010", "58162", "58900", "58250"
-        ), filter_ids)),
-        
         "Gröna" = make_choices(intersect(c(
           "40400", "41700", "11100", "KG83", "ZG65", "40850", "40860", "GU30"
         ), filter_ids)),
@@ -2121,7 +2014,12 @@ server <- function(input, output, session) {
         
         "Bruna" = make_choices(intersect(c(
           "J663", "J686", "48330"
+        ), filter_ids)),
+        
+        "Fyllmedel" = make_choices(intersect(c(
+          "599930", "58000", "58010", "58162", "58900", "58250"
         ), filter_ids))
+        
       )
     }
     
@@ -2289,9 +2187,9 @@ server <- function(input, output, session) {
       
       base_pigments <- get_extended_base_pigments()
       
-      # Extended pattern: 10% vitbas steps, 20% shade steps
-      vitbas_increments <- c(0, 10, 20, 30, 40, 50, 60, 70, 80, 90)  # 10 levels
-      shade_increments <- c(0, 20, 40, 60, 80)  # 5 levels
+      # Extended pattern: Logarithmic spacing (10 vitbas × 5 shade levels)
+      vitbas_increments <- c(0, 15, 30, 45, 60, 70, 78, 85, 90)  # 9 levels
+      shade_increments <- c(0, 8, 18, 32, 50)  # 5 levels (added heavy shade)
       
       return(render_swatch_matrix(recipes_to_show, base_pigments, vitbas_increments, 
                                   shade_increments, shade_pigment, use_tinting))
@@ -2319,8 +2217,8 @@ server <- function(input, output, session) {
         return(tags$div(
           style = "text-align: center; padding: 40px; color: #666;",
           icon("star", style = "font-size: 48px; color: #ddd;"), br(), br(),
-          tags$p("Inga sparade favoriter än."),
-          tags$p(tags$small("Blanda en färg och klicka på 'Spara som favorit' för att spara den här."))
+          tags$p("Inga sparade favoritkulörer än."),
+          tags$p(tags$small("Blanda en egen kulör och klicka på 'Spara som favorit' för att spara den här."))
         ))
       }
       
@@ -2403,7 +2301,7 @@ server <- function(input, output, session) {
             # Delete button (small circle with X)
             tags$span(
               class = "favorite-delete-btn",
-              style = "position: absolute; top: -8px; right: -8px; width: 24px; height: 24px; background: white; border: 1px solid #ccc; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; color: #000; box-shadow: 0 2px 4px rgba(0,0,0,0.2);",
+              style = "position: absolute; top: -4px; right: -4px; width: 20px; height: 20px; background: white; border: 1px solid #ccc; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #000; box-shadow: 0 2px 4px rgba(0,0,0,0.3);z-index:20;",
               onclick = sprintf("event.stopPropagation(); deleteFavorite('%s'); return false;", fav_id),
               title = "Ta bort favorit",
               "×"
@@ -2576,32 +2474,47 @@ server <- function(input, output, session) {
       return(val)
     }
     
+    # Check if favorite contains non-RAÄ pigments
+    p1 <- get_val("p1", "")
+    p2 <- get_val("p2", "")
+    p3 <- get_val("p3", "")
+    p4 <- get_val("p4", "")
+    
+    all_pigments <- c(p1, p2, p3, p4)
+    all_pigments <- all_pigments[all_pigments != ""]
+    
+    # Check if any pigment is not in RAÄ list
+    has_non_raa <- any(!all_pigments %in% c("vitbas", raa_pigments))
+    
+    # If RAÄ-only is checked but favorite has non-RAÄ pigments, uncheck it
+    if(has_non_raa && isTRUE(input$raa_only)) {
+      updateCheckboxInput(session, "raa_only", value = FALSE)
+      showNotification("RAÄ-filter avaktiverad för att ladda alla pigment i favoriten", 
+                       type = "warning", duration = 3)
+    }
+    
     # Clear all slots first
     clear_all_pigments()
     
     # Load favorite data
-    p1 <- get_val("p1", "")
     pct1 <- as.numeric(get_val("pct1", 0))
     if(p1 != "" && pct1 > 0) {
       updatePickerInput(session, "p1", selected = p1)
       updateSliderInput(session, "pct1", value = pct1)
     }
     
-    p2 <- get_val("p2", "")
     pct2 <- as.numeric(get_val("pct2", 0))
     if(p2 != "" && pct2 > 0) {
       updatePickerInput(session, "p2", selected = p2)
       updateSliderInput(session, "pct2", value = pct2)
     }
     
-    p3 <- get_val("p3", "")
     pct3 <- as.numeric(get_val("pct3", 0))
     if(p3 != "" && pct3 > 0) {
       updatePickerInput(session, "p3", selected = p3)
       updateSliderInput(session, "pct3", value = pct3)
     }
     
-    p4 <- get_val("p4", "")
     pct4 <- as.numeric(get_val("pct4", 0))
     if(p4 != "" && pct4 > 0) {
       updatePickerInput(session, "p4", selected = p4)
@@ -2721,7 +2634,7 @@ server <- function(input, output, session) {
         tags$br(),
         tags$div(
           style = "margin-top: 0.5em;",
-          actionButton("normalize_values", "Snabbjustera reglage till normaliserade värden", class = "btn-default btn-sm")
+          actionButton("normalize_values", "Snabbjustera reglage till normaliserade värden", class = "btn-default btn-sm", icon = icon("sliders"))
         )
       )
     }
@@ -2907,7 +2820,7 @@ server <- function(input, output, session) {
     if(paint_type == "egg_oil") {
       # Egg-oil tempera recipe format
       rows <- c(rows, list(list("Kallpressad kokt linolja", r$oil)))
-      rows <- c(rows, list(list(paste0("Ägg (", r$eggs_count, " st à 50 g)"), r$eggs)))
+      rows <- c(rows, list(list(paste0("Ägg (", format_swe(r$eggs_count), " st à 50 g)"), r$eggs)))
       rows <- c(rows, list(list("Vatten", r$water)))
       
       if(r$zn > 0.1) rows <- c(rows, list(list("Zinkvitt PW4 (#44100)", r$zn)))
@@ -2918,7 +2831,8 @@ server <- function(input, output, session) {
       }
       
       # Add extra filler last
-      rows <- c(rows, list(list(paste0(km[[r$filler_id]]$name, " - extra fyllmedel (#", r$filler_id, ")"), r$filler_g)))
+      #rows <- c(rows, list(list(paste0(km[[r$filler_id]]$name, " - extra fyllmedel (#", r$filler_id, ")"), r$filler_g)))
+      rows <- c(rows, list(list(paste0(km[[r$filler_id]]$name, " (#", r$filler_id, ")"), r$filler_g)))
       
     } else if(paint_type == "tar") {
       # Tar oil paint recipe format

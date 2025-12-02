@@ -45,18 +45,16 @@ is_tar_compatible <- function(id) {
 
 # Get all pigments by category
 get_pigments_by_category <- function(category) {
-  ids <- names(pigments_db)[
+  names(pigments_db)[
     sapply(pigments_db, function(p) p$metadata$category == category)
   ]
-  setNames(ids, sapply(ids, get_pigment_name))
 }
 
 # Get all RAÄ pigments (returns named vector: id => name)
 get_raa_pigments <- function() {
-  ids <- names(pigments_db)[
+  names(pigments_db)[
     sapply(pigments_db, function(p) isTRUE(p$metadata$is_raa))
   ]
-  setNames(ids, sapply(ids, get_pigment_name))
 }
 
 # Get supplier info for pigment

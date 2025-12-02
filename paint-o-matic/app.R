@@ -808,7 +808,11 @@ ui <- dashboardPage(
                                    selectInput("egg_filler", "Val av fyllmedel",
                                                choices = create_filler_choices(),
                                                selected = "58000"),
-                                   p("Fyllmedlet gör äggoljetemperan matt och behaglig för inomhusbruk, men valet du gör påverkar också ytterligare egenskaper som färgen får."),
+                                   p("Fyllmedlet gör äggoljetemperan matt och behaglig för inomhusbruk, men valet du gör kan också påverka ytterligare egenskaper hos färgen."),
+                                   p("För att ge den målade ytan en fin putskänsla och fylla upp ojämnheter, välj " ,tags$b("kiselgur (diatoméjord)"), " som består av små vassa fragment av fossiliserade kiselalger."),
+                                   p("De olika " ,tags$b("kritorna"), " gör färgen matt – den från Ruegen är lite grövre och gråare än den från Champagne, och den vita av sten har minst kornstorlek."),
+                                   p("För att bättre än annars fylla i små ojämnheter i underlaget, testa " ,tags$b("bentonit"), " som sväller i äggoljetemperan och gör ytan lyxigt sammetslen."),
+                                   p("För en tixotrop färg som inte så lätt rinner på underlaget, välj" ,tags$b("kaolin"), " – tixotrop betyder att färgen blir mer lättflytande när påförs med penseln, men som sedan direkt tjocknar och behåller sin form när man slutar röra den.")
                           )
                         ),
                         
@@ -819,6 +823,7 @@ ui <- dashboardPage(
                                    selectInput("tar_category", "Typ av trätjära",
                                                choices = names(tar_colors),
                                                selected = names(tar_colors)[1]),
+                                   p("Tjärfärg lämpar sig bäst med inte alltför ljusa kulörer, eftersom tjäran i sig kan vara ganska mörk. Om du vill blanda en ljus tjärfärg, välj den finaste och ljusaste trätjäran, den är ljust honungsgul. För svarta eller andra mörka eller klara (blå, gröna, röda) kulörer går det lika bra med de billigare alternativen."),
                                    hr(),
                                    sliderInput("tar_extra_oil", "Extra olja och tjära (CPVC-faktor)", 
                                                1, 2.5, 1.6, 0.05, post = "× CPVC"),

@@ -226,7 +226,7 @@ generate_swatch_matrix <- function(pigments, vitbas_increments, shade_increments
           if(include_swatch) {
             # Generate unique code (use %g for numeric - handles both integers and decimals)
             swatch_code <- sprintf("%s_%s_%gV%gS", code_prefix, 
-                                   toupper(substr(base_id, 1, 4)), vitbas_pct, shade_pct)
+                                   toupper(substr(base_id, 1, 5)), vitbas_pct, shade_pct)
             
             all_swatches[[swatch_code]] <- list(
               base_pigment = base_id,
@@ -433,7 +433,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.1-stable, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.2, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -461,6 +461,7 @@ ui <- dashboardPage(
       
       /* Buttons */
       .btn {margin:.5em .5em 0 0;}
+      .btn-x {margin:0;}
       .btn-primary {color:white;}
       .btn, .back-btn {display:inline-flex; flex-direction:row; align-items:center;}
       .btn i, .back-btn i {margin-right:6px; margin-left:0;}
@@ -656,7 +657,7 @@ ui <- dashboardPage(
     ),
     
     hidden(div(id="step1", class="step",
-               h2("Blanda pigment"),
+               h2("Blanda pigment till önskad kulör"),
                fluidRow(
                  column(6,
                         h5(style="font-weight:bold;","Inställningar"),
@@ -666,10 +667,10 @@ ui <- dashboardPage(
                         hr(),
                         pickerInput("p1", "Pigment 1", choices = all_choices, selected = "vitbas",
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),
-                        conditionalPanel("input.p1", sliderInput("pct1","Andel (%)",0,100,70,1)),
-                        pickerInput("p2", "Pigment 2", choices = all_choices, selected = "",
+                        conditionalPanel("input.p1", sliderInput("pct1","Andel (%)",0,100,30,1)),
+                        pickerInput("p2", "Pigment 2", choices = all_choices, selected = "40400",
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),
-                        conditionalPanel("input.p2", sliderInput("pct2","Andel (%)",0,100,0,1)),
+                        conditionalPanel("input.p2", sliderInput("pct2","Andel (%)",0,100,70,1)),
                         pickerInput("p3", "Pigment 3", choices = all_choices, selected = "",
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),
                         conditionalPanel("input.p3", sliderInput("pct3","Andel (%)",0,100,0,1)),
@@ -677,10 +678,10 @@ ui <- dashboardPage(
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),
                         conditionalPanel("input.p4", sliderInput("pct4","Andel (%)",0,100,0,1)),
                         hr(),
-                        textInput("color_name", "Valfritt färgnamn", 
+                        textInput("color_name", "Valfritt kulörnamn", 
                                   value = "", 
                                   placeholder = "Dörrkarm 1923"),
-                        actionButton("save_favorite", "Spara som favorit", class="btn-default btn-sm", 
+                        actionButton("save_favorite", "Spara som favoritkulör", class="btn-default btn-sm btn-x", 
                                      icon = icon("star")),
                         hr(),
                         actionButton("reset_pigments", "Nollställ pigment", class="btn-default", icon = icon("refresh")),
@@ -691,12 +692,12 @@ ui <- dashboardPage(
                         tags$b("Total andel: "), textOutput("total_pct",inline=TRUE), " %", 
                         uiOutput("total_warning"), 
                         tags$div(style="margin-top:2em;",
-                                 h5(style="font-weight:bold;","Favoriter och färdiga kulörmixer"),
+                                 h5(style="font-weight:bold;","Favoritkulörer och färdiga mixer/paletter"),
                                  selectInput("recipe_set", NULL,
                                              choices = list(
                                                "Riksantikvarieämbetet (RAÄ) Kulturkulör" = "raa",
                                                "Paint-o-matic-kulörer" = "extended",
-                                               "Sparade favoriter" = "saved"
+                                               "Sparade favoritkulörer" = "saved"
                                              ),
                                              selected = "raa"),
                                  
@@ -745,7 +746,7 @@ ui <- dashboardPage(
                  p("För ", tags$b("inomhusfärg"), "– välj en lägre andel zinkvitt i vitbasen (0–15 %). Zink gör å ena sidan färgfilmen hårdare, men å den andra blir den också sprödare och känsligare över tid."),
                  #p("Oavsett vilket förhållande du väljer blir den färdiga färgpastan kulörmässigt identisk, eftersom alla färgande pigment automatiskt justeras med Kubelka-Munk-kompensationen."),
                  br(),
-                 sliderInput("zinc_ratio","Andel zinkvitt i vitbasen (%)",0,100,15,5,post="% zinkoxid"),
+                 sliderInput("zinc_ratio","Andel zinkvitt i vitbasen (%)",0,100,15,1,post="% zinkoxid"),
                ), ),
                hr(),
                actionButton("back1","Föregående", class="btn-default back-btn", icon = icon("circle-arrow-left")),
@@ -790,22 +791,24 @@ ui <- dashboardPage(
                                                selected = 1.0),
                                    hr(),
                                    sliderInput("extra_oil","Extra kokt linolja (CPVC-faktor)",1,2.5,1.6,0.05,post="× CPVC"),
-                                   p("Reglaget ökar endast mängden kokt linolja i receptet (pigmentmängderna är fixerade). En viss mängd extra bindmedel, utöver den minsta mängd som krävs för pigmenten, underlättar både tillredningen av färgen med blandare i borrmaskin och dess strykbarhet med penseln. Du kan utan problem lägga till 1,6–2,2 gånger av CPVC av bindmedel."),
+                                   p("Reglaget ökar endast mängden kokt linolja i receptet (pigmentmängderna är fixerade). En viss mängd extra bindmedel, utöver den minsta mängd som krävs för pigmenten, underlättar både tillredningen av färgen med blandare i borrmaskin och dess strykbarhet med penseln. Du kan utan problem lägga till olja upp till 1,6–2,2 gånger av CPVC."),
                                    hr(),
                                    p("Pastan du blandar är lämplig direkt som ", tags$b("grundstrykning"), " med gnuggande målningsstil (enligt principen från magert till fett) och utgör basen för ett komplett system för linoljefärgsmålning."),
                                    p("Till färg för ", tags$b("mellanstrykning"), " kan du tillföra ytterligare kokt linolja, precis upp till den maximala mängd som fortfarande medger att färgen struken på en glasskiva förblir ogenomskinlig."),
                                    p("Till färg för ", tags$b("slutstrykning"), " kan du därutöver med fördel tillsätta 10% kokt eller ännu hellre soloxiderad olja."),
-                                   p("En burk till alla strykningar – tillsätt bara lite mer linolja efter hand!")
-                          )
+                                   p("En burk till alla strykningar – tillsätt bara lite mer linolja efter hand!"),
+                                   p("Var medveten om brandrisken, särskilt när du hanterar trasor och material som innehåller kokt linolja. Blöt dem i vatten och förvara dem i en tät behållare när du målat klart.")
+                                   )
                         ),
                         
                         # Äggoljetemperafärg settings
                         conditionalPanel(
                           condition = "input.paint_type == 'egg_oil'",
                           tags$div(class = "paint-type-box",
-                                   selectInput("egg_filler", "Val av fyllmedel (ger matt färg)",
+                                   selectInput("egg_filler", "Val av fyllmedel",
                                                choices = create_filler_choices(),
-                                               selected = "58000")
+                                               selected = "58000"),
+                                   p("Fyllmedlet gör äggoljetemperan matt och behaglig för inomhusbruk, men valet du gör påverkar också ytterligare egenskaper som färgen får."),
                           )
                         ),
                         
@@ -817,10 +820,15 @@ ui <- dashboardPage(
                                                choices = names(tar_colors),
                                                selected = names(tar_colors)[1]),
                                    hr(),
-                                   sliderInput("tar_extra_oil", "Extra olja/tjära (CPVC-faktor)", 
+                                   sliderInput("tar_extra_oil", "Extra olja och tjära (CPVC-faktor)", 
                                                1, 2.5, 1.6, 0.05, post = "× CPVC"),
-                                   p("Reglaget ökar mängden olja och tjära proportionellt. Högre värde ger mer flytande färg och bättre strykbarhet. Du kan utan problem lägga till 1,6–2,2 gånger av CPVC av bindmedel."),
-                          )
+                                   p("Reglaget ökar mängden olja och tjära proportionellt, utöver den minsta mängd som de ingående pigmenten kräver. Högre värde ger mer flytande färg och bättre strykbarhet. Du kan utan problem lägga till olje- och tjärblandning upp till 1,6–2,2 gånger av CPVC."),
+                                   hr(),
+                                   p("När du målar med tjäroljefärg (som man också kan kalla pigmenterad roslagsmahogny, eftersom receptet också innehåller balsamterpentin), tänk på följande:"),
+                                   p("För bästa strykbarhet, måla i sol och värme och värm gärna också tjärfärgen till 50–70° C (inte högre!) i ett vattenbad eller med en termostatstyrd oljevärmare."),
+                                   p("Använd en pensel för att stryka ut den färgen i träets längdriktning. Torktiden kan variera från några dagar till flera veckor beroende på temperatur och fukt."),
+                                   p("Var medveten om brandrisken, särskilt när du hanterar trasor och material som innehåller kokt linolja. Blöt dem i vatten och förvara dem i en tät behållare när du målat klart.")
+                                   )
                         )
                         
                  ),
@@ -830,11 +838,13 @@ ui <- dashboardPage(
                         uiOutput("final_preview"),br(),
                         tableOutput("final_recipe"),
                         hr(),
-                        textInput("color_name_step3", "Valfritt färgnamn", 
+                        textInput("color_name", "Valfritt kulörnamn", 
                                   value = "", 
                                   placeholder = "Dörrkarm 1923"),
+                        actionButton("save_favorite", "Spara som favoritkulör", class="btn-default btn-sm btn-x", 
+                                     icon = icon("star")),
                         hr(),
-                        downloadButton("download_txt","Spara som textfil",class="btn btn-primary"),
+                        downloadButton("download_txt","Spara recept som textfil",class="btn btn-primary"),
                         actionButton("copy_share_link", "Dela Länk", class="btn btn-default", icon=icon("link")),
                         tags$input(id="share_url_hidden", type="hidden", value="")
                  )
@@ -1239,7 +1249,7 @@ server <- function(input, output, session) {
           style = "text-align: center; padding: 40px; color: #666;",
           icon("star", style = "font-size: 48px; color: #ddd;"), br(), br(),
           tags$p("Inga sparade favoritkulörer än."),
-          tags$p(tags$small("Blanda en egen kulör och klicka på 'Spara som favorit' för att spara den här."))
+          tags$p(tags$small("Blanda en egen kulör och klicka på 'Spara som favoritkulör' för att spara den här."))
         ))
       }
       

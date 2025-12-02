@@ -12,6 +12,7 @@ library(shinydashboard)
 library(shinyjs)
 library(shinyWidgets)
 library(jsonlite)
+library(memoise)
 
 # === SWEDISH LOCALE CONFIGURATION === 
 # Set Swedish locale for number formatting (cross-platform)
@@ -40,6 +41,7 @@ source("R/utils/formatting.R")
 source("R/utils/color_mixing.R")
 source("R/utils/calculations.R")
 source("R/utils/km_compensation.R")
+source("R/ui/ui_helpers.R")
 
 # === LOAD DATA ===
 source("R/data/constants.R")

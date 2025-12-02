@@ -3,12 +3,250 @@
 # Licens: GNU General Public License v3.0
 # https://github.com/hmep/karlslund/tree/main/paint-o-matic
 
-# Main app file - data and utilities loaded from global.R
-source("global.R")
+library(shiny)
+library(shinydashboard)
+library(shinyjs)
+library(shinyWidgets)
+library(jsonlite)
 
-# === APP-SPECIFIC HELPER FUNCTIONS ===
-# Functions that are tightly coupled to Shiny UI/server context
+# === SWEDISH LOCALE CONFIGURATION === 
+# Set Swedish locale for number formatting (cross-platform)
+swedish_locale_set <- FALSE
+locale_options <- c("sv_SE.UTF-8", "sv_SE", "Swedish_Sweden.1252", "Swedish")
 
+for(locale in locale_options) {
+  result <- tryCatch({
+    Sys.setlocale("LC_NUMERIC", locale)
+    TRUE
+  }, warning = function(w) FALSE, error = function(e) FALSE)
+  
+  if(result && result != "C") {
+    swedish_locale_set <- TRUE
+    message("Swedish locale set successfully: ", locale)
+    break
+  }
+}
+
+if(!swedish_locale_set) {
+  message("Could not set Swedish locale, using manual formatting only")
+}
+
+# Helper functions for Swedish number formatting
+format_swe <- function(x, digits = 1) {
+  if(is.null(x) || is.na(x)) return("0")
+  
+  # If value is whole number (or very close to it), omit decimal
+  if(abs(x - round(x, 0)) < 0.01) {
+    formatted <- format(round(x, 0), 
+                        decimal.mark = ",", 
+                        big.mark = " ",
+                        trim = TRUE)
+  } else {
+    formatted <- format(round(x, digits), 
+                        nsmall = digits, 
+                        decimal.mark = ",", 
+                        big.mark = " ",
+                        trim = TRUE)
+  }
+  return(formatted)
+}
+
+# Locale-independent numeric parser (handles both dots and commas from any source)
+parse_numeric <- function(x, default = NA) {
+  if(is.null(x) || length(x) == 0) return(default)
+  if(is.numeric(x)) return(x)
+  
+  # Convert to character and replace comma with dot
+  x_char <- as.character(x)
+  x_char <- gsub(",", ".", x_char)
+  x_char <- gsub(" ", "", x_char)  # Remove spaces (thousand separators)
+  
+  result <- suppressWarnings(as.numeric(x_char))
+  if(is.na(result)) return(default)
+  return(result)
+}
+
+# Smart rounding based on weight - improves readability and practicality
+smart_round <- function(weight) {
+  if(weight < 10) {
+    # Small amounts need precision (e.g., 3.5g, 8.2g)
+    return(round(weight, 1))
+  } else if(weight < 100) {
+    # Medium amounts: whole grams (e.g., 45g, 87g)
+    return(round(weight, 0))
+  } else if(weight < 500) {
+    # Large amounts: round to 5g (e.g., 235g, 340g)
+    return(round(weight / 5) * 5)
+  } else {
+    # Very large amounts: round to 10g (e.g., 780g, 1250g)
+    return(round(weight / 10) * 10)
+  }
+}
+
+# === GENERIC RECIPE HELPER FUNCTIONS ===
+
+# Calculate base oil absorption and density for pigment mix
+calculate_base_properties <- function(m, compensated_pcts, zinc_ratio, km) {
+  base_oil_absorption <- 0
+  total_density <- 0
+  
+  for(i in seq_along(m$ids)) {
+    id <- m$ids[i]
+    weight_fraction <- compensated_pcts[i] / 100
+    
+    if(id == "vitbas") {
+      base_oil_absorption <- base_oil_absorption + 
+        weight_fraction * (zinc_ratio * 0.20 + (1-zinc_ratio) * 0.15)
+      total_density <- total_density + 
+        weight_fraction * (zinc_ratio * 5.6 + (1-zinc_ratio) * 4.2)
+    } else {
+      base_oil_absorption <- base_oil_absorption + 
+        weight_fraction * (km[[id]]$oil / 100)
+      total_density <- total_density + 
+        weight_fraction * km[[id]]$density
+    }
+  }
+  
+  list(oil_absorption = base_oil_absorption, density = total_density)
+}
+
+# Calculate pigment amounts for target volume
+calculate_pigment_amounts <- function(target_liters, oil_absorption, density) {
+  V_pigment_per_gram <- 1 / density
+  V_oil_per_gram_min <- oil_absorption / 0.92
+  pvc_base <- V_pigment_per_gram / (V_pigment_per_gram + V_oil_per_gram_min)
+  
+  pigment_volume_L <- target_liters * pvc_base
+  total_pigment_g <- pigment_volume_L * 1000 * density
+  base_oil_g <- total_pigment_g * oil_absorption
+  
+  list(
+    total_pigment_g = total_pigment_g,
+    base_oil_g = base_oil_g,
+    pvc_base = pvc_base,
+    pigment_volume_L = pigment_volume_L
+  )
+}
+
+# Distribute pigments according to compensated percentages
+distribute_pigments <- function(m, compensated_pcts, total_pigment_g, zinc_ratio) {
+  zn_g <- ti_g <- 0
+  color_g <- numeric()
+  
+  for(i in seq_along(m$ids)){
+    id <- m$ids[i]
+    weight_fraction <- compensated_pcts[i] / 100
+    weight_g <- total_pigment_g * weight_fraction
+    
+    if(id == "vitbas"){
+      zn_g <- zn_g + weight_g * zinc_ratio
+      ti_g <- ti_g + weight_g * (1-zinc_ratio)
+    } else {
+      color_g[id] <- weight_g
+    }
+  }
+  
+  list(zn = zn_g, ti = ti_g, color = color_g)
+}
+
+# Calculate average density for a pigment mix (used in volume calculations)
+calculate_avg_density <- function(m, compensated_pcts, zinc_ratio, km) {
+  total_density <- 0
+  for(i in seq_along(m$ids)) {
+    id <- m$ids[i]
+    weight_fraction <- compensated_pcts[i] / 100
+    
+    if(id == "vitbas") {
+      total_density <- total_density + 
+        weight_fraction * (zinc_ratio * 5.6 + (1-zinc_ratio) * 4.2)
+    } else {
+      total_density <- total_density + weight_fraction * km[[id]]$density
+    }
+  }
+  total_density
+}
+
+# === HELPER FUNCTIONS ===
+# Safe input retrieval with validation
+safe_input <- function(input, name, default, test = function(x) TRUE) {
+  val <- input[[name]]
+  if(isTRUE(!is.null(val) && !is.na(val) && test(val))) 
+    as.numeric(val) 
+  else 
+    default
+}
+
+# Null-coalescing operator
+`%||%` <- function(a, b) if(is.null(a)) b else a
+
+# Mix colors using vectorized operations
+# use_tinting: if TRUE, weights colors by K+S tinting strength for realistic mixing
+mix_colors <- function(ids, weights, pigment_list, use_tinting = TRUE) {
+  if(length(ids) == 0) return(c(255, 255, 255))
+  
+  # Build color matrix - manually to avoid sapply issues
+  n <- length(ids)
+  cols <- matrix(0, nrow = n, ncol = 3)
+  
+  for(i in seq_along(ids)) {
+    rgb_val <- pigment_list[[ids[i]]]$rgb
+    if(is.null(rgb_val)) {
+      cols[i, ] <- c(255, 255, 255)
+    } else {
+      cols[i, ] <- as.numeric(rgb_val)
+    }
+  }
+  
+  # Calculate weights
+  if(use_tinting) {
+    # REALISTIC MIXING: Weight by tinting strength (K+S values)
+    tinting_strengths <- numeric(n)
+    
+    for(i in seq_along(ids)) {
+      pigment <- pigment_list[[ids[i]]]
+      K <- pigment$K %||% 0
+      S <- pigment$S %||% 0
+      
+      # Combined optical power - use square root to soften the effect
+      # This prevents ultra-high tinting pigments from completely dominating
+      tinting_strengths[i] <- sqrt(K + S + 0.1)  # +0.1 prevents zero division
+    }
+    
+    # Adjust weights by tinting strength
+    adjusted_weights <- as.numeric(weights) * tinting_strengths
+    
+    # Normalize
+    if(sum(adjusted_weights) > 0) {
+      w <- adjusted_weights / sum(adjusted_weights)
+    } else {
+      # Fallback to simple weighting
+      w <- as.numeric(weights) / sum(as.numeric(weights))
+    }
+  } else {
+    # SIMPLE MIXING: Equal tinting strength for all pigments
+    w <- as.numeric(weights) / sum(as.numeric(weights))
+  }
+  
+  # Mix RGB values
+  r <- sum(cols[, 1] * w)
+  g <- sum(cols[, 2] * w)
+  b <- sum(cols[, 3] * w)
+  
+  c(r, g, b)
+}
+
+# Render color preview with fullscreen zoom icon
+render_preview <- function(color_hex, preview_id) {
+  tags$div(class = "preview-container",
+           tags$div(class = "preview", style = paste0("background:", color_hex)),
+           tags$span(class = "zoom-icon", 
+                     onclick = paste0("openFullscreen('", preview_id, "')"),
+                     title = "Visa i helskärm",
+                     HTML("+"))
+  )
+}
+
+# Generate sharing URL from current recipe parameters
 generate_share_url <- function(session, input = NULL, mix_data = NULL) {
   params <- list()
   
@@ -103,6 +341,754 @@ generate_share_url <- function(session, input = NULL, mix_data = NULL) {
   paste0(base_url, "?", query_string)
 }
 
+# === PIGMENTDATABAS ===
+# Extended with RAÄ Kulturkulör pigments
+# K and S values estimated based on pigment type and characteristics
+# Oil absorption values from Kremer datablad and industry standards
+
+km <- list(
+  # BASE WHITES
+  "vitbas" = list(name = "Vitbas (K-M-kompenserad titan/zink-blandning)", oil = 17, K = 0.00, S = 2.20, density = 4.2, rgb = c(245, 245, 245)),
+  #"44100" = list(name = "Zinkvitt PW4", oil = 20, K = 0.00, S = 1.66, density = 5.6),
+  #"44400" = list(name = "Titanvitt Rutile PW6", oil = 15, K = 0.00, S = 2.55, density = 4.2),
+  
+  # === FILLERS ===
+  "599930" = list(name = "Kiselgur (diatoméjord)", oil = 70, K = 0.00, S = 0.05, density = 2.2, rgb = c(250, 248, 245)),
+  "58000"  = list(name = "Krita från Champagne", oil = 12, K = 0.00, S = 0.10, density = 2.7, rgb = c(255, 255, 255)),
+  "58010"  = list(name = "Krita från Ruegen", oil = 14, K = 0.00, S = 0.12, density = 2.7, rgb = c(248, 248, 246)),
+  "58162"  = list(name = "Stenkrita vit", oil = 10, K = 0.00, S = 0.15, density = 2.7, rgb = c(255, 255, 255)),
+  "58900"  = list(name = "Bentonit", oil = 180, K = 0.00, S = 0.08, density = 2.5, rgb = c(235, 232, 220)),
+  "58250"  = list(name = "Kaolin gulaktig", oil = 45, K = 0.00, S = 0.20, density = 2.6, rgb = c(245, 242, 230)),
+  
+  # GREENS
+  "40400" = list(name = "Viridian PG18", oil = 40, K = 1.20, S = 1.50, density = 3.5, rgb = c(30, 120, 80)),
+  "41700" = list(name = "Malakit naturlig", oil = 45, K = 0.90, S = 0.80, density = 4.0, rgb = c(70, 160, 100)),
+  "11100" = list(name = "Phthalogrön PG7", oil = 50, K = 1.50, S = 1.40, density = 2.0, rgb = c(0, 100, 50)),
+  "KG83" = list(name = "Kromoxidgrönt nr GN 83", oil = 18, K = 1.15, S = 1.75, density = 5.2, rgb = c(74, 117, 82)),
+  "ZG65" = list(name = "Zinkgrönt nr 65", oil = 19, K = 1.00, S = 1.60, density = 4.8, rgb = c(110, 145, 105)),
+  "40850" = list(name = "Grön jord Böhmen", oil = 35, K = 0.60, S = 0.55, density = 3.2, rgb = c(90, 120, 70)),
+  "40860" = list(name = "Grön jord Verona", oil = 35, K = 0.65, S = 0.60, density = 3.2, rgb = c(100, 130, 80)),
+  "GU30" = list(name = "Grön umbra nr 30", oil = 50, K = 0.85, S = 0.48, density = 3.5, rgb = c(95, 100, 70)),
+  
+  # BLACKS
+  "44450" = list(name = "Svartoxid PBk11", oil = 15, K = 2.40, S = 1.10, density = 5.21, rgb = c(28, 38, 38)),
+  "J318" = list(name = "Järnoxidsvart nr 318", oil = 16, K = 2.35, S = 1.08, density = 5.1, rgb = c(35, 35, 38)),
+  "BS98" = list(name = "Bensvart nr 98", oil = 50, K = 2.60, S = 0.95, density = 2.0, rgb = c(28, 28, 32)),
+  "47501" = list(name = "Mangansvart", oil = 22, K = 2.50, S = 1.15, density = 4.8, rgb = c(32, 32, 32)),
+  "47400" = list(name = "Spinel-svart", oil = 33, K = 2.80, S = 1.25, density = 4.5, rgb = c(20, 20, 20)),
+  
+  # BLUES
+  "11670" = list(name = "Phthaloblå PB15:3", oil = 45, K = 1.80, S = 1.20, density = 2.0, rgb = c(0, 70, 130)),
+  "UB88" = list(name = "Ultramarinblått nr 88", oil = 42, K = 1.65, S = 0.88, density = 2.4, rgb = c(45, 60, 130)),
+  "KB28" = list(name = "Koboltblått nr 28", oil = 35, K = 1.40, S = 0.92, density = 4.0, rgb = c(70, 95, 155)),
+  
+  # EARTH COLORS - TERRA & POZZUOLI
+  "40820" = list(name = "Terra di Pozzuoli", oil = 40, K = 0.70, S = 0.55, density = 3.3, rgb = c(180, 80, 60)),
+  "40800" = list(name = "Terra di Siena natur", oil = 40, K = 0.60, S = 0.50, density = 3.3, rgb = c(170, 110, 70)),
+  "40830" = list(name = "Terra di Ercolano", oil = 40, K = 0.75, S = 0.55, density = 3.3, rgb = c(175, 85, 65)),
+  "BT44" = list(name = "Bränd terra nr 44", oil = 38, K = 0.78, S = 0.52, density = 3.4, rgb = c(170, 110, 70)),
+  "OT46" = list(name = "Obränd terra nr 46", oil = 38, K = 0.62, S = 0.48, density = 3.3, rgb = c(180, 130, 80)),
+  
+  # YELLOWS & OCHRES
+  "44082" = list(name = "Gul ockra ljus", oil = 20, K = 0.48, S = 0.38, density = 3.5, rgb = c(210, 180, 120)),
+  "44086" = list(name = "Gul ockra mörk", oil = 20, K = 0.55, S = 0.45, density = 3.5, rgb = c(160, 120, 70)),
+  "44150" = list(name = "Naples Yellow light", oil = 35, K = 0.40, S = 0.70, density = 6.0, rgb = c(240, 220, 130)),
+  "44160" = list(name = "Naples Yellow dark", oil = 35, K = 0.50, S = 0.65, density = 6.0, rgb = c(220, 190, 100)),
+  "J920" = list(name = "Järnoxidgult nr 920", oil = 22, K = 0.52, S = 0.42, density = 4.0, rgb = c(195, 165, 85)),
+  "LO92" = list(name = "Ljusockra nr 92", oil = 21, K = 0.46, S = 0.40, density = 3.5, rgb = c(210, 185, 135)),
+  "GO94" = list(name = "Guldockra nr 94", oil = 23, K = 0.58, S = 0.46, density = 3.6, rgb = c(185, 155, 90)),
+  "GO94_GU30" = list(name = "50% Guldockra + 50% Grön umbra", oil = 40, K = 0.72, S = 0.47, density = 3.5, rgb = c(135, 130, 85)),
+  
+  # SIENNAS & UMBERS
+  "44650" = list(name = "Raw Sienna Italien", oil = 45, K = 0.55, S = 0.45, density = 3.3, rgb = c(180, 130, 70)),
+  "44620" = list(name = "Burnt Sienna Italien", oil = 50, K = 0.75, S = 0.50, density = 3.5, rgb = c(160, 82, 45)),
+  "OU103" = list(name = "Obränd umbra nr 103", oil = 52, K = 0.92, S = 0.46, density = 3.4, rgb = c(115, 95, 80)),
+  "BU100" = list(name = "Bränd umbra nr 100", oil = 56, K = 1.12, S = 0.52, density = 3.5, rgb = c(90, 60, 45)),
+  "BRU39" = list(name = "Brun umbra nr 39", oil = 54, K = 1.05, S = 0.48, density = 3.4, rgb = c(105, 85, 70)),
+  "GRAU36" = list(name = "Grå umbra nr 36", oil = 48, K = 1.20, S = 0.55, density = 3.5, rgb = c(100, 95, 90)),
+  
+  # REDS & ORANGES - IRON OXIDES
+  "44300" = list(name = "Transparent brunoxid", oil = 50, K = 0.80, S = 0.22, density = 5.0, rgb = c(139, 69, 19)),
+  "44200" = list(name = "Röd järnoxid transparent", oil = 47, K = 0.90, S = 0.12, density = 5.2, rgb = c(178, 34, 34)),
+  "44210" = list(name = "Röd järnoxid ljus", oil = 47, K = 0.80, S = 0.25, density = 5.1, rgb = c(200, 70, 60)),
+  "44220" = list(name = "Röd järnoxid mörk", oil = 47, K = 1.00, S = 0.35, density = 5.2, rgb = c(160, 35, 35)),
+  "44510" = list(name = "Orange järnoxid", oil = 47, K = 0.55, S = 0.85, density = 4.8, rgb = c(232, 97, 0)),
+  "J225" = list(name = "Järnoxidrött nr 225", oil = 48, K = 0.95, S = 0.32, density = 5.1, rgb = c(142, 52, 52)),
+  "J180M" = list(name = "Järnoxidrött nr 180M Caput Mortuum", oil = 48, K = 1.15, S = 0.28, density = 5.2, rgb = c(105, 45, 55)),
+  "J120N" = list(name = "Järnoxidrött nr 120N", oil = 47, K = 0.85, S = 0.30, density = 5.0, rgb = c(155, 65, 60)),
+  "ER48A" = list(name = "Engelskt rött nr 48A", oil = 30, K = 0.75, S = 0.40, density = 4.9, rgb = c(175, 80, 70)),
+  
+  # BROWNS - IRON OXIDES
+  "J663" = list(name = "Järnoxidbrunt nr 663", oil = 50, K = 0.88, S = 0.38, density = 5.0, rgb = c(120, 80, 60)),
+  "J686" = list(name = "Järnoxidbrunt nr 686", oil = 52, K = 0.92, S = 0.35, density = 5.1, rgb = c(105, 70, 55)),
+  "48330" = list(name = "Järnmanganbrunt 645 T", oil = 50, K = 0.90, S = 0.40, density = 4.8, rgb = c(95, 65, 45))
+  
+)
+
+# RAÄ KULTURKULÖR PIGMENTS
+# Updated to include all RAÄ pigments with harmonized keys and NCS-based RGB values
+raa_pigments <- c(
+  # Base whites (always included)
+  "vitbas", #"44100", "44400",
+  
+  # RAÄ specific pigments (from Kulturkulör system with NCS codes)
+  "J225",       # Järnoxidrött nr 225
+  "J180M",      # Caput Mortuum 180M
+  "J120N",      # Järnoxidrött nr 120 N
+  "ER48A",      # Engelskt rött nr 48 A
+  "J663",       # Järnoxidbrunt nr 663
+  "J686",       # Järnoxidbrunt nr 686
+  "J920",       # Järnoxidgult nr 920
+  "J318",       # Järnoxidsvart nr 318
+  "LO92",       # Ljusockra nr 92
+  "GO94",       # Guldockra nr 94
+  "GO94_GU30",  # 50% Guldockra + 50% Grön umbra
+  "OU103",      # Obränd Umbra nr 103
+  "BU100",      # Bränd Umbra nr 100
+  "BRU39",      # Brun Umbra nr 39
+  "GU30",       # Grön Umbra nr 30
+  "GRAU36",     # Grå Umbra nr 36
+  "BT44",       # Bränd Terra nr 44
+  "OT46",       # Obränd Terra nr 46
+  "BS98",       # Bensvart nr 98
+  "KG83",       # Kromoxidgrönt nr GN 83
+  "ZG65",       # Zinkgrönt nr 65
+  "UB88",       # Ultramarinblått nr 88
+  "KB28"        # Koboltblått nr 28
+)
+
+# CONSOLIDATED SUPPLIER LINKS (Kremer + RAÄ matches)
+suppliers <- list(
+  # WHITES
+  "44100" = list(
+    name = "Zinkvitt PW4",
+    kremer_match = "Zinc White (PW4)",
+    kremer_id = "46300",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/46300-zinc-white",
+    ottosson_match = "Zinkvitt",
+    ottosson_url = "https://ottossonfarg.com/produkt/zinkvitt/",
+    notes = "Högkvalitativt zinkvitt för linoljefärg. Finns hos både Kremer och svenska leverantörer."
+  ),
+  
+  "44400" = list(
+    name = "Titanvitt Rutile PW6",
+    kremer_match = "Titanium White Rutile (PW6)",
+    kremer_id = "46200",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/46200-titanium-white-rutile",
+    ottosson_match = "Titanvitt",
+    ottosson_url = "https://ottossonfarg.com/produkt/titanvitt/",
+    notes = "Rutiltyp titanvitt med högsta täckförmåga. Standard vitpigment för linoljefärg."
+  ),
+  
+  # FILLERS
+  "599930" = list(
+    name = "Tripoli, Rotten Stone, light",
+    kremer_match = "Tripoli, Rotten Stone, light",
+    kremer_id = "599930",
+    kremer_url = "https://shop.kremerpigments.com/us/shop/fillers-building-materials/599930-tripoli-rotten-stone-light.html",
+    notes = "Kiselgur (diatoméjord), mycket fin poleringsfyllnad. Mycket hög oljeabsorption. Används för fin polering och som mattande tillsats."
+  ),
+  
+  "58000" = list(
+    name = "Chalk from Champagne",
+    kremer_match = "Chalk from Champagne",
+    kremer_id = "58000",
+    kremer_url = "https://shop.kremerpigments.com/us/shop/fillers-building-materials/58000-chalk-from-champagne.html",
+    notes = "Naturlig kalciumkarbonat från Frankrike (CaCO3). Används för grundningar, stuckatur och som fyllmedel i färg. Färgindex: PW 18.77220. Låg oljeabsorption."
+  ),
+  
+  "58010" = list(
+    name = "Chalk from Ruegen",
+    kremer_match = "Chalk from Ruegen",
+    kremer_id = "58010",
+    kremer_url = "https://shop.kremerpigments.com/us/shop/fillers-building-materials/58010-chalk-from-ruegen.html",
+    notes = "Naturlig kalciumkarbonat från Tyskland, ca 40 µ. Något grövre och mer gråaktig än Champagnekrita. Färgindex: PW 18.77220. Används i väggfärg och grundningar."
+  ),
+  
+  "58162" = list(
+    name = "Stone Chalk, white",
+    kremer_match = "Stone Chalk, white",
+    kremer_id = "58162",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/fillers-building-materials/58162-stone-chalk-white.html",
+    notes = "Mycket fin stenkrita, ca 4 µ. Finaste kvalitet krita för högkvalitativa applikationer. Lägst oljeabsorption av alla kritor."
+  ),
+  
+  "58900" = list(
+    name = "Bentonite",
+    kremer_match = "Bentonite",
+    kremer_id = "58900",
+    kremer_url = "https://shop.kremerpigments.com/us/shop/fillers-building-materials/58900-bentonite.html",
+    notes = "Förtjockningsmedel, särskilt för oljefärg. Mycket hög oljeabsorption (180%). Lera som sväller i kontakt med olja. Färgindex: PW 19.77004. Används sparsamt (1-5%)."
+  ),
+  
+  "58250" = list(
+    name = "Kaolin, yellowish",
+    kremer_match = "Kaolin, yellowish",
+    kremer_id = "58250",
+    kremer_url = "https://shop.kremerpigments.com/us/shop/fillers-building-materials/58250-kaolin-yellowish.html",
+    notes = "Vit bolus, gulaktig kaolin-lera. Används som fyllmedel och för att öka opacitet. Färgindex: PW 19. Måttlig oljeabsorption (45%)."
+  ),
+  
+  # GREENS
+  "40400" = list(
+    name = "Viridian PG18",
+    kremer_match = "Viridian Green (PG18)",
+    kremer_id = "44250",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/44250-viridian-green",
+    notes = "Klassisk viridiangrön, kall transparent grön. Främst från internationella leverantörer."
+  ),
+  
+  "41700" = list(
+    name = "Malakit naturlig",
+    kremer_match = "Malachite Synthetic (PG19)",
+    kremer_id = "44400",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/44400-malachite-synthetic",
+    notes = "Syntetisk malakit som alternativ till naturlig. Speciellt pigment från Kremer."
+  ),
+  
+  "11100" = list(
+    name = "Phthalogrön PG7",
+    kremer_match = "Phthalo Green Bluish (PG7)",
+    kremer_id = "23000",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/23000-phthalo-green-bluish-pg-7",
+    notes = "Stark blåaktig phthalogrön med hög färgstyrka. Organiskt pigment."
+  ),
+  
+  "40850" = list(
+    name = "Grön jord Böhmen",
+    kremer_match = "Green Earth Bohemian (PG23)",
+    kremer_id = "40850",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40850-green-earth-bohemian",
+    notes = "EXAKT MATCHNING - Samma produktnummer! Böhmisk grön jord från Kremer."
+  ),
+  
+  "40860" = list(
+    name = "Grön jord Verona",
+    kremer_match = "Green Earth Verona (PG23)",
+    kremer_id = "40860",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40860-green-earth-verona",
+    notes = "EXAKT MATCHNING - Samma produktnummer! Veronese grön jord från Kremer."
+  ),
+  
+  # BLACKS
+  "44450" = list(
+    name = "Svartoxid PBk11",
+    kremer_match = "Black Iron Oxide (PBk11)",
+    kremer_id = "47000",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/47000-black-iron-oxide",
+    ottosson_match = "Järnoxidsvart",
+    ottosson_url = "https://ottossonfarg.com/produkt/jarnoxidsvart/",
+    claessons_match = "Järnoxidsvart 9313",
+    claessons_url = "https://claessons.com/svarta/jarnoxidsvart-9313-losvikt/",
+    notes = "Järnoxidsvart med hög täckförmåga. Finns hos Kremer, Ottosson och Claessons."
+  ),
+  
+  "47400" = list(
+    name = "Spinel Black",
+    kremer_match = "Spinel Black",
+    kremer_id = "47400",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/47400-spinel-black.html",
+    notes = "Enda 'sanna' svarta - jämnt icke-reflekterande över hela spektrumet. Djupaste svarta pigmentet tillgängligt (förutom Vanta Black). Järn-mangan spinell (Fe,Mn)₃O₄. Färgindex: PBk 26.77494. Utmärkt ljusäkthet (8/8/8). Värmebeständig >500°C. Mycket fin partikelstorlek (~0.5 µm). Kräver hög oljeabsorption (65-70%). Säker att använda. Premium kvalitet."
+  ),
+  
+  # BLUES
+  "11670" = list(
+    name = "Phthaloblå PB15:3",
+    kremer_match = "Phthalo Blue Royal Blue (PB15:3)",
+    kremer_id = "23060",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/23060-phthalo-blue-royal-blue-pb-15-3",
+    notes = "Royal blue variant av phthaloblått med hög färgstyrka. Organiskt pigment."
+  ),
+  
+  # EARTH COLORS - TERRA & POZZUOLI
+  "40820" = list(
+    name = "Terra di Pozzuoli",
+    kremer_match = "Terra Pozzuoli (PY43)",
+    kremer_id = "41550",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/41550-terra-pozzuoli",
+    notes = "Italiensk vulkanisk jord från Pozzuoli. Speciellt pigment från Kremer."
+  ),
+  
+  "40800" = list(
+    name = "Terra di Siena natur",
+    kremer_match = "Raw Sienna Italian (PBr7)",
+    kremer_id = "40400",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40400-raw-sienna-italian",
+    notes = "Klassisk obränd sienna från Italien. Naturligt jordpigment."
+  ),
+  
+  "40830" = list(
+    name = "Terra di Ercolano",
+    kremer_match = "Terra di Ercolano (PBr7)",
+    kremer_id = "40835",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40835-terra-di-ercolano",
+    notes = "EXAKT MATCHNING - Terra från Herculaneum. Italienskt specialpigment."
+  ),
+  
+  # YELLOWS & OCHRES
+  "44082" = list(
+    name = "Gul ockra ljus",
+    kremer_match = "Yellow Ochre Light (PY43)",
+    kremer_id = "40010",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40010-yellow-ochre-light",
+    ottosson_match = "Gul ockra",
+    ottosson_url = "https://ottossonfarg.com/produkt/gul-ockra/",
+    notes = "Ljus gul ockra, ett av de mest använda pigmenten i svensk tradition."
+  ),
+  
+  "44086" = list(
+    name = "Gul ockra mörk",
+    kremer_match = "Yellow Ochre Dark (PY43)",
+    kremer_id = "40030",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40030-yellow-ochre-dark",
+    notes = "Mörk gul ockra med högre färgstyrka än ljus variant."
+  ),
+  
+  "44150" = list(
+    name = "Naples Yellow light",
+    kremer_match = "Naples Yellow Light (PY41/PW4)",
+    kremer_id = "43010",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/43010-naples-yellow-light",
+    notes = "Ljus neapelgul, blybaserad variant. Historiskt pigment."
+  ),
+  
+  "44160" = list(
+    name = "Naples Yellow dark",
+    kremer_match = "Naples Yellow Dark (PY41/PW4)",
+    kremer_id = "43000",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/43000-naples-yellow-dark",
+    notes = "Mörk neapelgul, blybaserad variant. Historiskt pigment."
+  ),
+  
+  # SIENNAS
+  "44650" = list(
+    name = "Raw Sienna Italien",
+    kremer_match = "Raw Sienna Italian (PBr7)",
+    kremer_id = "40400",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40400-raw-sienna-italian",
+    notes = "Klassisk obränd sienna från Italien. Naturligt jordpigment."
+  ),
+  
+  "44620" = list(
+    name = "Burnt Sienna Italien",
+    kremer_match = "Burnt Sienna Italian (PR101)",
+    kremer_id = "40450",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40450-burnt-sienna-italian",
+    ottosson_match = "Järnoxidrött bränd",
+    ottosson_url = "https://ottossonfarg.com/produkt/jarnoxidrott-brand/",
+    notes = "Bränd sienna med varm rödbrun nyans. Liknande bränt järnoxid."
+  ),
+  
+  # REDS & ORANGES - IRON OXIDES
+  "44300" = list(
+    name = "Transparent brunoxid",
+    kremer_match = "Transparent Brown Oxide (PBr7)",
+    kremer_id = "48000",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48000-transparent-brown-oxide",
+    notes = "Transparent järnoxid för lasering och transparenta skikt."
+  ),
+  
+  "44200" = list(
+    name = "Röd järnoxid transparent",
+    kremer_match = "Red Iron Oxide Transparent (PR101)",
+    kremer_id = "48100",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48100-red-iron-oxide-transparent",
+    notes = "Transparent röd järnoxid för lasering och transparenta skikt."
+  ),
+  
+  "44210" = list(
+    name = "Röd järnoxid ljus",
+    kremer_match = "Red Iron Oxide Light (PR101)",
+    kremer_id = "48200",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48200-red-iron-oxide-light",
+    ottosson_match = "Järnoxidrött ljus",
+    ottosson_url = "https://ottossonfarg.com/produkt/jarnoxidrott-ljus/",
+    claessons_match = "Järnoxidrött 9509",
+    claessons_url = "https://claessons.com/roda/jarnoxidrott-9509/",
+    notes = "Ljus röd järnoxid med god täckförmåga. Klassisk svensk rödfärgsnyans."
+  ),
+  
+  "44220" = list(
+    name = "Röd järnoxid mörk",
+    kremer_match = "Red Iron Oxide Dark (PR101)",
+    kremer_id = "48300",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48300-red-iron-oxide-dark",
+    ottosson_match = "Järnoxidrött mörk",
+    ottosson_url = "https://ottossonfarg.com/produkt/jarnoxidrott-mork/",
+    notes = "Mörk röd järnoxid med hög färgstyrka och täckförmåga."
+  ),
+  
+  "44510" = list(
+    name = "Orange järnoxid",
+    kremer_match = "Orange Iron Oxide (PO20)",
+    kremer_id = "48500",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48500-orange-iron-oxide",
+    notes = "Orange järnoxid för varma toner mellan gult och rött."
+  ),
+  
+  # === RAÄ PIGMENTS ===
+  # GREENS
+  "KG83" = list(
+    name = "Kromoxidgrönt nr GN 83",
+    kremer_match = "Chrome Oxide Green (PG17)",
+    kremer_id = "44200",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/44200-chrome-oxide-green",
+    notes = "Kall grön, opak, samma pigmenttyp (PG17). MYCKET GOD MATCHNING - samma krompigment som RAÄ använder."
+  ),
+  
+  "ZG65" = list(
+    name = "Zinkgrönt nr 65",
+    kremer_match = "Cobalt Green Dark (PG19) or Cobalt Zinc Silicate",
+    kremer_id = "44350",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/44350-cobalt-green-dark",
+    notes = "Zinkbaserad grön, närmaste matchning för traditionell zinkgrön"
+  ),
+  
+  "GU30" = list(
+    name = "Grön umbra nr 30",
+    kremer_match = "Raw Umber, greenish (PBr8)",
+    kremer_id = "40630",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40630-raw-umber-greenish",
+    notes = "Tysk obränd umbra med grönaktig nyans"
+  ),
+  
+  # BLACKS
+  "J318" = list(
+    name = "Järnoxidsvart nr 318",
+    kremer_match = "Iron Oxide Black 318 (PBk11)",
+    kremer_id = "48400",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48400-iron-oxide-black-318-high-tinting",
+    ottosson_match = "Järnoxidsvart",
+    ottosson_url = "https://ottossonfarg.com/produkt/jarnoxidsvart/",
+    claessons_match = "Järnoxidsvart CM-5D",
+    claessons_url = "https://claessons.com/svarta/jarnoxidsvart-cm-5d-1-kg/",
+    notes = "EXAKT MATCHNING - Samma produktnummer 318! Finns hos Kremer, Ottosson och Claessons."
+  ),
+  
+  "BS98" = list(
+    name = "Bensvart nr 98",
+    kremer_match = "Bone Black (PBk9)",
+    kremer_id = "47100",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/47100-bone-black",
+    ottosson_match = "Bensvart",
+    ottosson_url = "https://ottossonfarg.com/produkt/bensvart/",
+    notes = "Traditionell bensvart från ben. MYCKET GOD MATCHNING - finns hos både Kremer och svenska leverantörer."
+  ),
+  
+  # BLUES
+  "UB88" = list(
+    name = "Ultramarinblått nr 88",
+    kremer_match = "Ultramarine Blue, very dark (PB29)",
+    kremer_id = "45000",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/45000-ultramarine-blue-very-dark",
+    notes = "Djupt ultramarin, matchar mörkt NCS-värde. MYCKET GOD MATCHNING - samma pigment (PB29)."
+  ),
+  
+  "KB28" = list(
+    name = "Koboltblått nr 28",
+    kremer_match = "Cobalt Blue Medium (PB28)",
+    kremer_id = "45710",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/45710-cobalt-blue-medium",
+    notes = "Mellannyans koboltblått med violett underton"
+  ),
+  
+  # TERRA & EARTH COLORS
+  "BT44" = list(
+    name = "Bränd terra nr 44",
+    kremer_match = "Burnt Sienna, Italian (PR101)",
+    kremer_id = "44620",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40450-burnt-sienna-italian",
+    notes = "Bränd röd jord, liknande bränd terra"
+  ),
+  
+  "OT46" = list(
+    name = "Obränd terra nr 46",
+    kremer_match = "Raw Sienna, Italian (PY43)",
+    kremer_id = "40400",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40400-raw-sienna-italian",
+    notes = "Naturlig gulbrun jord"
+  ),
+  
+  # YELLOWS & OCHRES
+  "J920" = list(
+    name = "Järnoxidgult nr 920",
+    kremer_match = "Yellow Ochre, dark (PY42/43)",
+    kremer_id = "40030",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40030-yellow-ochre-dark",
+    notes = "Mörkare gulockra med god mättnad"
+  ),
+  
+  "LO92" = list(
+    name = "Ljusockra nr 92",
+    kremer_match = "Yellow Ochre, light (PY42/43)",
+    kremer_id = "40010",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40010-yellow-ochre-light",
+    notes = "Ljus gulockra"
+  ),
+  
+  "GO94" = list(
+    name = "Guldockra nr 94",
+    kremer_match = "Yellow Ochre Golden, Italian (PY43)",
+    kremer_id = "40015",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40015-yellow-ochre-golden-italian",
+    ottosson_match = "Guldockra",
+    ottosson_url = "https://ottossonfarg.com/produkt/guldockra/",
+    notes = "Guldtonad ockra, varmare än ljusockra. Klassiskt svensk pigment."
+  ),
+  
+  "GO94_GU30" = list(
+    name = "50% Guldockra + 50% Grön umbra",
+    kremer_match = "Mix Yellow Ochre Golden + Raw Umber greenish",
+    kremer_id = "40015 + 40630",
+    kremer_url = c(
+      "https://www.kremer-pigmente.com/en/shop/pigments/40015-yellow-ochre-golden-italian",
+      "https://www.kremer-pigmente.com/en/shop/pigments/40630-raw-umber-greenish"
+    ),
+    notes = "Specialblandning: 50/50 viktprocent av båda pigmenten"
+  ),
+  
+  # UMBERS
+  "OU103" = list(
+    name = "Obränd umbra nr 103",
+    kremer_match = "Raw Umber, Cyprus (PBr8)",
+    kremer_id = "40610",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40610-raw-umber",
+    notes = "Traditionell cypriotisk obränd umbra, mörkbrun-grön. MYCKET GOD MATCHNING - samma pigment (PBr8)."
+  ),
+  
+  "BU100" = list(
+    name = "Bränd umbra nr 100",
+    kremer_match = "Burnt Umber, dark brown (PBr7)",
+    kremer_id = "40720",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40720-burnt-umber-dark-brown",
+    ottosson_match = "Umbra bränd",
+    ottosson_url = "https://ottossonfarg.com/produkt/umbra-brand/",
+    claessons_match = "Bränd umbra 1783",
+    claessons_url = "https://claessons.com/umbra/brand-umbra-1783-25-kg/",
+    notes = "Cypriotisk bränd umbra, mycket mörk. Finns hos Kremer, Ottosson och Claessons."
+  ),
+  
+  "BRU39" = list(
+    name = "Brun umbra nr 39",
+    kremer_match = "Burnt Umber, reddish (PBr7)",
+    kremer_id = "40700",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40700-burnt-umber-reddish",
+    notes = "Italiensk rödaktig bränd umbra, varmare ton"
+  ),
+  
+  "GRAU36" = list(
+    name = "Grå umbra nr 36",
+    kremer_match = "Raw Umber, dark + small amount of blue pigment",
+    kremer_id = "40660",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/40660-raw-umber-dark",
+    notes = "Använd Raw Umber dark; tillsätt en nypa ultramarin för gråton"
+  ),
+  
+  # IRON OXIDE REDS
+  "J225" = list(
+    name = "Järnoxidrött nr 225",
+    kremer_match = "Red Iron Oxide, medium (PR101)",
+    kremer_id = "48200",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48200-red-iron-oxide-medium",
+    notes = "Mellannyans röd järnoxid"
+  ),
+  
+  "J180M" = list(
+    name = "Caput Mortuum 180M",
+    kremer_match = "Caput Mortuum Violet (PR101)",
+    kremer_id = "48280",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48280-caput-mortuum-violet",
+    notes = "Mörkt lila-brunt järnoxid, klassiskt caput mortuum"
+  ),
+  
+  "J120N" = list(
+    name = "Järnoxidrött nr 120N",
+    kremer_match = "Red Iron Oxide, light (PR101)",
+    kremer_id = "48220",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48220-red-iron-oxide-light",
+    notes = "Ljusare rött järnoxid"
+  ),
+  
+  "ER48A" = list(
+    name = "Engelskt rött nr 48A",
+    kremer_match = "English Red (PR101)",
+    kremer_id = "42100",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/42100-english-red",
+    notes = "Traditionellt engelskt rött, ljust orange-rött järnoxid"
+  ),
+  
+  # IRON OXIDE BROWNS
+  "J663" = list(
+    name = "Järnoxidbrunt nr 663",
+    kremer_match = "Brown Iron Oxide 610 (PBr6/7)",
+    kremer_id = "48610",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48610-brown-iron-oxide-610",
+    notes = "Syntetiskt brunt järnoxid, mycket mörkt"
+  ),
+  
+  "J686" = list(
+    name = "Järnoxidbrunt nr 686",
+    kremer_match = "Brown Iron Oxide 686 (PBr6/7)",
+    kremer_id = "48686",
+    kremer_url = "https://www.kremer-pigmente.com/en/shop/pigments/48686-brown-iron-oxide-686",
+    notes = "EXAKT MATCHNING - Samma produktnummer 686, troligen identiskt pigment."
+  )
+)
+
+
+# === MISC MATERIALS (SOLVENTS, ADDITIVES) ===
+
+misc_materials <- list(
+  "balsamterpentin_biltema" = list(
+    name = "Balsamterpentin 1 liter",
+    category = "Lösningsmedel",
+    supplier = "Biltema",
+    description = "Naturlig terpentin från tallharts. Lösningsmedel för oljefärg och lack.",
+    url = "https://www.biltema.se/bygg/farg/rengoringsmedel/balsamterpentin-1-liter-2000063842",
+    notes = "Prisvärd, lättillgänglig i butik"
+  ),
+  
+  "balsamterpentin_claessons" = list(
+    name = "Balsamterpentin",
+    category = "Lösningsmedel",
+    supplier = "Claessons",
+    description = "Ren balsamterpentin från tallharts. Traditionellt lösningsmedel.",
+    url = "https://claessons.com/balsamterpentin/balsamterpentin/",
+    notes = "Hög kvalitet, naturprodukt"
+  ),
+  
+  "balsamterpentin_kremer" = list(
+    name = "Pine Turpentine",
+    category = "Lösningsmedel",
+    supplier = "Kremer Pigmente",
+    description = "Pure pine turpentine. Professional quality solvent.",
+    url = "https://www.kremer-pigmente.com/en/shop/solvents-chemicals-additives/70010-pine-turpentine.html",
+    notes = "Premium quality, international supplier"
+  )
+)
+
+
+# === TRÄTJÄRA (WOOD TAR) SUPPLIERS & COLORS ===
+
+# Tar masstone RGB values (research documented in TAR_RGB_RESEARCH.txt)
+tar_colors <- list(
+  "Dalbränd trätjära (finast)" = list(
+    rgb = c(140, 95, 45),
+    hex = "#8C5F2D",
+    description = "Ljus och ren, gyllengul"
+  ),
+  "Ljus trätjära" = list(
+    rgb = c(90, 60, 35),
+    hex = "#5A3C23",
+    description = "Honungs- eller bärnstenfärg"
+  ),
+  "Mörk trätjära (billigast)" = list(
+    rgb = c(50, 35, 22),
+    hex = "#32231B",
+    description = "Mycket mörk brun, nästan svart"
+  )
+)
+
+# Swedish wood tar suppliers with products
+tar_suppliers <- list(
+  
+  # DALBRÄND TRÄTJÄRA (FINEST)
+  "dalbrands_finest" = list(
+    name = "Fintjära extra prima dalbränd",
+    category = "Dalbränd trätjära (finast)",
+    supplier = "Claessons Trätjära",
+    description = "Traditionellt dalbränd trätjära av högsta kvalitet",
+    url = "https://claessons.com/tratjaror/",
+    notes = "Finaste kvaliteten, lämplig för alla ändamål"
+  ),
+  
+  "dalbrands_prima" = list(
+    name = "Fintjära prima dalbränd",
+    category = "Dalbränd trätjära (finast)",
+    supplier = "Claessons Trätjära",
+    description = "Dalbränd trätjära, prima kvalitet",
+    url = "https://claessons.com/tratjaror/",
+    notes = "Utmärkt kvalitet, något mörkare än extra prima"
+  ),
+  
+  "ottosson_dalbrands" = list(
+    name = "Svensk dalbränd trätjära",
+    category = "Dalbränd trätjära (finast)",
+    supplier = "Ottosson Färgmakeri",
+    description = "Äkta svensk dalbränd trätjära",
+    url = "https://ottossonfarg.com/produkt/svensk-dalbrand-tratjara/",
+    notes = "Svensktillverkad, ekologiskt hållbar"
+  ),
+  
+  # LJUS TRÄTJÄRA
+  "claessons_light" = list(
+    name = "Fintjära prima dalbränd (ljus)",
+    category = "Ljus trätjära",
+    supplier = "Claessons Trätjära",
+    description = "Ljusare variant för grundbehandling",
+    url = "https://claessons.com/tratjaror/",
+    notes = "God genomträngning, penetrerar djupt"
+  ),
+  
+  # MÖRK TRÄTJÄRA
+  "claessons_dark" = list(
+    name = "Furutjära",
+    category = "Mörk trätjära",
+    supplier = "Claessons Trätjära",
+    description = "Mörkare trätjära från furu",
+    url = "https://claessons.com/tratjaror/",
+    notes = "Utmärkt väderskydd för exponerade ytor"
+  ),
+  
+  "biltema_dark" = list(
+    name = "Äkta trätjära 1 liter",
+    category = "Mörk trätjära",
+    supplier = "Biltema",
+    description = "Äkta trätjära för ytbehandling av trä",
+    url = "https://www.biltema.se/bygg/farg/utomhusfarg/asfalt/akta-tratjara-1-liter-2000053045",
+    notes = "Prisvärd, lättillgänglig i butik"
+  ),
+  
+  "tjarfarg_dark" = list(
+    name = "Äkta trätjära",
+    category = "Mörk trätjära",
+    supplier = "Tjärfärg.se",
+    description = "Traditionell trätjära för träbehandling",
+    url = "https://www.tjarfarg.se/produkter/klassiker/akta-tratjara/",
+    notes = "Specialiserad leverantör av tjärprodukter"
+  )
+)
+
+# Helper: Get tars by category
+get_tars_by_category <- function(category = NULL) {
+  if(is.null(category)) return(tar_suppliers)
+  Filter(function(tar) tar$category == category, tar_suppliers)
+}
+
+# Helper: Create tar choices for dropdown
+create_tar_choices <- function(category = NULL) {
+  tars <- get_tars_by_category(category)
+  choices <- setNames(
+    names(tars),
+    sapply(names(tars), function(id) {
+      tar <- tars[[id]]
+      paste0(tar$name, " - ", tar$supplier)
+    })
+  )
+  as.list(choices)
+}
+
+# Helper: Create grouped tar choices (with optgroups)
+create_grouped_tar_choices <- function() {
+  list(
+    "Dalbränd trätjära (finast)" = create_tar_choices("Dalbränd trätjära (finast)"),
+    "Ljus trätjära" = create_tar_choices("Ljus trätjära"),
+    "Mörk trätjära" = create_tar_choices("Mörk trätjära")
+  )
+}
+
+
+# Enkel och säker choices-lista
 make_choices <- function(ids) {
   setNames(ids, sapply(ids, function(id) paste0(km[[id]]$name, " (#", id, ")")))
 }
@@ -159,6 +1145,8 @@ create_grouped_choices <- function() {
 }
 
 all_choices <- c("Välj pigment" = "", create_grouped_choices())
+
+
 # === KULTURKULÖR PRESET SYSTEM ===
 source("kulturkulor_recipes.r")
 source("kulturkulor_recipes_part2.r")
@@ -433,7 +1421,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.9.6-refactored, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.9.5, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -1439,7 +2427,7 @@ server <- function(input, output, session) {
     # Send to JavaScript to save in localStorage
     session$sendCustomMessage("save_favorite", favorite)
     
-    showNotification("Favorit sparad", type = "message", duration = 2)
+    showNotification("Favorit sparad!", type = "message", duration = 2)
   })
   
   # Handle favorite click (load from saved)
@@ -1843,6 +2831,7 @@ server <- function(input, output, session) {
       }
       
       # Add extra filler last
+      #rows <- c(rows, list(list(paste0(km[[r$filler_id]]$name, " - extra fyllmedel (#", r$filler_id, ")"), r$filler_g)))
       rows <- c(rows, list(list(paste0(km[[r$filler_id]]$name, " (#", r$filler_id, ")"), r$filler_g)))
       
     } else if(paint_type == "tar") {
@@ -2001,7 +2990,74 @@ server <- function(input, output, session) {
   }
   
   # === KUBELKA-MUNK COMPENSATION FOR VITBAS ===
-  # Note: km_compensate_vitbas function is now loaded from R/utils/km_compensation.R via global.R
+  # When vitbas is present, adjust colored pigment amounts to maintain constant color
+  # as zinc/titanium ratio changes from a reference point
+  km_compensate_vitbas <- function(normalized_pcts, ids, zinc_ratio) {
+    # Only compensate if vitbas is present
+    if (!("vitbas" %in% ids)) return(normalized_pcts)
+    
+    # K and S values for whites
+    K_zinc <- 0.00
+    S_zinc <- 1.66
+    K_titanium <- 0.00
+    S_titanium <- 2.55
+    
+    # REFERENCE POINT: 15% zinc baseline
+    zinc_ratio_ref <- 0.15
+    S_vitbas_ref <- zinc_ratio_ref * S_zinc + (1 - zinc_ratio_ref) * S_titanium
+    S_vitbas_current <- zinc_ratio * S_zinc + (1 - zinc_ratio) * S_titanium
+    
+    # Find vitbas index (vectorized)
+    vitbas_idx <- which(ids == "vitbas")[1]
+    if(is.na(vitbas_idx) || length(ids) == 1) return(normalized_pcts)
+    
+    # Split into vitbas and colored pigments
+    vitbas_pct <- normalized_pcts[vitbas_idx]
+    colored_mask <- seq_along(ids) != vitbas_idx
+    colored_pcts <- normalized_pcts[colored_mask]
+    colored_ids <- ids[colored_mask]
+    
+    c_vitbas <- vitbas_pct / 100
+    c_colored <- colored_pcts / 100
+    
+    # VECTORIZED: Calculate K and S for all colored pigments at once
+    K_vals <- sapply(colored_ids, function(id) km[[id]]$K)
+    S_vals <- sapply(colored_ids, function(id) km[[id]]$S)
+    
+    K_colored <- sum(c_colored * K_vals)
+    S_colored <- sum(c_colored * S_vals)
+    
+    # Calculate target K/S ratio
+    K_mix_ref <- K_colored  # Vitbas contributes K=0
+    S_mix_ref <- c_vitbas * S_vitbas_ref + S_colored
+    
+    if(S_mix_ref <= 0) return(normalized_pcts)
+    
+    KS_ratio_target <- K_mix_ref / S_mix_ref
+    
+    # Calculate alpha scaling factor
+    denominator <- K_colored - KS_ratio_target * S_colored
+    if(abs(denominator) < 1e-10) return(normalized_pcts)
+    
+    alpha <- (KS_ratio_target * c_vitbas * S_vitbas_current) / denominator
+    
+    # Safety check
+    if(alpha < 0.3 || alpha > 3.0) return(normalized_pcts)
+    
+    # Scale colored pigments
+    colored_pcts_compensated <- colored_pcts * alpha
+    vitbas_pct_compensated <- 100 - sum(colored_pcts_compensated)
+    
+    # Validate result
+    if(vitbas_pct_compensated < 0 || vitbas_pct_compensated > 100) return(normalized_pcts)
+    
+    # Reconstruct result (vectorized assignment)
+    compensated_pcts <- normalized_pcts
+    compensated_pcts[vitbas_idx] <- vitbas_pct_compensated
+    compensated_pcts[colored_mask] <- colored_pcts_compensated
+    
+    return(compensated_pcts)
+  }
   
   
   final_recipe <- reactive({
@@ -2139,7 +3195,7 @@ server <- function(input, output, session) {
           suppliers_found <- TRUE
           
           txt <- paste0(txt, km[[id]]$name, "\n")
-
+          
           # Kremer Pigmente
           if(!is.null(match_info$kremer_match)) {
             txt <- paste0(txt, "  Kremer Pigmente:\n")

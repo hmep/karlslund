@@ -11,13 +11,20 @@ paint-o-matic/
 ├── R/
 │   ├── data/
 │   │   ├── constants.R           # Shared constants (coverage rates, K/S values)
-│   │   ├── pigment_database.R    # Pigment data (km list, raa_pigments)
-│   │   └── supplier_data.R       # Supplier information and helpers
-│   └── utils/
-│       ├── formatting.R          # Swedish formatting, parsing, rounding
-│       ├── color_mixing.R        # RGB color mixing and preview rendering
-│       ├── calculations.R        # Recipe calculations and pigment distribution
-│       └── km_compensation.R     # Kubelka-Munk compensation logic
+│   │   ├── pigments_unified.R    # Unified pigment database (NEW in Phase 2B)
+│   │   └── tar_and_materials.R   # Tar colors, suppliers, misc materials
+│   ├── utils/
+│   │   ├── formatting.R          # Swedish formatting, parsing, rounding
+│   │   ├── color_mixing.R        # RGB color mixing and preview rendering
+│   │   ├── calculations.R        # Recipe calculations and pigment distribution
+│   │   ├── km_compensation.R     # Kubelka-Munk compensation logic
+│   │   └── pigment_helpers.R     # Helper functions for unified database (NEW)
+│   └── ui/
+│       └── ui_helpers.R           # Reusable UI components
+├── documentation/
+│   └── database_structure.md     # Unified database documentation (NEW)
+├── tools/
+│   └── verify_unified_db.R       # Database verification tests (NEW)
 ├── kulturkulor_recipes.r         # Kulturkulör recipe definitions (part 1)
 ├── kulturkulor_recipes_part2.r   # Kulturkulör recipe definitions (part 2)
 └── kulturkulor_recipes_part3.r   # Kulturkulör recipe definitions (part 3)
@@ -29,6 +36,7 @@ paint-o-matic/
 - Loads all required packages
 - Configures Swedish locale
 - Sources all utility and data modules
+- **NEW:** Creates backward compatibility layer from unified database
 - Loads and merges Kulturkulör recipes
 - **When to edit**: Adding new dependencies or modules
 
@@ -40,14 +48,40 @@ Contains shared constants:
 - K/S values for white pigments
 - **When to edit**: Changing default values or adding new constants
 
-### `R/data/pigment_database.R`
-Contains pigment data:
-- `km` - Complete pigment database (name, oil absorption, K/S values, density, RGB)
-- `raa_pigments` - List of RAÄ Kulturkulör pigments
+### `R/data/pigments_unified.R` ⭐ NEW in Phase 2B
+Contains unified pigment database:
+- `pigments_db` - Complete pigment database with all information in one structure
+- Each entry contains: id, name, properties, metadata, suppliers, notes
+- 56 total pigments, 24 RAÄ approved
 - **When to edit**: Adding new pigments or updating pigment properties
+- **See also**: `documentation/database_structure.md` for detailed documentation
 
-### `R/data/supplier_data.R`
-Contains supplier information:
+### `R/data/tar_and_materials.R`
+Contains non-pigment materials:
+- `misc_materials` - Solvents and additives (terpentine, etc.)
+- `tar_colors` - Tar color definitions with RGB values
+- `tar_suppliers` - Tar supplier information
+- Helper functions for creating dropdown choices
+- **When to edit**: Adding suppliers or tar products
+
+### `R/utils/pigment_helpers.R` ⭐ NEW in Phase 2B
+Helper functions for unified pigment database:
+- `get_pigment(id)` - Get complete pigment entry
+- `get_pigment_property(id, property)` - Get specific property
+- `is_raa_pigment(id)` - Check RAÄ approval status
+- `get_pigments_by_category(category)` - Filter by category
+- `get_supplier_info(id, supplier_name)` - Get supplier information
+- **When to edit**: Adding new helper functions for database access
+
+### Backward Compatibility (Auto-generated in `global.R`)
+The following structures are automatically generated from `pigments_db`:
+- `km` - Legacy pigment properties structure
+- `suppliers` - Legacy supplier lookup
+- `raa_pigments` - List of RAÄ approved pigment IDs
+- `pigment_name_to_id` - Name-to-ID reverse lookup
+
+⚠️ **Important**: Do not edit `km`, `suppliers`, `raa_pigments`, or `pigment_name_to_id` directly. 
+They are derived from `pigments_db`. Edit `pigments_unified.R` instead.
 - `suppliers` - Pigment supplier links and info
 - `misc_materials` - Miscellaneous materials (terpentine, etc.)
 - `tar_colors` - Tar color definitions with RGB values
@@ -69,7 +103,7 @@ Color mixing and preview:
 - `mix_colors(ids, weights, pigment_list, use_tinting)` - Mix RGB colors with K+S weighting
 - `render_preview(color_hex, preview_id)` - Render color preview with zoom
 - `calculate_recipe_color(recipe, use_tinting)` - Calculate Kulturkulör recipe color
-- `pigment_name_to_id` - Name-to-ID mapping for recipes
+- **Note**: `pigment_name_to_id` is now auto-generated in `global.R`
 - **When to edit**: Modifying color mixing algorithm or preview rendering
 
 ### `R/utils/calculations.R`
@@ -98,10 +132,12 @@ Main Shiny application:
 
 ## Common Tasks
 
-### Adding a New Pigment
-1. Add entry to `km` list in `R/data/pigment_database.R`
-2. Optionally add supplier info in `R/data/supplier_data.R`
-3. If RAÄ pigment, add to `raa_pigments` list
+### Adding a New Pigment ⭐ UPDATED for Phase 2B
+1. Edit `R/data/pigments_unified.R` and add entry following the structure
+2. Include: id, name, properties (oil, K, S, density, rgb), metadata, suppliers, notes
+3. All legacy structures (`km`, `suppliers`, `raa_pigments`, `pigment_name_to_id`) update automatically
+4. Run `source("tools/verify_unified_db.R")` to verify the addition
+5. See `documentation/database_structure.md` for detailed examples
 
 ### Modifying Calculations
 1. Edit appropriate function in `R/utils/calculations.R`

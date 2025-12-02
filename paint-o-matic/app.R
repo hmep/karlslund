@@ -433,7 +433,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.9.5, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "version 0.9.6-refactored, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -1439,7 +1439,7 @@ server <- function(input, output, session) {
     # Send to JavaScript to save in localStorage
     session$sendCustomMessage("save_favorite", favorite)
     
-    showNotification("Favorit sparad!", type = "message", duration = 2)
+    showNotification("Favorit sparad", type = "message", duration = 2)
   })
   
   # Handle favorite click (load from saved)
@@ -1843,7 +1843,6 @@ server <- function(input, output, session) {
       }
       
       # Add extra filler last
-      #rows <- c(rows, list(list(paste0(km[[r$filler_id]]$name, " - extra fyllmedel (#", r$filler_id, ")"), r$filler_g)))
       rows <- c(rows, list(list(paste0(km[[r$filler_id]]$name, " (#", r$filler_id, ")"), r$filler_g)))
       
     } else if(paint_type == "tar") {
@@ -2140,7 +2139,7 @@ server <- function(input, output, session) {
           suppliers_found <- TRUE
           
           txt <- paste0(txt, km[[id]]$name, "\n")
-          
+
           # Kremer Pigmente
           if(!is.null(match_info$kremer_match)) {
             txt <- paste0(txt, "  Kremer Pigmente:\n")

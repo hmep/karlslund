@@ -6,8 +6,8 @@
 km <- list(
   # BASE WHITES
   "vitbas" = list(name = "Vitbas (K-M-kompenserad titan/zink-blandning)", oil = 17, K = 0.00, S = 2.20, density = 4.2, rgb = c(245, 245, 245)),
-  #"44100" = list(name = "Zinkvitt PW4", oil = 20, K = 0.00, S = 1.66, density = 5.6),
-  #"44400" = list(name = "Titanvitt Rutile PW6", oil = 15, K = 0.00, S = 2.55, density = 4.2),
+  "44100" = list(name = "Zinkvitt PW4", oil = 20, K = 0.00, S = 1.66, density = 5.6, rgb = c(248, 248, 248)),
+  "44400" = list(name = "Titanvitt Rutile PW6", oil = 15, K = 0.00, S = 2.55, density = 4.2, rgb = c(252, 252, 250)),
   
   # === FILLERS ===
   "599930" = list(name = "Kiselgur (diatoméjord)", oil = 70, K = 0.00, S = 0.05, density = 2.2, rgb = c(250, 248, 245)),

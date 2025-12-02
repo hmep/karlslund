@@ -1646,17 +1646,19 @@ server <- function(input, output, session) {
       normalized_swe <- sapply(normalized_filtered, function(x) format_swe(x, 1))
       
       text_lines <- paste0(pigment_names, ": ", normalized_swe, " %", collapse = " • ")
-      icon_type <- "exclamation-triangle"
       msg <- "Totalen överstiger 100 %. Normaliserade procentsatser som används:"
-      tags$div(
-        class = "alert",
-        icon(icon_type),
-        " ", msg, text_lines,
-        tags$br(),
-        tags$div(
-          style = "margin-top: 0.5em;",
-          actionButton("normalize_values", "Snabbjustera reglage till normaliserade värden", class = "btn-default btn-sm", icon = icon("sliders"))
-        )
+      
+      info_box(
+        tagList(
+          msg, text_lines,
+          tags$br(),
+          tags$div(
+            style = "margin-top: 0.5em;",
+            actionButton("normalize_values", "Snabbjustera reglage till normaliserade värden", class = "btn-default btn-sm", icon = icon("sliders"))
+          )
+        ),
+        type = "warning",
+        icon_name = "exclamation-triangle"
       )
     }
   })

@@ -41,6 +41,7 @@ source("R/utils/formatting.R")
 source("R/utils/color_mixing.R")
 source("R/utils/calculations.R")
 source("R/utils/km_compensation.R")
+source("R/ui/ui_helpers.R")
 
 # === LOAD DATA ===
 source("R/data/constants.R")

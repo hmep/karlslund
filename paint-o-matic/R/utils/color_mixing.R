@@ -68,19 +68,7 @@ render_preview <- function(color_hex, preview_id) {
   )
 }
 
-# Pigment name to ID mapping for kulturkulör recipes
-pigment_name_to_id <- list(
-  "Järnoxidrött nr 225" = "J225", "Järnoxidrött nr 180 M (Caput Mortuum)" = "J180M",
-  "Järnoxidrött nr 120 N" = "J120N", "Engelskt rött nr 48 A" = "ER48A",
-  "Järnoxidbrunt nr 663" = "J663", "Järnoxidbrunt nr 686" = "J686",
-  "Järnoxidgult nr 920" = "J920", "Järnoxidsvart nr 318" = "J318",
-  "Ljusockra nr 92" = "LO92", "Guldockra nr 94" = "GO94",
-  "50% Guldockra nr 94 + 50% Grön umbra nr 30" = "GO94_GU30",
-  "Obränd Umbra nr 103" = "OU103", "Bränd Umbra nr 100" = "BU100",
-  "Brun Umbra nr 39" = "BRU39", "Grön Umbra nr 30" = "GU30", "Grå Umbra nr 36" = "GRAU36",
-  "Bränd Terra nr 44" = "BT44", "Obränd Terra nr 46" = "OT46", "Bensvart nr 98" = "BS98",
-  "Kromoxidgrönt nr GN 83" = "KG83", "Ultramarinblått nr 88" = "UB88", "Koboltblått nr 28" = "KB28"
-)
+# NOTE: pigment_name_to_id is now auto-generated in global.R from unified database
 
 # Calculate preview colors for each recipe using same method as main preview
 calculate_recipe_color <- function(recipe, use_tinting = FALSE) {

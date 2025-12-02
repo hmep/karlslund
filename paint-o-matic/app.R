@@ -1935,125 +1935,25 @@ server <- function(input, output, session) {
     round(total_L, 2)
   })
   
-  # === TAR OIL PAINT RECIPE CALCULATOR ===
-  calculate_tar_oil_recipe <- function(c, m, zinc_ratio) {
-    # Normalize and compensate
-    normalized_pcts <- (m$pct / m$total) * 100
-    compensated_pcts <- km_compensate_vitbas(normalized_pcts, m$ids, zinc_ratio)
-    
-    # Use generic helper for base properties
-    props <- calculate_base_properties(m, compensated_pcts, zinc_ratio, km)
-    
-    # Use generic helper for pigment amounts
-    amounts <- calculate_pigment_amounts(c$target_liters, props$oil_absorption, props$density)
-    
-    # Apply CPVC factor
-    tar_extra_oil <- input$tar_extra_oil %||% 1.6
-    total_oil_with_factor <- amounts$base_oil_g * tar_extra_oil
-    
-    # Split: 50% tar, 50% oil (+20% compensation)
-    tar_g <- total_oil_with_factor * 0.5
-    linseed_oil_g <- total_oil_with_factor * 0.5 * 1.2
-    balsamterpentin_g <- tar_g
-    
-    # Use generic helper to distribute pigments
-    pigments <- distribute_pigments(m, compensated_pcts, amounts$total_pigment_g, zinc_ratio)
-    
-    list(
-      zn = smart_round(pigments$zn), 
-      ti = smart_round(pigments$ti), 
-      color = sapply(pigments$color, smart_round),
-      tar_category = input$tar_category,
-      tar = smart_round(tar_g),
-      oil = smart_round(linseed_oil_g),
-      balsamterpentin = smart_round(balsamterpentin_g),
-      hex = final_hex()
-    )
-  }
-  
-  # === EGG-OIL TEMPERA RECIPE CALCULATOR ===
-  calculate_egg_oil_recipe <- function(c, m, zinc_ratio) {
-    # Normalize and compensate
-    normalized_pcts <- (m$pct / m$total) * 100
-    compensated_pcts <- km_compensate_vitbas(normalized_pcts, m$ids, zinc_ratio)
-    
-    # Use generic helpers for base properties
-    props <- calculate_base_properties(m, compensated_pcts, zinc_ratio, km)
-    amounts <- calculate_pigment_amounts(c$target_liters, props$oil_absorption, props$density)
-    
-    # Add extra filler (20% overshoot)
-    filler_id <- input$egg_filler
-    extra_filler_volume_L <- amounts$pigment_volume_L * 0.20
-    extra_filler_g <- extra_filler_volume_L * 1000 * km[[filler_id]]$density
-    
-    # Split oil into oil + eggs (50/50)
-    linseed_oil_g <- amounts$base_oil_g * 0.5
-    eggs_g <- amounts$base_oil_g * 0.5
-    eggs_count <- eggs_g / 50
-    water_g <- amounts$base_oil_g
-    
-    # Use generic helper to distribute pigments
-    pigments <- distribute_pigments(m, compensated_pcts, amounts$total_pigment_g, zinc_ratio)
-    
-    list(
-      zn = smart_round(pigments$zn), 
-      ti = smart_round(pigments$ti), 
-      color = sapply(pigments$color, smart_round),
-      filler_id = filler_id,
-      filler_g = smart_round(extra_filler_g),
-      oil = smart_round(linseed_oil_g),
-      eggs = smart_round(eggs_g),
-      eggs_count = round(eggs_count, 1),
-      water = smart_round(water_g),
-      hex = final_hex()
-    )
-  }
-  
-  # === KUBELKA-MUNK COMPENSATION FOR VITBAS ===
-  # Note: km_compensate_vitbas function is now loaded from R/utils/km_compensation.R via global.R
-  
-  
   final_recipe <- reactive({
     c <- calc()  # Get all values from calc()
     m <- mix()
     zinc_ratio <- c$zinc_ratio / 100
+    paint_type <- input$paint_type %||% "linseed"
     
-    # Check paint type and route to appropriate calculator
-    paint_type <- input$paint_type %||% "linseed"  # Default to linseed
+    # Build extra parameters based on paint type
+    extra_params <- list(hex = final_hex())
     
-    if(paint_type == "egg_oil") {
-      # Egg-oil tempera recipe
-      return(calculate_egg_oil_recipe(c, m, zinc_ratio))
+    if (paint_type == "linseed") {
+      extra_params$extra_oil <- c$extra_oil
+    } else if (paint_type == "egg_oil") {
+      extra_params$filler_id <- input$egg_filler
+    } else if (paint_type == "tar") {
+      extra_params$tar_category <- input$tar_category
+      extra_params$tar_extra_oil <- input$tar_extra_oil %||% 1.6
     }
     
-    if(paint_type == "tar") {
-      # Tar oil paint recipe
-      return(calculate_tar_oil_recipe(c, m, zinc_ratio))
-    }
-    
-    # === LINSEED OIL PAINT RECIPE (original logic) ===
-    target_liters <- c$target_liters
-    
-    # CRITICAL FIX: Always normalize percentages to 100%
-    # Regardless of what user entered, treat their ratios as parts of 100%
-    normalized_pcts <- (m$pct / m$total) * 100
-    
-    # === APPLY KUBELKA-MUNK COMPENSATION ===
-    compensated_pcts <- km_compensate_vitbas(normalized_pcts, m$ids, zinc_ratio)
-    
-    # Use generic helpers for base properties and amounts
-    props <- calculate_base_properties(m, compensated_pcts, zinc_ratio, km)
-    amounts <- calculate_pigment_amounts(target_liters, props$oil_absorption, props$density)
-    
-    # Apply CPVC factor to oil
-    final_oil_g <- amounts$base_oil_g * c$extra_oil
-    
-    # Use generic helper to distribute pigments
-    pigments <- distribute_pigments(m, compensated_pcts, amounts$total_pigment_g, zinc_ratio)
-    
-    list(zn=smart_round(pigments$zn), ti=smart_round(pigments$ti), 
-         color=sapply(pigments$color, smart_round), 
-         oil=smart_round(final_oil_g), hex=final_hex())
+    calculate_recipe_generic(paint_type, c$target_liters, m, zinc_ratio, extra_params)
   })
   
   output$final_recipe <- renderTable({

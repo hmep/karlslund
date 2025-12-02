@@ -94,6 +94,9 @@ pigment_name_to_id <- setNames(
 # Load tar and miscellaneous materials data
 source("R/data/tar_and_materials.R")
 
+# Load helper functions for unified pigment database
+source("R/utils/pigment_helpers.R")
+
 # === KULTURKULÖR PRESET SYSTEM ===
 source("kulturkulor_recipes.r")
 source("kulturkulor_recipes_part2.r")

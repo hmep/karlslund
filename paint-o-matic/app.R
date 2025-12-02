@@ -1047,16 +1047,25 @@ server <- function(input, output, session) {
     updatePickerInput(session, "p4", choices = choices_list, selected = input$p4)
   })
   
+  # === SWATCH GENERATION CACHING ===
+  # Swatch generation is expensive (thousands of color calculations)
+  # Caching by shade_pigment provides instant results when switching between recipe sets
+  # Cache is automatically invalidated when shade_pigment changes
+  
+  # Cache swatch generation - these are expensive and don't change often
+  generate_all_extended_swatches_cached <- memoise(generate_all_extended_swatches)
+  generate_all_raa_swatches_cached <- memoise(generate_all_raa_swatches)
+  
   # Reactive for extended swatches - regenerate when shading pigment changes
   extended_swatches_reactive <- reactive({
     shade_pigment <- input$shading_pigment %||% "44450"
-    generate_all_extended_swatches(shade_pigment)
+    generate_all_extended_swatches_cached(shade_pigment)
   })
   
   # Reactive for RAÄ swatches - regenerate when shading pigment changes
   raa_swatches_reactive <- reactive({
     shade_pigment <- input$shading_pigment_raa %||% "J318"
-    generate_all_raa_swatches(shade_pigment)
+    generate_all_raa_swatches_cached(shade_pigment)
   })
   
   # Generic function to render swatch matrix

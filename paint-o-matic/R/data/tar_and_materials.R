@@ -159,12 +159,14 @@ get_tars_by_subcategory <- function(subcategory = NULL) {
 }
 
 # Legacy helper: Get tars by category (for backward compatibility with old code)
+# Note: This function requires tar_suppliers to be auto-generated in global.R
 get_tars_by_category <- function(category = NULL) {
   if(is.null(category)) return(tar_suppliers)
   Filter(function(tar) tar$category == category, tar_suppliers)
 }
 
 # Helper: Create tar choices for dropdown
+# Note: This function uses the legacy tar_suppliers structure for backward compatibility
 create_tar_choices <- function(category = NULL) {
   tars <- get_tars_by_category(category)
   choices <- setNames(

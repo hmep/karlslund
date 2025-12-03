@@ -31,8 +31,8 @@ km_compensate_vitbas <- function(normalized_pcts, ids, zinc_ratio) {
   c_colored <- colored_pcts / 100
   
   # VECTORIZED: Calculate K and S for all colored pigments at once
-  K_vals <- sapply(colored_ids, function(id) km[[id]]$K)
-  S_vals <- sapply(colored_ids, function(id) km[[id]]$S)
+  K_vals <- sapply(colored_ids, function(id) pigments_db[[id]]$properties$K)
+  S_vals <- sapply(colored_ids, function(id) pigments_db[[id]]$properties$S)
   
   K_colored <- sum(c_colored * K_vals)
   S_colored <- sum(c_colored * S_vals)

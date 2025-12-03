@@ -101,7 +101,7 @@ generate_share_url <- function(session, input = NULL, mix_data = NULL) {
 }
 
 make_choices <- function(ids) {
-  setNames(ids, sapply(ids, function(id) paste0(km[[id]]$name, " (#", id, ")")))
+  setNames(ids, sapply(ids, function(id) paste0(pigments_db[[id]]$name, " (#", id, ")")))
 }
 
 # Create filler choices (extracts from Fyllmedel category)
@@ -383,23 +383,16 @@ generate_all_raa_swatches <- function(shade_pigment_id = "J318") {
 
 # Note: extended_swatches generated reactively in server function (not here)
 
-pigment_name_to_id <- list(
-  "Järnoxidrött nr 225" = "J225", "Järnoxidrött nr 180 M (Caput Mortuum)" = "J180M",
-  "Järnoxidrött nr 120 N" = "J120N", "Engelskt rött nr 48 A" = "ER48A",
-  "Järnoxidbrunt nr 663" = "J663", "Järnoxidbrunt nr 686" = "J686",
-  "Järnoxidgult nr 920" = "J920", "Järnoxidsvart nr 318" = "J318",
-  "Ljusockra nr 92" = "LO92", "Guldockra nr 94" = "GO94",
-  "50% Guldockra nr 94 + 50% Grön umbra nr 30" = "GO94_GU30",
-  "Obränd Umbra nr 103" = "OU103", "Bränd Umbra nr 100" = "BU100",
-  "Brun Umbra nr 39" = "BRU39", "Grön Umbra nr 30" = "GU30", "Grå Umbra nr 36" = "GRAU36",
-  "Bränd Terra nr 44" = "BT44", "Obränd Terra nr 46" = "OT46", "Bensvart nr 98" = "BS98",
-  "Kromoxidgrönt nr GN 83" = "KG83", "Ultramarinblått nr 88" = "UB88", "Koboltblått nr 28" = "KB28"
+# Create name-to-ID lookup from pigments_db for recipe colors
+pigment_name_to_id <- setNames(
+  names(pigments_db),
+  sapply(pigments_db, function(p) p$name)
 )
 
 # Calculate preview colors for each recipe using same method as main preview
 calculate_recipe_color <- function(recipe, use_tinting = FALSE) {
   base_id <- pigment_name_to_id[[recipe$pigment]]
-  if(is.null(base_id) || !base_id %in% names(km)) return(c(200, 200, 200))
+  if(is.null(base_id) || !base_id %in% names(pigments_db)) return(c(200, 200, 200))
   
   # Build list of pigments with their percentages
   ids <- character()
@@ -1017,7 +1010,9 @@ server <- function(input, output, session) {
   })
   
   observeEvent(input$raa_only, {
-    ids <- if(input$raa_only) raa_pigments else names(km)
+    # Get RAÄ pigment IDs directly from pigments_db
+    raa_ids <- names(pigments_db)[sapply(pigments_db, function(p) isTRUE(p$metadata$is_raa))]
+    ids <- if(input$raa_only) raa_ids else names(pigments_db)
     
     # Create grouped choices based on filter
     create_filtered_grouped_choices <- function(filter_ids) {
@@ -1098,7 +1093,7 @@ server <- function(input, output, session) {
   
   # Generic function to render swatch matrix
   render_swatch_matrix <- function(recipes, base_pigments, vitbas_increments, shade_increments, shade_pigment, use_tinting) {
-    shade_name <- km[[shade_pigment]]$name
+    shade_name <- pigments_db[[shade_pigment]]$name
     
     if(length(recipes) == 0) {
       return(tags$p("Inga recept tillgängliga."))
@@ -1107,7 +1102,7 @@ server <- function(input, output, session) {
     matrix_elements <- list()
     
     for(base_id in base_pigments) {
-      base_name <- km[[base_id]]$name
+      base_name <- pigments_db[[base_id]]$name
       
       # Add pigment heading
       matrix_elements[[length(matrix_elements) + 1]] <- tags$div(
@@ -1433,8 +1428,8 @@ server <- function(input, output, session) {
     
     # Generate and populate color name
     # Get pigment names
-    base_name <- if(!is.null(km[[base_id]]$name)) km[[base_id]]$name else base_id
-    shade_name <- if(!is.null(km[[shade_id]]$name)) km[[shade_id]]$name else shade_id
+    base_name <- if(!is.null(pigments_db[[base_id]]$name)) pigments_db[[base_id]]$name else base_id
+    shade_name <- if(!is.null(pigments_db[[shade_id]]$name)) pigments_db[[shade_id]]$name else shade_id
     
     # Create descriptive name
     color_name <- paste0(base_name)
@@ -1533,7 +1528,8 @@ server <- function(input, output, session) {
     all_pigments <- all_pigments[all_pigments != ""]
     
     # Check if any pigment is not in RAÄ list
-    has_non_raa <- any(!all_pigments %in% c("vitbas", raa_pigments))
+    raa_ids <- names(pigments_db)[sapply(pigments_db, function(p) isTRUE(p$metadata$is_raa))]
+    has_non_raa <- any(!all_pigments %in% c("vitbas", raa_ids))
     
     # If RAÄ-only is checked but favorite has non-RAÄ pigments, uncheck it
     if(has_non_raa && isTRUE(input$raa_only)) {
@@ -1665,7 +1661,7 @@ server <- function(input, output, session) {
       
       # Get pigment names and format
       pigment_names <- sapply(ids_filtered, function(id) {
-        name <- km[[id]]$name
+        name <- pigments_db[[id]]$name
         if(is.null(name) || length(name) == 0) {
           return(id)  # Fallback to ID if name not found
         }
@@ -1882,7 +1878,7 @@ server <- function(input, output, session) {
       }
       
       # Add extra filler last
-      rows <- c(rows, list(list(paste0(km[[r$filler_id]]$name, " (#", r$filler_id, ")"), r$filler_g)))
+      rows <- c(rows, list(list(paste0(pigments_db[[r$filler_id]]$name, " (#", r$filler_id, ")"), r$filler_g)))
       
     } else if(paint_type == "tar") {
       # Tar oil paint recipe format
@@ -1899,7 +1895,7 @@ server <- function(input, output, session) {
       if(r$ti > 0.1) rows <- c(rows, list(list("Titanvitt Rutile PW6 (#44400)", r$ti)))
       
       for(id in names(r$color)) {
-        rows <- c(rows, list(list(paste0(km[[id]]$name, " (#", id, ")"), as.numeric(r$color[id]))))
+        rows <- c(rows, list(list(paste0(pigments_db[[id]]$name, " (#", id, ")"), as.numeric(r$color[id]))))
       }
       
     } else {
@@ -1908,7 +1904,7 @@ server <- function(input, output, session) {
       if(r$zn > 0.1) rows <- c(rows, list(list("Zinkvitt PW4 (#44100)", r$zn)))
       if(r$ti > 0.1) rows <- c(rows, list(list("Titanvitt Rutile PW6 (#44400)", r$ti)))
       for(id in names(r$color)) {
-        rows <- c(rows, list(list(paste0(km[[id]]$name, " (#", id, ")"), as.numeric(r$color[id]))))
+        rows <- c(rows, list(list(paste0(pigments_db[[id]]$name, " (#", id, ")"), as.numeric(r$color[id]))))
       }
     }
     
@@ -1935,7 +1931,7 @@ server <- function(input, output, session) {
     
     if(paint_type == "egg_oil") {
       # Include filler density in weighted average
-      filler_density <- km[[recipe$filler_id]]$density
+      filler_density <- pigments_db[[recipe$filler_id]]$properties$density
       base_pigment_g <- recipe$zn + recipe$ti + sum(recipe$color)
       pigment_total_g <- base_pigment_g + recipe$filler_g
       
@@ -2071,59 +2067,52 @@ server <- function(input, output, session) {
       # Add supplier links for each pigment
       suppliers_found <- FALSE
       for(id in pigment_ids) {
-        # Check both suppliers and suppliers
-        match_info <- NULL
-        if(id %in% names(suppliers)) {
-          match_info <- suppliers[[id]]
-        } else if(id %in% names(suppliers)) {
-          match_info <- suppliers[[id]]
+        pigment <- pigments_db[[id]]
+        if(is.null(pigment) || is.null(pigment$suppliers)) next
+        
+        suppliers_found <- TRUE
+        
+        txt <- paste0(txt, pigments_db[[id]]$name, "\n")
+
+        # Kremer Pigmente
+        if(!is.null(pigment$suppliers$kremer)) {
+          txt <- paste0(txt, "  Kremer Pigmente:\n")
+          txt <- paste0(txt, "    - Matchning: ", pigment$suppliers$kremer$match, " match\n")
+          txt <- paste0(txt, "    - Produkt-ID: ", pigment$suppliers$kremer$id, "\n")
+          
+          # Handle multiple URLs (e.g., for GO94_GU30)
+          if(length(pigment$suppliers$kremer$url) > 1) {
+            txt <- paste0(txt, "    - Webbadresser:\n")
+            for(url in pigment$suppliers$kremer$url) {
+              txt <- paste0(txt, "      ", url, "\n")
+            }
+          } else {
+            txt <- paste0(txt, "    - Webbadress: ", pigment$suppliers$kremer$url, "\n")
+          }
         }
         
-        if(!is.null(match_info)) {
-          suppliers_found <- TRUE
-          
-          txt <- paste0(txt, km[[id]]$name, "\n")
-
-          # Kremer Pigmente
-          if(!is.null(match_info$kremer_match)) {
-            txt <- paste0(txt, "  Kremer Pigmente:\n")
-            txt <- paste0(txt, "    - Matchning: ", match_info$kremer_match, "\n")
-            txt <- paste0(txt, "    - Produkt-ID: ", match_info$kremer_id, "\n")
-            
-            # Handle multiple URLs (e.g., for GO94_GU30)
-            if(length(match_info$kremer_url) > 1) {
-              txt <- paste0(txt, "    - Webbadresser:\n")
-              for(url in match_info$kremer_url) {
-                txt <- paste0(txt, "      ", url, "\n")
-              }
-            } else {
-              txt <- paste0(txt, "    - Webbadress: ", match_info$kremer_url, "\n")
-            }
-          }
-          
-          # Ottosson Färgmakeri
-          if(!is.null(match_info$ottosson_match)) {
-            txt <- paste0(txt, "  Ottosson Färgmakeri (Sverige):\n")
-            txt <- paste0(txt, "    - Produkt: ", match_info$ottosson_match, "\n")
-            txt <- paste0(txt, "    - Webbadress: ", match_info$ottosson_url, "\n")
-          }
-          
-          # Claessons Trätjära
-          if(!is.null(match_info$claessons_match)) {
-            txt <- paste0(txt, "  Claessons Trätjära (Sverige):\n")
-            txt <- paste0(txt, "    - Produkt: ", match_info$claessons_match, "\n")
-            txt <- paste0(txt, "    - Webbadress: ", match_info$claessons_url, "\n")
-          }
-          
-          # Gysinge
-          if(!is.null(match_info$gysinge_match)) {
-            txt <- paste0(txt, "  Gysinge (Sverige):\n")
-            txt <- paste0(txt, "    - Produkt: ", match_info$gysinge_match, "\n")
-            txt <- paste0(txt, "    - Webbadress: ", match_info$gysinge_url, "\n")
-          }
-          
-          txt <- paste0(txt, "  Notering: ", match_info$notes, "\n\n")
+        # Ottosson Färgmakeri
+        if(!is.null(pigment$suppliers$ottosson)) {
+          txt <- paste0(txt, "  Ottosson Färgmakeri (Sverige):\n")
+          txt <- paste0(txt, "    - Produkt: ", pigment$suppliers$ottosson$name, "\n")
+          txt <- paste0(txt, "    - Webbadress: ", pigment$suppliers$ottosson$url, "\n")
         }
+        
+        # Claessons Trätjära
+        if(!is.null(pigment$suppliers$claessons)) {
+          txt <- paste0(txt, "  Claessons Trätjära (Sverige):\n")
+          txt <- paste0(txt, "    - Produkt: ", pigment$suppliers$claessons$name, "\n")
+          txt <- paste0(txt, "    - Webbadress: ", pigment$suppliers$claessons$url, "\n")
+        }
+        
+        # Gysinge
+        if(!is.null(pigment$suppliers$gysinge)) {
+          txt <- paste0(txt, "  Gysinge (Sverige):\n")
+          txt <- paste0(txt, "    - Produkt: ", pigment$suppliers$gysinge$name, "\n")
+          txt <- paste0(txt, "    - Webbadress: ", pigment$suppliers$gysinge$url, "\n")
+        }
+        
+        txt <- paste0(txt, "  Notering: ", pigment$notes, "\n\n")
       }
       
       # Add general supplier info

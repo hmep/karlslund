@@ -17,9 +17,9 @@ calculate_base_properties <- function(m, compensated_pcts, zinc_ratio, km) {
         weight_fraction * (zinc_ratio * 5.6 + (1-zinc_ratio) * 4.2)
     } else {
       base_oil_absorption <- base_oil_absorption + 
-        weight_fraction * (km[[id]]$oil / 100)
+        weight_fraction * (pigments_db[[id]]$properties$oil / 100)
       total_density <- total_density + 
-        weight_fraction * km[[id]]$density
+        weight_fraction * pigments_db[[id]]$properties$density
     }
   }
   
@@ -76,7 +76,7 @@ calculate_avg_density <- function(m, compensated_pcts, zinc_ratio, km) {
       total_density <- total_density + 
         weight_fraction * (zinc_ratio * 5.6 + (1-zinc_ratio) * 4.2)
     } else {
-      total_density <- total_density + weight_fraction * km[[id]]$density
+      total_density <- total_density + weight_fraction * pigments_db[[id]]$properties$density
     }
   }
   total_density
@@ -113,7 +113,7 @@ calculate_recipe_generic <- function(paint_type = "linseed",
   } else if (paint_type == "egg_oil") {
     filler_id <- extra_params$filler_id %||% "58000"
     extra_filler_volume_L <- amounts$pigment_volume_L * 0.20
-    extra_filler_g <- extra_filler_volume_L * 1000 * km[[filler_id]]$density
+    extra_filler_g <- extra_filler_volume_L * 1000 * pigments_db[[filler_id]]$properties$density
     
     linseed_oil_g <- amounts$base_oil_g * 0.5
     eggs_g <- amounts$base_oil_g * 0.5

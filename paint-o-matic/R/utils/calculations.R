@@ -134,7 +134,7 @@ calculate_recipe_generic <- function(paint_type = "linseed",
     linseed_oil_g <- total_oil_with_factor * 0.5 * 1.2
     balsamterpentin_g <- tar_g
     
-    result$tar_category <- extra_params$tar_category
+    result$tar_id <- extra_params$tar_id
     result$tar <- smart_round(tar_g)
     result$oil <- smart_round(linseed_oil_g)
     result$balsamterpentin <- smart_round(balsamterpentin_g)

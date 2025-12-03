@@ -64,12 +64,9 @@ generate_share_url <- function(session, input = NULL, mix_data = NULL) {
         params$egg_filler <- input$egg_filler
       }
       if(input$paint_type == "tar") {
-        # Use index instead of full name for tar_category (much shorter!)
-        if(!is.null(input$tar_category)) {
-          tar_index <- which(names(tar_colors) == input$tar_category)[1]
-          if(!is.na(tar_index)) {
-            params$tar_cat <- tar_index  # Shortened parameter name
-          }
+        # Use tar ID directly
+        if(!is.null(input$tar_id)) {
+          params$tar_id <- input$tar_id
         }
         if(!is.null(input$tar_extra_oil) && input$tar_extra_oil != 1.6) 
           params$tar_extra_oil <- input$tar_extra_oil
@@ -822,9 +819,12 @@ ui <- dashboardPage(
                         conditionalPanel(
                           condition = "input.paint_type == 'tar'",
                           tags$div(class = "paint-type-box",
-                                   selectInput("tar_category", "Typ av trätjära",
-                                               choices = names(tar_colors),
-                                               selected = names(tar_colors)[1]),
+                                   selectInput("tar_id", "Typ av trätjära",
+                                               choices = setNames(
+                                                 c("TAR01", "TAR02", "TAR03"),
+                                                 sapply(c("TAR01", "TAR02", "TAR03"), function(id) misc_db[[id]]$name)
+                                               ),
+                                               selected = "TAR01"),
                                    p("Tjärfärg lämpar sig bäst med inte alltför ljusa kulörer, eftersom tjäran i sig kan vara ganska mörk. Om du vill blanda en ljus tjärfärg, välj den finaste och ljusaste trätjäran, den är ljust honungsgul. För svarta eller andra mörka eller klara (blå, gröna, röda) kulörer går det lika bra med de billigare alternativen."),
                                    sliderInput("tar_extra_oil", "Extra olja och tjära (CPVC-faktor)", 
                                                1, 2.5, 1.6, 0.05, post = "× CPVC"),
@@ -950,28 +950,29 @@ server <- function(input, output, session) {
             updateSelectInput(session, "egg_filler", selected = query$egg_filler)
           }
           if(query$paint_type == "tar") {
-            # Handle both old format (tar_category) and new short format (tar_cat)
-            if("tar_cat" %in% names(query)) {
-              # New short format - convert index to name
+            # Handle tar_id parameter
+            if("tar_id" %in% names(query) && query$tar_id %in% names(misc_db)) {
+              updateSelectInput(session, "tar_id", selected = query$tar_id)
+            } else if("tar_cat" %in% names(query)) {
+              # Backward compatibility: old index format
               tar_index <- as.numeric(query$tar_cat)
-              if(!is.na(tar_index) && tar_index >= 1 && tar_index <= length(tar_colors)) {
-                tar_name <- names(tar_colors)[tar_index]
-                updateSelectInput(session, "tar_category", selected = tar_name)
+              tar_ids <- c("TAR01", "TAR02", "TAR03")
+              if(!is.na(tar_index) && tar_index >= 1 && tar_index <= length(tar_ids)) {
+                updateSelectInput(session, "tar_id", selected = tar_ids[tar_index])
               }
             } else if("tar_category" %in% names(query)) {
-              # Old long format - direct name
-              # Map old names to new names for backward compatibility
+              # Backward compatibility: old name format
               old_name <- query$tar_category
               tar_name_map <- c(
-                "Dalbränd trätjära (finast)" = "Dalbränd trätjära (finast, ljusast)",
-                "Mörk trätjära (billigast)" = "Mörk trätjära"
+                "Dalbränd trätjära (finast)" = "TAR01",
+                "Dalbränd trätjära (finast, ljusast)" = "TAR01",
+                "Ljus trätjära" = "TAR02",
+                "Mörk trätjära (billigast)" = "TAR03",
+                "Mörk trätjära" = "TAR03"
               )
               if(old_name %in% names(tar_name_map)) {
-                tar_name <- tar_name_map[[old_name]]
-              } else {
-                tar_name <- old_name
+                updateSelectInput(session, "tar_id", selected = tar_name_map[[old_name]])
               }
-              updateSelectInput(session, "tar_category", selected = tar_name)
             }
             if("tar_extra_oil" %in% names(query)) 
               updateSliderInput(session, "tar_extra_oil", value = as.numeric(query$tar_extra_oil))
@@ -1885,7 +1886,12 @@ server <- function(input, output, session) {
       
     } else if(paint_type == "tar") {
       # Tar oil paint recipe format
-      rows <- c(rows, list(list(r$tar_category, r$tar)))
+      tar_name <- if(!is.null(r$tar_id) && r$tar_id %in% names(misc_db)) {
+        misc_db[[r$tar_id]]$name
+      } else {
+        "Trätjära"
+      }
+      rows <- c(rows, list(list(tar_name, r$tar)))
       rows <- c(rows, list(list("Kallpressad kokt linolja", r$oil)))
       rows <- c(rows, list(list("Balsamterpentin", r$balsamterpentin)))
       
@@ -1978,7 +1984,7 @@ server <- function(input, output, session) {
     } else if (paint_type == "egg_oil") {
       extra_params$filler_id <- input$egg_filler
     } else if (paint_type == "tar") {
-      extra_params$tar_category <- input$tar_category
+      extra_params$tar_id <- input$tar_id
       extra_params$tar_extra_oil <- input$tar_extra_oil %||% 1.6
     }
     

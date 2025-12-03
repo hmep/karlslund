@@ -433,7 +433,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.2, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.3, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -667,10 +667,10 @@ ui <- dashboardPage(
                         hr(),
                         pickerInput("p1", "Pigment 1", choices = all_choices, selected = "vitbas",
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),
-                        conditionalPanel("input.p1", sliderInput("pct1","Andel (%)",0,100,30,1)),
-                        pickerInput("p2", "Pigment 2", choices = all_choices, selected = "40400",
+                        conditionalPanel("input.p1", sliderInput("pct1","Andel (%)",0,100,20,1)),
+                        pickerInput("p2", "Pigment 2", choices = all_choices, selected = "J225",
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),
-                        conditionalPanel("input.p2", sliderInput("pct2","Andel (%)",0,100,70,1)),
+                        conditionalPanel("input.p2", sliderInput("pct2","Andel (%)",0,100,80,1)),
                         pickerInput("p3", "Pigment 3", choices = all_choices, selected = "",
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),
                         conditionalPanel("input.p3", sliderInput("pct3","Andel (%)",0,100,0,1)),
@@ -771,7 +771,7 @@ ui <- dashboardPage(
                         selectInput("paint_type", "Typ av färg",
                                     choices = list(
                                       "Linoljefärg" = "linseed",
-                                      "Äggoljetemperafärg" = "egg_oil",
+                                      "Äggoljetempera" = "egg_oil",
                                       "Tjäroljefärg" = "tar"
                                     ),
                                     selected = "linseed"),
@@ -808,11 +808,13 @@ ui <- dashboardPage(
                                    selectInput("egg_filler", "Val av fyllmedel",
                                                choices = create_filler_choices(),
                                                selected = "58000"),
-                                   p("Fyllmedlet gör äggoljetemperan matt och behaglig för inomhusbruk, men valet du gör kan också påverka ytterligare egenskaper hos färgen."),
-                                   p("För att ge den målade ytan en fin putskänsla och fylla upp ojämnheter, välj " ,tags$b("kiselgur (diatoméjord)"), " som består av små vassa fragment av fossiliserade kiselalger."),
-                                   p("De olika " ,tags$b("kritorna"), " gör färgen matt – den från Ruegen är lite grövre och gråare än den från Champagne, och den vita av sten har minst kornstorlek."),
-                                   p("För att bättre än annars fylla i små ojämnheter i underlaget, testa " ,tags$b("bentonit"), " som sväller i äggoljetemperan och gör ytan lyxigt sammetslen."),
-                                   p("För en tixotrop färg som inte så lätt rinner på underlaget, välj" ,tags$b("kaolin"), " – tixotrop betyder att färgen blir mer lättflytande när påförs med penseln, men som sedan direkt tjocknar och behåller sin form när man slutar röra den.")
+                                   p("Alla fyllmedel gör äggoljetemperan matt och behaglig för inomhusbruk, men valet du gör kan också påverka ytterligare egenskaper hos temperan."),
+                                   p("För att ge den målade ytan en fin putskänsla och fylla upp ojämnheter, välj " ,tags$b("kiselgur (diatoméjord)"), " som består av mikroskopiska, vassa fragment av fossiliserade kiselalger."),
+                                   p("De olika " ,tags$b("kritorna"), " gör färgen matt men med olika effekt. Kritan från Ruegen är aningen grövre än den från Champagne, och den vita av sten har minst kornstorlek. Krita är det vanligaste fyllmedlet eftersom det är näst intill genomskinligt i oljan och därför endast knappt förändrar kulören."),
+                                   p("För att bättre än annars fylla i små ojämnheter i underlaget, testa " ,tags$b("bentonit"), " som sväller i äggoljetemperan och hindrar att färgen rinner. Det hänger samman med att färgen blir trixotop, det vill säga lättflytande i penseldragen men strax formstabil när penseln lyfts."),
+                                   p("En annan lera som ger gör färgen tixotrop och ger sammetslen yta är " ,tags$b("kaolin"), " – utan att ge en lika geléartad färg som bentonit."),
+                                   hr(),
+                                   p("Måla äggoljetemperan med platt och bred pensel som håller mycket färg, i svepande rörelser i olika riktningar, eller med en fin roller (alltid vått i vått). Vänta till nästa strykning med att rätta till misstag eller luckor i färgen, om du går tillbaka och gör om arbetar du bara fram olja till ytan som blir flammig.")
                           )
                         ),
                         
@@ -824,7 +826,6 @@ ui <- dashboardPage(
                                                choices = names(tar_colors),
                                                selected = names(tar_colors)[1]),
                                    p("Tjärfärg lämpar sig bäst med inte alltför ljusa kulörer, eftersom tjäran i sig kan vara ganska mörk. Om du vill blanda en ljus tjärfärg, välj den finaste och ljusaste trätjäran, den är ljust honungsgul. För svarta eller andra mörka eller klara (blå, gröna, röda) kulörer går det lika bra med de billigare alternativen."),
-                                   hr(),
                                    sliderInput("tar_extra_oil", "Extra olja och tjära (CPVC-faktor)", 
                                                1, 2.5, 1.6, 0.05, post = "× CPVC"),
                                    p("Reglaget ökar mängden olja och tjära proportionellt, utöver den minsta mängd som de ingående pigmenten kräver. Högre värde ger mer flytande färg och bättre strykbarhet. Du kan utan problem lägga till olje- och tjärblandning upp till 1,6–2,2 gånger av CPVC."),
@@ -1824,7 +1825,7 @@ server <- function(input, output, session) {
     paint_type <- input$paint_type %||% "linseed"
     
     if(paint_type == "egg_oil") {
-      h3("Recept för äggoljetemperafärg")
+      h3("Recept för äggoljetempera")
     } else if(paint_type == "tar") {
       h3("Recept för tjäroljefärg")
     } else {

@@ -94,6 +94,38 @@ pigment_name_to_id <- setNames(
 # Load tar and miscellaneous materials data
 source("R/data/tar_and_materials.R")
 
+# === TAR BACKWARD COMPATIBILITY LAYER ===
+# Auto-generate tar_colors and tar_suppliers from tars_db for backward compatibility
+tar_colors <- lapply(tars_db, function(tar) {
+  list(
+    rgb = tar$properties$rgb,
+    hex = sprintf("#%02X%02X%02X", tar$properties$rgb[1], tar$properties$rgb[2], tar$properties$rgb[3]),
+    description = tar$metadata$description
+  )
+})
+
+# Auto-generate tar_suppliers from tars_db
+# For each supplier in each tar, create entries keyed by tar name + supplier
+tar_suppliers <- list()
+for(tar_name in names(tars_db)) {
+  tar <- tars_db[[tar_name]]
+  if(!is.null(tar$suppliers)) {
+    for(supplier_key in names(tar$suppliers)) {
+      supplier_info <- tar$suppliers[[supplier_key]]
+      # Create unique key: tar_name + supplier_key
+      entry_key <- paste0(gsub("[^[:alnum:]]", "_", tolower(tar_name)), "_", supplier_key)
+      tar_suppliers[[entry_key]] <- list(
+        name = supplier_info$match,
+        category = tar_name,  # Use tar name as category for backward compatibility
+        supplier = supplier_key,
+        description = tar$metadata$description,
+        url = supplier_info$url,
+        notes = supplier_info$notes
+      )
+    }
+  }
+}
+
 # Load helper functions for unified pigment database
 source("R/utils/pigment_helpers.R")
 

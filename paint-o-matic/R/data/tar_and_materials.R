@@ -33,98 +33,132 @@ misc_materials <- list(
 )
 
 
-# === TRÄTJÄRA (WOOD TAR) SUPPLIERS & COLORS ===
+# === UNIFIED TRÄTJÄRA (WOOD TAR) DATABASE ===
 
-# Tar masstone RGB values (research documented in TAR_RGB_RESEARCH.txt)
-tar_colors <- list(
-  "Dalbränd trätjära (finast)" = list(
-    rgb = c(140, 95, 45),
-    hex = "#8C5F2D",
-    description = "Ljus och ren, gyllengul"
+# Unified tar database following pigments_unified.R pattern
+# Includes masstone RGB values, K/S estimates, and supplier information
+tars_db <- list(
+  "Dalbränd trätjära (finast, ljusast)" = list(
+    id = "Dalbränd trätjära (finast, ljusast)",
+    name = "Dalbränd trätjära (finast, ljusast)",
+    properties = list(
+      rgb = c(205, 170, 125),  # Approximate light honey color
+      K = 0.15,  # Estimated - very translucent
+      S = 0.05,  # Estimated - minimal scattering
+      density = 1.08  # g/cm³
+    ),
+    metadata = list(
+      category = "tar",
+      subcategory = "light",
+      description = "Finaste och ljusaste tjäran, ljust honungsgul färg"
+    ),
+    suppliers = list(
+      claessons = list(
+        match = "Ljus dalbränd trätjära",
+        url = "https://claessons.com/tratjaror/",
+        notes = "God genomträngning, penetrerar djupt"
+      )
+    ),
+    notes = "Lämplig för ljusa kulörer. Minst påverkan på färgton."
   ),
+  
   "Ljus trätjära" = list(
-    rgb = c(90, 60, 35),
-    hex = "#5A3C23",
-    description = "Honungs- eller bärnstenfärg"
+    id = "Ljus trätjära",
+    name = "Ljus trätjära",
+    properties = list(
+      rgb = c(160, 120, 80),  # Approximate medium amber
+      K = 0.35,  # Estimated - moderately translucent
+      S = 0.10,  # Estimated - some scattering
+      density = 1.08  # g/cm³
+    ),
+    metadata = list(
+      category = "tar",
+      subcategory = "medium",
+      description = "Ljusare tjära från tall, bättre färgåtergivning"
+    ),
+    suppliers = list(
+      claessons = list(
+        match = "Ljus trätjära från tall",
+        url = "https://claessons.com/tratjaror/",
+        notes = "Bra balans mellan skydd och färgåtergivning"
+      ),
+      tjarfarg = list(
+        match = "Ljus trätjära",
+        url = "https://www.tjarfarg.se/produkter/klassiker/ljus-tratjara/",
+        notes = "Specialiserad leverantör"
+      )
+    ),
+    notes = "Lämplig för medelmörka kulörer."
   ),
-  "Mörk trätjära (billigast)" = list(
-    rgb = c(50, 35, 22),
-    hex = "#32231B",
-    description = "Mycket mörk brun, nästan svart"
+  
+  "Mörk trätjära" = list(
+    id = "Mörk trätjära",
+    name = "Mörk trätjära",
+    properties = list(
+      rgb = c(80, 60, 40),  # Approximate dark brown
+      K = 0.80,  # Estimated - quite opaque
+      S = 0.20,  # Estimated - moderate scattering
+      density = 1.08  # g/cm³
+    ),
+    metadata = list(
+      category = "tar",
+      subcategory = "dark",
+      description = "Mörkare trätjära från furu, utmärkt väderskydd"
+    ),
+    suppliers = list(
+      claessons = list(
+        match = "Furutjära",
+        url = "https://claessons.com/tratjaror/",
+        notes = "Utmärkt väderskydd för exponerade ytor"
+      ),
+      biltema = list(
+        match = "Äkta trätjära 1 liter",
+        url = "https://www.biltema.se/bygg/farg/utomhusfarg/asfalt/akta-tratjara-1-liter-2000053045",
+        notes = "Prisvärd, lättillgänglig i butik"
+      ),
+      tjarfarg = list(
+        match = "Äkta trätjära",
+        url = "https://www.tjarfarg.se/produkter/klassiker/akta-tratjara/",
+        notes = "Traditionell trätjära"
+      )
+    ),
+    notes = "Lämplig för mörka och klara kulörer (blå, grön, röd). Bäst väderskydd."
   )
 )
 
-# Swedish wood tar suppliers with products
-tar_suppliers <- list(
-  
-  # DALBRÄND TRÄTJÄRA (FINEST)
-  "dalbrands_finest" = list(
-    name = "Fintjära extra prima dalbränd",
-    category = "Dalbränd trätjära (finast)",
-    supplier = "Claessons Trätjära",
-    description = "Traditionellt dalbränd trätjära av högsta kvalitet",
-    url = "https://claessons.com/tratjaror/",
-    notes = "Finaste kvaliteten, lämplig för alla ändamål"
-  ),
-  
-  "dalbrands_prima" = list(
-    name = "Fintjära prima dalbränd",
-    category = "Dalbränd trätjära (finast)",
-    supplier = "Claessons Trätjära",
-    description = "Dalbränd trätjära, prima kvalitet",
-    url = "https://claessons.com/tratjaror/",
-    notes = "Utmärkt kvalitet, något mörkare än extra prima"
-  ),
-  
-  "ottosson_dalbrands" = list(
-    name = "Svensk dalbränd trätjära",
-    category = "Dalbränd trätjära (finast)",
-    supplier = "Ottosson Färgmakeri",
-    description = "Äkta svensk dalbränd trätjära",
-    url = "https://ottossonfarg.com/produkt/svensk-dalbrand-tratjara/",
-    notes = "Svensktillverkad, ekologiskt hållbar"
-  ),
-  
-  # LJUS TRÄTJÄRA
-  "claessons_light" = list(
-    name = "Fintjära prima dalbränd (ljus)",
-    category = "Ljus trätjära",
-    supplier = "Claessons Trätjära",
-    description = "Ljusare variant för grundbehandling",
-    url = "https://claessons.com/tratjaror/",
-    notes = "God genomträngning, penetrerar djupt"
-  ),
-  
-  # MÖRK TRÄTJÄRA
-  "claessons_dark" = list(
-    name = "Furutjära",
-    category = "Mörk trätjära",
-    supplier = "Claessons Trätjära",
-    description = "Mörkare trätjära från furu",
-    url = "https://claessons.com/tratjaror/",
-    notes = "Utmärkt väderskydd för exponerade ytor"
-  ),
-  
-  "biltema_dark" = list(
-    name = "Äkta trätjära 1 liter",
-    category = "Mörk trätjära",
-    supplier = "Biltema",
-    description = "Äkta trätjära för ytbehandling av trä",
-    url = "https://www.biltema.se/bygg/farg/utomhusfarg/asfalt/akta-tratjara-1-liter-2000053045",
-    notes = "Prisvärd, lättillgänglig i butik"
-  ),
-  
-  "tjarfarg_dark" = list(
-    name = "Äkta trätjära",
-    category = "Mörk trätjära",
-    supplier = "Tjärfärg.se",
-    description = "Traditionell trätjära för träbehandling",
-    url = "https://www.tjarfarg.se/produkter/klassiker/akta-tratjara/",
-    notes = "Specialiserad leverantör av tjärprodukter"
-  )
-)
+# === TAR HELPER FUNCTIONS ===
 
-# Helper: Get tars by category
+# Get complete tar entry
+get_tar <- function(id) {
+  if(!id %in% names(tars_db)) return(NULL)
+  tars_db[[id]]
+}
+
+# Get specific tar property
+get_tar_property <- function(id, property) {
+  tar <- get_tar(id)
+  if(is.null(tar)) return(NULL)
+  tar$properties[[property]]
+}
+
+# Get tar supplier info
+get_tar_supplier_info <- function(id, supplier_name) {
+  tar <- get_tar(id)
+  if(is.null(tar)) return(NULL)
+  tar$suppliers[[supplier_name]]
+}
+
+# Get all tars by subcategory
+get_tars_by_subcategory <- function(subcategory = NULL) {
+  if(is.null(subcategory)) return(names(tars_db))
+  
+  Filter(function(id) {
+    tar <- tars_db[[id]]
+    !is.null(tar$metadata$subcategory) && tar$metadata$subcategory == subcategory
+  }, names(tars_db))
+}
+
+# Legacy helper: Get tars by category (for backward compatibility with old code)
 get_tars_by_category <- function(category = NULL) {
   if(is.null(category)) return(tar_suppliers)
   Filter(function(tar) tar$category == category, tar_suppliers)
@@ -146,7 +180,7 @@ create_tar_choices <- function(category = NULL) {
 # Helper: Create grouped tar choices (with optgroups)
 create_grouped_tar_choices <- function() {
   list(
-    "Dalbränd trätjära (finast)" = create_tar_choices("Dalbränd trätjära (finast)"),
+    "Dalbränd trätjära (finast, ljusast)" = create_tar_choices("Dalbränd trätjära (finast, ljusast)"),
     "Ljus trätjära" = create_tar_choices("Ljus trätjära"),
     "Mörk trätjära" = create_tar_choices("Mörk trätjära")
   )

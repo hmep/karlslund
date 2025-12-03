@@ -960,7 +960,18 @@ server <- function(input, output, session) {
               }
             } else if("tar_category" %in% names(query)) {
               # Old long format - direct name
-              updateSelectInput(session, "tar_category", selected = query$tar_category)
+              # Map old names to new names for backward compatibility
+              old_name <- query$tar_category
+              tar_name_map <- c(
+                "Dalbränd trätjära (finast)" = "Dalbränd trätjära (finast, ljusast)",
+                "Mörk trätjära (billigast)" = "Mörk trätjära"
+              )
+              if(old_name %in% names(tar_name_map)) {
+                tar_name <- tar_name_map[[old_name]]
+              } else {
+                tar_name <- old_name
+              }
+              updateSelectInput(session, "tar_category", selected = tar_name)
             }
             if("tar_extra_oil" %in% names(query)) 
               updateSliderInput(session, "tar_extra_oil", value = as.numeric(query$tar_extra_oil))

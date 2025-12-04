@@ -423,7 +423,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.3, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.4-db, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -2028,9 +2028,10 @@ server <- function(input, output, session) {
       }
       
       txt <- paste0(txt,
-                    "Typ av färg: ", paint_type_name, "\n",
                     "Färgkod: ", final_hex(), "\n",
-                    "Yta: ", format_swe(c$area, 0), " m²\n\n")
+                    "Typ av färg: ", paint_type_name, "\n",
+                    "Yta: ", format_swe(c$area, 0), " m²\n",
+                    "Antal strykningar: ", input$use, "\n\n")
       
       # Recipe ingredients
       for(i in 1:nrow(df)) {

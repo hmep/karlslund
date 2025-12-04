@@ -851,6 +851,11 @@ server <- function(input, output, session) {
   }
   
   # Safe input value extraction with validation
+  # Args:
+  #   input: Shiny input object
+  #   name: Input field name
+  #   default: Default value to return if validation fails
+  #   validator: Function that returns TRUE for valid values
   safe_input <- function(input, name, default, validator) {
     val <- input[[name]]
     if(is.null(val) || is.na(val) || !validator(val)) {

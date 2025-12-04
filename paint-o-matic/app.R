@@ -156,11 +156,6 @@ create_grouped_choices <- function() {
 }
 
 all_choices <- c("Välj pigment" = "", create_grouped_choices())
-# === KULTURKULÖR PRESET SYSTEM ===
-source("kulturkulor_recipes.r")
-source("kulturkulor_recipes_part2.r")
-source("kulturkulor_recipes_part3.r")
-kulturkulor_complete <- c(kulturkulor, kulturkulor_part2, kulturkulor_part3)
 
 # === UNIFIED SWATCH MATRIX SYSTEM ===
 
@@ -382,40 +377,6 @@ generate_all_raa_swatches <- function(shade_pigment_id = "J318") {
 }
 
 # Note: extended_swatches generated reactively in server function (not here)
-
-# Create name-to-ID lookup from pigments_db for recipe colors
-pigment_name_to_id <- setNames(
-  names(pigments_db),
-  sapply(pigments_db, function(p) p$name)
-)
-
-# Calculate preview colors for each recipe using same method as main preview
-calculate_recipe_color <- function(recipe, use_tinting = FALSE) {
-  base_id <- pigment_name_to_id[[recipe$pigment]]
-  if(is.null(base_id) || !base_id %in% names(pigments_db)) return(c(200, 200, 200))
-  
-  # Build list of pigments with their percentages
-  ids <- character()
-  pcts <- numeric()
-  
-  if(recipe$basfarg > 0) {
-    ids <- c(ids, base_id)
-    pcts <- c(pcts, recipe$basfarg)
-  }
-  if(recipe$vit > 0) {
-    ids <- c(ids, "vitbas")
-    pcts <- c(pcts, recipe$vit)
-  }
-  if(recipe$svart > 0) {
-    ids <- c(ids, "J318")
-    pcts <- c(pcts, recipe$svart)
-  }
-  
-  if(length(ids) == 0) return(c(200, 200, 200))
-  
-  # Use tinting strength setting from toggle
-  mix_colors(ids, pcts, pigments_db, use_tinting = use_tinting)
-}
 
 ui <- dashboardPage(
   dashboardHeader(
@@ -837,7 +798,7 @@ ui <- dashboardPage(
                         uiOutput("final_preview"),br(),
                         tableOutput("final_recipe"),
                         hr(),
-                        textInput("color_name", "Valfritt kulörnamn", 
+                        textInput("color_name_step3", "Valfritt kulörnamn", 
                                   value = "", 
                                   placeholder = "Dörrkarm 1923"),
                         actionButton("save_favorite", "Spara som favoritkulör", class="btn-default btn-sm btn-x", 
@@ -887,6 +848,15 @@ server <- function(input, output, session) {
       return(val)
     }
     return(default)
+  }
+  
+  # Safe input value extraction with validation
+  safe_input <- function(input, name, default, validator) {
+    val <- input[[name]]
+    if(is.null(val) || is.na(val) || !validator(val)) {
+      return(default)
+    }
+    return(val)
   }
   
   # Update stored values when inputs are valid (combined for efficiency)

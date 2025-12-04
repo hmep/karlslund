@@ -269,7 +269,7 @@ get_extended_base_pigments <- function() {
   exclude_ids <- c(filler_ids, white_ids, shading_pigment_ids)
   
   # Get all pigment IDs except excluded ones
-  all_ids <- names(km)
+  all_ids <- names(pigments_db)
   base_pigments <- setdiff(all_ids, exclude_ids)
   
   base_pigments
@@ -414,7 +414,7 @@ calculate_recipe_color <- function(recipe, use_tinting = FALSE) {
   if(length(ids) == 0) return(c(200, 200, 200))
   
   # Use tinting strength setting from toggle
-  mix_colors(ids, pcts, km, use_tinting = use_tinting)
+  mix_colors(ids, pcts, pigments_db, use_tinting = use_tinting)
 }
 
 ui <- dashboardPage(
@@ -1153,7 +1153,7 @@ server <- function(input, output, session) {
             
             # Calculate color
             if(length(ids) > 0) {
-              color_rgb <- mix_colors(ids, pcts, km, use_tinting = use_tinting)
+              color_rgb <- mix_colors(ids, pcts, pigments_db, use_tinting = use_tinting)
               hex_color <- rgb(color_rgb[1], color_rgb[2], color_rgb[3], maxColorValue = 255)
             } else {
               hex_color <- "#FFFFFF"
@@ -1324,7 +1324,7 @@ server <- function(input, output, session) {
           hex_color <- "#FFFFFF"
           if(length(ids) > 0) {
             tryCatch({
-              color_rgb <- mix_colors(ids, pcts, km, use_tinting = TRUE)
+              color_rgb <- mix_colors(ids, pcts, pigments_db, use_tinting = TRUE)
               hex_color <- rgb(color_rgb[1], color_rgb[2], color_rgb[3], maxColorValue = 255)
             }, error = function(e) {
               hex_color <<- "#FFFFFF"
@@ -1635,7 +1635,7 @@ server <- function(input, output, session) {
     
     # Use tinting strength if checkbox is enabled
     use_tinting <- TRUE #isTRUE(input$use_tinting_strength)
-    cols <- mix_colors(m$ids, m$pct, km, use_tinting = use_tinting)
+    cols <- mix_colors(m$ids, m$pct, pigments_db, use_tinting = use_tinting)
     
     hex <- sprintf("#%02X%02X%02X", round(cols[1]), round(cols[2]), round(cols[3]))
     final_hex(hex)
@@ -1874,7 +1874,7 @@ server <- function(input, output, session) {
       if(r$ti > 0.1) rows <- c(rows, list(list("Titanvitt Rutile PW6 (#44400)", r$ti)))
       
       for(id in names(r$color)) {
-        rows <- c(rows, list(list(paste0(km[[id]]$name, " (#", id, ")"), as.numeric(r$color[id]))))
+        rows <- c(rows, list(list(paste0(pigments_db[[id]]$name, " (#", id, ")"), as.numeric(r$color[id]))))
       }
       
       # Add extra filler last
@@ -1924,7 +1924,7 @@ server <- function(input, output, session) {
     # Common calculations (used by all paint types)
     normalized_pcts <- (m$pct / m$total) * 100
     compensated_pcts <- km_compensate_vitbas(normalized_pcts, m$ids, zinc_ratio)
-    avg_density <- calculate_avg_density(m, compensated_pcts, zinc_ratio, km)
+    avg_density <- calculate_avg_density(m, compensated_pcts, zinc_ratio)
     
     # Packing factor constant
     PACKING_FACTOR <- 0.85

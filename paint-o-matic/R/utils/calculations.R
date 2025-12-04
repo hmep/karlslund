@@ -2,7 +2,7 @@
 # Generic recipe helper functions for paint calculations
 
 # Calculate base oil absorption and density for pigment mix
-calculate_base_properties <- function(m, compensated_pcts, zinc_ratio, km) {
+calculate_base_properties <- function(m, compensated_pcts, zinc_ratio) {
   base_oil_absorption <- 0
   total_density <- 0
   
@@ -66,7 +66,7 @@ distribute_pigments <- function(m, compensated_pcts, total_pigment_g, zinc_ratio
 }
 
 # Calculate average density for a pigment mix (used in volume calculations)
-calculate_avg_density <- function(m, compensated_pcts, zinc_ratio, km) {
+calculate_avg_density <- function(m, compensated_pcts, zinc_ratio) {
   total_density <- 0
   for(i in seq_along(m$ids)) {
     id <- m$ids[i]
@@ -94,7 +94,7 @@ calculate_recipe_generic <- function(paint_type = "linseed",
   compensated_pcts <- km_compensate_vitbas(normalized_pcts, m$ids, zinc_ratio)
   
   # Common calculations (all paint types)
-  props <- calculate_base_properties(m, compensated_pcts, zinc_ratio, km)
+  props <- calculate_base_properties(m, compensated_pcts, zinc_ratio)
   amounts <- calculate_pigment_amounts(target_liters, props$oil_absorption, props$density)
   pigments <- distribute_pigments(m, compensated_pcts, amounts$total_pigment_g, zinc_ratio)
   

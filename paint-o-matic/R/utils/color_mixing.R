@@ -11,7 +11,7 @@ mix_colors <- function(ids, weights, pigment_list, use_tinting = TRUE) {
   cols <- matrix(0, nrow = n, ncol = 3)
   
   for(i in seq_along(ids)) {
-    rgb_val <- pigment_list[[ids[i]]]$rgb
+    rgb_val <- pigment_list[[ids[i]]]$properties$rgb
     if(is.null(rgb_val)) {
       cols[i, ] <- c(255, 255, 255)
     } else {
@@ -26,8 +26,8 @@ mix_colors <- function(ids, weights, pigment_list, use_tinting = TRUE) {
     
     for(i in seq_along(ids)) {
       pigment <- pigment_list[[ids[i]]]
-      K <- pigment$K %||% 0
-      S <- pigment$S %||% 0
+      K <- pigment$properties$K %||% 0
+      S <- pigment$properties$S %||% 0
       
       # Combined optical power - use square root to soften the effect
       # This prevents ultra-high tinting pigments from completely dominating
@@ -68,12 +68,10 @@ render_preview <- function(color_hex, preview_id) {
   )
 }
 
-# NOTE: pigment_name_to_id is now auto-generated in global.R from unified database
-
 # Calculate preview colors for each recipe using same method as main preview
 calculate_recipe_color <- function(recipe, use_tinting = FALSE) {
   base_id <- pigment_name_to_id[[recipe$pigment]]
-  if(is.null(base_id) || !base_id %in% names(km)) return(c(200, 200, 200))
+  if(is.null(base_id) || !base_id %in% names(pigments_db)) return(c(200, 200, 200))
   
   # Build list of pigments with their percentages
   ids <- character()
@@ -95,7 +93,7 @@ calculate_recipe_color <- function(recipe, use_tinting = FALSE) {
   if(length(ids) == 0) return(c(200, 200, 200))
   
   # Use tinting strength setting from toggle
-  mix_colors(ids, pcts, km, use_tinting = use_tinting)
+  mix_colors(ids, pcts, pigments_db, use_tinting = use_tinting)
 }
 
 # === PERFORMANCE CACHING ===

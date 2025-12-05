@@ -1375,6 +1375,20 @@ server <- function(input, output, session) {
     shade_pct <- round(recipe$shade_pct)
     shade_id <- recipe$shade_pigment
     
+    # Check if swatch contains non-RAÄ pigments
+    all_pigments <- c(base_id, shade_id)
+    all_pigments <- all_pigments[all_pigments != ""]
+    
+    raa_ids <- names(pigments_db)[sapply(pigments_db, function(p) isTRUE(p$metadata$is_raa))]
+    has_non_raa <- any(!all_pigments %in% c("vitbas", raa_ids))
+    
+    # If RAÄ-only is checked but swatch has non-RAÄ pigments, uncheck it
+    if(has_non_raa && isTRUE(input$raa_only)) {
+      updateCheckboxInput(session, "raa_only", value = FALSE)
+      showNotification("RAÄ-filter avaktiverad för att visa icke-Kulturkulör pigment", 
+                       type = "warning", duration = 3)
+    }
+    
     # Ensure they sum to 100
     total <- base_pct + vitbas_pct + shade_pct
     if(total != 100) {

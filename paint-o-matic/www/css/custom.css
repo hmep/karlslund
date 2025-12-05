@@ -1,0 +1,43 @@
+/* Layout */
+.content-wrapper {background:#ccc !important;}
+.step {padding:24px 24px 64px; background:#fff; border-radius:12px; margin:20px auto 80px; position:relative; min-width:360px; max-width:840px;}
+.footer-ref {position:relative; bottom:-44px; left:0; right:0; font-size:12px; color:#555; text-align:center; padding:12px 12px 0; border-top:1px solid #ddd;}
+.ready-box {padding:20px;}
+.ready-box h3, h2 {margin:0 0 .5em; padding:0;}
+.rmargin-box {margin-right:20px;}
+
+/* Preview and swatches */
+.preview {display:block; height:300px; width:300px; border:8px solid #333; border-radius:150px; margin:auto;}
+.kulturkulor-swatch {display:inline-block; width:24px; height:24px; border-radius:50%; margin:3px; cursor:pointer; border:2px solid #999; transition:transform 0.1s, border-color 0.1s;}
+.kulturkulor-swatch:hover {transform:scale(1.3); border-color:#333; z-index:10; position:relative;}
+.kulturkulor-gallery {max-height:200px; overflow-y:auto; overflow-x:hidden; padding:8px; background:#fff; border:1px solid #ddd; border-radius:4px; margin-top:8px;}
+
+/* Boxes and alerts */
+.normalized-box, .info-box, .alert {background:#eee; color:black; border:0; padding:12px; border-radius:6px; margin:1em 0;}
+.normalized-box {margin:10px 0;}
+.paint-type-box {background:#f8f9fa; border:1px solid #dee2e6; border-radius:8px; padding:20px; margin-top:15px;}
+
+/* Buttons */
+.btn {margin:.5em .5em 0 0;}
+.btn-x {margin:0;}
+.btn-primary {color:white;}
+.btn, .back-btn {display:inline-flex; flex-direction:row; align-items:center;}
+.btn i, .back-btn i {margin-right:6px; margin-left:0;}
+.next-btn {display:inline-flex; flex-direction:row-reverse; align-items:center;}
+.next-btn i {margin-left:6px; margin-right:0;}
+
+/* Tables */
+table tr td {white-space:nowrap;}
+table tr td:first-of-type {white-space:wrap;}
+.navbar-custom-menu .navbar-nav > li > a.version-text {font-size:11px; color:#aaa; padding:15px 0;}
+
+/* Fullscreen preview - shared button styles */
+.preview-container {position:relative; display:inline-block;}
+.zoom-icon, .fullscreen-close {background:white; border:none; border-radius:50%; cursor:pointer; color:#333; transition:all 0.2s; display:flex; align-items:center; justify-content:center;}
+.zoom-icon {position:absolute; top:4px; right:4px; width:36px; height:36px; font-size:24px; font-weight:300; line-height:1; box-shadow:0 2px 4px rgba(0,0,0,0.3);}
+.zoom-icon:hover, .fullscreen-close:hover {background:black; color:white; transform:scale(1.1);}
+.fullscreen-overlay {display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:9999; justify-content:center; align-items:center;}
+.fullscreen-overlay.active {display:flex;}
+.fullscreen-preview {width:100%; height:100%; border:0; position:relative;}
+.fullscreen-color-name {position:absolute; bottom:60px; left:0; right:0; text-align:center; font-size:16px; font-weight:300; letter-spacing:0.5px; padding:0 20px; transition:color 0.3s;}
+.fullscreen-close {position:absolute; top:20px; right:30px; width:50px; height:50px; font-size:30px; box-shadow:0 4px 8px rgba(0,0,0,0.3); z-index:10000;}

@@ -384,218 +384,28 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.4-db, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.5-pwa, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
   dashboardBody(
     useShinyjs(),
-    tags$head(tags$style(HTML("
-      /* Layout */
-      .content-wrapper {background:#ccc !important;}
-      .step {padding:24px 24px 64px; background:#fff; border-radius:12px; margin:20px auto 80px; position:relative; min-width:360px; max-width:840px;}
-      .footer-ref {position:relative; bottom:-44px; left:0; right:0; font-size:12px; color:#555; text-align:center; padding:12px 12px 0; border-top:1px solid #ddd;}
-      .ready-box {padding:20px;}
-      .ready-box h3, h2 {margin:0 0 .5em; padding:0;}
-      .rmargin-box {margin-right:20px;}
-      
-      /* Preview and swatches */
-      .preview {display:block; height:300px; width:300px; border:8px solid #333; border-radius:150px; margin:auto;}
-      .kulturkulor-swatch {display:inline-block; width:24px; height:24px; border-radius:50%; margin:3px; cursor:pointer; border:2px solid #999; transition:transform 0.1s, border-color 0.1s;}
-      .kulturkulor-swatch:hover {transform:scale(1.3); border-color:#333; z-index:10; position:relative;}
-      .kulturkulor-gallery {max-height:200px; overflow-y:auto; overflow-x:hidden; padding:8px; background:#fff; border:1px solid #ddd; border-radius:4px; margin-top:8px;}
-      
-      /* Boxes and alerts */
-      .normalized-box, .info-box, .alert {background:#eee; color:black; border:0; padding:12px; border-radius:6px; margin:1em 0;}
-      .normalized-box {margin:10px 0;}
-      .paint-type-box {background:#f8f9fa; border:1px solid #dee2e6; border-radius:8px; padding:20px; margin-top:15px;}
-      
-      /* Buttons */
-      .btn {margin:.5em .5em 0 0;}
-      .btn-x {margin:0;}
-      .btn-primary {color:white;}
-      .btn, .back-btn {display:inline-flex; flex-direction:row; align-items:center;}
-      .btn i, .back-btn i {margin-right:6px; margin-left:0;}
-      .next-btn {display:inline-flex; flex-direction:row-reverse; align-items:center;}
-      .next-btn i {margin-left:6px; margin-right:0;}
-      
-      /* Tables */
-      table tr td {white-space:nowrap;}
-      table tr td:first-of-type {white-space:wrap;}
-      .navbar-custom-menu .navbar-nav > li > a.version-text {font-size:11px; color:#aaa; padding:15px 0;}
-      
-      /* Fullscreen preview - shared button styles */
-      .preview-container {position:relative; display:inline-block;}
-      .zoom-icon, .fullscreen-close {background:white; border:none; border-radius:50%; cursor:pointer; color:#333; transition:all 0.2s; display:flex; align-items:center; justify-content:center;}
-      .zoom-icon {position:absolute; top:4px; right:4px; width:36px; height:36px; font-size:24px; font-weight:300; line-height:1; box-shadow:0 2px 4px rgba(0,0,0,0.3);}
-      .zoom-icon:hover, .fullscreen-close:hover {background:black; color:white; transform:scale(1.1);}
-      .fullscreen-overlay {display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:9999; justify-content:center; align-items:center;}
-      .fullscreen-overlay.active {display:flex;}
-      .fullscreen-preview {width:100%; height:100%; border:0; position:relative;}
-      .fullscreen-color-name {position:absolute; bottom:60px; left:0; right:0; text-align:center; font-size:16px; font-weight:300; letter-spacing:0.5px; padding:0 20px; transition:color 0.3s;}
-      .fullscreen-close {position:absolute; top:20px; right:30px; width:50px; height:50px; font-size:30px; box-shadow:0 4px 8px rgba(0,0,0,0.3); z-index:10000;}
-    "))),
     
-    tags$script(HTML('
-      // Helper function to calculate luminance and choose text color
-      function getTextColorForBackground(bgColor) {
-        // Parse RGB from background color string
-        var rgb = bgColor.match(/\\d+/g);
-        if (!rgb || rgb.length < 3) return "white";
-        
-        var r = parseInt(rgb[0]);
-        var g = parseInt(rgb[1]);
-        var b = parseInt(rgb[2]);
-        
-        // Calculate relative luminance (WCAG formula)
-        var luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-        
-        // Return black for light backgrounds, white for dark backgrounds
-        return luminance > 0.5 ? "black" : "white";
-      }
-      
-      // Fullscreen preview functionality
-      function openFullscreen(previewId) {
-        var preview = document.querySelector("#" + previewId + " .preview");
-        if (!preview) return;
-        
-        var color = window.getComputedStyle(preview).backgroundColor;
-        var overlay = document.getElementById("fullscreen-overlay");
-        var fullPreview = document.getElementById("fullscreen-preview");
-        var colorNameDiv = document.getElementById("fullscreen-color-name");
-        
-        fullPreview.style.background = color;
-        overlay.classList.add("active");
-        document.body.style.overflow = "hidden"; // Prevent scrolling
-        
-        // CRITICAL: Always clear the div first to prevent stale content
-        if (colorNameDiv) {
-          colorNameDiv.textContent = "";
-          colorNameDiv.style.display = "none";
-        }
-        
-        // Get color name from input field (try step 3 first, then step 1)
-        var colorName = "";
-        var colorNameStep3 = document.getElementById("color_name_step3");
-        var colorNameStep1 = document.getElementById("color_name");
-        
-        if (colorNameStep3 && colorNameStep3.value) {
-          colorName = colorNameStep3.value;
-        } else if (colorNameStep1 && colorNameStep1.value) {
-          colorName = colorNameStep1.value;
-        }
-        
-        // Update color name display (only if there is a name)
-        if (colorName && colorNameDiv) {
-          colorNameDiv.textContent = colorName;
-          colorNameDiv.style.display = "block";
-          
-          // Set text color based on background luminance
-          colorNameDiv.style.color = getTextColorForBackground(color);
-        }
-      }
-      
-      function closeFullscreen() {
-        var overlay = document.getElementById("fullscreen-overlay");
-        overlay.classList.remove("active");
-        document.body.style.overflow = ""; // Restore scrolling
-      }
-      
-      // Close on ESC key
-      document.addEventListener("keydown", function(e) {
-        if (e.key === "Escape") {
-          closeFullscreen();
-        }
-      });
-    ')),
+    # Link external CSS and PWA manifest
+    tags$head(
+      tags$link(rel = "stylesheet", type = "text/css", href = "css/custom.css"),
+      tags$link(rel = "manifest", href = "manifest.json"),
+      tags$meta(name = "theme-color", content = "#333333"),
+      tags$meta(name = "apple-mobile-web-app-capable", content = "yes"),
+      tags$meta(name = "apple-mobile-web-app-status-bar-style", content = "black"),
+      tags$meta(name = "apple-mobile-web-app-title", content = "Paint-o-matic")
+    ),
     
-    # Favorites localStorage JavaScript
-    tags$script(HTML('
-      // Favorites management with localStorage
-      const MAX_FAVORITES = 50;
-      const STORAGE_KEY = "paintomatic_favorites";
-      
-      // Get all favorites from localStorage
-      function getFavorites() {
-        try {
-          const data = localStorage.getItem(STORAGE_KEY);
-          if (!data) return [];
-          return JSON.parse(data);
-        } catch(e) {
-          console.error("Error loading favorites:", e);
-          localStorage.removeItem(STORAGE_KEY);
-          return [];
-        }
-      }
-      
-      // Save all favorites to localStorage
-      function saveFavorites(favorites) {
-        try {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites));
-          return true;
-        } catch(e) {
-          console.error("Error saving favorites:", e);
-          return false;
-        }
-      }
-      
-      // Add a new favorite
-      function addFavorite(favorite) {
-        let favorites = getFavorites();
-        
-        // Check limit
-        if (favorites.length >= MAX_FAVORITES) {
-          alert("Du har nått gränsen på " + MAX_FAVORITES + " sparade favoriter. Ta bort några för att spara fler.");
-          return false;
-        }
-        
-        // Add timestamp and ID
-        favorite.id = Date.now().toString();
-        favorite.timestamp = new Date().toISOString();
-        
-        // Add to beginning of array (most recent first)
-        favorites.unshift(favorite);
-        
-        return saveFavorites(favorites);
-      }
-      
-      // Delete a favorite by ID
-      function deleteFavorite(id) {
-        let favorites = getFavorites();
-        favorites = favorites.filter(f => f.id !== id);
-        saveFavorites(favorites);
-        
-        // Update Shiny with new list
-        Shiny.setInputValue("favorites_list", JSON.stringify(getFavorites()));
-        Shiny.setInputValue("favorites_updated", Math.random(), {priority: "event"});
-      }
-      
-      // Clear all favorites
-      function clearAllFavorites() {
-        if (confirm("Är du säker på att du vill ta bort alla sparade favoriter?")) {
-          localStorage.removeItem(STORAGE_KEY);
-          Shiny.setInputValue("favorites_list", JSON.stringify([]));
-          Shiny.setInputValue("favorites_updated", Math.random(), {priority: "event"});
-        }
-      }
-      
-      // Send favorites to Shiny when connected
-      $(document).on("shiny:connected", function() {
-        Shiny.setInputValue("favorites_list", JSON.stringify(getFavorites()));
-      });
-      
-      // Custom message handlers
-      Shiny.addCustomMessageHandler("save_favorite", function(favorite) {
-        if (addFavorite(favorite)) {
-          Shiny.setInputValue("favorites_list", JSON.stringify(getFavorites()));
-        }
-      });
-      
-      Shiny.addCustomMessageHandler("clear_all_favorites", function(msg) {
-        clearAllFavorites();
-        Shiny.setInputValue("favorites_list", JSON.stringify(getFavorites()));
-      });
-    ')),
+    # Load external JavaScript files
+    tags$script(src = "js/utils.js"),
+    tags$script(src = "js/fullscreen.js"),
+    tags$script(src = "js/favorites.js"),
+    tags$script(src = "service-worker-register.js"),
     
     # Fullscreen overlay (shared for both previews)
     tags$div(id = "fullscreen-overlay", class = "fullscreen-overlay", onclick = "closeFullscreen()",

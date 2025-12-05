@@ -272,7 +272,7 @@ get_extended_base_pigments <- function() {
 
 # Generate swatch code for a pigment
 # Generate all swatches for all base pigments (including RAÄ) - uses generic matrix generator  
-generate_all_extended_swatches <- function(shade_pigment_id = "44450") {
+generate_all_extended_swatches <- function(shade_pigment_id = "J318") {
   base_pigments <- get_extended_base_pigments()
   
   # Extended pattern: Logarithmic spacing for perceptually uniform steps
@@ -1056,7 +1056,7 @@ server <- function(input, output, session) {
   
   # Reactive for extended swatches - regenerate when shading pigment changes
   extended_swatches_reactive <- reactive({
-    shade_pigment <- input$shading_pigment %||% "44450"
+    shade_pigment <- input$shading_pigment %||% "J318"
     generate_all_extended_swatches_cached(shade_pigment)
   })
   
@@ -1202,7 +1202,7 @@ server <- function(input, output, session) {
     if(recipe_set == "extended") {
       # Extended swatches with matrix display
       recipes_to_show <- extended_swatches_reactive()
-      shade_pigment <- input$shading_pigment %||% "44450"
+      shade_pigment <- input$shading_pigment %||% "J318"
       
       base_pigments <- get_extended_base_pigments()
       

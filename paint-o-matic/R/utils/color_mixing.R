@@ -69,7 +69,7 @@ render_preview <- function(color_hex, preview_id) {
 }
 
 # Calculate preview colors for each recipe using same method as main preview
-calculate_recipe_color <- function(recipe, use_tinting = FALSE) {
+calculate_recipe_color <- function(recipe, use_tinting = TRUE) {
   base_id <- pigment_name_to_id[[recipe$pigment]]
   if(is.null(base_id) || !base_id %in% names(pigments_db)) return(c(200, 200, 200))
   

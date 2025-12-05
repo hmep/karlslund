@@ -318,7 +318,7 @@ pigments_db <- list(
       K = 1.15,
       S = 1.75,
       density = 5.2,
-      rgb = c(74, 117, 82)
+      rgb = c(84, 111, 68) #c(74, 117, 82)
     ),
     metadata = list(
       is_raa = TRUE,
@@ -343,7 +343,7 @@ pigments_db <- list(
       K = 1.00,
       S = 1.60,
       density = 4.8,
-      rgb = c(110, 145, 105)
+      rgb = c(73, 113, 50) #c(110, 145, 105)
     ),
     metadata = list(
       is_raa = TRUE,
@@ -418,7 +418,7 @@ pigments_db <- list(
       K = 0.85,
       S = 0.48,
       density = 3.5,
-      rgb = c(95, 100, 70)
+      rgb = c(67, 58, 39) #c(95, 100, 70)
     ),
     metadata = list(
       is_raa = TRUE,
@@ -478,7 +478,7 @@ pigments_db <- list(
       K = 2.35,
       S = 1.08,
       density = 5.1,
-      rgb = c(35, 35, 38)
+      rgb = c(25, 25, 25) #c(35, 35, 38)
     ),
     metadata = list(
       is_raa = TRUE,
@@ -512,7 +512,7 @@ pigments_db <- list(
       K = 2.60,
       S = 0.95,
       density = 2.0,
-      rgb = c(28, 28, 32)
+      rgb = c(25, 25, 25) #c(28, 28, 32)
     ),
     metadata = list(
       is_raa = TRUE,
@@ -611,7 +611,7 @@ pigments_db <- list(
       K = 1.65,
       S = 0.88,
       density = 2.4,
-      rgb = c(45, 60, 130)
+      rgb = c(26, 53, 96) #c(45, 60, 130)
     ),
     metadata = list(
       is_raa = TRUE,
@@ -636,7 +636,7 @@ pigments_db <- list(
       K = 1.40,
       S = 0.92,
       density = 4.0,
-      rgb = c(70, 95, 155)
+      rgb = c(2, 80, 154) #c(70, 95, 155)
     ),
     metadata = list(
       is_raa = TRUE,
@@ -737,7 +737,7 @@ pigments_db <- list(
       K = 0.78,
       S = 0.52,
       density = 3.4,
-      rgb = c(170, 110, 70)
+      rgb = c(131, 60, 38) #c(170, 110, 70)
     ),
     metadata = list(
       is_raa = TRUE,
@@ -762,7 +762,7 @@ pigments_db <- list(
       K = 0.62,
       S = 0.48,
       density = 3.3,
-      rgb = c(180, 130, 80)
+      rgb = c(142, 96, 37) #c(180, 130, 80)
     ),
     metadata = list(
       is_raa = TRUE,
@@ -892,7 +892,7 @@ pigments_db <- list(
       K = 0.52,
       S = 0.42,
       density = 4.0,
-      rgb = c(195, 165, 85)
+      rgb = c(188, 125, 30) #c(195, 165, 85)
     ),
     metadata = list(
       is_raa = TRUE,
@@ -917,7 +917,7 @@ pigments_db <- list(
       K = 0.46,
       S = 0.40,
       density = 3.5,
-      rgb = c(210, 185, 135)
+      rgb = c(160, 107, 29) #c(210, 185, 135)
     ),
     metadata = list(
       is_raa = TRUE,
@@ -942,7 +942,7 @@ pigments_db <- list(
       K = 0.58,
       S = 0.46,
       density = 3.6,
-      rgb = c(185, 155, 90)
+      rgb = c(189, 132, 53) #c(185, 155, 90)
     ),
     metadata = list(
       is_raa = TRUE,
@@ -971,7 +971,7 @@ pigments_db <- list(
       K = 0.72,
       S = 0.47,
       density = 3.5,
-      rgb = c(135, 130, 85)
+      rgb = c(120, 89, 58) #c(135, 130, 85)
     ),
     metadata = list(
       is_raa = TRUE,
@@ -1081,7 +1081,7 @@ pigments_db <- list(
       K = 1.12,
       S = 0.52,
       density = 3.5,
-      rgb = c(90, 60, 45)
+      rgb = c(53, 38, 33) #c(90, 60, 45)
     ),
     metadata = list(
       is_raa = TRUE,
@@ -1115,7 +1115,7 @@ pigments_db <- list(
       K = 1.05,
       S = 0.48,
       density = 3.4,
-      rgb = c(105, 85, 70)
+      rgb = c(98, 73, 45) #c(105, 85, 70)
     ),
     metadata = list(
       is_raa = TRUE,
@@ -1140,7 +1140,7 @@ pigments_db <- list(
       K = 1.20,
       S = 0.55,
       density = 3.5,
-      rgb = c(100, 95, 90)
+      rgb = c(118, 119, 121) #c(100, 95, 90)
     ),
     metadata = list(
       is_raa = TRUE,
@@ -1304,7 +1304,7 @@ pigments_db <- list(
       K = 0.95,
       S = 0.32,
       density = 5.1,
-      rgb = c(142, 52, 52)
+      rgb = c(125, 52, 43) #c(142, 52, 52)
     ),
     metadata = list(
       is_raa = TRUE,
@@ -1329,7 +1329,7 @@ pigments_db <- list(
       K = 1.15,
       S = 0.28,
       density = 5.2,
-      rgb = c(105, 45, 55)
+      rgb = c(101, 43, 39) #c(105, 45, 55)
     ),
     metadata = list(
       is_raa = TRUE,
@@ -1379,7 +1379,7 @@ pigments_db <- list(
       K = 0.75,
       S = 0.40,
       density = 4.9,
-      rgb = c(175, 80, 70)
+      rgb = c(125, 52, 43) #c(175, 80, 70)
     ),
     metadata = list(
       is_raa = TRUE,
@@ -1405,7 +1405,7 @@ pigments_db <- list(
       K = 0.88,
       S = 0.38,
       density = 5.0,
-      rgb = c(120, 80, 60)
+      rgb = c(68, 53, 48) #c(120, 80, 60)
     ),
     metadata = list(
       is_raa = TRUE,

@@ -1550,8 +1550,37 @@ server <- function(input, output, session) {
     has_non_raa <- any(!all_pigments %in% c("vitbas", raa_ids))
     
     # If RAÄ-only is checked but favorite has non-RAÄ pigments, uncheck it
+    # and update picker choices BEFORE loading pigments
     if(has_non_raa && isTRUE(input$raa_only)) {
       updateCheckboxInput(session, "raa_only", value = FALSE)
+      
+      # Manually update picker choices to include all pigments immediately
+      # This ensures the pigments are available when we try to select them below
+      ids <- names(pigments_db)
+      create_filtered_grouped_choices <- function(filter_ids) {
+        list(
+          "Vitbas" = make_choices(intersect(c("vitbas"), filter_ids)),
+          "Gröna" = make_choices(intersect(c("40400", "41700", "11100", "KG83", "ZG65", "40850", "40860", "GU30"), filter_ids)),
+          "Svarta" = make_choices(intersect(c("44450", "J318", "BS98", "47501", "47400"), filter_ids)),
+          "Blåa" = make_choices(intersect(c("11670", "UB88", "KB28"), filter_ids)),
+          "Terra & Pozzuoli" = make_choices(intersect(c("40820", "40800", "40830", "BT44", "OT46"), filter_ids)),
+          "Gula & Ockror" = make_choices(intersect(c("44082", "44086", "44150", "44160", "J920", "LO92", "GO94", "GO94_GU30"), filter_ids)),
+          "Siennas & Umbror" = make_choices(intersect(c("44650", "44620", "OU103", "BU100", "BRU39", "GRAU36"), filter_ids)),
+          "Röda & Orange" = make_choices(intersect(c("44300", "44200", "44210", "44220", "44510", "J225", "J180M", "J120N", "ER48A"), filter_ids)),
+          "Bruna" = make_choices(intersect(c("J663", "J686", "48330"), filter_ids)),
+          "Fyllmedel" = make_choices(intersect(c("599930", "58000", "58010", "58162", "58900", "58250"), filter_ids))
+        )
+      }
+      grouped <- create_filtered_grouped_choices(ids)
+      grouped <- grouped[sapply(grouped, length) > 0]
+      choices_list <- c("Välj pigment" = "", grouped)
+      
+      # Update all pickers with full choices
+      updatePickerInput(session, "p1", choices = choices_list)
+      updatePickerInput(session, "p2", choices = choices_list)
+      updatePickerInput(session, "p3", choices = choices_list)
+      updatePickerInput(session, "p4", choices = choices_list)
+      
       showNotification("RAÄ-filter avaktiverad för att ladda alla pigment i favoriten", 
                        type = "warning", duration = 3)
     }

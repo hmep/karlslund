@@ -1128,7 +1128,7 @@ server <- function(input, output, session) {
             
             # Calculate color
             if(length(ids) > 0) {
-              color_rgb <- mix_colors_cached(ids, pcts, pigments_db, use_tinting = use_tinting)
+              color_rgb <- mix_colors_cached(ids, pcts, pigments_db, use_tinting = TRUE)
               hex_color <- rgb(color_rgb[1], color_rgb[2], color_rgb[3], maxColorValue = 255)
             } else {
               hex_color <- "#FFFFFF"

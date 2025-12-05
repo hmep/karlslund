@@ -8,6 +8,20 @@ Quick reference for developers working on the Paint-o-matic application.
 paint-o-matic/
 ├── app.R                          # Main Shiny app (UI + Server)
 ├── global.R                       # Module loader (sources all dependencies)
+├── www/                           # Web resources (CSS, JS, icons, PWA files) [NEW in v0.10.5-pwa]
+│   ├── css/
+│   │   └── custom.css            # Application styles
+│   ├── js/
+│   │   ├── utils.js              # Utility functions
+│   │   ├── fullscreen.js         # Fullscreen preview
+│   │   └── favorites.js          # localStorage favorites
+│   ├── icons/
+│   │   ├── icon-192.png          # PWA icon (192×192px)
+│   │   └── icon-512.png          # PWA icon (512×512px)
+│   ├── manifest.json             # PWA manifest
+│   ├── service-worker.js         # Service worker for caching
+│   ├── service-worker-register.js # Service worker registration
+│   └── README.md                 # Web resources documentation
 ├── R/
 │   ├── data/
 │   │   ├── constants.R           # Shared constants (coverage rates, K/S values)
@@ -130,6 +144,20 @@ Main Shiny application:
 - Complete server logic
 - **When to edit**: Modifying UI, adding features, changing reactives
 
+### `www/` ⭐ NEW in v0.10.5-pwa
+Web resources directory for CSS, JavaScript, icons, and PWA support:
+- `css/custom.css` - All application styles (layout, buttons, fullscreen, etc.)
+- `js/utils.js` - Color luminance calculations
+- `js/fullscreen.js` - Fullscreen preview functionality
+- `js/favorites.js` - localStorage favorites management
+- `icons/` - PWA app icons (192×192px and 512×512px)
+- `manifest.json` - PWA manifest (enables app installation)
+- `service-worker.js` - Caches resources for offline use
+- `service-worker-register.js` - Registers service worker
+- `README.md` - Detailed documentation about web resources
+- **When to edit**: Modifying styles, JavaScript behavior, or PWA configuration
+- **See also**: `www/README.md` for comprehensive guide to web resources
+
 ## Common Tasks
 
 ### Adding a New Pigment ⭐ UPDATED for Phase 2B
@@ -148,6 +176,25 @@ Main Shiny application:
 1. Edit `ui` definition in `app.R`
 2. Ensure reactive dependencies are correct
 3. Test all interactions
+
+### Modifying Styles ⭐ NEW in v0.10.5-pwa
+1. Edit `www/css/custom.css`
+2. Reload app to see changes
+3. Verify styles across different screen sizes
+4. No need to edit `app.R` unless adding new CSS files
+
+### Modifying JavaScript Behavior ⭐ NEW in v0.10.5-pwa
+1. Edit appropriate file in `www/js/` (utils.js, fullscreen.js, or favorites.js)
+2. Reload app to see changes
+3. Check browser console for errors
+4. Test relevant functionality (e.g., fullscreen, favorites)
+
+### Updating PWA Configuration ⭐ NEW in v0.10.5-pwa
+1. Edit `www/manifest.json` for app metadata (name, colors, icons)
+2. Edit `www/service-worker.js` to change cached resources
+3. Update cache version in service worker when making breaking changes
+4. Test PWA installation and offline functionality
+5. See `www/README.md` for detailed PWA development guide
 
 ### Adding New Constants
 1. Add to `R/data/constants.R`

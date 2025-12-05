@@ -1128,7 +1128,7 @@ server <- function(input, output, session) {
             
             # Calculate color
             if(length(ids) > 0) {
-              color_rgb <- mix_colors(ids, pcts, pigments_db, use_tinting = use_tinting)
+              color_rgb <- mix_colors_cached(ids, pcts, pigments_db, use_tinting = use_tinting)
               hex_color <- rgb(color_rgb[1], color_rgb[2], color_rgb[3], maxColorValue = 255)
             } else {
               hex_color <- "#FFFFFF"
@@ -1299,7 +1299,7 @@ server <- function(input, output, session) {
           hex_color <- "#FFFFFF"
           if(length(ids) > 0) {
             tryCatch({
-              color_rgb <- mix_colors(ids, pcts, pigments_db, use_tinting = TRUE)
+              color_rgb <- mix_colors_cached(ids, pcts, pigments_db, use_tinting = TRUE)
               hex_color <- rgb(color_rgb[1], color_rgb[2], color_rgb[3], maxColorValue = 255)
             }, error = function(e) {
               hex_color <<- "#FFFFFF"
@@ -1610,7 +1610,7 @@ server <- function(input, output, session) {
     
     # Use tinting strength if checkbox is enabled
     use_tinting <- TRUE #isTRUE(input$use_tinting_strength)
-    cols <- mix_colors(m$ids, m$pct, pigments_db, use_tinting = use_tinting)
+    cols <- mix_colors_cached(m$ids, m$pct, pigments_db, use_tinting = use_tinting)
     
     hex <- sprintf("#%02X%02X%02X", round(cols[1]), round(cols[2]), round(cols[3]))
     final_hex(hex)

@@ -698,18 +698,10 @@ server <- function(input, output, session) {
   # Create filtered grouped choices for picker inputs
   # Used when switching between RAÄ-only and all pigments modes
   create_filtered_grouped_choices <- function(filter_ids) {
-    list(
-      "Vitbas" = make_choices(intersect(c("vitbas"), filter_ids)),
-      "Gröna" = make_choices(intersect(c("40400", "41700", "11100", "KG83", "ZG65", "40850", "40860", "GU30"), filter_ids)),
-      "Svarta" = make_choices(intersect(c("44450", "J318", "BS98", "47501", "47400"), filter_ids)),
-      "Blåa" = make_choices(intersect(c("11670", "UB88", "KB28"), filter_ids)),
-      "Terra & Pozzuoli" = make_choices(intersect(c("40820", "40800", "40830", "BT44", "OT46"), filter_ids)),
-      "Gula & Ockror" = make_choices(intersect(c("44082", "44086", "44150", "44160", "J920", "LO92", "GO94", "GO94_GU30"), filter_ids)),
-      "Siennas & Umbror" = make_choices(intersect(c("44650", "44620", "OU103", "BU100", "BRU39", "GRAU36"), filter_ids)),
-      "Röda & Orange" = make_choices(intersect(c("44300", "44200", "44210", "44220", "44510", "J225", "J180M", "J120N", "ER48A"), filter_ids)),
-      "Bruna" = make_choices(intersect(c("J663", "J686", "48330"), filter_ids)),
-      "Fyllmedel" = make_choices(intersect(c("599930", "58000", "58010", "58162", "58900", "58250"), filter_ids))
-    )
+    # Use PIGMENT_DISPLAY_GROUPS to ensure consistency
+    lapply(PIGMENT_DISPLAY_GROUPS, function(group_ids) {
+      make_choices(intersect(group_ids, filter_ids))
+    })
   }
   
   # Update all picker input choices

@@ -421,7 +421,7 @@ ui <- dashboardPage(
                h2("Blanda pigment till önskad kulör"),
                fluidRow(
                  column(12,
-                        p("Vill du hitta en kulör som går att blanda med naturliga jordpigment och järnoxider? Vill du skapa ett recept på linoljefärg, äggoljetempera eller tjäroljefärg med den kulören, så att du kan blanda din egen färg? Börja här med att mixa pigmenten till önskad kulör!"),
+                        p("Vill du hitta en kulör som går att blanda med naturliga jordpigment och järnoxider? Vill du skapa ett recept på linoljefärg, äggoljetempera eller tjäroljefärg med den kulören, så att du kan skaffa rätt ingredienser och blanda din egen färg? Börja här med att blanda pigment till önskad kulör."),
                         )
                ),
                fluidRow(
@@ -458,11 +458,11 @@ ui <- dashboardPage(
                         tags$b("Total andel: "), textOutput("total_pct",inline=TRUE), " %", 
                         uiOutput("total_warning"), 
                         tags$div(style="margin-top:2em;",
-                                 h5(style="font-weight:bold;","Favoritkulörer och färdiga mixer/paletter"),
+                                 #h5(style="font-weight:bold;","Favoritkulörer och färdiga mixer/paletter"),
                                  tabsetPanel(
                                    id = "recipe_tabs",
                                    tabPanel(
-                                     "Färdiga mixer/paletter",
+                                     "Färgpaletter",
                                      value = "premade",
                                      br(),
                                      selectInput("palette_choice", NULL,
@@ -481,7 +481,7 @@ ui <- dashboardPage(
                                      
                                      conditionalPanel(
                                        condition = "input.palette_choice == 'extended'",
-                                       tags$small("Kulörpaletter med tonings- och skuggningsmixer för alla pigment som är tillgängliga i Paint-o-matic. Modifiera gärna mixen efter eget tycke!"),
+                                       tags$small("Kulörpaletter med tonings- och skuggningsmixer för alla pigment som är tillgängliga i Paint-o-matic."),
                                        br(), br()
                                      ),
                                      
@@ -490,7 +490,7 @@ ui <- dashboardPage(
                                      )
                                    ),
                                    tabPanel(
-                                     "Sparade favoritkulörer",
+                                     "Sparade favoriter",
                                      value = "saved",
                                      br(),
                                      tags$small("Alla dina sparade favorit-kulörblandningar lagras på din enhet."),
@@ -567,7 +567,7 @@ ui <- dashboardPage(
                                    p("Pastan du blandar är lämplig direkt som ", tags$b("grundstrykning"), " med gnuggande målningsstil (enligt principen från magert till fett) och utgör basen för ett komplett system för linoljefärgsmålning."),
                                    p("Till färg för ", tags$b("mellanstrykning"), " kan du tillföra ytterligare kokt linolja, precis upp till den maximala mängd som fortfarande medger att färgen struken på en glasskiva förblir ogenomskinlig."),
                                    p("Till färg för ", tags$b("slutstrykning"), " kan du därutöver med fördel tillsätta 10% kokt eller ännu hellre soloxiderad olja."),
-                                   p("En burk till alla strykningar – tillsätt bara lite mer linolja efter hand!"),
+                                   p("En burk till alla strykningar – tillsätt bara lite mer linolja efter hand."),
                                    p("Var medveten om brandrisken, särskilt när du hanterar trasor och material som innehåller kokt linolja. Blöt dem i vatten och förvara dem i en tät behållare när du målat klart.")
                                    )
                         ),

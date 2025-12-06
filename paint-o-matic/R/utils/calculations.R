@@ -1,6 +1,17 @@
 # Calculation Utilities
 # Generic recipe helper functions for paint calculations
 
+# Get binder factor for paint type
+# Returns the multiplier for CPVC (Critical Pigment Volume Concentration)
+get_binder_factor <- function(paint_type, extra_params) {
+  switch(paint_type,
+    "linseed" = extra_params$extra_oil %||% 1.6,
+    "egg_oil" = extra_params$egg_extra_binder %||% 2.5,
+    "tar" = extra_params$tar_extra_binder %||% 1.6,
+    1.6  # fallback default
+  )
+}
+
 # Calculate base oil absorption and density for pigment mix
 calculate_base_properties <- function(m, compensated_pcts, zinc_ratio) {
   base_oil_absorption <- 0
@@ -133,8 +144,8 @@ calculate_recipe_generic <- function(paint_type = "linseed",
     result$water <- smart_round(water_g)
     
   } else if (paint_type == "tar") {
-    tar_extra_oil_factor <- extra_params$tar_extra_oil %||% 1.6
-    total_oil_with_factor <- amounts$base_oil_g * tar_extra_oil_factor
+    tar_extra_binder_factor <- extra_params$tar_extra_binder %||% 1.6
+    total_oil_with_factor <- amounts$base_oil_g * tar_extra_binder_factor
     
     tar_g <- total_oil_with_factor * 0.5
     linseed_oil_g <- total_oil_with_factor * 0.5 * 1.2

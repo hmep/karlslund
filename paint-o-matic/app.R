@@ -71,8 +71,8 @@ generate_share_url <- function(session, input = NULL, mix_data = NULL) {
         if(!is.null(input$tar_id)) {
           params$tar_id <- input$tar_id
         }
-        if(!is.null(input$tar_extra_oil) && input$tar_extra_oil != 1.6) 
-          params$tar_extra_oil <- input$tar_extra_oil
+        if(!is.null(input$tar_extra_binder) && input$tar_extra_binder != 1.6) 
+          params$tar_extra_binder <- input$tar_extra_binder
       }
     }
     
@@ -605,7 +605,7 @@ ui <- dashboardPage(
                                                selected = "TAR01"),
                                    p("Tjärfärg lämpar sig bäst med inte alltför ljusa kulörer, eftersom tjäran i sig kan vara ganska mörk. Om du vill blanda ljusast möjliga tjärfärg, välj den finaste och ljusaste trätjäran, den är ljust honungsgul. För svarta eller andra mörka eller klara (blå, gröna, röda) kulörer går det lika bra med de billigare alternativen."),
                                    hr(),
-                                   sliderInput("tar_extra_oil", "Extra olja och tjära (CPVC-faktor)", 
+                                   sliderInput("tar_extra_binder", "Extra olja och tjära (CPVC-faktor)", 
                                                1, 2.5, 1.6, 0.05, post = "× CPVC"),
                                    p("Reglaget ökar mängden olja och tjära proportionellt, utöver den minsta mängd som de ingående pigmenten kräver. Högre värde ger mer flytande färg och bättre strykbarhet. Du kan utan problem lägga till olje- och tjärblandning upp till 1,6–2,2 gånger av CPVC."),
                                    hr(),
@@ -800,8 +800,13 @@ server <- function(input, output, session) {
                 updateSelectInput(session, "tar_id", selected = tar_name_map[[old_name]])
               }
             }
-            if("tar_extra_oil" %in% names(query)) 
-              updateSliderInput(session, "tar_extra_oil", value = as.numeric(query$tar_extra_oil))
+            # Load tar_extra_binder (with backward compatibility for tar_extra_oil)
+            if("tar_extra_binder" %in% names(query)) {
+              updateSliderInput(session, "tar_extra_binder", value = as.numeric(query$tar_extra_binder))
+            } else if("tar_extra_oil" %in% names(query)) {
+              # Backward compatibility: old parameter name
+              updateSliderInput(session, "tar_extra_binder", value = as.numeric(query$tar_extra_oil))
+            }
           }
         }
         
@@ -1811,7 +1816,7 @@ server <- function(input, output, session) {
       extra_params$egg_extra_binder <- input$egg_extra_binder %||% 2.5
     } else if (paint_type == "tar") {
       extra_params$tar_id <- input$tar_id
-      extra_params$tar_extra_oil <- input$tar_extra_oil %||% 1.6
+      extra_params$tar_extra_binder <- input$tar_extra_binder %||% 1.6
     }
     
     calculate_recipe_generic(paint_type, c$target_liters, m, zinc_ratio, extra_params)

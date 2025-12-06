@@ -3,6 +3,7 @@
   "short_name": "Paint-o-matic",
   "description": "Blanda din egen linoljefärg - Mix your own linseed oil paint",
   "start_url": "/paint-o-matic/",
+  "scope": "/paint-o-matic/",
   "display": "standalone",
   "background_color": "#cccccc",
   "theme_color": "#333333",

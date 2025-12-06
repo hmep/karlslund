@@ -587,7 +587,7 @@ ui <- dashboardPage(
                                    hr(),
                                    sliderInput("egg_extra_binder", "Bindemedel (tunnare färg)", 
                                                1, 2.5, 1.6, 0.05, post = "× CPVC"),
-                                   p("Reglaget ökar mängden ägg, olja och vatten proportionellt. Högre värde ger tunnare, mer strykbar färg. Lägre värde ger tjockare färg för impasto-teknik."),
+                                   p("Reglaget ökar mängden ägg, olja och vatten proportionellt. Högre värde ger tunnare, mer strykbar färg. Det går bra att utöver detta tillsätta ytterligare vatten till färgen, utifrån hur sugande underlaget är."),
                                    hr(),
                                    p("Måla äggoljetemperan med platt och bred pensel som håller mycket färg, i svepande rörelser i olika riktningar, eller med en fin roller (alltid vått i vått). Vänta till nästa strykning med att rätta till misstag eller luckor i färgen, om du går tillbaka och gör om arbetar du bara fram olja till ytan som blir flammig.")
                           )

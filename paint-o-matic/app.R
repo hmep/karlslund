@@ -118,7 +118,8 @@ create_filler_choices <- function() {
 # Define display group mapping for pigments
 # This mapping determines which Swedish category each pigment appears in
 PIGMENT_DISPLAY_GROUPS <- list(
-  "Vitbas" = c("vitbas"),
+  "Vitbas (rekommenderas)" = c("vitbas"),
+  "Vita (används i specialfall)" = c("44100", "44400", "46280"),
   "Fyllmedel" = c("599930", "58000", "58010", "58162", "58900", "58250"),
   "Gröna" = c("40400", "41700", "41750", "11100", "11000", "KG83", "ZG65", "40850", "40860", "40830", "GU30"),
   "Svarta" = c("J318", "BS98", "47250", "47400", "47800", "47501", "44450", "48401", "47700"),
@@ -127,9 +128,9 @@ PIGMENT_DISPLAY_GROUPS <- list(
   "Gula & Ockror" = c("44082", "44086", "44150", "44160", "J920", "LO92", "GO94", "GO94_GU30", "40010", "40020", "40030", "40050", "40060", "40070", "40080", "40090", "40130", "40214"),
   "Siennas & Umbror" = c("44650", "44620", "OU103", "BU100", "BRU39", "GRAU36", "40470", "40542", "40610", "40630", "40720", "GU30"),
   "Röda & Orange" = c("44300", "44200", "44210", "44220", "44510", "J225", "J180M", "J120N", "ER48A", "17280", "48289", "48651"),
-  "Bruna" = c("J663", "J686", "48330")
+  "Bruna" = c("J663", "J686", "48330"),
+  "Moderna syntetiska" = c("23000", "23050", "23720", "43300")
 )
-# "Moderna syntetiska" = c("23000", "23050", "23720", "43300", "46280")
 
 # Create grouped choices for optgroups (Swedish categories)
 # Now with validation to ensure all pigments in pigments_db are included
@@ -418,6 +419,7 @@ ui <- dashboardPage(
     tags$script(src = "js/utils.js"),
     tags$script(src = "js/fullscreen.js"),
     tags$script(src = "js/favorites.js"),
+    tags$script(src = "js/infinite-scroll.js"),
     tags$script(src = "service-worker-register.js"),
     
     # Fullscreen overlay (shared for both previews)
@@ -496,7 +498,7 @@ ui <- dashboardPage(
                                        tags$small("Kulörpaletter med tonings- och skuggningsmixer för alla pigment som är tillgängliga i Paint-o-matic."),
                                      ),
                                      
-                                     div(style = "margin-top:1em; width: 100%; height: 300px; overflow-y: auto; overflow-x: auto; border: 1px solid #ddd; padding: 10px;",
+                                     div(id = "swatch-container", style = "margin-top:1em; width: 100%; height: 300px; overflow-y: auto; overflow-x: auto; border: 1px solid #ddd; padding: 10px;",
                                          uiOutput("premade_swatches")
                                      )
                                    ),
@@ -660,6 +662,11 @@ server <- function(input, output, session) {
     extra_oil = 1.8,
     zinc_ratio = 15
   )
+  
+  # === PAGINATION STATE FOR EXTENDED SWATCHES ===
+  # Track current page for paginated loading of extended swatches
+  extended_page <- reactiveVal(1)
+  SWATCHES_PER_PAGE <- 10  # Number of pigments per page
   
   # === HELPER FUNCTIONS ===
   
@@ -847,6 +854,8 @@ server <- function(input, output, session) {
     if(!is.null(input$palette_choice) && input$palette_choice == "extended") {
       updateCheckboxInput(session, "raa_only", value = FALSE)
     }
+    # Reset pagination when switching palettes
+    extended_page(1)
   })
   
   observeEvent(input$raa_only, {
@@ -1034,9 +1043,47 @@ server <- function(input, output, session) {
       vitbas_increments <- c(0, 15, 30, 45, 60, 70, 78, 85, 90)  # 9 levels
       shade_increments <- c(0, 8, 18, 32, 50)  # 5 levels (added heavy shade)
       
-      return(render_swatch_matrix(recipes_to_show, base_pigments, vitbas_increments, 
-                                  shade_increments, shade_pigment, use_tinting))
+      # === PAGINATION FOR EXTENDED SWATCHES ===
+      total_pigments <- length(base_pigments)
+      current_page <- extended_page()
+      end_idx <- min(current_page * SWATCHES_PER_PAGE, total_pigments)
+      paginated_pigments <- base_pigments[1:end_idx]
+      
+      # Render paginated swatches
+      matrix_html <- render_swatch_matrix(
+        recipes_to_show, 
+        paginated_pigments, 
+        vitbas_increments, 
+        shade_increments, 
+        shade_pigment, 
+        use_tinting
+      )
+      
+      # Add pagination controls if more pigments available
+      return(tagList(
+        matrix_html,
+        if(end_idx < total_pigments) {
+          tags$div(
+            style = "text-align: center; margin-top: 20px; padding: 10px;",
+            tags$p(
+              style = "margin-bottom: 10px; font-size: 14px; color: #666;",
+              sprintf("Visar %d av %d pigment", end_idx, total_pigments)
+            ),
+            actionButton(
+              "load_more_swatches", 
+              sprintf("Ladda fler pigment (%d kvar)", total_pigments - end_idx),
+              class = "btn btn-primary",
+              icon = icon("plus-circle")
+            )
+          )
+        }
+      ))
     }
+  })
+  
+  # Observer for "Load More" button in extended swatches
+  observeEvent(input$load_more_swatches, {
+    extended_page(extended_page() + 1)
   })
   
   # Render saved favorites swatches

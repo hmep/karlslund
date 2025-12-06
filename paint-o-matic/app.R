@@ -596,7 +596,7 @@ ui <- dashboardPage(
                                                  sapply(c("TAR01", "TAR02", "TAR03"), function(id) misc_db[[id]]$name)
                                                ),
                                                selected = "TAR01"),
-                                   p("Tjärfärg lämpar sig bäst med inte alltför ljusa kulörer, eftersom tjäran i sig kan vara ganska mörk. Om du vill blanda en ljus tjärfärg, välj den finaste och ljusaste trätjäran, den är ljust honungsgul. För svarta eller andra mörka eller klara (blå, gröna, röda) kulörer går det lika bra med de billigare alternativen."),
+                                   p("Tjärfärg lämpar sig bäst med inte alltför ljusa kulörer, eftersom tjäran i sig kan vara ganska mörk. Om du vill blanda ljusast möjliga tjärfärg, välj den finaste och ljusaste trätjäran, den är ljust honungsgul. För svarta eller andra mörka eller klara (blå, gröna, röda) kulörer går det lika bra med de billigare alternativen."),
                                    sliderInput("tar_extra_oil", "Extra olja och tjära (CPVC-faktor)", 
                                                1, 2.5, 1.6, 0.05, post = "× CPVC"),
                                    p("Reglaget ökar mängden olja och tjära proportionellt, utöver den minsta mängd som de ingående pigmenten kräver. Högre värde ger mer flytande färg och bättre strykbarhet. Du kan utan problem lägga till olje- och tjärblandning upp till 1,6–2,2 gånger av CPVC."),

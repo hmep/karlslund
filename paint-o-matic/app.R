@@ -384,7 +384,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.6-pwa-raä, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.7, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -419,6 +419,11 @@ ui <- dashboardPage(
     
     hidden(div(id="step1", class="step",
                h2("Blanda pigment till önskad kulör"),
+               fluidRow(
+                 column(12,
+                        p("Vill du hitta en kulör som går att skapa med jordpigment och järnoxider? Vill du skapa ett recept på linoljefärg, äggoljetempera eller tjäroljefärg med den kulören, så att du kan blanda din egen färg? Börja här!"),
+                        )
+               ),
                fluidRow(
                  column(6,
                         h5(style="font-weight:bold;","Inställningar"),
@@ -571,7 +576,7 @@ ui <- dashboardPage(
                                                selected = "58000"),
                                    p("Alla fyllmedel gör äggoljetemperan matt och behaglig för inomhusbruk, men valet du gör kan också påverka ytterligare egenskaper hos temperan."),
                                    p("För att ge den målade ytan en fin putskänsla och fylla upp ojämnheter, välj " ,tags$b("kiselgur (diatoméjord)"), " som består av mikroskopiska, vassa fragment av fossiliserade kiselalger."),
-                                   p("De olika " ,tags$b("kritorna"), " gör färgen matt men med olika effekt. Kritan från Ruegen är aningen grövre än den från Champagne, och den vita av sten har minst kornstorlek. Krita är det vanligaste fyllmedlet eftersom det är näst intill genomskinligt i oljan och därför endast knappt förändrar kulören."),
+                                   p("Det vanligaste fyllmedlet i tempera är " ,tags$b("krita"), " som blir näst intill genomskinligt i oljan och därför knappt påverkar kulören. Kritan från Ruegen är aningen grövre än den från Champagne, och den vita av sten har minst kornstorlek."),
                                    p("För att bättre än annars fylla i små ojämnheter i underlaget och få en sammetslen yta, testa " ,tags$b("bentonit"), " som sväller i äggoljetemperan och hindrar att färgen rinner. Det hänger samman med att färgen blir tixotop, det vill säga lättflytande i penseldragen men strax formstabil när penseln lyfts."),
                                    p("En annan lera som också gör färgen tixotrop och ger en len yta är " ,tags$b("kaolin"), " – som sväller mindre och blir mindre geléartad än bentonit."),
                                    hr(),

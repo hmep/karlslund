@@ -459,41 +459,46 @@ ui <- dashboardPage(
                         uiOutput("total_warning"), 
                         tags$div(style="margin-top:2em;",
                                  h5(style="font-weight:bold;","Favoritkulörer och färdiga mixer/paletter"),
-                                 selectInput("recipe_set", NULL,
-                                             choices = list(
-                                               "Riksantikvarieämbetet (RAÄ) Kulturkulör" = "raa",
-                                               "Paint-o-matic-kulörer" = "extended",
-                                               "Sparade favoritkulörer" = "saved"
-                                             ),
-                                             selected = "raa"),
-                                 
-                                 # Show description based on selected set
-                                 conditionalPanel(
-                                   condition = "input.recipe_set == 'raa'",
-                                   tags$small(a("Kulturkulör från Riksantikvarieämbetet (RAÄ)", href="https://www.raa.se/kulturarv/byggnader/byggnadsvard/kulturkulor-ett-fargsystem-for-linoljefarg/")," är ett system för historiskt trogen färgsättning med jordpigment och järnoxider."),
-                                   br(), br(),
-                                   #selectInput("shading_pigment_raa", "Skuggningspigment",
-                                   #             choices = shading_pigments,
-                                   #             selected = "J318")
-                                 ),
-                                 
-                                 conditionalPanel(
-                                   condition = "input.recipe_set == 'extended'",
-                                   tags$small("Kulörpaletter med tonings- och skuggningsmixer för alla pigment som är tillgängliga i Paint-o-matic. Modifiera gärna mixen efter eget tycke!"),
-                                   br(), br(),
-                                   #selectInput("shading_pigment", "Skuggningspigment",
-                                   #             choices = shading_pigments,
-                                   #             selected = "J318")
-                                 ),
-                                 
-                                 conditionalPanel(
-                                   condition = "input.recipe_set == 'saved'",
-                                   tags$small("Alla dina sparade favorit-kulörblandningar lagras på din enhet."),
-                                   br(), br()
-                                 ),
-                                 
-                                 div(style = "width: 100%; height: 300px; overflow-y: auto; overflow-x: auto; border: 1px solid #ddd; padding: 10px;",
-                                     uiOutput("recipe_swatches")
+                                 tabsetPanel(
+                                   id = "recipe_tabs",
+                                   tabPanel(
+                                     "Färdiga mixer/paletter",
+                                     value = "premade",
+                                     br(),
+                                     selectInput("palette_choice", NULL,
+                                                 choices = list(
+                                                   "Riksantikvarieämbetet (RAÄ) Kulturkulör" = "raa",
+                                                   "Paint-o-matic-kulörer" = "extended"
+                                                 ),
+                                                 selected = "raa"),
+                                     
+                                     # Show description based on selected palette
+                                     conditionalPanel(
+                                       condition = "input.palette_choice == 'raa'",
+                                       tags$small(a("Kulturkulör från Riksantikvarieämbetet (RAÄ)", href="https://www.raa.se/kulturarv/byggnader/byggnadsvard/kulturkulor-ett-fargsystem-for-linoljefarg/")," är ett system för historiskt trogen färgsättning med jordpigment och järnoxider."),
+                                       br(), br()
+                                     ),
+                                     
+                                     conditionalPanel(
+                                       condition = "input.palette_choice == 'extended'",
+                                       tags$small("Kulörpaletter med tonings- och skuggningsmixer för alla pigment som är tillgängliga i Paint-o-matic. Modifiera gärna mixen efter eget tycke!"),
+                                       br(), br()
+                                     ),
+                                     
+                                     div(style = "width: 100%; height: 300px; overflow-y: auto; overflow-x: auto; border: 1px solid #ddd; padding: 10px;",
+                                         uiOutput("recipe_swatches")
+                                     )
+                                   ),
+                                   tabPanel(
+                                     "Sparade favoritkulörer",
+                                     value = "saved",
+                                     br(),
+                                     tags$small("Alla dina sparade favorit-kulörblandningar lagras på din enhet."),
+                                     br(), br(),
+                                     div(style = "width: 100%; height: 300px; overflow-y: auto; overflow-x: auto; border: 1px solid #ddd; padding: 10px;",
+                                         uiOutput("recipe_swatches")
+                                     )
+                                   )
                                  )
                         )
                  )
@@ -823,8 +828,8 @@ server <- function(input, output, session) {
   
   # RAÄ-filter
   # Uncheck RAÄ-only when user selects extended recipes
-  observeEvent(input$recipe_set, {
-    if(!is.null(input$recipe_set) && input$recipe_set == "extended") {
+  observeEvent(input$palette_choice, {
+    if(!is.null(input$palette_choice) && input$palette_choice == "extended") {
       updateCheckboxInput(session, "raa_only", value = FALSE)
     }
   })
@@ -971,7 +976,16 @@ server <- function(input, output, session) {
   }
   
   output$recipe_swatches <- renderUI({
-    recipe_set <- input$recipe_set %||% "raa"
+    # Determine which recipe set to show based on active tab
+    active_tab <- input$recipe_tabs %||% "premade"
+    
+    if(active_tab == "saved") {
+      recipe_set <- "saved"
+    } else {
+      # On premade tab, use the palette_choice dropdown
+      recipe_set <- input$palette_choice %||% "raa"
+    }
+    
     use_tinting <- TRUE
     
     if(recipe_set == "raa") {
@@ -1156,7 +1170,15 @@ server <- function(input, output, session) {
   observeEvent(input$swatch_click, {
     req(input$swatch_click)
     
-    recipe_set <- input$recipe_set %||% "raa"
+    # Determine which recipe set to use based on active tab
+    active_tab <- input$recipe_tabs %||% "premade"
+    
+    if(active_tab == "saved") {
+      recipe_set <- "saved"
+    } else {
+      recipe_set <- input$palette_choice %||% "raa"
+    }
+    
     code <- input$swatch_click
     
     # Both RAÄ and extended now use the same recipe structure

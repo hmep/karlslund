@@ -486,7 +486,7 @@ ui <- dashboardPage(
                                      ),
                                      
                                      div(style = "width: 100%; height: 300px; overflow-y: auto; overflow-x: auto; border: 1px solid #ddd; padding: 10px;",
-                                         uiOutput("recipe_swatches")
+                                         uiOutput("premade_swatches")
                                      )
                                    ),
                                    tabPanel(
@@ -496,7 +496,7 @@ ui <- dashboardPage(
                                      tags$small("Alla dina sparade favorit-kulörblandningar lagras på din enhet."),
                                      br(), br(),
                                      div(style = "width: 100%; height: 300px; overflow-y: auto; overflow-x: auto; border: 1px solid #ddd; padding: 10px;",
-                                         uiOutput("recipe_swatches")
+                                         uiOutput("saved_swatches")
                                      )
                                    )
                                  )
@@ -975,17 +975,10 @@ server <- function(input, output, session) {
     tags$div(class = "swatch-matrices", matrix_elements)
   }
   
-  output$recipe_swatches <- renderUI({
-    # Determine which recipe set to show based on active tab
-    active_tab <- input$recipe_tabs %||% "premade"
-    
-    if(active_tab == "saved") {
-      recipe_set <- "saved"
-    } else {
-      # On premade tab, use the palette_choice dropdown
-      recipe_set <- input$palette_choice %||% "raa"
-    }
-    
+  # Render premade palette swatches (RAÄ or extended)
+  output$premade_swatches <- renderUI({
+    # Use the palette_choice dropdown
+    recipe_set <- input$palette_choice %||% "raa"
     use_tinting <- TRUE
     
     if(recipe_set == "raa") {
@@ -1028,142 +1021,145 @@ server <- function(input, output, session) {
       return(render_swatch_matrix(recipes_to_show, base_pigments, vitbas_increments, 
                                   shade_increments, shade_pigment, use_tinting))
     }
+  })
+  
+  # Render saved favorites swatches
+  output$saved_swatches <- renderUI({
+    use_tinting <- TRUE
     
-    if(recipe_set == "saved") {
-      # Saved favorites from localStorage
-      favorites_raw <- input$favorites_list
-      
-      # Parse JSON if it's a string
-      favorites <- if(is.character(favorites_raw) && nchar(favorites_raw) > 0) {
-        tryCatch({
-          jsonlite::fromJSON(favorites_raw, simplifyVector = FALSE)
-        }, error = function(e) {
-          cat("Error parsing favorites JSON:", e$message, "\n")
-          list()
-        })
-      } else if(is.list(favorites_raw)) {
-        favorites_raw
-      } else {
-        list()
-      }
-      
-      if(is.null(favorites) || length(favorites) == 0) {
-        return(tags$div(
-          style = "text-align: center; padding: 40px; color: #666;",
-          icon("star", style = "font-size: 48px; color: #ddd;"), br(), br(),
-          tags$p("Inga sparade favoritkulörer än."),
-          tags$p(tags$small("Blanda en egen kulör och klicka på 'Spara som favoritkulör' för att spara den här."))
-        ))
-      }
-      
-      # Convert favorites to a simple list format for rendering
+    # Saved favorites from localStorage
+    favorites_raw <- input$favorites_list
+    
+    # Parse JSON if it's a string
+    favorites <- if(is.character(favorites_raw) && nchar(favorites_raw) > 0) {
       tryCatch({
-        swatch_elements <- list()
+        jsonlite::fromJSON(favorites_raw, simplifyVector = FALSE)
+      }, error = function(e) {
+        cat("Error parsing favorites JSON:", e$message, "\n")
+        list()
+      })
+    } else if(is.list(favorites_raw)) {
+      favorites_raw
+    } else {
+      list()
+    }
+    
+    if(is.null(favorites) || length(favorites) == 0) {
+      return(tags$div(
+        style = "text-align: center; padding: 40px; color: #666;",
+        icon("star", style = "font-size: 48px; color: #ddd;"), br(), br(),
+        tags$p("Inga sparade favoritkulörer än."),
+        tags$p(tags$small("Blanda en egen kulör och klicka på 'Spara som favoritkulör' för att spara den här."))
+      ))
+    }
+    
+    # Convert favorites to a simple list format for rendering
+    tryCatch({
+      swatch_elements <- list()
+      
+      for(i in seq_along(favorites)) {
+        # Get favorite - handle both list and atomic vector cases
+        fav_item <- favorites[[i]]
         
-        for(i in seq_along(favorites)) {
-          # Get favorite - handle both list and atomic vector cases
-          fav_item <- favorites[[i]]
-          
-          # Skip if not a list
-          if(!is.list(fav_item)) next
-          
-          # Safe extraction using names
-          get_safe <- function(name, default = "") {
-            if(name %in% names(fav_item)) {
-              val <- fav_item[[name]]
-              if(is.null(val) || length(val) == 0) return(default)
-              return(as.character(val))
-            }
-            return(default)
+        # Skip if not a list
+        if(!is.list(fav_item)) next
+        
+        # Safe extraction using names
+        get_safe <- function(name, default = "") {
+          if(name %in% names(fav_item)) {
+            val <- fav_item[[name]]
+            if(is.null(val) || length(val) == 0) return(default)
+            return(as.character(val))
           }
-          
-          # Extract values
-          p1 <- get_safe("p1", "")
-          pct1 <- as.numeric(get_safe("pct1", "0"))
-          p2 <- get_safe("p2", "")
-          pct2 <- as.numeric(get_safe("pct2", "0"))
-          p3 <- get_safe("p3", "")
-          pct3 <- as.numeric(get_safe("pct3", "0"))
-          p4 <- get_safe("p4", "")
-          pct4 <- as.numeric(get_safe("pct4", "0"))
-          fav_name <- get_safe("name", "")
-          fav_id <- get_safe("id", as.character(i))
-          
-          # Build pigment mix
-          ids <- c()
-          pcts <- c()
-          
-          if(p1 != "" && !is.na(pct1) && pct1 > 0) {
-            ids <- c(ids, p1)
-            pcts <- c(pcts, pct1)
-          }
-          if(p2 != "" && !is.na(pct2) && pct2 > 0) {
-            ids <- c(ids, p2)
-            pcts <- c(pcts, pct2)
-          }
-          if(p3 != "" && !is.na(pct3) && pct3 > 0) {
-            ids <- c(ids, p3)
-            pcts <- c(pcts, pct3)
-          }
-          if(p4 != "" && !is.na(pct4) && pct4 > 0) {
-            ids <- c(ids, p4)
-            pcts <- c(pcts, pct4)
-          }
-          
-          # Calculate color
-          hex_color <- "#FFFFFF"
-          if(length(ids) > 0) {
-            tryCatch({
-              color_rgb <- mix_colors(ids, pcts, pigments_db, use_tinting = TRUE)
-              hex_color <- rgb(color_rgb[1], color_rgb[2], color_rgb[3], maxColorValue = 255)
-            }, error = function(e) {
-              hex_color <<- "#FFFFFF"
-            })
-          }
-          
-          # Create swatch with delete button
-          display_name <- if(fav_name != "") fav_name else "Namnlös"
-          
-          swatch_elements[[length(swatch_elements) + 1]] <- tags$span(
-            style = "position: relative; display: inline-block; margin: 5px;",
-            tags$span(
-              class = "kulturkulor-swatch",
-              style = sprintf("background-color:%s; width: 48px; height: 48px;", hex_color),
-              title = display_name,
-              onclick = sprintf("Shiny.setInputValue('favorite_click', '%s', {priority: 'event'});", fav_id)
-            ),
-            # Delete button (small circle with X)
-            tags$span(
-              class = "favorite-delete-btn",
-              style = "position: absolute; top: -4px; right: -4px; width: 20px; height: 20px; background: white; border: 1px solid #ccc; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #000; box-shadow: 0 2px 4px rgba(0,0,0,0.3);z-index:20;",
-              onclick = sprintf("event.stopPropagation(); deleteFavorite('%s'); return false;", fav_id),
-              title = "Ta bort favorit",
-              "×"
-            )
-          )
+          return(default)
         }
         
-        tagList(
-          tags$div(
-            style = "margin-bottom: 20px;",
-            swatch_elements
+        # Extract values
+        p1 <- get_safe("p1", "")
+        pct1 <- as.numeric(get_safe("pct1", "0"))
+        p2 <- get_safe("p2", "")
+        pct2 <- as.numeric(get_safe("pct2", "0"))
+        p3 <- get_safe("p3", "")
+        pct3 <- as.numeric(get_safe("pct3", "0"))
+        p4 <- get_safe("p4", "")
+        pct4 <- as.numeric(get_safe("pct4", "0"))
+        fav_name <- get_safe("name", "")
+        fav_id <- get_safe("id", as.character(i))
+        
+        # Build pigment mix
+        ids <- c()
+        pcts <- c()
+        
+        if(p1 != "" && !is.na(pct1) && pct1 > 0) {
+          ids <- c(ids, p1)
+          pcts <- c(pcts, pct1)
+        }
+        if(p2 != "" && !is.na(pct2) && pct2 > 0) {
+          ids <- c(ids, p2)
+          pcts <- c(pcts, pct2)
+        }
+        if(p3 != "" && !is.na(pct3) && pct3 > 0) {
+          ids <- c(ids, p3)
+          pcts <- c(pcts, pct3)
+        }
+        if(p4 != "" && !is.na(pct4) && pct4 > 0) {
+          ids <- c(ids, p4)
+          pcts <- c(pcts, pct4)
+        }
+        
+        # Calculate color
+        hex_color <- "#FFFFFF"
+        if(length(ids) > 0) {
+          tryCatch({
+            color_rgb <- mix_colors(ids, pcts, pigments_db, use_tinting = TRUE)
+            hex_color <- rgb(color_rgb[1], color_rgb[2], color_rgb[3], maxColorValue = 255)
+          }, error = function(e) {
+            hex_color <<- "#FFFFFF"
+          })
+        }
+        
+        # Create swatch with delete button
+        display_name <- if(fav_name != "") fav_name else "Namnlös"
+        
+        swatch_elements[[length(swatch_elements) + 1]] <- tags$span(
+          style = "position: relative; display: inline-block; margin: 5px;",
+          tags$span(
+            class = "kulturkulor-swatch",
+            style = sprintf("background-color:%s; width: 48px; height: 48px;", hex_color),
+            title = display_name,
+            onclick = sprintf("Shiny.setInputValue('favorite_click', '%s', {priority: 'event'});", fav_id)
           ),
-          tags$div(
-            style = "margin-top: 20px; text-align: center;",
-            actionButton("clear_all_favorites", "Rensa alla favoriter", 
-                         class = "btn btn-default btn-sm",
-                         icon = icon("trash-alt"))
+          # Delete button (small circle with X)
+          tags$span(
+            class = "favorite-delete-btn",
+            style = "position: absolute; top: -4px; right: -4px; width: 20px; height: 20px; background: white; border: 1px solid #ccc; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #000; box-shadow: 0 2px 4px rgba(0,0,0,0.3);z-index:20;",
+            onclick = sprintf("event.stopPropagation(); deleteFavorite('%s'); return false;", fav_id),
+            title = "Ta bort favorit",
+            "×"
           )
         )
-      }, error = function(e) {
-        return(tags$div(
-          style = "text-align: center; padding: 40px; color: #d9534f;",
-          icon("exclamation-triangle", style = "font-size: 48px;"), br(), br(),
-          tags$p("Fel vid laddning av favoriter."),
-          tags$p(tags$small(paste("Felmeddelande:", e$message)))
-        ))
-      })
-    }
+      }
+      
+      tagList(
+        tags$div(
+          style = "margin-bottom: 20px;",
+          swatch_elements
+        ),
+        tags$div(
+          style = "margin-top: 20px; text-align: center;",
+          actionButton("clear_all_favorites", "Rensa alla favoriter", 
+                       class = "btn btn-default btn-sm",
+                       icon = icon("trash-alt"))
+        )
+      )
+    }, error = function(e) {
+      return(tags$div(
+        style = "text-align: center; padding: 40px; color: #d9534f;",
+        icon("exclamation-triangle", style = "font-size: 48px;"), br(), br(),
+        tags$p("Fel vid laddning av favoriter."),
+        tags$p(tags$small(paste("Felmeddelande:", e$message)))
+      ))
+    })
   })
   
   # Handle swatch clicks

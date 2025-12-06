@@ -115,52 +115,50 @@ create_filler_choices <- function() {
   as.list(choices)
 }
 
+# Define display group mapping for pigments
+# This mapping determines which Swedish category each pigment appears in
+PIGMENT_DISPLAY_GROUPS <- list(
+  "Vitbas" = c("vitbas"),
+  "Fyllmedel" = c("599930", "58000", "58010", "58162", "58900", "58250"),
+  "Gröna" = c("40400", "41700", "11100", "KG83", "ZG65", "40850", "40860", "GU30"),
+  "Svarta" = c("44450", "J318", "BS98", "47501", "47400"),
+  "Blåa" = c("11670", "UB88", "KB28"),
+  "Terra & Pozzuoli" = c("40820", "40800", "40830", "BT44", "OT46"),
+  "Gula & Ockror" = c("44082", "44086", "44150", "44160", "J920", "LO92", "GO94", "GO94_GU30"),
+  "Siennas & Umbror" = c("44650", "44620", "OU103", "BU100", "BRU39", "GRAU36"),
+  "Röda & Orange" = c("44300", "44200", "44210", "44220", "44510", "J225", "J180M", "J120N", "ER48A"),
+  "Bruna" = c("J663", "J686", "48330")
+)
+
 # Create grouped choices for optgroups (Swedish categories)
+# Now with validation to ensure all pigments in pigments_db are included
 create_grouped_choices <- function() {
-  list(
-    "Vitbas" = make_choices(c("vitbas")),
-    
-    "Fyllmedel" = make_choices(c(
-      "599930", "58000", "58010", "58162", "58900", "58250"
-    )),
-    
-    "Gröna" = make_choices(c(
-      "40400", "11100", "23000", "KG83", "ZG65", "40850", "40860", 
-      "40830", "41700", "41750", "11000", "GU30"
-    )),
-    
-    "Svarta" = make_choices(c(
-      "44450", "J318", "BS98", "47501", "47400", "48401", "47800", "47700"
-    )),
-    
-    "Blåa" = make_choices(c(
-      "11670", "23050", "UB88", "KB28"
-    )),
-    
-    "Terra & Pozzuoli" = make_choices(c(
-      "40820", "40800", "BT44", "OT46"
-    )),
-    
-    "Gula & Ockror" = make_choices(c(
-      "44082", "44086", "44150", "44160", "J920", "LO92", "GO94", "GO94_GU30",
-      "40010", "40020", "40030", "40050", "40060", "40070", "40080", "40090", 
-      "40130", "40214", "46280"
-    )),
-    
-    "Siennas & Umbror" = make_choices(c(
-      "44650", "44620", "40470", "OU103", "BU100", "BRU39", "GRAU36", 
-      "40610", "40630", "40720", "11620"
-    )),
-    
-    "Röda & Orange" = make_choices(c(
-      "44300", "44200", "44210", "44220", "44510", "J225", "J180M", "J120N", 
-      "ER48A", "17280", "40542", "48289", "48651", "23720", "43300"
-    )),
-    
-    "Bruna" = make_choices(c(
-      "J663", "J686", "48330"
-    ))
-  )
+  # Build groups from mapping
+  groups <- lapply(names(PIGMENT_DISPLAY_GROUPS), function(group_name) {
+    ids <- PIGMENT_DISPLAY_GROUPS[[group_name]]
+    # Filter to only include IDs that exist in pigments_db
+    existing_ids <- ids[ids %in% names(pigments_db)]
+    if(length(existing_ids) < length(ids)) {
+      missing <- setdiff(ids, existing_ids)
+      warning(sprintf("Display group '%s' references missing pigments: %s", 
+                      group_name, paste(missing, collapse=", ")))
+    }
+    make_choices(existing_ids)
+  })
+  names(groups) <- names(PIGMENT_DISPLAY_GROUPS)
+  
+  # Check for pigments in pigments_db that aren't in any display group
+  all_mapped_ids <- unlist(PIGMENT_DISPLAY_GROUPS, use.names = FALSE)
+  db_ids <- names(pigments_db)
+  # Exclude whites and fillers from "unmapped" check (they're handled separately)
+  exclude_from_check <- c("vitbas", "44100", "44400", "599930", "58000", "58010", "58162", "58900", "58250")
+  unmapped <- setdiff(db_ids, c(all_mapped_ids, exclude_from_check))
+  if(length(unmapped) > 0) {
+    warning(sprintf("Pigments in database but not in any display group: %s\nThese pigments will NOT appear in dropdown menus!", 
+                    paste(unmapped, collapse=", ")))
+  }
+  
+  groups
 }
 
 all_choices <- c("Välj pigment" = "", create_grouped_choices())

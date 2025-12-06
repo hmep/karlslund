@@ -1061,16 +1061,28 @@ server <- function(input, output, session) {
       total_pigments <- length(base_pigments)
       current_page <- extended_page()
       end_idx <- min(current_page * SWATCHES_PER_PAGE, total_pigments)
-      paginated_pigments <- base_pigments[1:end_idx]
       
-      # Prepare paginated swatch data
+      # Calculate which pigments are NEW for this page
+      start_idx <- ((current_page - 1) * SWATCHES_PER_PAGE) + 1
+      new_pigments <- base_pigments[start_idx:end_idx]
+      
+      # Prepare ONLY the new swatch data (not all from beginning)
       swatch_data <- prepare_swatch_matrix_data(
         recipes_to_show, 
-        paginated_pigments, 
+        new_pigments, 
         vitbas_increments, 
         shade_increments, 
         shade_pigment, 
         use_tinting
+      )
+      
+      # Add metadata for pagination
+      swatch_data$pagination <- list(
+        is_first_page = (current_page == 1),
+        current_page = current_page,
+        start_idx = start_idx,
+        end_idx = end_idx,
+        total_count = total_pigments
       )
       
       # Convert to JSON and embed in script tag

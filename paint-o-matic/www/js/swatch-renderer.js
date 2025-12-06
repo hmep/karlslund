@@ -24,9 +24,6 @@
         delete this.savedScrollPositions[containerId];
       }
       
-      // Clear container
-      container.innerHTML = '';
-      
       // Handle empty data
       if (!swatchData || (swatchData.type === 'matrix' && (!swatchData.matrices || swatchData.matrices.length === 0))) {
         container.innerHTML = '<p style="text-align: center; padding: 20px; color: #666;">Inga recept tillgängliga.</p>';
@@ -35,7 +32,17 @@
       
       // Render based on type
       if (swatchData.type === 'matrix') {
-        this.renderMatrix(container, swatchData.matrices, config);
+        // Check if this is first page or subsequent page
+        const isFirstPage = swatchData.pagination && swatchData.pagination.is_first_page;
+        
+        if (isFirstPage) {
+          // First page: clear and render
+          container.innerHTML = '';
+          this.renderMatrix(container, swatchData.matrices, config);
+        } else {
+          // Subsequent page: append to existing content
+          this.appendMatrix(container, swatchData.matrices, config);
+        }
         
         // Restore scroll position after render
         if (scrollContainer && savedScrollTop > 0) {
@@ -44,8 +51,69 @@
           });
         }
       } else if (swatchData.type === 'favorites') {
+        container.innerHTML = '';
         this.renderFavorites(container, swatchData.favorites, config);
       }
+    },
+    
+    // Append new matrices to existing content
+    appendMatrix: function(container, matrices, config) {
+      // Find existing wrapper or create if needed
+      let wrapper = container.querySelector('.swatch-matrices');
+      if (!wrapper) {
+        wrapper = document.createElement('div');
+        wrapper.className = 'swatch-matrices';
+        container.appendChild(wrapper);
+      }
+      
+      const fragment = document.createDocumentFragment();
+      
+      // Render each pigment's matrix
+      for (const matrix of matrices) {
+        // Add pigment heading
+        const heading = document.createElement('div');
+        heading.style.cssText = 'margin-top: 0.5em; margin-bottom: 0.5em; font-weight: bold;';
+        heading.textContent = matrix.base_name;
+        fragment.appendChild(heading);
+        
+        // Create matrix container
+        const matrixDiv = document.createElement('div');
+        matrixDiv.className = 'swatch-matrix';
+        
+        // Group swatches by shade level (rows)
+        const swatchesByShade = {};
+        for (const swatch of matrix.swatches) {
+          const shadeKey = swatch.shade_pct;
+          if (!swatchesByShade[shadeKey]) {
+            swatchesByShade[shadeKey] = [];
+          }
+          swatchesByShade[shadeKey].push(swatch);
+        }
+        
+        // Render rows (sorted by shade level)
+        const shadeLevels = Object.keys(swatchesByShade).map(Number).sort((a, b) => a - b);
+        for (const shadeLevel of shadeLevels) {
+          const rowSwatches = swatchesByShade[shadeLevel];
+          
+          // Sort swatches by vitbas level within row
+          rowSwatches.sort((a, b) => a.vitbas_pct - b.vitbas_pct);
+          
+          const rowDiv = document.createElement('div');
+          rowDiv.className = 'swatch-row';
+          rowDiv.style.whiteSpace = 'nowrap';
+          
+          for (const swatch of rowSwatches) {
+            const swatchSpan = this.createSwatchElement(swatch);
+            rowDiv.appendChild(swatchSpan);
+          }
+          
+          matrixDiv.appendChild(rowDiv);
+        }
+        
+        fragment.appendChild(matrixDiv);
+      }
+      
+      wrapper.appendChild(fragment);
     },
     
     // Render swatch matrices (for RAÄ and Extended palettes)

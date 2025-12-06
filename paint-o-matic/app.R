@@ -384,7 +384,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.7, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.8, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -421,16 +421,16 @@ ui <- dashboardPage(
                h2("Blanda pigment till önskad kulör"),
                fluidRow(
                  column(12,
-                        p("Vill du hitta en kulör som går att blanda med naturliga jordpigment och järnoxider? Vill du skapa ett recept på linoljefärg, äggoljetempera eller tjäroljefärg med den kulören, så att du kan skaffa rätt ingredienser och blanda din egen färg? Börja här med att blanda pigment till önskad kulör."),
+                        p("Vill du hitta en kulör som går att blanda med naturliga jordpigment och järnoxider? Vill du skapa ett recept på linoljefärg, äggoljetempera eller tjäroljefärg med den kulören, så att du kan skaffa rätt ingredienser och blanda din egen färg? Börja här med att blanda pigment till önskad kulör, eller välja en från någon av paletterna."),
                         )
                ),
                fluidRow(
                  column(6,
-                        h5(style="font-weight:bold;","Inställningar"),
+                        #h5(style="font-weight:bold;","Inställningar"),
                         checkboxInput("raa_only", "Använd endast Kulturkulör-pigment (RAÄ)", FALSE),
                         #checkboxInput("use_tinting_strength","Avancerad färgblandning",TRUE),
                         #tags$small(style="color:#666; margin-left:20px; display:block; margin-top:-1em; margin-bottom:10px;","Väger pigment efter faktiska färgstyrka (K- och S-värden)"),
-                        hr(),
+                        #hr(),
                         pickerInput("p1", "Pigment 1", choices = all_choices, selected = "vitbas",
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),
                         conditionalPanel("input.p1", sliderInput("pct1","Andel (%)",0,100,20,1)),
@@ -457,7 +457,7 @@ ui <- dashboardPage(
                         uiOutput("preview1"), br(),
                         tags$b("Total andel: "), textOutput("total_pct",inline=TRUE), " %", 
                         uiOutput("total_warning"), 
-                        tags$div(style="margin-top:2em;",
+                        tags$div(style="margin-top:1em;",
                                  #h5(style="font-weight:bold;","Favoritkulörer och färdiga mixer/paletter"),
                                  tabsetPanel(
                                    id = "recipe_tabs",
@@ -476,16 +476,14 @@ ui <- dashboardPage(
                                      conditionalPanel(
                                        condition = "input.palette_choice == 'raa'",
                                        tags$small(a("Kulturkulör från Riksantikvarieämbetet (RAÄ)", href="https://www.raa.se/kulturarv/byggnader/byggnadsvard/kulturkulor-ett-fargsystem-for-linoljefarg/")," är ett system för historiskt trogen färgsättning med jordpigment och järnoxider."),
-                                       br(), br()
                                      ),
                                      
                                      conditionalPanel(
                                        condition = "input.palette_choice == 'extended'",
                                        tags$small("Kulörpaletter med tonings- och skuggningsmixer för alla pigment som är tillgängliga i Paint-o-matic."),
-                                       br(), br()
                                      ),
                                      
-                                     div(style = "width: 100%; height: 300px; overflow-y: auto; overflow-x: auto; border: 1px solid #ddd; padding: 10px;",
+                                     div(style = "margin-top:1em; width: 100%; height: 300px; overflow-y: auto; overflow-x: auto; border: 1px solid #ddd; padding: 10px;",
                                          uiOutput("premade_swatches")
                                      )
                                    ),
@@ -494,8 +492,7 @@ ui <- dashboardPage(
                                      value = "saved",
                                      br(),
                                      tags$small("Alla dina sparade favorit-kulörblandningar lagras på din enhet."),
-                                     br(), br(),
-                                     div(style = "width: 100%; height: 300px; overflow-y: auto; overflow-x: auto; border: 1px solid #ddd; padding: 10px;",
+                                     div(style = "margin-top:1em; width: 100%; height: 300px; overflow-y: auto; overflow-x: auto; border: 1px solid #ddd; padding: 10px;",
                                          uiOutput("saved_swatches")
                                      )
                                    )

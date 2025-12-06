@@ -41,7 +41,11 @@
         const currentCount = swatchData.matrices.length;
         const previousCount = this.lastRenderedCount[containerId] || 0;
         
-        if (previousCount > 0 && currentCount > previousCount) {
+        // Check if container actually has content (Shiny may have recreated the DOM element)
+        const existingWrapper = container.querySelector('.swatch-matrices');
+        const hasExistingContent = existingWrapper && existingWrapper.children.length > 0;
+        
+        if (previousCount > 0 && currentCount > previousCount && hasExistingContent) {
           // Incremental render: only append new matrices
           this.appendMatrices(container, swatchData.matrices.slice(previousCount), config);
           this.lastRenderedCount[containerId] = currentCount;

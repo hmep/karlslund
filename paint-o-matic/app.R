@@ -121,7 +121,7 @@ PIGMENT_DISPLAY_GROUPS <- list(
   "Vitbas" = c("vitbas"),
   "Fyllmedel" = c("599930", "58000", "58010", "58162", "58900", "58250"),
   "Gröna" = c("40400", "41700", "41750", "11100", "11000", "KG83", "ZG65", "40850", "40860", "40830", "GU30"),
-  "Svarta" = c("44450", "J318", "BS98", "47501", "47400", "47700", "47800", "48401"),
+  "Svarta" = c("J318", "BS98", "47250", "47400", "47800", "47501", "44450", "48401", "47700"),
   "Blåa" = c("11670", "UB88", "KB28"),
   "Terra & Pozzuoli" = c("40820", "40800", "BT44", "OT46", "11620"),
   "Gula & Ockror" = c("44082", "44086", "44150", "44160", "J920", "LO92", "GO94", "GO94_GU30", "40010", "40020", "40030", "40050", "40060", "40070", "40080", "40090", "40130", "40214"),
@@ -165,7 +165,7 @@ create_grouped_choices <- function() {
 all_choices <- c("Välj pigment" = "", create_grouped_choices())
 
 # Debug: print all pigment IDs
-cat("Available pigment IDs:", paste(names(pigments_db), collapse=", "), "\n")
+#cat("Available pigment IDs:", paste(names(pigments_db), collapse=", "), "\n")
 
 # === UNIFIED SWATCH MATRIX SYSTEM ===
 
@@ -394,7 +394,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.13-pwa-debug, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.14-pigments, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -595,9 +595,9 @@ ui <- dashboardPage(
                                    p("För att bättre än annars fylla i små ojämnheter i underlaget och få en sammetslen yta, testa " ,tags$b("bentonit"), " som sväller i äggoljetemperan och hindrar att färgen rinner. Det hänger samman med att färgen blir tixotop, det vill säga lättflytande i penseldragen men strax formstabil när penseln lyfts."),
                                    p("En annan lera som också gör färgen tixotrop och ger en len yta är " ,tags$b("kaolin"), " – som sväller mindre och blir mindre geléartad än bentonit."),
                                    hr(),
-                                   sliderInput("egg_extra_binder", "Bindemedel (tunnare färg)", 
+                                   sliderInput("egg_extra_binder", "Extra äggolja + vatten + fyllmedel (tunnare färg)", 
                                                1, 2.5, 1.6, 0.05, post = "× CPVC"),
-                                   p("Reglaget ökar mängden ägg, olja och vatten proportionellt. Högre värde ger tunnare, mer strykbar färg. Det går bra att utöver detta tillsätta ytterligare vatten till färgen, utifrån hur sugande underlaget är."),
+                                   p("Reglaget ökar mängden ägg, olja och vatten proportionellt, liksom även mängden fyllmedel. Högre värde ger tunnare, mer strykbar färg. Det går bra att utöver detta tillsätta ytterligare vatten till färgen, utifrån hur sugande underlaget är."),
                                    hr(),
                                    p("Måla äggoljetemperan med platt och bred pensel som håller mycket färg, i svepande rörelser i olika riktningar, eller med en fin roller (alltid vått i vått). Vänta till nästa strykning med att rätta till misstag eller luckor i färgen, om du går tillbaka och gör om arbetar du bara fram olja till ytan som blir flammig.")
                           )

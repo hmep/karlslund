@@ -2250,5 +2250,30 @@ pigments_db <- list(
       )
     ),
     notes = "Hematit med intensiv färgstyrka. PR102. Naturligt järnoxid (Fe₂O₃) bearbetat för maximal färgstyrka. Djup röd nyans."
+  ),
+  
+  "47250" = list(
+    id = "47250",
+    name = "Kimrök",
+    properties = list(
+      oil = 60,
+      K = 2.95,
+      S = 1.05,
+      density = 1.8,
+      rgb = c(15, 15, 15)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "black"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "47250",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/47250-furnace-black.html"
+      )
+    ),
+    notes = "Kimrök, modern variant av lampsvart (Furnace Black), kolsvart PBk7.  Mycket hög färgstyrka och djup svart nyans. Framställt genom ofullständig förbränning av kolväten i ugn. Ett av de svarta pigment som har högst färgstyrka. Mycket hög oljeabsorption. Neutral blåsvart underton."
   )
 )

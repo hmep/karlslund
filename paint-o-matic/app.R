@@ -417,6 +417,7 @@ ui <- dashboardPage(
     tags$script(src = "js/utils.js"),
     tags$script(src = "js/fullscreen.js"),
     tags$script(src = "js/favorites.js"),
+    tags$script(src = "js/swatch-renderer.js"),
     tags$script(src = "js/infinite-scroll.js"),
     tags$script(src = "service-worker-register.js"),
     
@@ -894,32 +895,27 @@ server <- function(input, output, session) {
     generate_all_raa_swatches_cached(shade_pigment)
   })
   
-  # Generic function to render swatch matrix
-  render_swatch_matrix <- function(recipes, base_pigments, vitbas_increments, shade_increments, shade_pigment, use_tinting) {
+  # Generic function to prepare swatch matrix data (returns JSON-ready structure)
+  prepare_swatch_matrix_data <- function(recipes, base_pigments, vitbas_increments, shade_increments, shade_pigment, use_tinting) {
     shade_name <- pigments_db[[shade_pigment]]$name
     
     if(length(recipes) == 0) {
-      return(tags$p("Inga recept tillgängliga."))
+      return(list(
+        type = "matrix",
+        matrices = list()
+      ))
     }
     
-    matrix_elements <- list()
+    matrices <- list()
     
     for(base_id in base_pigments) {
       base_name <- pigments_db[[base_id]]$name
       
-      # Add pigment heading
-      matrix_elements[[length(matrix_elements) + 1]] <- tags$div(
-        style = "margin-top: 0.5em; margin-bottom: 0.5em; font-weight: bold;",
-        #sprintf("%s med %s", base_name, shade_name)
-        base_name
-      )
-      
-      matrix_rows <- list()
+      # Collect swatches for this pigment
+      swatches <- list()
       
       # Build matrix: rows = shade levels, columns = vitbas levels
       for(shade_pct in shade_increments) {
-        row_swatches <- list()
-        
         for(vitbas_pct in vitbas_increments) {
           # Find the matching swatch
           matching_swatch <- NULL
@@ -966,36 +962,40 @@ server <- function(input, output, session) {
             paint_name <- sprintf("%s: %s (%g%% + %gV + %gS)", 
                                   code, base_name, base_pct, vitbas_pct, shade_pct)
             
-            # Add swatch to row
-            row_swatches[[length(row_swatches) + 1]] <- tags$span(
-              class = "kulturkulor-swatch",
-              style = sprintf("background-color:%s;", hex_color),
-              title = paint_name,
-              onclick = sprintf("Shiny.setInputValue('swatch_click', '%s', {priority: 'event'});", code)
+            # Add swatch data
+            swatches[[length(swatches) + 1]] <- list(
+              code = code,
+              base_id = base_id,
+              base_name = base_name,
+              base_pct = base_pct,
+              vitbas_pct = vitbas_pct,
+              shade_pct = shade_pct,
+              hex_color = hex_color,
+              paint_name = paint_name
             )
           }
         }
-        
-        # Add row to matrix (only if it has swatches)
-        if(length(row_swatches) > 0) {
-          matrix_rows[[length(matrix_rows) + 1]] <- tags$div(
-            class = "swatch-row",
-            style = "white-space: nowrap;",
-            row_swatches
-          )
-        }
       }
       
-      # Add matrix to elements (only if it has rows)
-      if(length(matrix_rows) > 0) {
-        matrix_elements[[length(matrix_elements) + 1]] <- tags$div(
-          class = "swatch-matrix",
-          matrix_rows
+      # Add matrix for this pigment (only if it has swatches)
+      if(length(swatches) > 0) {
+        matrices[[length(matrices) + 1]] <- list(
+          base_id = base_id,
+          base_name = base_name,
+          swatches = swatches
         )
       }
     }
     
-    tags$div(class = "swatch-matrices", matrix_elements)
+    list(
+      type = "matrix",
+      matrices = matrices,
+      config = list(
+        shade_pigment = shade_pigment,
+        shade_name = shade_name,
+        use_tinting = use_tinting
+      )
+    )
   }
   
   # Render premade palette swatches (RAÄ or extended)
@@ -1022,12 +1022,28 @@ server <- function(input, output, session) {
       raa_base_pigments <- c(pattern_a_pigments, pattern_b_pigments)
       
       # RAÄ uses per-pigment increments - will be determined from recipes
-      # For render_swatch_matrix, we need to extract unique values per pigment
+      # For prepare_swatch_matrix_data, we need to extract unique values per pigment
       vitbas_all <- c(0, 14.28, 15, 29.27, 30, 41.86, 42.85, 45, 57.14, 60, 73.17, 75, 85.71, 90)
       shade_all <- c(0, 2.44, 4.76, 6.97)
       
-      return(render_swatch_matrix(recipes_to_show, raa_base_pigments, vitbas_all, 
-                                  shade_all, shade_pigment, use_tinting))
+      swatch_data <- prepare_swatch_matrix_data(recipes_to_show, raa_base_pigments, vitbas_all, 
+                                  shade_all, shade_pigment, use_tinting)
+      
+      # Convert to JSON and embed in script tag
+      swatch_json <- jsonlite::toJSON(swatch_data, auto_unbox = TRUE)
+      
+      return(tagList(
+        tags$div(id = "premade-swatch-target"),
+        tags$script(HTML(sprintf(
+          "$(document).ready(function() {
+            if (window.SwatchRenderer) {
+              SwatchRenderer.renderAll('premade-swatch-target', %s, %s);
+            }
+          });",
+          swatch_json,
+          jsonlite::toJSON(swatch_data$config, auto_unbox = TRUE)
+        )))
+      ))
     }
     
     if(recipe_set == "extended") {
@@ -1047,8 +1063,8 @@ server <- function(input, output, session) {
       end_idx <- min(current_page * SWATCHES_PER_PAGE, total_pigments)
       paginated_pigments <- base_pigments[1:end_idx]
       
-      # Render paginated swatches
-      matrix_html <- render_swatch_matrix(
+      # Prepare paginated swatch data
+      swatch_data <- prepare_swatch_matrix_data(
         recipes_to_show, 
         paginated_pigments, 
         vitbas_increments, 
@@ -1057,9 +1073,21 @@ server <- function(input, output, session) {
         use_tinting
       )
       
+      # Convert to JSON and embed in script tag
+      swatch_json <- jsonlite::toJSON(swatch_data, auto_unbox = TRUE)
+      
       # Add pagination controls if more pigments available
       return(tagList(
-        matrix_html,
+        tags$div(id = "premade-swatch-target"),
+        tags$script(HTML(sprintf(
+          "$(document).ready(function() {
+            if (window.SwatchRenderer) {
+              SwatchRenderer.renderAll('premade-swatch-target', %s, %s);
+            }
+          });",
+          swatch_json,
+          jsonlite::toJSON(swatch_data$config, auto_unbox = TRUE)
+        ))),
         if(end_idx < total_pigments) {
           tags$div(
             style = "text-align: center; margin-top: 20px; padding: 10px;",
@@ -1106,17 +1134,29 @@ server <- function(input, output, session) {
     }
     
     if(is.null(favorites) || length(favorites) == 0) {
-      return(tags$div(
-        style = "text-align: center; padding: 40px; color: #666;",
-        icon("star", style = "font-size: 48px; color: #ddd;"), br(), br(),
-        tags$p("Inga sparade favoritkulörer än."),
-        tags$p(tags$small("Blanda en egen kulör och klicka på 'Spara som favoritkulör' för att spara den här."))
+      # Return empty state directly rendered by JS
+      swatch_data <- list(
+        type = "favorites",
+        favorites = list()
+      )
+      swatch_json <- jsonlite::toJSON(swatch_data, auto_unbox = TRUE)
+      
+      return(tagList(
+        tags$div(id = "saved-swatch-target"),
+        tags$script(HTML(sprintf(
+          "$(document).ready(function() {
+            if (window.SwatchRenderer) {
+              SwatchRenderer.renderAll('saved-swatch-target', %s, {});
+            }
+          });",
+          swatch_json
+        )))
       ))
     }
     
     # Convert favorites to a simple list format for rendering
     tryCatch({
-      swatch_elements <- list()
+      favorite_list <- list()
       
       for(i in seq_along(favorites)) {
         # Get favorite - handle both list and atomic vector cases
@@ -1179,40 +1219,36 @@ server <- function(input, output, session) {
           })
         }
         
-        # Create swatch with delete button
+        # Create favorite data
         display_name <- if(fav_name != "") fav_name else "Namnlös"
         
-        swatch_elements[[length(swatch_elements) + 1]] <- tags$span(
-          style = "position: relative; display: inline-block; margin: 5px;",
-          tags$span(
-            class = "kulturkulor-swatch",
-            style = sprintf("background-color:%s; width: 48px; height: 48px;", hex_color),
-            title = display_name,
-            onclick = sprintf("Shiny.setInputValue('favorite_click', '%s', {priority: 'event'});", fav_id)
-          ),
-          # Delete button (small circle with X)
-          tags$span(
-            class = "favorite-delete-btn",
-            style = "position: absolute; top: -4px; right: -4px; width: 20px; height: 20px; background: white; border: 1px solid #ccc; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #000; box-shadow: 0 2px 4px rgba(0,0,0,0.3);z-index:20;",
-            onclick = sprintf("event.stopPropagation(); deleteFavorite('%s'); return false;", fav_id),
-            title = "Ta bort favorit",
-            "×"
-          )
+        favorite_list[[length(favorite_list) + 1]] <- list(
+          id = fav_id,
+          name = display_name,
+          hex_color = hex_color
         )
       }
       
-      tagList(
-        tags$div(
-          style = "margin-bottom: 20px;",
-          swatch_elements
-        ),
-        tags$div(
-          style = "margin-top: 20px; text-align: center;",
-          actionButton("clear_all_favorites", "Rensa alla favoriter", 
-                       class = "btn btn-default btn-sm",
-                       icon = icon("trash-alt"))
-        )
+      # Prepare swatch data structure
+      swatch_data <- list(
+        type = "favorites",
+        favorites = favorite_list
       )
+      
+      # Convert to JSON and embed in script tag
+      swatch_json <- jsonlite::toJSON(swatch_data, auto_unbox = TRUE)
+      
+      return(tagList(
+        tags$div(id = "saved-swatch-target"),
+        tags$script(HTML(sprintf(
+          "$(document).ready(function() {
+            if (window.SwatchRenderer) {
+              SwatchRenderer.renderAll('saved-swatch-target', %s, {});
+            }
+          });",
+          swatch_json
+        )))
+      ))
     }, error = function(e) {
       return(tags$div(
         style = "text-align: center; padding: 40px; color: #d9534f;",

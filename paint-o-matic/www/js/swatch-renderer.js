@@ -30,7 +30,7 @@
       // Clear existing content
       container.innerHTML = '';
       
-      if (!swatchData || swatchData.length === 0) {
+      if (!swatchData || (swatchData.type === 'matrix' && (!swatchData.matrices || swatchData.matrices.length === 0))) {
         container.innerHTML = '<p style="text-align: center; padding: 20px; color: #666;">Inga recept tillgängliga.</p>';
         return;
       }

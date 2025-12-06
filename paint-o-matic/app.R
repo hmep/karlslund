@@ -1037,11 +1037,11 @@ server <- function(input, output, session) {
         tags$script(HTML(sprintf(
           "$(document).ready(function() {
             if (window.SwatchRenderer) {
-              SwatchRenderer.renderAll('premade-swatch-target', %s, %s);
+              var swatchData = %s;
+              SwatchRenderer.renderAll('premade-swatch-target', swatchData, swatchData.config || {});
             }
           });",
-          swatch_json,
-          jsonlite::toJSON(swatch_data$config, auto_unbox = TRUE)
+          swatch_json
         )))
       ))
     }
@@ -1082,11 +1082,11 @@ server <- function(input, output, session) {
         tags$script(HTML(sprintf(
           "$(document).ready(function() {
             if (window.SwatchRenderer) {
-              SwatchRenderer.renderAll('premade-swatch-target', %s, %s);
+              var swatchData = %s;
+              SwatchRenderer.renderAll('premade-swatch-target', swatchData, swatchData.config || {});
             }
           });",
-          swatch_json,
-          jsonlite::toJSON(swatch_data$config, auto_unbox = TRUE)
+          swatch_json
         ))),
         if(end_idx < total_pigments) {
           tags$div(
@@ -1146,7 +1146,8 @@ server <- function(input, output, session) {
         tags$script(HTML(sprintf(
           "$(document).ready(function() {
             if (window.SwatchRenderer) {
-              SwatchRenderer.renderAll('saved-swatch-target', %s, {});
+              var swatchData = %s;
+              SwatchRenderer.renderAll('saved-swatch-target', swatchData, {});
             }
           });",
           swatch_json
@@ -1243,7 +1244,8 @@ server <- function(input, output, session) {
         tags$script(HTML(sprintf(
           "$(document).ready(function() {
             if (window.SwatchRenderer) {
-              SwatchRenderer.renderAll('saved-swatch-target', %s, {});
+              var swatchData = %s;
+              SwatchRenderer.renderAll('saved-swatch-target', swatchData, {});
             }
           });",
           swatch_json

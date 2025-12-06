@@ -387,7 +387,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.10, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.11-pwa, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -401,7 +401,10 @@ ui <- dashboardPage(
       tags$meta(name = "theme-color", content = "#333333"),
       tags$meta(name = "apple-mobile-web-app-capable", content = "yes"),
       tags$meta(name = "apple-mobile-web-app-status-bar-style", content = "black"),
-      tags$meta(name = "apple-mobile-web-app-title", content = "Paint-o-matic")
+      tags$meta(name = "apple-mobile-web-app-title", content = "Paint-o-matic"),
+      tags$meta(name = "mobile-web-app-capable", content = "yes"),
+      tags$meta(name = "mobile-web-app-status-bar-style", content = "black"),
+      tags$meta(name = "mobile-web-app-title", content = "Paint-o-matic")
     ),
     
     # Load external JavaScript files

@@ -64,7 +64,7 @@ jobs:
               'kulturkulor_recipes.r',
               'kulturkulor_recipes_part2.r',
               'kulturkulor_recipes_part3.r',
-              list. files('R', full.names = TRUE, recursive = TRUE),
+              list.files('R', full.names = TRUE, recursive = TRUE),
               'www/manifest.json',
               'www/service-worker. js',
               'www/service-worker-register.js',

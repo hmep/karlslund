@@ -30,6 +30,10 @@
         return;
       }
       
+      // Find the scrollable parent container to preserve scroll position
+      const scrollContainer = container.closest('#swatch-container');
+      const savedScrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
+      
       if (!swatchData || (swatchData.type === 'matrix' && (!swatchData.matrices || swatchData.matrices.length === 0))) {
         container.innerHTML = '<p style="text-align: center; padding: 20px; color: #666;">Inga recept tillgängliga.</p>';
         this.lastRenderedCount[containerId] = 0;
@@ -54,6 +58,14 @@
           container.innerHTML = '';
           this.renderMatrix(container, swatchData.matrices, config);
           this.lastRenderedCount[containerId] = currentCount;
+          
+          // Restore scroll position after full render (needed when Shiny recreates DOM)
+          if (scrollContainer && savedScrollTop > 0) {
+            // Use requestAnimationFrame to ensure DOM has been updated
+            requestAnimationFrame(() => {
+              scrollContainer.scrollTop = savedScrollTop;
+            });
+          }
         }
       } else if (swatchData.type === 'favorites') {
         // Favorites always get full re-render (they're small and can change order)

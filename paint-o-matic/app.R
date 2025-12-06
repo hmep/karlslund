@@ -384,7 +384,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.8, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.9, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -1883,6 +1883,10 @@ server <- function(input, output, session) {
       if(recipe$zn > 0.1) pigment_ids <- c(pigment_ids, "44100")
       if(recipe$ti > 0.1) pigment_ids <- c(pigment_ids, "44400")
       if(length(recipe$color) > 0) pigment_ids <- c(pigment_ids, names(recipe$color))
+      # Add filler for egg-oil tempera
+      if(paint_type == "egg_oil" && ! is.null(recipe$filler_id)) {
+        pigment_ids <- c(pigment_ids, recipe$filler_id)
+      }
       
       # Add supplier links for each pigment
       suppliers_found <- FALSE

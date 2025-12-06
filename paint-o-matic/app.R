@@ -387,7 +387,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.9, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.10, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -424,7 +424,7 @@ ui <- dashboardPage(
                h2("Blanda pigment till önskad kulör"),
                fluidRow(
                  column(12,
-                        p("Vill du ", tags$b("hitta en kulör"), " som går att blanda med naturliga jordpigment och järnoxider? Vill du ", tags$b("skapa ett recept"), " på linoljefärg, äggoljetempera eller tjäroljefärg med den kulören, så att du kan skaffa rätt ingredienser och blanda din egen färg? Börja här med att blanda pigment till önskad kulör, eller välja en från någon av paletterna."),
+                        p("Här kan du ", tags$b("hitta en kulör"), " som går att blanda med naturliga jordpigment och järnoxider. Du kan också ", tags$b("skapa ett recept"), " på linoljefärg, äggoljetempera eller tjäroljefärg, så att du kan skaffa rätt ingredienser och blanda din egen färg med den önskade kulören. Börja här med att blanda pigment till önskad kulör, eller välja en från någon av paletterna."),
                         )
                ),
                fluidRow(

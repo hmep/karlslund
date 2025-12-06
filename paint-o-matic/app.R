@@ -62,6 +62,9 @@ generate_share_url <- function(session, input = NULL, mix_data = NULL) {
       # Add paint-type-specific parameters
       if(input$paint_type == "egg_oil" && !is.null(input$egg_filler)) {
         params$egg_filler <- input$egg_filler
+        if(!is.null(input$egg_extra_binder) && input$egg_extra_binder != 2.5) {
+          params$egg_extra_binder <- input$egg_extra_binder
+        }
       }
       if(input$paint_type == "tar") {
         # Use tar ID directly
@@ -582,6 +585,10 @@ ui <- dashboardPage(
                                    p("För att bättre än annars fylla i små ojämnheter i underlaget och få en sammetslen yta, testa " ,tags$b("bentonit"), " som sväller i äggoljetemperan och hindrar att färgen rinner. Det hänger samman med att färgen blir tixotop, det vill säga lättflytande i penseldragen men strax formstabil när penseln lyfts."),
                                    p("En annan lera som också gör färgen tixotrop och ger en len yta är " ,tags$b("kaolin"), " – som sväller mindre och blir mindre geléartad än bentonit."),
                                    hr(),
+                                   sliderInput("egg_extra_binder", "Bindemedel (tunnare färg)", 
+                                               2.0, 4.0, 2.5, 0.1, post = "× CPVC"),
+                                   p("Reglaget ökar mängden ägg, olja och vatten proportionellt. Högre värde ger tunnare, mer strykbar färg. Lägre värde ger tjockare färg för impasto-teknik."),
+                                   hr(),
                                    p("Måla äggoljetemperan med platt och bred pensel som håller mycket färg, i svepande rörelser i olika riktningar, eller med en fin roller (alltid vått i vått). Vänta till nästa strykning med att rätta till misstag eller luckor i färgen, om du går tillbaka och gör om arbetar du bara fram olja till ytan som blir flammig.")
                           )
                         ),
@@ -764,6 +771,9 @@ server <- function(input, output, session) {
           # Load paint-type-specific parameters
           if(query$paint_type == "egg_oil" && "egg_filler" %in% names(query)) {
             updateSelectInput(session, "egg_filler", selected = query$egg_filler)
+            if("egg_extra_binder" %in% names(query)) {
+              updateSliderInput(session, "egg_extra_binder", value = as.numeric(query$egg_extra_binder))
+            }
           }
           if(query$paint_type == "tar") {
             # Handle tar_id parameter
@@ -1798,6 +1808,7 @@ server <- function(input, output, session) {
       extra_params$extra_oil <- c$extra_oil
     } else if (paint_type == "egg_oil") {
       extra_params$filler_id <- input$egg_filler
+      extra_params$egg_extra_binder <- input$egg_extra_binder %||% 2.5
     } else if (paint_type == "tar") {
       extra_params$tar_id <- input$tar_id
       extra_params$tar_extra_oil <- input$tar_extra_oil %||% 1.6

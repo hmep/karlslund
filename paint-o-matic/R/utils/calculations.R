@@ -112,12 +112,18 @@ calculate_recipe_generic <- function(paint_type = "linseed",
     
   } else if (paint_type == "egg_oil") {
     filler_id <- extra_params$filler_id %||% "58000"
+    egg_extra_binder <- extra_params$egg_extra_binder %||% 2.5
+    
     extra_filler_volume_L <- amounts$pigment_volume_L * 0.20
     extra_filler_g <- extra_filler_volume_L * 1000 * pigments_db[[filler_id]]$properties$density
     
-    linseed_oil_g <- amounts$base_oil_g * 0.5
-    eggs_g <- amounts$base_oil_g * 0.5
-    water_g <- amounts$base_oil_g
+    # Calculate total binder with adjustable factor
+    total_binder_g <- amounts$base_oil_g * egg_extra_binder
+    
+    # Distribute binder: 30% oil, 50% egg, 20% water
+    linseed_oil_g <- total_binder_g * 0.30
+    eggs_g <- total_binder_g * 0.50
+    water_g <- total_binder_g * 0.20
     
     result$filler_id <- filler_id
     result$filler_g <- smart_round(extra_filler_g)

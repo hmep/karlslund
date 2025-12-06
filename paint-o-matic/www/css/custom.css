@@ -6,6 +6,10 @@
 .ready-box h3, h2 {margin:0 0 .5em; padding:0;}
 .rmargin-box {margin-right:20px;}
 
+/* Tab styling - active tab in bold */
+.nav-tabs > li > a {font-weight: normal;}
+.nav-tabs > li.active > a {font-weight: bold;}
+
 /* Preview and swatches */
 .preview {display:block; height:300px; width:300px; border:8px solid #333; border-radius:150px; margin:auto;}
 .kulturkulor-swatch {display:inline-block; width:24px; height:24px; border-radius:50%; margin:3px; cursor:pointer; border:2px solid #999; transition:transform 0.1s, border-color 0.1s;}

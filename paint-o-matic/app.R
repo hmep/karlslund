@@ -120,15 +120,16 @@ create_filler_choices <- function() {
 PIGMENT_DISPLAY_GROUPS <- list(
   "Vitbas" = c("vitbas"),
   "Fyllmedel" = c("599930", "58000", "58010", "58162", "58900", "58250"),
-  "Gröna" = c("40400", "41700", "11100", "KG83", "ZG65", "40850", "40860", "GU30"),
-  "Svarta" = c("44450", "J318", "BS98", "47501", "47400"),
+  "Gröna" = c("40400", "41700", "41750", "11100", "11000", "KG83", "ZG65", "40850", "40860", "40830", "GU30"),
+  "Svarta" = c("44450", "J318", "BS98", "47501", "47400", "47700", "47800", "48401"),
   "Blåa" = c("11670", "UB88", "KB28"),
-  "Terra & Pozzuoli" = c("40820", "40800", "40830", "BT44", "OT46"),
-  "Gula & Ockror" = c("44082", "44086", "44150", "44160", "J920", "LO92", "GO94", "GO94_GU30"),
-  "Siennas & Umbror" = c("44650", "44620", "OU103", "BU100", "BRU39", "GRAU36"),
-  "Röda & Orange" = c("44300", "44200", "44210", "44220", "44510", "J225", "J180M", "J120N", "ER48A"),
+  "Terra & Pozzuoli" = c("40820", "40800", "BT44", "OT46", "11620"),
+  "Gula & Ockror" = c("44082", "44086", "44150", "44160", "J920", "LO92", "GO94", "GO94_GU30", "40010", "40020", "40030", "40050", "40060", "40070", "40080", "40090", "40130", "40214"),
+  "Siennas & Umbror" = c("44650", "44620", "OU103", "BU100", "BRU39", "GRAU36", "40470", "40542", "40610", "40630", "40720", "GU30"),
+  "Röda & Orange" = c("44300", "44200", "44210", "44220", "44510", "J225", "J180M", "J120N", "ER48A", "17280", "48289", "48651"),
   "Bruna" = c("J663", "J686", "48330")
 )
+# "Moderna syntetiska" = c("23000", "23050", "23720", "43300", "46280")
 
 # Create grouped choices for optgroups (Swedish categories)
 # Now with validation to ensure all pigments in pigments_db are included
@@ -141,7 +142,7 @@ create_grouped_choices <- function() {
     if(length(existing_ids) < length(ids)) {
       missing <- setdiff(ids, existing_ids)
       warning(sprintf("Display group '%s' references missing pigments: %s", 
-                      group_name, paste(missing, collapse=", ")))
+                     group_name, paste(missing, collapse=", ")))
     }
     make_choices(existing_ids)
   })
@@ -155,7 +156,7 @@ create_grouped_choices <- function() {
   unmapped <- setdiff(db_ids, c(all_mapped_ids, exclude_from_check))
   if(length(unmapped) > 0) {
     warning(sprintf("Pigments in database but not in any display group: %s\nThese pigments will NOT appear in dropdown menus!", 
-                    paste(unmapped, collapse=", ")))
+                   paste(unmapped, collapse=", ")))
   }
   
   groups
@@ -393,7 +394,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.12-pwa-debug, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.13-pwa-debug, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -701,18 +702,10 @@ server <- function(input, output, session) {
   # Create filtered grouped choices for picker inputs
   # Used when switching between RAÄ-only and all pigments modes
   create_filtered_grouped_choices <- function(filter_ids) {
-    list(
-      "Vitbas" = make_choices(intersect(c("vitbas"), filter_ids)),
-      "Gröna" = make_choices(intersect(c("40400", "41700", "11100", "KG83", "ZG65", "40850", "40860", "GU30"), filter_ids)),
-      "Svarta" = make_choices(intersect(c("44450", "J318", "BS98", "47501", "47400"), filter_ids)),
-      "Blåa" = make_choices(intersect(c("11670", "UB88", "KB28"), filter_ids)),
-      "Terra & Pozzuoli" = make_choices(intersect(c("40820", "40800", "40830", "BT44", "OT46"), filter_ids)),
-      "Gula & Ockror" = make_choices(intersect(c("44082", "44086", "44150", "44160", "J920", "LO92", "GO94", "GO94_GU30"), filter_ids)),
-      "Siennas & Umbror" = make_choices(intersect(c("44650", "44620", "OU103", "BU100", "BRU39", "GRAU36"), filter_ids)),
-      "Röda & Orange" = make_choices(intersect(c("44300", "44200", "44210", "44220", "44510", "J225", "J180M", "J120N", "ER48A"), filter_ids)),
-      "Bruna" = make_choices(intersect(c("J663", "J686", "48330"), filter_ids)),
-      "Fyllmedel" = make_choices(intersect(c("599930", "58000", "58010", "58162", "58900", "58250"), filter_ids))
-    )
+    # Use PIGMENT_DISPLAY_GROUPS to ensure consistency
+    lapply(PIGMENT_DISPLAY_GROUPS, function(group_ids) {
+      make_choices(intersect(group_ids, filter_ids))
+    })
   }
   
   # Update all picker input choices

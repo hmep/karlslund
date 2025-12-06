@@ -152,32 +152,60 @@ See `R/utils/pigment_helpers.R` for clean API:
 
 To add a new pigment:
 
-1. Edit `R/data/pigments_unified.R`
-2. Add a new entry following the structure above
-3. All legacy variables (`km`, `suppliers`, `raa_pigments`, `pigment_name_to_id`) update automatically
-4. No need to update multiple files
+1. **Add pigment definition to `R/data/pigments_unified.R`**
+   - Add a new entry following the structure below
+   - Place it in the appropriate section (greens, blacks, yellows, etc.)
+
+2. **Add pigment ID to dropdown display groups in `app.R`**
+   - Find the `PIGMENT_DISPLAY_GROUPS` constant (around line 118)
+   - Add the new pigment ID to the appropriate Swedish category
+   - The app will validate at startup and warn if pigments are missing
+
+3. **Validation**
+   - Start the app to check for warnings
+   - If a pigment is in `pigments_db` but not in `PIGMENT_DISPLAY_GROUPS`, you'll see a warning
+   - If a pigment is in `PIGMENT_DISPLAY_GROUPS` but not in `pigments_db`, you'll see a warning
 
 Example:
 ```r
-"NEW_ID" = list(
-  id = "NEW_ID",
-  name = "New Pigment Name",
+# Step 1: Add to R/data/pigments_unified.R
+"40123" = list(
+  id = "40123",
+  name = "New Earth Pigment",
   properties = list(
     oil = 25,
     K = 0.5,
     S = 0.5,
     density = 3.0,
-    rgb = c(100, 100, 100)
+    rgb = c(100, 80, 60)
   ),
   metadata = list(
     is_raa = FALSE,
     is_tar_compatible = TRUE,
     category = "earth"
   ),
-  suppliers = NULL,  # or list with supplier info
+  suppliers = list(
+    kremer = list(
+      id = "40123",
+      match = "exact",
+      url = "https://www.kremer-pigmente.com/en/shop/pigments/40123-..."
+    )
+  ),
   notes = "Description of the pigment"
 )
+
+# Step 2: Add to app.R PIGMENT_DISPLAY_GROUPS
+PIGMENT_DISPLAY_GROUPS <- list(
+  ...
+  "Terra & Pozzuoli" = c("40820", "40800", "40830", "BT44", "OT46", "40123"),  # Added 40123 here
+  ...
+)
 ```
+
+**Note**: The validation system will catch common mistakes:
+- Forgetting to add the pigment to display groups
+- Typos in pigment IDs
+- References to non-existent pigments
 
 ## Database Statistics
 

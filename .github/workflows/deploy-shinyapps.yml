@@ -35,7 +35,7 @@ jobs:
     name: Deploy paint-o-matic to shinyapps.io
     runs-on: ubuntu-latest
     # Deploy if manually forced OR if commit message contains [deploy]
-    if: inputs.force_deploy == true || contains(github.event.head_commit.message, '[deploy]')
+    if: github.event.inputs.force_deploy == 'true' || contains(github.event.head_commit.message || '', '[deploy]')
     
     steps:
       - name: Checkout repository

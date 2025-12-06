@@ -661,6 +661,11 @@ server <- function(input, output, session) {
     zinc_ratio = 15
   )
   
+  # === PAGINATION STATE FOR EXTENDED SWATCHES ===
+  # Track current page for paginated loading of extended swatches
+  extended_page <- reactiveVal(1)
+  SWATCHES_PER_PAGE <- 10  # Number of pigments per page
+  
   # === HELPER FUNCTIONS ===
   
   # Clear all pigment slots
@@ -847,6 +852,8 @@ server <- function(input, output, session) {
     if(!is.null(input$palette_choice) && input$palette_choice == "extended") {
       updateCheckboxInput(session, "raa_only", value = FALSE)
     }
+    # Reset pagination when switching palettes
+    extended_page(1)
   })
   
   observeEvent(input$raa_only, {
@@ -1034,9 +1041,47 @@ server <- function(input, output, session) {
       vitbas_increments <- c(0, 15, 30, 45, 60, 70, 78, 85, 90)  # 9 levels
       shade_increments <- c(0, 8, 18, 32, 50)  # 5 levels (added heavy shade)
       
-      return(render_swatch_matrix(recipes_to_show, base_pigments, vitbas_increments, 
-                                  shade_increments, shade_pigment, use_tinting))
+      # === PAGINATION FOR EXTENDED SWATCHES ===
+      total_pigments <- length(base_pigments)
+      current_page <- extended_page()
+      end_idx <- min(current_page * SWATCHES_PER_PAGE, total_pigments)
+      paginated_pigments <- base_pigments[1:end_idx]
+      
+      # Render paginated swatches
+      matrix_html <- render_swatch_matrix(
+        recipes_to_show, 
+        paginated_pigments, 
+        vitbas_increments, 
+        shade_increments, 
+        shade_pigment, 
+        use_tinting
+      )
+      
+      # Add pagination controls if more pigments available
+      return(tagList(
+        matrix_html,
+        if(end_idx < total_pigments) {
+          tags$div(
+            style = "text-align: center; margin-top: 20px; padding: 10px;",
+            tags$p(
+              style = "margin-bottom: 10px; font-size: 14px; color: #666;",
+              sprintf("Visar %d av %d pigment", end_idx, total_pigments)
+            ),
+            actionButton(
+              "load_more_swatches", 
+              sprintf("Ladda fler pigment (%d kvar)", total_pigments - end_idx),
+              class = "btn btn-primary",
+              icon = icon("plus-circle")
+            )
+          )
+        }
+      ))
     }
+  })
+  
+  # Observer for "Load More" button in extended swatches
+  observeEvent(input$load_more_swatches, {
+    extended_page(extended_page() + 1)
   })
   
   # Render saved favorites swatches

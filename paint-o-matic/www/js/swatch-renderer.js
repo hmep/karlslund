@@ -9,6 +9,9 @@
     // Current swatch data
     currentData: null,
     
+    // Track previously rendered pigments to support incremental rendering
+    lastRenderedCount: {},
+    
     // Initialize with swatch data from R
     initialize: function(swatchData) {
       this.currentData = swatchData;
@@ -27,20 +30,93 @@
         return;
       }
       
-      // Clear existing content
-      container.innerHTML = '';
-      
       if (!swatchData || (swatchData.type === 'matrix' && (!swatchData.matrices || swatchData.matrices.length === 0))) {
         container.innerHTML = '<p style="text-align: center; padding: 20px; color: #666;">Inga recept tillgängliga.</p>';
+        this.lastRenderedCount[containerId] = 0;
         return;
       }
       
-      // Check if this is a matrix-based structure (RAÄ/Extended) or flat structure (Favorites)
+      // For matrix type, check if this is incremental rendering (pagination)
       if (swatchData.type === 'matrix') {
-        this.renderMatrix(container, swatchData.matrices, config);
+        const currentCount = swatchData.matrices.length;
+        const previousCount = this.lastRenderedCount[containerId] || 0;
+        
+        if (previousCount > 0 && currentCount > previousCount) {
+          // Incremental render: only append new matrices
+          this.appendMatrices(container, swatchData.matrices.slice(previousCount), config);
+          this.lastRenderedCount[containerId] = currentCount;
+        } else {
+          // Full render: clear and render all
+          container.innerHTML = '';
+          this.renderMatrix(container, swatchData.matrices, config);
+          this.lastRenderedCount[containerId] = currentCount;
+        }
       } else if (swatchData.type === 'favorites') {
+        // Favorites always get full re-render (they're small and can change order)
+        container.innerHTML = '';
         this.renderFavorites(container, swatchData.favorites, config);
+        this.lastRenderedCount[containerId] = 0;
       }
+    },
+    
+    // Append new matrices without clearing existing content
+    appendMatrices: function(container, newMatrices, config) {
+      // Find the existing wrapper or create if needed
+      let wrapper = container.querySelector('.swatch-matrices');
+      if (!wrapper) {
+        wrapper = document.createElement('div');
+        wrapper.className = 'swatch-matrices';
+        container.appendChild(wrapper);
+      }
+      
+      const fragment = document.createDocumentFragment();
+      
+      // Render each new pigment's matrix
+      for (const matrix of newMatrices) {
+        // Add pigment heading
+        const heading = document.createElement('div');
+        heading.style.cssText = 'margin-top: 0.5em; margin-bottom: 0.5em; font-weight: bold;';
+        heading.textContent = matrix.base_name;
+        fragment.appendChild(heading);
+        
+        // Create matrix container
+        const matrixDiv = document.createElement('div');
+        matrixDiv.className = 'swatch-matrix';
+        
+        // Group swatches by shade level (rows)
+        const swatchesByShade = {};
+        for (const swatch of matrix.swatches) {
+          const shadeKey = swatch.shade_pct;
+          if (!swatchesByShade[shadeKey]) {
+            swatchesByShade[shadeKey] = [];
+          }
+          swatchesByShade[shadeKey].push(swatch);
+        }
+        
+        // Render rows (sorted by shade level)
+        const shadeLevels = Object.keys(swatchesByShade).map(Number).sort((a, b) => a - b);
+        for (const shadeLevel of shadeLevels) {
+          const rowSwatches = swatchesByShade[shadeLevel];
+          
+          // Sort swatches by vitbas level within row
+          rowSwatches.sort((a, b) => a.vitbas_pct - b.vitbas_pct);
+          
+          const rowDiv = document.createElement('div');
+          rowDiv.className = 'swatch-row';
+          rowDiv.style.whiteSpace = 'nowrap';
+          
+          for (const swatch of rowSwatches) {
+            const swatchSpan = this.createSwatchElement(swatch);
+            rowDiv.appendChild(swatchSpan);
+          }
+          
+          matrixDiv.appendChild(rowDiv);
+        }
+        
+        fragment.appendChild(matrixDiv);
+      }
+      
+      wrapper.appendChild(fragment);
     },
     
     // Render swatch matrices (for RAÄ and Extended palettes)

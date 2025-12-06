@@ -419,6 +419,7 @@ ui <- dashboardPage(
     tags$script(src = "js/utils.js"),
     tags$script(src = "js/fullscreen.js"),
     tags$script(src = "js/favorites.js"),
+    tags$script(src = "js/infinite-scroll.js"),
     tags$script(src = "service-worker-register.js"),
     
     # Fullscreen overlay (shared for both previews)
@@ -497,7 +498,7 @@ ui <- dashboardPage(
                                        tags$small("Kulörpaletter med tonings- och skuggningsmixer för alla pigment som är tillgängliga i Paint-o-matic."),
                                      ),
                                      
-                                     div(style = "margin-top:1em; width: 100%; height: 300px; overflow-y: auto; overflow-x: auto; border: 1px solid #ddd; padding: 10px;",
+                                     div(id = "swatch-container", style = "margin-top:1em; width: 100%; height: 300px; overflow-y: auto; overflow-x: auto; border: 1px solid #ddd; padding: 10px;",
                                          uiOutput("premade_swatches")
                                      )
                                    ),

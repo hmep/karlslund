@@ -1,17 +1,6 @@
 # Calculation Utilities
 # Generic recipe helper functions for paint calculations
 
-# Get binder factor for paint type
-# Returns the multiplier for CPVC (Critical Pigment Volume Concentration)
-get_binder_factor <- function(paint_type, extra_params) {
-  switch(paint_type,
-    "linseed" = extra_params$extra_oil %||% 1.6,
-    "egg_oil" = extra_params$egg_extra_binder %||% 2.5,
-    "tar" = extra_params$tar_extra_binder %||% 1.6,
-    1.6  # fallback default
-  )
-}
-
 # Calculate base oil absorption and density for pigment mix
 calculate_base_properties <- function(m, compensated_pcts, zinc_ratio) {
   base_oil_absorption <- 0
@@ -116,22 +105,29 @@ calculate_recipe_generic <- function(paint_type = "linseed",
     color = sapply(pigments$color, smart_round)
   )
   
-  # Paint-type-specific additions
+  # Paint-type-specific binder calculations
+  # Each paint type uses a CPVC (Critical Pigment Volume Concentration) multiplier
+  # to adjust binder amounts while maintaining paint chemistry
+  
   if (paint_type == "linseed") {
+    # Linseed oil paint: simple oil multiplication
     extra_oil_factor <- extra_params$extra_oil %||% 1.6
     result$oil <- smart_round(amounts$base_oil_g * extra_oil_factor)
     
   } else if (paint_type == "egg_oil") {
+    # Egg-oil tempera: adjustable binder with fixed distribution ratios
     filler_id <- extra_params$filler_id %||% "58000"
     egg_extra_binder <- extra_params$egg_extra_binder %||% 2.5
     
     extra_filler_volume_L <- amounts$pigment_volume_L * 0.20
     extra_filler_g <- extra_filler_volume_L * 1000 * pigments_db[[filler_id]]$properties$density
     
-    # Calculate total binder with adjustable factor
+    # Calculate total binder with adjustable CPVC factor
+    # Multiply base oil requirement by user-selected factor (2.0-4.0×)
     total_binder_g <- amounts$base_oil_g * egg_extra_binder
     
-    # Distribute binder: 30% oil, 50% egg, 20% water
+    # Distribute binder maintaining fixed ratios: 30% oil, 50% egg, 20% water
+    # This ensures consistent paint chemistry while adjusting thickness
     linseed_oil_g <- total_binder_g * 0.30
     eggs_g <- total_binder_g * 0.50
     water_g <- total_binder_g * 0.20
@@ -144,6 +140,7 @@ calculate_recipe_generic <- function(paint_type = "linseed",
     result$water <- smart_round(water_g)
     
   } else if (paint_type == "tar") {
+    # Tar oil paint: adjustable binder split between tar and oil
     tar_extra_binder_factor <- extra_params$tar_extra_binder %||% 1.6
     total_oil_with_factor <- amounts$base_oil_g * tar_extra_binder_factor
     

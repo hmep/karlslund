@@ -421,7 +421,7 @@ ui <- dashboardPage(
                h2("Blanda pigment till önskad kulör"),
                fluidRow(
                  column(12,
-                        p("Vill du hitta en kulör som går att skapa med jordpigment och järnoxider? Vill du skapa ett recept på linoljefärg, äggoljetempera eller tjäroljefärg med den kulören, så att du kan blanda din egen färg? Börja här!"),
+                        p("Vill du hitta en kulör som går att blanda med naturliga jordpigment och järnoxider? Vill du skapa ett recept på linoljefärg, äggoljetempera eller tjäroljefärg med den kulören, så att du kan blanda din egen färg? Börja här med att mixa pigmenten till önskad kulör!"),
                         )
                ),
                fluidRow(

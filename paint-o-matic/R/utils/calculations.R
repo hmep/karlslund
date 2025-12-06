@@ -117,20 +117,18 @@ calculate_recipe_generic <- function(paint_type = "linseed",
   } else if (paint_type == "egg_oil") {
     # Egg-oil tempera: adjustable binder with fixed distribution ratios
     filler_id <- extra_params$filler_id %||% "58000"
-    egg_extra_binder <- extra_params$egg_extra_binder %||% 2.5
+    egg_extra_binder <- extra_params$egg_extra_binder %||% 1.6
     
-    extra_filler_volume_L <- amounts$pigment_volume_L * 0.20
+    # Scale filler amount with binder factor to keep paint matte
+    extra_filler_volume_L <- amounts$pigment_volume_L * 0.20 * egg_extra_binder
     extra_filler_g <- extra_filler_volume_L * 1000 * pigments_db[[filler_id]]$properties$density
     
-    # Calculate total binder with adjustable CPVC factor
-    # Multiply base oil requirement by user-selected factor (2.0-4.0×)
-    total_binder_g <- amounts$base_oil_g * egg_extra_binder
-    
-    # Distribute binder maintaining fixed ratios: 30% oil, 50% egg, 20% water
-    # This ensures consistent paint chemistry while adjusting thickness
-    linseed_oil_g <- total_binder_g * 0.30
-    eggs_g <- total_binder_g * 0.50
-    water_g <- total_binder_g * 0.20
+    # Calculate binder components with adjustable CPVC factor
+    # Base oil requirement multiplied by user-selected factor (1.0-2.5×)
+    # Distribution: egg = 0.5, oil = 0.5, water = 0.8
+    linseed_oil_g <- amounts$base_oil_g * 0.5 * egg_extra_binder
+    eggs_g <- amounts$base_oil_g * 0.5 * egg_extra_binder
+    water_g <- amounts$base_oil_g * 0.8 * egg_extra_binder
     
     result$filler_id <- filler_id
     result$filler_g <- smart_round(extra_filler_g)

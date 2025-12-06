@@ -62,7 +62,7 @@ generate_share_url <- function(session, input = NULL, mix_data = NULL) {
       # Add paint-type-specific parameters
       if(input$paint_type == "egg_oil" && !is.null(input$egg_filler)) {
         params$egg_filler <- input$egg_filler
-        if(!is.null(input$egg_extra_binder) && input$egg_extra_binder != 2.5) {
+        if(!is.null(input$egg_extra_binder) && input$egg_extra_binder != 1.6) {
           params$egg_extra_binder <- input$egg_extra_binder
         }
       }
@@ -586,7 +586,7 @@ ui <- dashboardPage(
                                    p("En annan lera som också gör färgen tixotrop och ger en len yta är " ,tags$b("kaolin"), " – som sväller mindre och blir mindre geléartad än bentonit."),
                                    hr(),
                                    sliderInput("egg_extra_binder", "Bindemedel (tunnare färg)", 
-                                               2.0, 4.0, 2.5, 0.1, post = "× CPVC"),
+                                               1, 2.5, 1.6, 0.05, post = "× CPVC"),
                                    p("Reglaget ökar mängden ägg, olja och vatten proportionellt. Högre värde ger tunnare, mer strykbar färg. Lägre värde ger tjockare färg för impasto-teknik."),
                                    hr(),
                                    p("Måla äggoljetemperan med platt och bred pensel som håller mycket färg, i svepande rörelser i olika riktningar, eller med en fin roller (alltid vått i vått). Vänta till nästa strykning med att rätta till misstag eller luckor i färgen, om du går tillbaka och gör om arbetar du bara fram olja till ytan som blir flammig.")
@@ -1813,7 +1813,7 @@ server <- function(input, output, session) {
       extra_params$extra_oil <- c$extra_oil
     } else if (paint_type == "egg_oil") {
       extra_params$filler_id <- input$egg_filler
-      extra_params$egg_extra_binder <- input$egg_extra_binder %||% 2.5
+      extra_params$egg_extra_binder <- input$egg_extra_binder %||% 1.6
     } else if (paint_type == "tar") {
       extra_params$tar_id <- input$tar_id
       extra_params$tar_extra_binder <- input$tar_extra_binder %||% 1.6

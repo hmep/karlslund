@@ -128,7 +128,7 @@ PIGMENT_DISPLAY_GROUPS <- list(
   "Siennas & Umbror" = c("44650", "44620", "OU103", "BU100", "BRU39", "GRAU36", "40470", "40542", "40610", "40630", "40720", "GU30"),
   "Röda & Orange" = c("44300", "44200", "44210", "44220", "44510", "J225", "J180M", "J120N", "ER48A", "17280", "48289", "48651"),
   "Bruna" = c("J663", "J686", "48330"),
-  "Vita (vitbas ger bättre kulörkontroll)" = c("44100", "44400", "46280"),
+  "Vita (vitbas rekommenderas för bättre kulörkontroll)" = c("44100", "44400", "46280"),
   "Moderna syntetiska" = c("23000", "23050", "23720", "43300")
 )
 
@@ -251,17 +251,15 @@ generate_swatch_matrix <- function(pigments, vitbas_increments, shade_increments
 
 # Define shading pigments available for user selection (ONLY existing pigments)
 shading_pigments <- list(
-  "Svartoxid PBk11 (#44450)" = "44450",
-  "Järnoxidsvart nr 318 (#J318)" = "J318",
-  "Bensvart nr 98 (#BS98)" = "BS98",
-  "Mangansvart (#47501)" = "47501",
-  "Spinel-svart (#47400)" = "47400",
-  "Obränd umbra PBr7 (#OU103)" = "OU103",
-  "Bränd umbra PBr7 (#BU100)" = "BU100",
-  "Brun umbra (#BRU39)" = "BRU39",
-  "Grön umbra nr 30 (#GU30)" = "GU30",
-  "Ljusockra PY43 (#LO92)" = "LO92",
-  "Guldockra PY43 (#GO94)" = "GO94"
+  "Järnoxidsvart nr 318" = "J318",
+  "Bensvart nr 98"  = "BS98",
+  "Kimrök" = "47250",
+  "Spinel-svart" = "47400",
+  "Mangansvart" = "47501",
+  "Svartoxid PBk11" = "44450",
+  "Träkolspulver"= "47800",
+  "Järnoxidsvart neutralt"= "48401",
+  "Grafitpulver silver"= "47700"
 )
 
 # Get list of shading pigment IDs (to exclude from base colors)

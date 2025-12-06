@@ -80,9 +80,22 @@ PIGMENT_DISPLAY_GROUPS <- list(
 - `"Röda & Orange"` - Red and orange iron oxides
 - `"Bruna"` - Brown iron oxides
 
-#### 3. Test and Validate
+#### 3. Validate Your Changes
 
-Start the Shiny app:
+**Option A: Run validation script (recommended)**
+```bash
+cd paint-o-matic
+Rscript tools/validate_pigments.R
+```
+
+The script will check for:
+- ✅ Pigments in database but not in display groups
+- ✅ Display groups referencing non-existent pigments
+- ✅ Missing or invalid properties
+- ✅ Duplicate entries
+- ✅ Category distribution and statistics
+
+**Option B: Start the Shiny app**
 ```r
 shiny::runApp("paint-o-matic")
 ```
@@ -92,12 +105,53 @@ shiny::runApp("paint-o-matic")
 - ⚠️ "Pigment in database but not in any display group" = You forgot step 2
 - ⚠️ "Display group references missing pigment" = Typo in step 2 or pigment doesn't exist
 
-**Visual verification:**
+**Visual verification (if running the app):**
 1. Open the pigment dropdowns (Pigment 1, 2, 3, 4)
 2. Find your category (e.g., "Gula & Ockror")
 3. Verify your pigment appears with correct name
 4. Select it and verify color preview shows correct color
 5. Check "Extended swatches" tab - your pigment should appear there too
+
+## Validation Tools
+
+### Automated Validation Script
+
+The `tools/validate_pigments.R` script provides comprehensive validation:
+
+```bash
+cd paint-o-matic
+Rscript tools/validate_pigments.R
+```
+
+**Output includes:**
+- Total pigment count
+- Display group mapping statistics
+- List of unmapped pigments (if any)
+- List of invalid references (if any)
+- Category distribution
+- Display group sizes
+- Supplier coverage statistics
+- Property validation (missing oil, K, S, density, RGB values)
+
+**Example output:**
+```
+=== Pigment Database Validation ===
+
+Total pigments in database: 56
+Total pigments in display groups: 54
+Unique pigments in display groups: 54
+
+✅ All pigments in database are mapped to display groups
+✅ All display group references are valid
+
+=== Category Distribution ===
+  oxide: 15 pigments
+  yellow: 8 pigments
+  earth: 7 pigments
+  ...
+```
+
+Use this script after making changes to quickly verify everything is configured correctly.
 
 ## Troubleshooting
 

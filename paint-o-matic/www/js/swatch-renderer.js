@@ -12,6 +12,9 @@
     // Track previously rendered pigments to support incremental rendering
     lastRenderedCount: {},
     
+    // Save scroll positions before Shiny updates
+    savedScrollPositions: {},
+    
     // Initialize with swatch data from R
     initialize: function(swatchData) {
       this.currentData = swatchData;
@@ -30,9 +33,16 @@
         return;
       }
       
-      // Find the scrollable parent container to preserve scroll position
-      const scrollContainer = container.closest('#swatch-container');
-      const savedScrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
+      // Try to find and restore saved scroll position
+      let savedScrollTop = 0;
+      const scrollContainer = document.getElementById('swatch-container');
+      if (scrollContainer) {
+        // Check if we have a saved scroll position for this container
+        if (this.savedScrollPositions[containerId]) {
+          savedScrollTop = this.savedScrollPositions[containerId];
+          delete this.savedScrollPositions[containerId]; // Clear after using
+        }
+      }
       
       if (!swatchData || (swatchData.type === 'matrix' && (!swatchData.matrices || swatchData.matrices.length === 0))) {
         container.innerHTML = '<p style="text-align: center; padding: 20px; color: #666;">Inga recept tillgängliga.</p>';
@@ -327,8 +337,23 @@
     }
   };
   
-  // Expose for debugging
+  // Set up Shiny event listeners to save scroll position before updates
   if (typeof window !== 'undefined') {
     window.SwatchRenderer = SwatchRenderer;
+    
+    // When document is ready, set up Shiny listeners
+    $(document).ready(function() {
+      // Listen for Shiny recalculating outputs
+      $(document).on('shiny:recalculating', function(event) {
+        // Check if it's the premade_swatches output being recalculated
+        if (event.target && event.target.id === 'premade_swatches') {
+          const scrollContainer = document.getElementById('swatch-container');
+          if (scrollContainer) {
+            // Save the current scroll position
+            SwatchRenderer.savedScrollPositions['premade-swatch-target'] = scrollContainer.scrollTop;
+          }
+        }
+      });
+    });
   }
 })();

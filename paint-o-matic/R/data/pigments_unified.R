@@ -1464,5 +1464,791 @@ pigments_db <- list(
     ),
     suppliers = NULL,
     notes = ""
+  ),
+  
+  # Extension to pigments_unified.R
+  # New pigments from Kremer Pigmente catalog
+  # Add these entries to the pigments_db list in pigments_unified.R
+  
+  # EARTH PIGMENTS - Browns
+  "11620" = list(
+    id = "11620",
+    name = "Brun jord från Otranto",
+    properties = list(
+      oil = 40,
+      K = 0.68,
+      S = 0.42,
+      density = 2.5,
+      rgb = c(130, 75, 60)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "earth"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "11620",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/11620-brown-earth-from-otranto.html"
+      )
+    ),
+    notes = "Naturlig brunockra från Otranto, Italien. Järnoxid med kalkavlagringar ('ärtmalm'). PBr7.Mycket god ljushärdighet (8/8). Sanguinbrun nyans."
+  ),
+  
+  "17280" = list(
+    id = "17280",
+    name = "Persiskt rött",
+    properties = list(
+      oil = 28,
+      K = 0.92,
+      S = 0.38,
+      density = 5.1,
+      rgb = c(204, 51, 51)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "oxide"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "17280",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/kremer-made-and-historic-pigments/17280-persian-red.html"
+      )
+    ),
+    notes = "Historiskt järnoxidrött från Hormuz. PR102, ca 70% järnoxid, mycket fin kornstorlek (~20 µm). Varm djup röd nyans."
+  ),
+  
+  # FRENCH OCHRES - Yellow series
+  "40010" = list(
+    id = "40010",
+    name = "Fransk ockra Jaune Clair (ljusgul)",
+    properties = list(
+      oil = 22,
+      K = 0.42,
+      S = 0.36,
+      density = 3.4,
+      rgb = c(218, 185, 125)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "yellow"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "40010",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/40010-french-ochre-jtcles.html"
+      )
+    ),
+    notes = "Fransk naturlig gulockra, ljus nyans. PY43. Naturligt hydratiserat järnoxid med lera."
+  ),
+  
+  "40020" = list(
+    id = "40020",
+    name = "Fransk ockra Jaune Foncé (mörkgul)",
+    properties = list(
+      oil = 24,
+      K = 0.50,
+      S = 0.40,
+      density = 3.5,
+      rgb = c(195, 155, 95)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "yellow"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "40020",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/40020-french-ochre-rtfles.html"
+      )
+    ),
+    notes = "Fransk naturlig gulockra, mörk nyans. PY43. Högre järninnehåll än ljus variant."
+  ),
+  
+  "40030" = list(
+    id = "40030",
+    name = "Fransk ockra Jaune d'Or (guldgul)",
+    properties = list(
+      oil = 23,
+      K = 0.54,
+      S = 0.44,
+      density = 3.6,
+      rgb = c(200, 165, 90)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "yellow"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "40030",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/40030-french-ochre-joles.html"
+      )
+    ),
+    notes = "Fransk guldockra med varmt ton. PY43. Klassisk ockra för byggnadsvård."
+  ),
+  
+  "40050" = list(
+    id = "40050",
+    name = "Fransk ockra Jaune Foncé Havane Style",
+    properties = list(
+      oil = 25,
+      K = 0.56,
+      S = 0.42,
+      density = 3.5,
+      rgb = c(185, 145, 80)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "yellow"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "40050",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40050-french-ochre-jfles.html"
+      )
+    ),
+    notes = "Fransk mörkgul ockra med brunaktigt ton. PY43."
+  ),
+  
+  "40060" = list(
+    id = "40060",
+    name = "Fransk ockra Jaune Orangé (orangegul)",
+    properties = list(
+      oil = 24,
+      K = 0.58,
+      S = 0.48,
+      density = 3.6,
+      rgb = c(210, 150, 70)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "yellow"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "40060",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40060-french-ochre-jals.html"
+      )
+    ),
+    notes = "Fransk orangetonad ockra. PY43. Varm nyans mellan gult och orange."
+  ),
+  
+  "40070" = list(
+    id = "40070",
+    name = "Fransk ockra Sofo d'Or (guldbrunt)",
+    properties = list(
+      oil = 26,
+      K = 0.62,
+      S = 0.45,
+      density = 3.6,
+      rgb = c(175, 125, 65)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "yellow"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "40070",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/40070-french-ochre-sofodor.html"
+      )
+    ),
+    notes = "Fransk guldbrunt ockra. PY43. Mörkare gulbrun nyans."
+  ),
+  
+  "40080" = list(
+    id = "40080",
+    name = "Fransk ockra Havane (havannabrunt)",
+    properties = list(
+      oil = 28,
+      K = 0.68,
+      S = 0.46,
+      density = 3.7,
+      rgb = c(160, 110, 60)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "yellow"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "40080",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/40080-french-ochre-havane.html"
+      )
+    ),
+    notes = "Fransk havannabrunt ockra. PY43. Mörkbrun ockranyans."
+  ),
+  
+  "40090" = list(
+    id = "40090",
+    name = "Fransk ockra Sofo Rouge (rödbrun)",
+    properties = list(
+      oil = 30,
+      K = 0.72,
+      S = 0.48,
+      density = 3.8,
+      rgb = c(155, 95, 55)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "yellow"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "40090",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/40090-french-ochre-soforouge.html"
+      )
+    ),
+    notes = "Fransk rödbrun ockra. PY43. Övergångsfärg mot röda toner."
+  ),
+  
+  "40130" = list(
+    id = "40130",
+    name = "Fransk ockra Sahara",
+    properties = list(
+      oil = 26,
+      K = 0.52,
+      S = 0.42,
+      density = 3.5,
+      rgb = c(195, 160, 105)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "yellow"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "40130",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40130-french-ochre-sahara.html"
+      )
+    ),
+    notes = "Fransk saharaockra med neutral gulbrun ton. PY43."
+  ),
+  
+  "40214" = list(
+    id = "40214",
+    name = "Guldockra DD",
+    properties = list(
+      oil = 24,
+      K = 0.56,
+      S = 0.46,
+      density = 3.6,
+      rgb = c(195, 150, 85)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "yellow"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "40214",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/40214-gold-ochre-dd.html"
+      )
+    ),
+    notes = "Tysk guldockra DD-kvalitet. PY43. Rik guldgul ton."
+  ),
+  
+  # EARTH PIGMENTS - Siennas and Umbers
+  "40470" = list(
+    id = "40470",
+    name = "Bränd sienna från Frankrike",
+    properties = list(
+      oil = 48,
+      K = 0.78,
+      S = 0.52,
+      density = 3.5,
+      rgb = c(168, 88, 50)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "earth"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "40470",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40470-burnt-sienna-from-france.html"
+      )
+    ),
+    notes = "Fransk bränd sienna. PBr7. Varm rödbrun naturlig jord, bränd för att intensifiera färgen."
+  ),
+  
+  "40542" = list(
+    id = "40542",
+    name = "Engelskt rött ljust",
+    properties = list(
+      oil = 32,
+      K = 0.72,
+      S = 0.42,
+      density = 4.9,
+      rgb = c(185, 85, 75)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "oxide"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "40542",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40542-english-red-light.html"
+      )
+    ),
+    notes = "Ljus variant av engelskt rött järnoxid. PR102. Klassisk byggnadsvårdsfärg."
+  ),
+  
+  "40610" = list(
+    id = "40610",
+    name = "Obränd umbra",
+    properties = list(
+      oil = 50,
+      K = 0.88,
+      S = 0.44,
+      density = 3.4,
+      rgb = c(105, 85, 65)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "earth"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "40610",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/40610-raw-umber.html"
+      )
+    ),
+    notes = "Obränd umbra, naturlig brungrön jord. PBr7. Standard umbra för linoljefärg."
+  ),
+  
+  "40630" = list(
+    id = "40630",
+    name = "Obränd umbra grönaktig",
+    properties = list(
+      oil = 52,
+      K = 0.86,
+      S = 0.46,
+      density = 3.5,
+      rgb = c(95, 85, 60)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "earth"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "40630",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40630-raw-umber-greenish.html"
+      )
+    ),
+    notes = "Obränd umbra med grön underton. PBr7. Används för gröngrå nyanser."
+  ),
+  
+  "40720" = list(
+    id = "40720",
+    name = "Bränd umbra mörkbrun",
+    properties = list(
+      oil = 58,
+      K = 1.15,
+      S = 0.54,
+      density = 3.6,
+      rgb = c(75, 50, 40)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "earth"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "40720",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40720-burnt-umber-dark-brown.html"
+      )
+    ),
+    notes = "Mycket mörk bränd umbra. PBr7. Kalla mörkbruna toner för schattering."
+  ),
+  
+  "40830" = list(
+    id = "40830",
+    name = "Grön jord från Frankrike",
+    properties = list(
+      oil = 36,
+      K = 0.64,
+      S = 0.58,
+      density = 3.2,
+      rgb = c(95, 115, 75)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "earth"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "40830",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40830-green-earth-from-france.html"
+      )
+    ),
+    notes = "Fransk grön jord (terre verte). PG23. Naturlig celadonit/glaukonit. Klassiskt pigment för underliggande toner."
+  ),
+  
+  "41700" = list(
+    id = "41700",
+    name = "Verona grön jord",
+    properties = list(
+      oil = 38,
+      K = 0.68,
+      S = 0.62,
+      density = 3.3,
+      rgb = c(105, 125, 85)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "earth"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "41700",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/41700-verona-green-earth.html"
+      )
+    ),
+    notes = "Verona grön jord från Italien. PG23. Klassisk verones grön för fresko och olja."
+  ),
+  
+  "41750" = list(
+    id = "41750",
+    name = "Vagone grön jord",
+    properties = list(
+      oil = 37,
+      K = 0.66,
+      S = 0.60,
+      density = 3.2,
+      rgb = c(100, 120, 80)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "earth"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "41750",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/41750-vagone-green-earth.html"
+      )
+    ),
+    notes = "Vagone grön jord från Italien. PG23. Variant av Verona grön."
+  ),
+  
+  "11000" = list(
+    id = "11000",
+    name = "Verona grön jord (alternativ kvalitet)",
+    properties = list(
+      oil = 38,
+      K = 0.68,
+      S = 0.62,
+      density = 3.3,
+      rgb = c(105, 125, 85)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "earth"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "11000",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/11000-verona-green-earth.html"
+      )
+    ),
+    notes = "Alternativ Verona grön jord. PG23. Samma pigmenttyp som 41700."
+  ),
+  
+  # MODERN SYNTHETIC PIGMENTS
+  "23000" = list(
+    id = "23000",
+    name = "Phthalogrön blåaktig PG7",
+    properties = list(
+      oil = 52,
+      K = 1.85,
+      S = 1.55,
+      density = 2.0,
+      rgb = c(0, 110, 65)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "green"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "23000",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/23000-phthalo-green-bluish-pg-7.html"
+      )
+    ),
+    notes = "Phthalocyaningrön, blåaktig nyans. PG7. Mycket hög färgstyrka (95-105%), excellent ljushärdighet (8/8). Organiskt pigment."
+  ),
+  
+  "23050" = list(
+    id = "23050",
+    name = "Phthaloblå primär PB15:1",
+    properties = list(
+      oil = 48,
+      K = 1.92,
+      S = 1.28,
+      density = 2.0,
+      rgb = c(0, 80, 145)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "blue"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "23050",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/23050-phthalo-blue-primary-pb-15-1.html"
+      )
+    ),
+    notes = "Phthalocyaninblå, primär nyans. PB15:1. Mycket hög färgstyrka, excellent ljushärdighet. Organiskt pigment."
+  ),
+  
+  "23720" = list(
+    id = "23720",
+    name = "Quinacridon rött magenta PV19",
+    properties = list(
+      oil = 55,
+      K = 1.68,
+      S = 0.52,
+      density = 1.5,
+      rgb = c(200, 50, 120)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "red"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "23720",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/pigments-of-modern-age/23720-quinacridone-red-magenta-pv-19.html"
+      )
+    ),
+    notes = "Quinacridon magenta. PV19. Hög färgstyrka, transparent, excellent ljushärdighet (7-8/8).Organiskt pigment för lasering och intensiva toner."
+  ),
+  
+  # TITANIUM PIGMENTS
+  "43300" = list(
+    id = "43300",
+    name = "Titanorange",
+    properties = list(
+      oil = 20,
+      K = 0.62,
+      S = 1.85,
+      density = 4.2,
+      rgb = c(245, 145, 50)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "orange"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "43300",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/pigments-of-modern-age/43300-titanium-orange.html"
+      )
+    ),
+    notes = "Titanbaserat orange pigment. Mycket hög täckförmåga och god ljushärdighet."
+  ),
+  
+  "46280" = list(
+    id = "46280",
+    name = "Buff titanium",
+    properties = list(
+      oil = 18,
+      K = 0.22,
+      S = 2.15,
+      density = 4.1,
+      rgb = c(235, 215, 185)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "yellow"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "46280",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/46280-buff-titanium.html"
+      )
+    ),
+    notes = "Buff titanium, ljus beige-gul. Titanbaserat pigment med mycket hög täckförmåga. För ljusa, täckande toner."
+  ),
+  
+  # CARBON BLACKS
+  "47700" = list(
+    id = "47700",
+    name = "Grafitpulver silver",
+    properties = list(
+      oil = 65,
+      K = 1.45,
+      S = 0.88,
+      density = 2.2,
+      rgb = c(95, 95, 100)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "black"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "47700",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/pigments-of-modern-age/carbon-black/47700-graphite-powder-silver.html"
+      )
+    ),
+    notes = "Grafitpulver med metallisk silverton. Kolbaserat pigment. Ger metallisk glans åt färgen. Lägre färgstyrka än kimrök."
+  ),
+  
+  "47800" = list(
+    id = "47800",
+    name = "Träkolspulver",
+    properties = list(
+      oil = 70,
+      K = 1.85,
+      S = 0.72,
+      density = 1.8,
+      rgb = c(40, 40, 40)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "black"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "47800",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/pigments-of-modern-age/carbon-black/47800-charcoal-powder.html"
+      )
+    ),
+    notes = "Träkolspulver. PBk6/7. Naturligt svart från pyrolys av trä. Lägre färgstyrka än kolsvart, mjukare svart med brunaktig underton. Mycket hög oljeabsorption."
+  ),
+  
+  # IRON OXIDE PIGMENTS - Modern synthetics
+  "48289" = list(
+    id = "48289",
+    name = "Järnoxidrött mikroniserat",
+    properties = list(
+      oil = 18,
+      K = 1.05,
+      S = 0.42,
+      density = 5.2,
+      rgb = c(180, 50, 45)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "oxide"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "48289",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/iron-oxide-pigments/48289-iron-oxide-red-micronized.html"
+      )
+    ),
+    notes = "Mikroniserat järnoxidrött. PR101. Mycket fin kornstorlek ger högre färgstyrka och jämnare dispersion.L åg oljeabsorption."
+  ),
+  
+  "48401" = list(
+    id = "48401",
+    name = "Järnoxidsvart neutralt",
+    properties = list(
+      oil = 17,
+      K = 2.52,
+      S = 1.15,
+      density = 5.2,
+      rgb = c(30, 30, 30)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "black"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "48401",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/iron-oxide-pigments/48401-iron-oxide-black-neutral.html"
+      )
+    ),
+    notes = "Neutralt järnoxidsvart. PBk11. Syntetiskt magnetit (Fe₃O₄). Neutral svart ton utan färgskiftning."
+  ),
+  
+  "48651" = list(
+    id = "48651",
+    name = "Hematit intensiv färgstyrka",
+    properties = list(
+      oil = 22,
+      K = 1.15,
+      S = 0.48,
+      density = 5.3,
+      rgb = c(155, 40, 40)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "oxide"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "48651",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/iron-oxide-pigments/48651-haematite-intense-tinting.html"
+      )
+    ),
+    notes = "Hematit med intensiv färgstyrka. PR102. Naturligt järnoxid (Fe₂O₃) bearbetat för maximal färgstyrka. Djup röd nyans."
   )
 )

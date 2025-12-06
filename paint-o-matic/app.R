@@ -125,31 +125,36 @@ create_grouped_choices <- function() {
     )),
     
     "Gröna" = make_choices(c(
-      "40400", "41700", "11100", "KG83", "ZG65", "40850", "40860", "GU30"
+      "40400", "11100", "23000", "KG83", "ZG65", "40850", "40860", 
+      "40830", "41700", "41750", "11000", "GU30"
     )),
     
     "Svarta" = make_choices(c(
-      "44450", "J318", "BS98", "47501", "47400"
+      "44450", "J318", "BS98", "47501", "47400", "48401", "47800", "47700"
     )),
     
     "Blåa" = make_choices(c(
-      "11670", "UB88", "KB28"
+      "11670", "23050", "UB88", "KB28"
     )),
     
     "Terra & Pozzuoli" = make_choices(c(
-      "40820", "40800", "40830", "BT44", "OT46"
+      "40820", "40800", "BT44", "OT46"
     )),
     
     "Gula & Ockror" = make_choices(c(
-      "44082", "44086", "44150", "44160", "J920", "LO92", "GO94", "GO94_GU30"
+      "44082", "44086", "44150", "44160", "J920", "LO92", "GO94", "GO94_GU30",
+      "40010", "40020", "40030", "40050", "40060", "40070", "40080", "40090", 
+      "40130", "40214", "46280"
     )),
     
     "Siennas & Umbror" = make_choices(c(
-      "44650", "44620", "OU103", "BU100", "BRU39", "GRAU36"
+      "44650", "44620", "40470", "OU103", "BU100", "BRU39", "GRAU36", 
+      "40610", "40630", "40720", "11620"
     )),
     
     "Röda & Orange" = make_choices(c(
-      "44300", "44200", "44210", "44220", "44510", "J225", "J180M", "J120N", "ER48A"
+      "44300", "44200", "44210", "44220", "44510", "J225", "J180M", "J120N", 
+      "ER48A", "17280", "40542", "48289", "48651", "23720", "43300"
     )),
     
     "Bruna" = make_choices(c(
@@ -159,6 +164,9 @@ create_grouped_choices <- function() {
 }
 
 all_choices <- c("Välj pigment" = "", create_grouped_choices())
+
+# Debug: print all pigment IDs
+cat("Available pigment IDs:", paste(names(pigments_db), collapse=", "), "\n")
 
 # === UNIFIED SWATCH MATRIX SYSTEM ===
 

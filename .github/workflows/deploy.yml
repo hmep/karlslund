@@ -33,20 +33,20 @@ jobs:
 
       - name: Install R packages
         run: |
-          Rscript -e "install.packages(c('shiny','shinydashboard','shinyjs','shinyWidgets','rsconnect'), repos='https://cran.r-project.org')"
+          Rscript -e "install.packages(c('shiny','shinydashboard','shinyjs','shinyWidgets','rsconnect','jsonlite','memoise'), repos='https://cran.r-project.org')"
 
       - name: Verify PWA files exist
         run: |
           echo "Checking for PWA files..."
           ls -la www/manifest.json || echo "WARNING: manifest.json not found!"
           ls -la www/service-worker.js || echo "WARNING: service-worker.js not found!"
-          ls -la www/service-worker-register.js || echo "WARNING: service-worker-register.js not found!"
+          ls -la www/service-worker-register.js || echo "WARNING: service-worker-register. js not found!"
           ls -la www/icons/icon-192.png || echo "WARNING: icon-192.png not found!"
           ls -la www/icons/icon-512.png || echo "WARNING: icon-512. png not found!"
 
-      - name: Deploy to shinyapps.io
+      - name: Deploy to shinyapps. io
         env:
-          SHINYAPPS_NAME:   ${{ secrets. SHINYAPPS_NAME }}
+          SHINYAPPS_NAME:   ${{ secrets.SHINYAPPS_NAME }}
           SHINYAPPS_TOKEN:  ${{ secrets.SHINYAPPS_TOKEN }}
           SHINYAPPS_SECRET: ${{ secrets.SHINYAPPS_SECRET }}
         run: |
@@ -61,9 +61,12 @@ jobs:
             app_files <- c(
               'app.R',
               'global.R',
-              list.files('R', full.names = TRUE, recursive = TRUE),
+              'kulturkulor_recipes.r',
+              'kulturkulor_recipes_part2.r',
+              'kulturkulor_recipes_part3.r',
+              list. files('R', full.names = TRUE, recursive = TRUE),
               'www/manifest.json',
-              'www/service-worker.js',
+              'www/service-worker. js',
               'www/service-worker-register.js',
               list.files('www/css', full.names = TRUE, recursive = TRUE),
               list.files('www/js', full.names = TRUE, recursive = TRUE),

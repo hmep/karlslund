@@ -421,7 +421,7 @@ ui <- dashboardPage(
                h2("Blanda pigment till önskad kulör"),
                fluidRow(
                  column(12,
-                        p("Vill du hitta en kulör som går att blanda med naturliga jordpigment och järnoxider? Vill du skapa ett recept på linoljefärg, äggoljetempera eller tjäroljefärg med den kulören, så att du kan skaffa rätt ingredienser och blanda din egen färg? Börja här med att blanda pigment till önskad kulör, eller välja en från någon av paletterna."),
+                        p("Vill du ", tags$b("hitta en kulör"), " som går att blanda med naturliga jordpigment och järnoxider? Vill du ", tags$b("skapa ett recept"), " på linoljefärg, äggoljetempera eller tjäroljefärg med den kulören, så att du kan skaffa rätt ingredienser och blanda din egen färg? Börja här med att blanda pigment till önskad kulör, eller välja en från någon av paletterna."),
                         )
                ),
                fluidRow(
@@ -884,8 +884,9 @@ server <- function(input, output, session) {
       
       # Add pigment heading
       matrix_elements[[length(matrix_elements) + 1]] <- tags$div(
-        style = "margin-top: 1em; margin-bottom: 0.5em; font-weight: bold;",
-        sprintf("%s med %s", base_name, shade_name)
+        style = "margin-top: 0.5em; margin-bottom: 0.5em; font-weight: bold;",
+        #sprintf("%s med %s", base_name, shade_name)
+        base_name
       )
       
       matrix_rows <- list()

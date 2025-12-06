@@ -434,7 +434,7 @@ ui <- dashboardPage(
                h2("Blanda pigment till önskad kulör"),
                fluidRow(
                  column(12,
-                        p("Här kan du ", tags$b("hitta en kulör"), " som går att blanda med naturliga jordpigment och järnoxider. Du kan också ", tags$b("skapa ett recept"), " på linoljefärg, äggoljetempera eller tjäroljefärg, så att du kan skaffa rätt ingredienser och blanda din egen färg med den önskade kulören. Börja här med att blanda pigment till önskad kulör, eller välja en från någon av paletterna."),
+                        p("Här kan du ", tags$b("hitta en kulör"), " som går att blanda med naturliga jordpigment och järnoxider (och några moderna syntetiska). Du kan också ", tags$b("skapa ett recept"), " på linoljefärg, äggoljetempera eller tjäroljefärg. Du får också hjälp att ", tags$b("skaffa rätt ingredienser"), " så att du sedan kan ", tags$b("blanda din egen färg"), " med den önskade kulören. Börja här: blanda pigment eller välj från paletterna."),
                         )
                ),
                fluidRow(

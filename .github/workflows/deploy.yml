@@ -1,4 +1,24 @@
-name: Deploy Paint-o-matic to shinyapps.io
+# Deploy paint-o-matic to shinyapps.io
+#
+# This workflow provides flexible deployment options:
+#
+# 1. AUTOMATIC DEPLOYMENT via commit message:
+#    - Add [deploy] anywhere in your commit message
+#    - Example: git commit -m "Update color mixing logic [deploy]"
+#    - Push to main branch to trigger deployment
+#
+# 2. MANUAL DEPLOYMENT via GitHub Actions UI:
+#    - Go to Actions tab → "Deploy paint-o-matic to shinyapps.io"
+#    - Click "Run workflow" button
+#    - Check "Force deployment" box to deploy regardless of commit message
+#    - Click "Run workflow" to start deployment
+#
+# Required Secrets (Settings → Secrets and variables → Actions → New repository secret):
+#   - SHINYAPPS_ACCOUNT: Your shinyapps.io account name
+#   - SHINYAPPS_TOKEN: API token from shinyapps.io
+#   - SHINYAPPS_SECRET: API secret from shinyapps.io
+
+name: Deploy paint-o-matic to shinyapps.io
 
 on:
   push:
@@ -6,13 +26,23 @@ on:
     paths:
       - 'paint-o-matic/**'
   workflow_dispatch:
+    inputs:
+      force_deploy:
+        description: 'Force deployment regardless of commit message'
+        type: boolean
+        default: false
 
 jobs:
   deploy:
+    name: Deploy paint-o-matic to shinyapps.io
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: paint-o-matic
+    # Deploy if manually forced OR if commit message contains [deploy]
+    if: github.event.inputs.force_deploy == 'true' || contains(github.event.head_commit.message || '', '[deploy]')
+    permissions:
+      contents: read
 
     steps:
       - uses: actions/checkout@v4

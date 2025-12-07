@@ -221,77 +221,81 @@ ui <- dashboardPage(
                ),
                fluidRow(
                  column(6,
-                        checkboxInput("raa_only", "Använd endast Kulturkulör-pigment (RAÄ)", FALSE),
-                        pickerInput("p1", "Pigment 1", choices = all_choices, selected = "vitbas",
-                                    options = pickerOptions(`live-search` = TRUE, size = 12)),
-                        conditionalPanel("input.p1", sliderInput("pct1","Andel (%)",0,100,20,1)),
-                        pickerInput("p2", "Pigment 2", choices = all_choices, selected = "J225",
-                                    options = pickerOptions(`live-search` = TRUE, size = 12)),
-                        conditionalPanel("input.p2", sliderInput("pct2","Andel (%)",0,100,80,1)),
-                        pickerInput("p3", "Pigment 3", choices = all_choices, selected = "",
-                                    options = pickerOptions(`live-search` = TRUE, size = 12)),
-                        conditionalPanel("input.p3", sliderInput("pct3","Andel (%)",0,100,0,1)),
-                        pickerInput("p4", "Pigment 4", choices = all_choices, selected = "",
-                                    options = pickerOptions(`live-search` = TRUE, size = 12)),
-                        conditionalPanel("input.p4", sliderInput("pct4","Andel (%)",0,100,0,1)),
-                        hr(),
-                        textInput("color_name", "Valfritt kulörnamn", 
-                                  value = "", 
-                                  placeholder = "Dörrkarm 1923"),
-                        actionButton("save_favorite", "Spara som favoritkulör", class="btn-default btn-sm btn-x", 
-                                     icon = icon("star")),
-                        hr(),
-                        actionButton("reset_pigments", "Nollställ pigment", class="btn-default", icon = icon("refresh")),
+                        tabsetPanel(
+                          id = "recipe_tabs",
+                          tabPanel(
+                            "Blanda pigment",
+                            value = "sliders",
+                            br(),
+                            checkboxInput("raa_only", "Använd endast Kulturkulör-pigment (RAÄ)", FALSE),
+                            pickerInput("p1", "Pigment 1", choices = all_choices, selected = "vitbas",
+                                        options = pickerOptions(`live-search` = TRUE, size = 12)),
+                            conditionalPanel("input.p1", sliderInput("pct1","Andel (%)",0,100,20,1)),
+                            pickerInput("p2", "Pigment 2", choices = all_choices, selected = "J225",
+                                        options = pickerOptions(`live-search` = TRUE, size = 12)),
+                            conditionalPanel("input.p2", sliderInput("pct2","Andel (%)",0,100,80,1)),
+                            pickerInput("p3", "Pigment 3", choices = all_choices, selected = "",
+                                        options = pickerOptions(`live-search` = TRUE, size = 12)),
+                            conditionalPanel("input.p3", sliderInput("pct3","Andel (%)",0,100,0,1)),
+                            pickerInput("p4", "Pigment 4", choices = all_choices, selected = "",
+                                        options = pickerOptions(`live-search` = TRUE, size = 12)),
+                            conditionalPanel("input.p4", sliderInput("pct4","Andel (%)",0,100,0,1)),
+                            hr(),
+                            actionButton("reset_pigments", "Nollställ pigment", class="btn-default", icon = icon("refresh"))
+                          ),
+                          tabPanel(
+                            "Förblandade kulörer",
+                            value = "premade",
+                            br(),
+                            selectInput("palette_choice", NULL,
+                                        choices = list(
+                                          "Riksantikvarieämbetet (RAÄ) Kulturkulör" = "raa",
+                                          "Paint-o-matic-kulörer" = "extended"
+                                        ),
+                                        selected = "raa"),
+                            
+                            # Show description based on selected palette
+                            conditionalPanel(
+                              condition = "input.palette_choice == 'raa'",
+                              tags$small(a("Kulturkulör från Riksantikvarieämbetet (RAÄ)", href="https://www.raa.se/kulturarv/byggnader/byggnadsvard/kulturkulor-ett-fargsystem-for-linoljefarg/")," är ett system för historiskt trogen färgsättning med jordpigment och järnoxider."),
+                            ),
+                            
+                            conditionalPanel(
+                              condition = "input.palette_choice == 'extended'",
+                              tags$small("Kulörpaletter med tonings- och skuggningsmixer för alla pigment som är tillgängliga i Paint-o-matic."),
+                            ),
+                             
+                            # Filter input placed outside renderUI to maintain state
+                            br(),
+                            textInput("swatch_filter", NULL, placeholder = "Filtrera pigment...", width = "100%"),
+                            
+                            div(style = "margin-top:1em; width: 100%; height: 300px; overflow-y: auto; overflow-x: auto; border: 1px solid #ddd; padding: 10px;",
+                                uiOutput("premade_swatches")
+                            )
+                          ),
+                          tabPanel(
+                            "Favoritkulörer",
+                            value = "saved",
+                            br(),
+                            tags$small("Alla dina sparade favorit-kulörblandningar lagras på din enhet."),
+                            div(style = "margin-top:1em; width: 100%; height: 300px; overflow-y: auto; overflow-x: auto; border: 1px solid #ddd; padding: 10px;",
+                                uiOutput("saved_swatches")
+                            )
+                          )
+                        )
                  ),
                  column(6,
                         h3("Färgprov"),
                         uiOutput("preview1"), br(),
                         tags$b("Total andel: "), textOutput("total_pct",inline=TRUE), " %", 
-                        uiOutput("total_warning"), 
+                        uiOutput("total_warning"),
                         tags$div(style="margin-top:1em;",
-                                 #h5(style="font-weight:bold;","Favoritkulörer och färdiga mixer/paletter"),
-                                 tabsetPanel(
-                                   id = "recipe_tabs",
-                                   tabPanel(
-                                     "Färgpaletter",
-                                     value = "premade",
-                                     br(),
-                                     selectInput("palette_choice", NULL,
-                                                 choices = list(
-                                                   "Riksantikvarieämbetet (RAÄ) Kulturkulör" = "raa",
-                                                   "Paint-o-matic-kulörer" = "extended"
-                                                 ),
-                                                 selected = "raa"),
-                                     
-                                     # Show description based on selected palette
-                                     conditionalPanel(
-                                       condition = "input.palette_choice == 'raa'",
-                                       tags$small(a("Kulturkulör från Riksantikvarieämbetet (RAÄ)", href="https://www.raa.se/kulturarv/byggnader/byggnadsvard/kulturkulor-ett-fargsystem-for-linoljefarg/")," är ett system för historiskt trogen färgsättning med jordpigment och järnoxider."),
-                                     ),
-                                     
-                                     conditionalPanel(
-                                       condition = "input.palette_choice == 'extended'",
-                                       tags$small("Kulörpaletter med tonings- och skuggningsmixer för alla pigment som är tillgängliga i Paint-o-matic."),
-                                     ),
-                                      
-                                     # Filter input placed outside renderUI to maintain state
-                                     br(),
-                                     textInput("swatch_filter", NULL, placeholder = "Filtrera pigment...", width = "100%"),
-                                     
-                                     div(style = "margin-top:1em; width: 100%; height: 300px; overflow-y: auto; overflow-x: auto; border: 1px solid #ddd; padding: 10px;",
-                                         uiOutput("premade_swatches")
-                                     )
-                                   ),
-                                   tabPanel(
-                                     "Sparade favoriter",
-                                     value = "saved",
-                                     br(),
-                                     tags$small("Alla dina sparade favorit-kulörblandningar lagras på din enhet."),
-                                     div(style = "margin-top:1em; width: 100%; height: 300px; overflow-y: auto; overflow-x: auto; border: 1px solid #ddd; padding: 10px;",
-                                         uiOutput("saved_swatches")
-                                     )
-                                   )
-                                 )
+                                 hr(),
+                                 textInput("color_name", "Valfritt kulörnamn", 
+                                           value = "", 
+                                           placeholder = "Dörrkarm 1923"),
+                                 actionButton("save_favorite", "Spara som favoritkulör", class="btn-default btn-sm btn-x", 
+                                              icon = icon("star"))
                         )
                  )
                ),

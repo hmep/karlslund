@@ -120,10 +120,10 @@ create_filler_choices <- function() {
 PIGMENT_DISPLAY_GROUPS <- list(
   "Vitbas" = c("vitbas"),
   "Fyllmedel" = c("599930", "58000", "58010", "58162", "58900", "58250"),
-  "Gröna" = c("40400", "41700", "41750", "11100", "11000", "KG83", "ZG65", "40850", "40860", "40830", "GU30"),
+  "Gröna" = c("40400", "41700", "41750", "11100", "11000", "KG83", "ZG65", "40850", "40860", "GU30"),
   "Svarta" = c("J318", "BS98", "47250", "47400", "47800", "47501", "44450", "48401", "47700"),
   "Blåa" = c("11670", "UB88", "KB28"),
-  "Terra & Pozzuoli" = c("40820", "40800", "BT44", "OT46", "11620"),
+  "Terra & Pozzuoli" = c("40820", "40830", "40800", "BT44", "OT46", "11620"),
   "Gula & Ockror" = c("44082", "44086", "44150", "44160", "J920", "LO92", "GO94", "GO94_GU30", "40010", "40020", "40030", "40050", "40060", "40070", "40080", "40090", "40130", "40214"),
   "Siennas & Umbror" = c("44650", "44620", "OU103", "BU100", "BRU39", "GRAU36", "40470", "40542", "40610", "40630", "40720", "GU30"),
   "Röda & Orange" = c("44300", "44200", "44210", "44220", "44510", "J225", "J180M", "J120N", "ER48A", "17280", "48289", "48651"),
@@ -165,9 +165,6 @@ create_grouped_choices <- function() {
 }
 
 all_choices <- c("Välj pigment" = "", create_grouped_choices())
-
-# Debug: print all pigment IDs
-#cat("Available pigment IDs:", paste(names(pigments_db), collapse=", "), "\n")
 
 # === SWATCH GENERATION UTILITIES ===
 # Load swatch generation functions
@@ -224,11 +221,7 @@ ui <- dashboardPage(
                ),
                fluidRow(
                  column(6,
-                        #h5(style="font-weight:bold;","Inställningar"),
                         checkboxInput("raa_only", "Använd endast Kulturkulör-pigment (RAÄ)", FALSE),
-                        #checkboxInput("use_tinting_strength","Avancerad färgblandning",TRUE),
-                        #tags$small(style="color:#666; margin-left:20px; display:block; margin-top:-1em; margin-bottom:10px;","Väger pigment efter faktiska färgstyrka (K- och S-värden)"),
-                        #hr(),
                         pickerInput("p1", "Pigment 1", choices = all_choices, selected = "vitbas",
                                     options = pickerOptions(`live-search` = TRUE, size = 12)),
                         conditionalPanel("input.p1", sliderInput("pct1","Andel (%)",0,100,20,1)),
@@ -771,27 +764,17 @@ server <- function(input, output, session) {
         # Skip if not a list
         if(!is.list(fav_item)) next
         
-        # Safe extraction using names
-        get_safe <- function(name, default = "") {
-          if(name %in% names(fav_item)) {
-            val <- fav_item[[name]]
-            if(is.null(val) || length(val) == 0) return(default)
-            return(as.character(val))
-          }
-          return(default)
-        }
-        
-        # Extract values
-        p1 <- get_safe("p1", "")
-        pct1 <- as.numeric(get_safe("pct1", "0"))
-        p2 <- get_safe("p2", "")
-        pct2 <- as.numeric(get_safe("pct2", "0"))
-        p3 <- get_safe("p3", "")
-        pct3 <- as.numeric(get_safe("pct3", "0"))
-        p4 <- get_safe("p4", "")
-        pct4 <- as.numeric(get_safe("pct4", "0"))
-        fav_name <- get_safe("name", "")
-        fav_id <- get_safe("id", as.character(i))
+        # Extract values using safe_get function
+        p1 <- as.character(safe_get(fav_item, "p1", ""))
+        pct1 <- as.numeric(safe_get(fav_item, "pct1", "0"))
+        p2 <- as.character(safe_get(fav_item, "p2", ""))
+        pct2 <- as.numeric(safe_get(fav_item, "pct2", "0"))
+        p3 <- as.character(safe_get(fav_item, "p3", ""))
+        pct3 <- as.numeric(safe_get(fav_item, "pct3", "0"))
+        p4 <- as.character(safe_get(fav_item, "p4", ""))
+        pct4 <- as.numeric(safe_get(fav_item, "pct4", "0"))
+        fav_name <- as.character(safe_get(fav_item, "name", ""))
+        fav_id <- as.character(safe_get(fav_item, "id", as.character(i)))
         
         # Build pigment mix
         ids <- c()
@@ -1058,18 +1041,11 @@ server <- function(input, output, session) {
     
     if(is.null(fav)) return()
     
-    # Safe access function
-    get_val <- function(key, default = "") {
-      val <- fav[[key]]
-      if(is.null(val) || length(val) == 0) return(default)
-      return(val)
-    }
-    
-    # Check if favorite contains non-RAÄ pigments
-    p1 <- get_val("p1", "")
-    p2 <- get_val("p2", "")
-    p3 <- get_val("p3", "")
-    p4 <- get_val("p4", "")
+    # Check if favorite contains non-RAÄ pigments using safe_get
+    p1 <- safe_get(fav, "p1", "")
+    p2 <- safe_get(fav, "p2", "")
+    p3 <- safe_get(fav, "p3", "")
+    p4 <- safe_get(fav, "p4", "")
     
     all_pigments <- c(p1, p2, p3, p4)
     all_pigments <- all_pigments[all_pigments != ""]
@@ -1094,33 +1070,33 @@ server <- function(input, output, session) {
     # Clear all slots first
     clear_all_pigments()
     
-    # Load favorite data
-    pct1 <- as.numeric(get_val("pct1", 0))
+    # Load favorite data using safe_get
+    pct1 <- as.numeric(safe_get(fav, "pct1", 0))
     if(p1 != "" && pct1 > 0) {
       updatePickerInput(session, "p1", selected = p1)
       updateSliderInput(session, "pct1", value = pct1)
     }
     
-    pct2 <- as.numeric(get_val("pct2", 0))
+    pct2 <- as.numeric(safe_get(fav, "pct2", 0))
     if(p2 != "" && pct2 > 0) {
       updatePickerInput(session, "p2", selected = p2)
       updateSliderInput(session, "pct2", value = pct2)
     }
     
-    pct3 <- as.numeric(get_val("pct3", 0))
+    pct3 <- as.numeric(safe_get(fav, "pct3", 0))
     if(p3 != "" && pct3 > 0) {
       updatePickerInput(session, "p3", selected = p3)
       updateSliderInput(session, "pct3", value = pct3)
     }
     
-    pct4 <- as.numeric(get_val("pct4", 0))
+    pct4 <- as.numeric(safe_get(fav, "pct4", 0))
     if(p4 != "" && pct4 > 0) {
       updatePickerInput(session, "p4", selected = p4)
       updateSliderInput(session, "pct4", value = pct4)
     }
     
     # Load color name if exists
-    fav_name <- get_val("name", "")
+    fav_name <- safe_get(fav, "name", "")
     if(fav_name != "") {
       updateTextInput(session, "color_name", value = fav_name)
     }

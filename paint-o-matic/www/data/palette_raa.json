@@ -1,0 +1,3102 @@
+[
+  {
+    "code": "RAA_J225_0V0S",
+    "hex": "#7D342B",
+    "base": "J225",
+    "base_pct": 100,
+    "vitbas_pct": 0,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 225"
+  },
+  {
+    "code": "RAA_J225_15V0S",
+    "hex": "#935851",
+    "base": "J225",
+    "base_pct": 85,
+    "vitbas_pct": 15,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 225"
+  },
+  {
+    "code": "RAA_J225_30V0S",
+    "hex": "#A87973",
+    "base": "J225",
+    "base_pct": 70,
+    "vitbas_pct": 30,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 225"
+  },
+  {
+    "code": "RAA_J225_45V0S",
+    "hex": "#BB9793",
+    "base": "J225",
+    "base_pct": 55,
+    "vitbas_pct": 45,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 225"
+  },
+  {
+    "code": "RAA_J225_60V0S",
+    "hex": "#CCB3B0",
+    "base": "J225",
+    "base_pct": 40,
+    "vitbas_pct": 60,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 225"
+  },
+  {
+    "code": "RAA_J225_75V0S",
+    "hex": "#DCCECC",
+    "base": "J225",
+    "base_pct": 25,
+    "vitbas_pct": 75,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 225"
+  },
+  {
+    "code": "RAA_J225_90V0S",
+    "hex": "#ECE6E5",
+    "base": "J225",
+    "base_pct": 10,
+    "vitbas_pct": 90,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 225"
+  },
+  {
+    "code": "RAA_J225_0V2.44S",
+    "hex": "#79332A",
+    "base": "J225",
+    "base_pct": 97.56,
+    "vitbas_pct": 0,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 225"
+  },
+  {
+    "code": "RAA_J225_29.27V2.44S",
+    "hex": "#A37670",
+    "base": "J225",
+    "base_pct": 68.29,
+    "vitbas_pct": 29.27,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 225"
+  },
+  {
+    "code": "RAA_J225_73.17V2.44S",
+    "hex": "#D6C8C6",
+    "base": "J225",
+    "base_pct": 24.39,
+    "vitbas_pct": 73.17,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 225"
+  },
+  {
+    "code": "RAA_J225_0V4.76S",
+    "hex": "#76322A",
+    "base": "J225",
+    "base_pct": 95.24,
+    "vitbas_pct": 0,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 225"
+  },
+  {
+    "code": "RAA_J225_14.28V4.76S",
+    "hex": "#8B534D",
+    "base": "J225",
+    "base_pct": 80.96,
+    "vitbas_pct": 14.28,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 225"
+  },
+  {
+    "code": "RAA_J225_42.85V4.76S",
+    "hex": "#B08F8B",
+    "base": "J225",
+    "base_pct": 52.39,
+    "vitbas_pct": 42.85,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 225"
+  },
+  {
+    "code": "RAA_J225_57.14V4.76S",
+    "hex": "#C1AAA7",
+    "base": "J225",
+    "base_pct": 38.1,
+    "vitbas_pct": 57.14,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 225"
+  },
+  {
+    "code": "RAA_J225_85.71V4.76S",
+    "hex": "#DFDAD9",
+    "base": "J225",
+    "base_pct": 9.53,
+    "vitbas_pct": 85.71,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 225"
+  },
+  {
+    "code": "RAA_J225_0V6.97S",
+    "hex": "#723129",
+    "base": "J225",
+    "base_pct": 93.03,
+    "vitbas_pct": 0,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 225"
+  },
+  {
+    "code": "RAA_J225_41.86V6.97S",
+    "hex": "#AB8B87",
+    "base": "J225",
+    "base_pct": 51.17,
+    "vitbas_pct": 41.86,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 225"
+  },
+  {
+    "code": "RAA_J180M_0V0S",
+    "hex": "#652B27",
+    "base": "J180M",
+    "base_pct": 100,
+    "vitbas_pct": 0,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 180M Caput Mortuum"
+  },
+  {
+    "code": "RAA_J180M_15V0S",
+    "hex": "#7F4F4C",
+    "base": "J180M",
+    "base_pct": 85,
+    "vitbas_pct": 15,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 180M Caput Mortuum"
+  },
+  {
+    "code": "RAA_J180M_30V0S",
+    "hex": "#97716E",
+    "base": "J180M",
+    "base_pct": 70,
+    "vitbas_pct": 30,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 180M Caput Mortuum"
+  },
+  {
+    "code": "RAA_J180M_45V0S",
+    "hex": "#AD908E",
+    "base": "J180M",
+    "base_pct": 55,
+    "vitbas_pct": 45,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 180M Caput Mortuum"
+  },
+  {
+    "code": "RAA_J180M_60V0S",
+    "hex": "#C2AEAC",
+    "base": "J180M",
+    "base_pct": 40,
+    "vitbas_pct": 60,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 180M Caput Mortuum"
+  },
+  {
+    "code": "RAA_J180M_75V0S",
+    "hex": "#D6CAC9",
+    "base": "J180M",
+    "base_pct": 25,
+    "vitbas_pct": 75,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 180M Caput Mortuum"
+  },
+  {
+    "code": "RAA_J180M_90V0S",
+    "hex": "#E9E4E4",
+    "base": "J180M",
+    "base_pct": 10,
+    "vitbas_pct": 90,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 180M Caput Mortuum"
+  },
+  {
+    "code": "RAA_J180M_0V2.44S",
+    "hex": "#622A26",
+    "base": "J180M",
+    "base_pct": 97.56,
+    "vitbas_pct": 0,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 180M Caput Mortuum"
+  },
+  {
+    "code": "RAA_J180M_29.27V2.44S",
+    "hex": "#926E6B",
+    "base": "J180M",
+    "base_pct": 68.29,
+    "vitbas_pct": 29.27,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 180M Caput Mortuum"
+  },
+  {
+    "code": "RAA_J180M_73.17V2.44S",
+    "hex": "#D0C4C3",
+    "base": "J180M",
+    "base_pct": 24.39,
+    "vitbas_pct": 73.17,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 180M Caput Mortuum"
+  },
+  {
+    "code": "RAA_J180M_0V4.76S",
+    "hex": "#602A26",
+    "base": "J180M",
+    "base_pct": 95.24,
+    "vitbas_pct": 0,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 180M Caput Mortuum"
+  },
+  {
+    "code": "RAA_J180M_14.28V4.76S",
+    "hex": "#784B48",
+    "base": "J180M",
+    "base_pct": 80.96,
+    "vitbas_pct": 14.28,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 180M Caput Mortuum"
+  },
+  {
+    "code": "RAA_J180M_42.85V4.76S",
+    "hex": "#A48887",
+    "base": "J180M",
+    "base_pct": 52.39,
+    "vitbas_pct": 42.85,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 180M Caput Mortuum"
+  },
+  {
+    "code": "RAA_J180M_57.14V4.76S",
+    "hex": "#B8A5A3",
+    "base": "J180M",
+    "base_pct": 38.1,
+    "vitbas_pct": 57.14,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 180M Caput Mortuum"
+  },
+  {
+    "code": "RAA_J180M_85.71V4.76S",
+    "hex": "#DDD8D8",
+    "base": "J180M",
+    "base_pct": 9.53,
+    "vitbas_pct": 85.71,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 180M Caput Mortuum"
+  },
+  {
+    "code": "RAA_J180M_0V6.97S",
+    "hex": "#5D2926",
+    "base": "J180M",
+    "base_pct": 93.03,
+    "vitbas_pct": 0,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 180M Caput Mortuum"
+  },
+  {
+    "code": "RAA_J180M_41.86V6.97S",
+    "hex": "#9F8583",
+    "base": "J180M",
+    "base_pct": 51.17,
+    "vitbas_pct": 41.86,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 180M Caput Mortuum"
+  },
+  {
+    "code": "RAA_J120N_0V0S",
+    "hex": "#9B413C",
+    "base": "J120N",
+    "base_pct": 100,
+    "vitbas_pct": 0,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 120N"
+  },
+  {
+    "code": "RAA_J120N_15V0S",
+    "hex": "#AC6460",
+    "base": "J120N",
+    "base_pct": 85,
+    "vitbas_pct": 15,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 120N"
+  },
+  {
+    "code": "RAA_J120N_30V0S",
+    "hex": "#BC8380",
+    "base": "J120N",
+    "base_pct": 70,
+    "vitbas_pct": 30,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 120N"
+  },
+  {
+    "code": "RAA_J120N_45V0S",
+    "hex": "#CAA09D",
+    "base": "J120N",
+    "base_pct": 55,
+    "vitbas_pct": 45,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 120N"
+  },
+  {
+    "code": "RAA_J120N_60V0S",
+    "hex": "#D7BAB8",
+    "base": "J120N",
+    "base_pct": 40,
+    "vitbas_pct": 60,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 120N"
+  },
+  {
+    "code": "RAA_J120N_75V0S",
+    "hex": "#E3D1D1",
+    "base": "J120N",
+    "base_pct": 25,
+    "vitbas_pct": 75,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 120N"
+  },
+  {
+    "code": "RAA_J120N_90V0S",
+    "hex": "#EEE7E7",
+    "base": "J120N",
+    "base_pct": 10,
+    "vitbas_pct": 90,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 120N"
+  },
+  {
+    "code": "RAA_J120N_0V2.44S",
+    "hex": "#963F3B",
+    "base": "J120N",
+    "base_pct": 97.56,
+    "vitbas_pct": 0,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 120N"
+  },
+  {
+    "code": "RAA_J120N_29.27V2.44S",
+    "hex": "#B67F7C",
+    "base": "J120N",
+    "base_pct": 68.29,
+    "vitbas_pct": 29.27,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 120N"
+  },
+  {
+    "code": "RAA_J120N_73.17V2.44S",
+    "hex": "#DDCCCB",
+    "base": "J120N",
+    "base_pct": 24.39,
+    "vitbas_pct": 73.17,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 120N"
+  },
+  {
+    "code": "RAA_J120N_0V4.76S",
+    "hex": "#913E39",
+    "base": "J120N",
+    "base_pct": 95.24,
+    "vitbas_pct": 0,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 120N"
+  },
+  {
+    "code": "RAA_J120N_14.28V4.76S",
+    "hex": "#A15E5A",
+    "base": "J120N",
+    "base_pct": 80.96,
+    "vitbas_pct": 14.28,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 120N"
+  },
+  {
+    "code": "RAA_J120N_42.85V4.76S",
+    "hex": "#BE9794",
+    "base": "J120N",
+    "base_pct": 52.39,
+    "vitbas_pct": 42.85,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 120N"
+  },
+  {
+    "code": "RAA_J120N_57.14V4.76S",
+    "hex": "#CBAFAE",
+    "base": "J120N",
+    "base_pct": 38.1,
+    "vitbas_pct": 57.14,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 120N"
+  },
+  {
+    "code": "RAA_J120N_85.71V4.76S",
+    "hex": "#E1DBDB",
+    "base": "J120N",
+    "base_pct": 9.53,
+    "vitbas_pct": 85.71,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 120N"
+  },
+  {
+    "code": "RAA_J120N_0V6.97S",
+    "hex": "#8C3D38",
+    "base": "J120N",
+    "base_pct": 93.03,
+    "vitbas_pct": 0,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 120N"
+  },
+  {
+    "code": "RAA_J120N_41.86V6.97S",
+    "hex": "#B99290",
+    "base": "J120N",
+    "base_pct": 51.17,
+    "vitbas_pct": 41.86,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidrött nr 120N"
+  },
+  {
+    "code": "RAA_ER48A_0V0S",
+    "hex": "#7D342B",
+    "base": "ER48A",
+    "base_pct": 100,
+    "vitbas_pct": 0,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Engelskt rött nr 48A"
+  },
+  {
+    "code": "RAA_ER48A_15V0S",
+    "hex": "#945952",
+    "base": "ER48A",
+    "base_pct": 85,
+    "vitbas_pct": 15,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Engelskt rött nr 48A"
+  },
+  {
+    "code": "RAA_ER48A_30V0S",
+    "hex": "#A97B75",
+    "base": "ER48A",
+    "base_pct": 70,
+    "vitbas_pct": 30,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Engelskt rött nr 48A"
+  },
+  {
+    "code": "RAA_ER48A_45V0S",
+    "hex": "#BC9A95",
+    "base": "ER48A",
+    "base_pct": 55,
+    "vitbas_pct": 45,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Engelskt rött nr 48A"
+  },
+  {
+    "code": "RAA_ER48A_60V0S",
+    "hex": "#CDB5B2",
+    "base": "ER48A",
+    "base_pct": 40,
+    "vitbas_pct": 60,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Engelskt rött nr 48A"
+  },
+  {
+    "code": "RAA_ER48A_75V0S",
+    "hex": "#DDCFCD",
+    "base": "ER48A",
+    "base_pct": 25,
+    "vitbas_pct": 75,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Engelskt rött nr 48A"
+  },
+  {
+    "code": "RAA_ER48A_90V0S",
+    "hex": "#ECE6E6",
+    "base": "ER48A",
+    "base_pct": 10,
+    "vitbas_pct": 90,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Engelskt rött nr 48A"
+  },
+  {
+    "code": "RAA_ER48A_0V2.44S",
+    "hex": "#79332A",
+    "base": "ER48A",
+    "base_pct": 97.56,
+    "vitbas_pct": 0,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Engelskt rött nr 48A"
+  },
+  {
+    "code": "RAA_ER48A_29.27V2.44S",
+    "hex": "#A47772",
+    "base": "ER48A",
+    "base_pct": 68.29,
+    "vitbas_pct": 29.27,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Engelskt rött nr 48A"
+  },
+  {
+    "code": "RAA_ER48A_73.17V2.44S",
+    "hex": "#D7C9C7",
+    "base": "ER48A",
+    "base_pct": 24.39,
+    "vitbas_pct": 73.17,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Engelskt rött nr 48A"
+  },
+  {
+    "code": "RAA_ER48A_0V4.76S",
+    "hex": "#75322A",
+    "base": "ER48A",
+    "base_pct": 95.24,
+    "vitbas_pct": 0,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Engelskt rött nr 48A"
+  },
+  {
+    "code": "RAA_ER48A_14.28V4.76S",
+    "hex": "#8B554E",
+    "base": "ER48A",
+    "base_pct": 80.96,
+    "vitbas_pct": 14.28,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Engelskt rött nr 48A"
+  },
+  {
+    "code": "RAA_ER48A_42.85V4.76S",
+    "hex": "#B1918D",
+    "base": "ER48A",
+    "base_pct": 52.39,
+    "vitbas_pct": 42.85,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Engelskt rött nr 48A"
+  },
+  {
+    "code": "RAA_ER48A_57.14V4.76S",
+    "hex": "#C2ABA8",
+    "base": "ER48A",
+    "base_pct": 38.1,
+    "vitbas_pct": 57.14,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Engelskt rött nr 48A"
+  },
+  {
+    "code": "RAA_ER48A_85.71V4.76S",
+    "hex": "#DFDAD9",
+    "base": "ER48A",
+    "base_pct": 9.53,
+    "vitbas_pct": 85.71,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Engelskt rött nr 48A"
+  },
+  {
+    "code": "RAA_ER48A_0V6.97S",
+    "hex": "#723129",
+    "base": "ER48A",
+    "base_pct": 93.03,
+    "vitbas_pct": 0,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Engelskt rött nr 48A"
+  },
+  {
+    "code": "RAA_ER48A_41.86V6.97S",
+    "hex": "#AC8D89",
+    "base": "ER48A",
+    "base_pct": 51.17,
+    "vitbas_pct": 41.86,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Engelskt rött nr 48A"
+  },
+  {
+    "code": "RAA_J663_0V0S",
+    "hex": "#443530",
+    "base": "J663",
+    "base_pct": 100,
+    "vitbas_pct": 0,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 663"
+  },
+  {
+    "code": "RAA_J663_15V0S",
+    "hex": "#655955",
+    "base": "J663",
+    "base_pct": 85,
+    "vitbas_pct": 15,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 663"
+  },
+  {
+    "code": "RAA_J663_30V0S",
+    "hex": "#837A77",
+    "base": "J663",
+    "base_pct": 70,
+    "vitbas_pct": 30,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 663"
+  },
+  {
+    "code": "RAA_J663_45V0S",
+    "hex": "#9F9896",
+    "base": "J663",
+    "base_pct": 55,
+    "vitbas_pct": 45,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 663"
+  },
+  {
+    "code": "RAA_J663_60V0S",
+    "hex": "#B9B4B2",
+    "base": "J663",
+    "base_pct": 40,
+    "vitbas_pct": 60,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 663"
+  },
+  {
+    "code": "RAA_J663_75V0S",
+    "hex": "#D1CECD",
+    "base": "J663",
+    "base_pct": 25,
+    "vitbas_pct": 75,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 663"
+  },
+  {
+    "code": "RAA_J663_90V0S",
+    "hex": "#E7E6E5",
+    "base": "J663",
+    "base_pct": 10,
+    "vitbas_pct": 90,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 663"
+  },
+  {
+    "code": "RAA_J663_0V2.44S",
+    "hex": "#42342F",
+    "base": "J663",
+    "base_pct": 97.56,
+    "vitbas_pct": 0,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 663"
+  },
+  {
+    "code": "RAA_J663_29.27V2.44S",
+    "hex": "#807673",
+    "base": "J663",
+    "base_pct": 68.29,
+    "vitbas_pct": 29.27,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 663"
+  },
+  {
+    "code": "RAA_J663_73.17V2.44S",
+    "hex": "#CBC8C7",
+    "base": "J663",
+    "base_pct": 24.39,
+    "vitbas_pct": 73.17,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 663"
+  },
+  {
+    "code": "RAA_J663_0V4.76S",
+    "hex": "#41332E",
+    "base": "J663",
+    "base_pct": 95.24,
+    "vitbas_pct": 0,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 663"
+  },
+  {
+    "code": "RAA_J663_14.28V4.76S",
+    "hex": "#605450",
+    "base": "J663",
+    "base_pct": 80.96,
+    "vitbas_pct": 14.28,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 663"
+  },
+  {
+    "code": "RAA_J663_42.85V4.76S",
+    "hex": "#96908D",
+    "base": "J663",
+    "base_pct": 52.39,
+    "vitbas_pct": 42.85,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 663"
+  },
+  {
+    "code": "RAA_J663_57.14V4.76S",
+    "hex": "#AFAAA8",
+    "base": "J663",
+    "base_pct": 38.1,
+    "vitbas_pct": 57.14,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 663"
+  },
+  {
+    "code": "RAA_J663_85.71V4.76S",
+    "hex": "#DBDAD9",
+    "base": "J663",
+    "base_pct": 9.53,
+    "vitbas_pct": 85.71,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 663"
+  },
+  {
+    "code": "RAA_J663_0V6.97S",
+    "hex": "#3F322E",
+    "base": "J663",
+    "base_pct": 93.03,
+    "vitbas_pct": 0,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 663"
+  },
+  {
+    "code": "RAA_J663_41.86V6.97S",
+    "hex": "#928C8A",
+    "base": "J663",
+    "base_pct": 51.17,
+    "vitbas_pct": 41.86,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 663"
+  },
+  {
+    "code": "RAA_J686_0V0S",
+    "hex": "#694637",
+    "base": "J686",
+    "base_pct": 100,
+    "vitbas_pct": 0,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 686"
+  },
+  {
+    "code": "RAA_J686_15V0S",
+    "hex": "#83675A",
+    "base": "J686",
+    "base_pct": 85,
+    "vitbas_pct": 15,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 686"
+  },
+  {
+    "code": "RAA_J686_30V0S",
+    "hex": "#9B847B",
+    "base": "J686",
+    "base_pct": 70,
+    "vitbas_pct": 30,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 686"
+  },
+  {
+    "code": "RAA_J686_45V0S",
+    "hex": "#B1A099",
+    "base": "J686",
+    "base_pct": 55,
+    "vitbas_pct": 45,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 686"
+  },
+  {
+    "code": "RAA_J686_60V0S",
+    "hex": "#C5BAB4",
+    "base": "J686",
+    "base_pct": 40,
+    "vitbas_pct": 60,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 686"
+  },
+  {
+    "code": "RAA_J686_75V0S",
+    "hex": "#D8D1CE",
+    "base": "J686",
+    "base_pct": 25,
+    "vitbas_pct": 75,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 686"
+  },
+  {
+    "code": "RAA_J686_90V0S",
+    "hex": "#EAE7E6",
+    "base": "J686",
+    "base_pct": 10,
+    "vitbas_pct": 90,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 686"
+  },
+  {
+    "code": "RAA_J686_0V2.44S",
+    "hex": "#664436",
+    "base": "J686",
+    "base_pct": 97.56,
+    "vitbas_pct": 0,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 686"
+  },
+  {
+    "code": "RAA_J686_29.27V2.44S",
+    "hex": "#968177",
+    "base": "J686",
+    "base_pct": 68.29,
+    "vitbas_pct": 29.27,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 686"
+  },
+  {
+    "code": "RAA_J686_73.17V2.44S",
+    "hex": "#D2CBC8",
+    "base": "J686",
+    "base_pct": 24.39,
+    "vitbas_pct": 73.17,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 686"
+  },
+  {
+    "code": "RAA_J686_0V4.76S",
+    "hex": "#634335",
+    "base": "J686",
+    "base_pct": 95.24,
+    "vitbas_pct": 0,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 686"
+  },
+  {
+    "code": "RAA_J686_14.28V4.76S",
+    "hex": "#7B6156",
+    "base": "J686",
+    "base_pct": 80.96,
+    "vitbas_pct": 14.28,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 686"
+  },
+  {
+    "code": "RAA_J686_42.85V4.76S",
+    "hex": "#A79790",
+    "base": "J686",
+    "base_pct": 52.39,
+    "vitbas_pct": 42.85,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 686"
+  },
+  {
+    "code": "RAA_J686_57.14V4.76S",
+    "hex": "#BAAFAB",
+    "base": "J686",
+    "base_pct": 38.1,
+    "vitbas_pct": 57.14,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 686"
+  },
+  {
+    "code": "RAA_J686_85.71V4.76S",
+    "hex": "#DDDBDA",
+    "base": "J686",
+    "base_pct": 9.53,
+    "vitbas_pct": 85.71,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 686"
+  },
+  {
+    "code": "RAA_J686_0V6.97S",
+    "hex": "#604134",
+    "base": "J686",
+    "base_pct": 93.03,
+    "vitbas_pct": 0,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 686"
+  },
+  {
+    "code": "RAA_J686_41.86V6.97S",
+    "hex": "#A2938D",
+    "base": "J686",
+    "base_pct": 51.17,
+    "vitbas_pct": 41.86,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidbrunt nr 686"
+  },
+  {
+    "code": "RAA_J920_0V0S",
+    "hex": "#BC7D1E",
+    "base": "J920",
+    "base_pct": 100,
+    "vitbas_pct": 0,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidgult nr 920"
+  },
+  {
+    "code": "RAA_J920_15V0S",
+    "hex": "#C8964B",
+    "base": "J920",
+    "base_pct": 85,
+    "vitbas_pct": 15,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidgult nr 920"
+  },
+  {
+    "code": "RAA_J920_30V0S",
+    "hex": "#D2AC72",
+    "base": "J920",
+    "base_pct": 70,
+    "vitbas_pct": 30,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidgult nr 920"
+  },
+  {
+    "code": "RAA_J920_45V0S",
+    "hex": "#DBBF94",
+    "base": "J920",
+    "base_pct": 55,
+    "vitbas_pct": 45,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidgult nr 920"
+  },
+  {
+    "code": "RAA_J920_60V0S",
+    "hex": "#E3D0B2",
+    "base": "J920",
+    "base_pct": 40,
+    "vitbas_pct": 60,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidgult nr 920"
+  },
+  {
+    "code": "RAA_J920_75V0S",
+    "hex": "#EBDFCE",
+    "base": "J920",
+    "base_pct": 25,
+    "vitbas_pct": 75,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidgult nr 920"
+  },
+  {
+    "code": "RAA_J920_90V0S",
+    "hex": "#F1EDE6",
+    "base": "J920",
+    "base_pct": 10,
+    "vitbas_pct": 90,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidgult nr 920"
+  },
+  {
+    "code": "RAA_J920_0V2.44S",
+    "hex": "#B5791E",
+    "base": "J920",
+    "base_pct": 97.56,
+    "vitbas_pct": 0,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidgult nr 920"
+  },
+  {
+    "code": "RAA_J920_29.27V2.44S",
+    "hex": "#CBA66E",
+    "base": "J920",
+    "base_pct": 68.29,
+    "vitbas_pct": 29.27,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidgult nr 920"
+  },
+  {
+    "code": "RAA_J920_73.17V2.44S",
+    "hex": "#E4D9C8",
+    "base": "J920",
+    "base_pct": 24.39,
+    "vitbas_pct": 73.17,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidgult nr 920"
+  },
+  {
+    "code": "RAA_J920_0V4.76S",
+    "hex": "#AE751E",
+    "base": "J920",
+    "base_pct": 95.24,
+    "vitbas_pct": 0,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidgult nr 920"
+  },
+  {
+    "code": "RAA_J920_14.28V4.76S",
+    "hex": "#BA8C47",
+    "base": "J920",
+    "base_pct": 80.96,
+    "vitbas_pct": 14.28,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidgult nr 920"
+  },
+  {
+    "code": "RAA_J920_42.85V4.76S",
+    "hex": "#CEB38B",
+    "base": "J920",
+    "base_pct": 52.39,
+    "vitbas_pct": 42.85,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidgult nr 920"
+  },
+  {
+    "code": "RAA_J920_57.14V4.76S",
+    "hex": "#D6C4A8",
+    "base": "J920",
+    "base_pct": 38.1,
+    "vitbas_pct": 57.14,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidgult nr 920"
+  },
+  {
+    "code": "RAA_J920_85.71V4.76S",
+    "hex": "#E4E0DA",
+    "base": "J920",
+    "base_pct": 9.53,
+    "vitbas_pct": 85.71,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidgult nr 920"
+  },
+  {
+    "code": "RAA_J920_0V6.97S",
+    "hex": "#A8711D",
+    "base": "J920",
+    "base_pct": 93.03,
+    "vitbas_pct": 0,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidgult nr 920"
+  },
+  {
+    "code": "RAA_J920_41.86V6.97S",
+    "hex": "#C8AE87",
+    "base": "J920",
+    "base_pct": 51.17,
+    "vitbas_pct": 41.86,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Järnoxidgult nr 920"
+  },
+  {
+    "code": "RAA_LO92_0V0S",
+    "hex": "#A06B1D",
+    "base": "LO92",
+    "base_pct": 100,
+    "vitbas_pct": 0,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Ljusockra nr 92"
+  },
+  {
+    "code": "RAA_LO92_15V0S",
+    "hex": "#B2894B",
+    "base": "LO92",
+    "base_pct": 85,
+    "vitbas_pct": 15,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Ljusockra nr 92"
+  },
+  {
+    "code": "RAA_LO92_30V0S",
+    "hex": "#C2A273",
+    "base": "LO92",
+    "base_pct": 70,
+    "vitbas_pct": 30,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Ljusockra nr 92"
+  },
+  {
+    "code": "RAA_LO92_45V0S",
+    "hex": "#CFB896",
+    "base": "LO92",
+    "base_pct": 55,
+    "vitbas_pct": 45,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Ljusockra nr 92"
+  },
+  {
+    "code": "RAA_LO92_60V0S",
+    "hex": "#DBCBB4",
+    "base": "LO92",
+    "base_pct": 40,
+    "vitbas_pct": 60,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Ljusockra nr 92"
+  },
+  {
+    "code": "RAA_LO92_75V0S",
+    "hex": "#E6DDCF",
+    "base": "LO92",
+    "base_pct": 25,
+    "vitbas_pct": 75,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Ljusockra nr 92"
+  },
+  {
+    "code": "RAA_LO92_90V0S",
+    "hex": "#EFECE7",
+    "base": "LO92",
+    "base_pct": 10,
+    "vitbas_pct": 90,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Ljusockra nr 92"
+  },
+  {
+    "code": "RAA_LO92_0V2.44S",
+    "hex": "#9A671D",
+    "base": "LO92",
+    "base_pct": 97.56,
+    "vitbas_pct": 0,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Ljusockra nr 92"
+  },
+  {
+    "code": "RAA_LO92_29.27V2.44S",
+    "hex": "#BB9D70",
+    "base": "LO92",
+    "base_pct": 68.29,
+    "vitbas_pct": 29.27,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Ljusockra nr 92"
+  },
+  {
+    "code": "RAA_LO92_73.17V2.44S",
+    "hex": "#DFD6C9",
+    "base": "LO92",
+    "base_pct": 24.39,
+    "vitbas_pct": 73.17,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Ljusockra nr 92"
+  },
+  {
+    "code": "RAA_LO92_0V4.76S",
+    "hex": "#94641D",
+    "base": "LO92",
+    "base_pct": 95.24,
+    "vitbas_pct": 0,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Ljusockra nr 92"
+  },
+  {
+    "code": "RAA_LO92_14.28V4.76S",
+    "hex": "#A68047",
+    "base": "LO92",
+    "base_pct": 80.96,
+    "vitbas_pct": 14.28,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Ljusockra nr 92"
+  },
+  {
+    "code": "RAA_LO92_42.85V4.76S",
+    "hex": "#C2AD8D",
+    "base": "LO92",
+    "base_pct": 52.39,
+    "vitbas_pct": 42.85,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Ljusockra nr 92"
+  },
+  {
+    "code": "RAA_LO92_57.14V4.76S",
+    "hex": "#CEBFAA",
+    "base": "LO92",
+    "base_pct": 38.1,
+    "vitbas_pct": 57.14,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Ljusockra nr 92"
+  },
+  {
+    "code": "RAA_LO92_85.71V4.76S",
+    "hex": "#E2DFDA",
+    "base": "LO92",
+    "base_pct": 9.53,
+    "vitbas_pct": 85.71,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Ljusockra nr 92"
+  },
+  {
+    "code": "RAA_LO92_0V6.97S",
+    "hex": "#8F611C",
+    "base": "LO92",
+    "base_pct": 93.03,
+    "vitbas_pct": 0,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Ljusockra nr 92"
+  },
+  {
+    "code": "RAA_LO92_41.86V6.97S",
+    "hex": "#BDA889",
+    "base": "LO92",
+    "base_pct": 51.17,
+    "vitbas_pct": 41.86,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Ljusockra nr 92"
+  },
+  {
+    "code": "RAA_GO94_0V0S",
+    "hex": "#BD8435",
+    "base": "GO94",
+    "base_pct": 100,
+    "vitbas_pct": 0,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Guldockra nr 94"
+  },
+  {
+    "code": "RAA_GO94_15V0S",
+    "hex": "#C89B5B",
+    "base": "GO94",
+    "base_pct": 85,
+    "vitbas_pct": 15,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Guldockra nr 94"
+  },
+  {
+    "code": "RAA_GO94_30V0S",
+    "hex": "#D2AF7E",
+    "base": "GO94",
+    "base_pct": 70,
+    "vitbas_pct": 30,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Guldockra nr 94"
+  },
+  {
+    "code": "RAA_GO94_45V0S",
+    "hex": "#DBC19C",
+    "base": "GO94",
+    "base_pct": 55,
+    "vitbas_pct": 45,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Guldockra nr 94"
+  },
+  {
+    "code": "RAA_GO94_60V0S",
+    "hex": "#E3D1B8",
+    "base": "GO94",
+    "base_pct": 40,
+    "vitbas_pct": 60,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Guldockra nr 94"
+  },
+  {
+    "code": "RAA_GO94_75V0S",
+    "hex": "#EAE0D1",
+    "base": "GO94",
+    "base_pct": 25,
+    "vitbas_pct": 75,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Guldockra nr 94"
+  },
+  {
+    "code": "RAA_GO94_90V0S",
+    "hex": "#F1EDE7",
+    "base": "GO94",
+    "base_pct": 10,
+    "vitbas_pct": 90,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Guldockra nr 94"
+  },
+  {
+    "code": "RAA_GO94_0V2.44S",
+    "hex": "#B67F34",
+    "base": "GO94",
+    "base_pct": 97.56,
+    "vitbas_pct": 0,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Guldockra nr 94"
+  },
+  {
+    "code": "RAA_GO94_29.27V2.44S",
+    "hex": "#CBA97A",
+    "base": "GO94",
+    "base_pct": 68.29,
+    "vitbas_pct": 29.27,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Guldockra nr 94"
+  },
+  {
+    "code": "RAA_GO94_73.17V2.44S",
+    "hex": "#E4D9CB",
+    "base": "GO94",
+    "base_pct": 24.39,
+    "vitbas_pct": 73.17,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Guldockra nr 94"
+  },
+  {
+    "code": "RAA_GO94_0V4.76S",
+    "hex": "#B07B33",
+    "base": "GO94",
+    "base_pct": 95.24,
+    "vitbas_pct": 0,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Guldockra nr 94"
+  },
+  {
+    "code": "RAA_GO94_14.28V4.76S",
+    "hex": "#BB9156",
+    "base": "GO94",
+    "base_pct": 80.96,
+    "vitbas_pct": 14.28,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Guldockra nr 94"
+  },
+  {
+    "code": "RAA_GO94_42.85V4.76S",
+    "hex": "#CEB593",
+    "base": "GO94",
+    "base_pct": 52.39,
+    "vitbas_pct": 42.85,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Guldockra nr 94"
+  },
+  {
+    "code": "RAA_GO94_57.14V4.76S",
+    "hex": "#D6C5AD",
+    "base": "GO94",
+    "base_pct": 38.1,
+    "vitbas_pct": 57.14,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Guldockra nr 94"
+  },
+  {
+    "code": "RAA_GO94_85.71V4.76S",
+    "hex": "#E4E0DB",
+    "base": "GO94",
+    "base_pct": 9.53,
+    "vitbas_pct": 85.71,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Guldockra nr 94"
+  },
+  {
+    "code": "RAA_GO94_0V6.97S",
+    "hex": "#AA7832",
+    "base": "GO94",
+    "base_pct": 93.03,
+    "vitbas_pct": 0,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Guldockra nr 94"
+  },
+  {
+    "code": "RAA_GO94_41.86V6.97S",
+    "hex": "#C8B08F",
+    "base": "GO94",
+    "base_pct": 51.17,
+    "vitbas_pct": 41.86,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Guldockra nr 94"
+  },
+  {
+    "code": "RAA_OU103_0V0S",
+    "hex": "#735F50",
+    "base": "OU103",
+    "base_pct": 100,
+    "vitbas_pct": 0,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd umbra nr 103"
+  },
+  {
+    "code": "RAA_OU103_15V0S",
+    "hex": "#8A7A6E",
+    "base": "OU103",
+    "base_pct": 85,
+    "vitbas_pct": 15,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd umbra nr 103"
+  },
+  {
+    "code": "RAA_OU103_30V0S",
+    "hex": "#A09389",
+    "base": "OU103",
+    "base_pct": 70,
+    "vitbas_pct": 30,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd umbra nr 103"
+  },
+  {
+    "code": "RAA_OU103_45V0S",
+    "hex": "#B5ABA3",
+    "base": "OU103",
+    "base_pct": 55,
+    "vitbas_pct": 45,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd umbra nr 103"
+  },
+  {
+    "code": "RAA_OU103_60V0S",
+    "hex": "#C8C1BC",
+    "base": "OU103",
+    "base_pct": 40,
+    "vitbas_pct": 60,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd umbra nr 103"
+  },
+  {
+    "code": "RAA_OU103_75V0S",
+    "hex": "#DAD5D2",
+    "base": "OU103",
+    "base_pct": 25,
+    "vitbas_pct": 75,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd umbra nr 103"
+  },
+  {
+    "code": "RAA_OU103_90V0S",
+    "hex": "#EAE9E7",
+    "base": "OU103",
+    "base_pct": 10,
+    "vitbas_pct": 90,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd umbra nr 103"
+  },
+  {
+    "code": "RAA_OU103_0V2.44S",
+    "hex": "#705C4E",
+    "base": "OU103",
+    "base_pct": 97.56,
+    "vitbas_pct": 0,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd umbra nr 103"
+  },
+  {
+    "code": "RAA_OU103_29.27V2.44S",
+    "hex": "#9C8F86",
+    "base": "OU103",
+    "base_pct": 68.29,
+    "vitbas_pct": 29.27,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd umbra nr 103"
+  },
+  {
+    "code": "RAA_OU103_73.17V2.44S",
+    "hex": "#D3CFCC",
+    "base": "OU103",
+    "base_pct": 24.39,
+    "vitbas_pct": 73.17,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd umbra nr 103"
+  },
+  {
+    "code": "RAA_OU103_0V4.76S",
+    "hex": "#6D5A4C",
+    "base": "OU103",
+    "base_pct": 95.24,
+    "vitbas_pct": 0,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd umbra nr 103"
+  },
+  {
+    "code": "RAA_OU103_14.28V4.76S",
+    "hex": "#837368",
+    "base": "OU103",
+    "base_pct": 80.96,
+    "vitbas_pct": 14.28,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd umbra nr 103"
+  },
+  {
+    "code": "RAA_OU103_42.85V4.76S",
+    "hex": "#ABA19A",
+    "base": "OU103",
+    "base_pct": 52.39,
+    "vitbas_pct": 42.85,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd umbra nr 103"
+  },
+  {
+    "code": "RAA_OU103_57.14V4.76S",
+    "hex": "#BDB6B1",
+    "base": "OU103",
+    "base_pct": 38.1,
+    "vitbas_pct": 57.14,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd umbra nr 103"
+  },
+  {
+    "code": "RAA_OU103_85.71V4.76S",
+    "hex": "#DEDCDB",
+    "base": "OU103",
+    "base_pct": 9.53,
+    "vitbas_pct": 85.71,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd umbra nr 103"
+  },
+  {
+    "code": "RAA_OU103_0V6.97S",
+    "hex": "#6A584A",
+    "base": "OU103",
+    "base_pct": 93.03,
+    "vitbas_pct": 0,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd umbra nr 103"
+  },
+  {
+    "code": "RAA_OU103_41.86V6.97S",
+    "hex": "#A69D96",
+    "base": "OU103",
+    "base_pct": 51.17,
+    "vitbas_pct": 41.86,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd umbra nr 103"
+  },
+  {
+    "code": "RAA_BU100_0V0S",
+    "hex": "#352621",
+    "base": "BU100",
+    "base_pct": 100,
+    "vitbas_pct": 0,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd umbra nr 100"
+  },
+  {
+    "code": "RAA_BU100_15V0S",
+    "hex": "#554945",
+    "base": "BU100",
+    "base_pct": 85,
+    "vitbas_pct": 15,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd umbra nr 100"
+  },
+  {
+    "code": "RAA_BU100_30V0S",
+    "hex": "#746A67",
+    "base": "BU100",
+    "base_pct": 70,
+    "vitbas_pct": 30,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd umbra nr 100"
+  },
+  {
+    "code": "RAA_BU100_45V0S",
+    "hex": "#928A88",
+    "base": "BU100",
+    "base_pct": 55,
+    "vitbas_pct": 45,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd umbra nr 100"
+  },
+  {
+    "code": "RAA_BU100_60V0S",
+    "hex": "#AFA9A7",
+    "base": "BU100",
+    "base_pct": 40,
+    "vitbas_pct": 60,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd umbra nr 100"
+  },
+  {
+    "code": "RAA_BU100_75V0S",
+    "hex": "#CAC6C5",
+    "base": "BU100",
+    "base_pct": 25,
+    "vitbas_pct": 75,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd umbra nr 100"
+  },
+  {
+    "code": "RAA_BU100_90V0S",
+    "hex": "#E4E3E2",
+    "base": "BU100",
+    "base_pct": 10,
+    "vitbas_pct": 90,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd umbra nr 100"
+  },
+  {
+    "code": "RAA_BU100_0V2.44S",
+    "hex": "#342621",
+    "base": "BU100",
+    "base_pct": 97.56,
+    "vitbas_pct": 0,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd umbra nr 100"
+  },
+  {
+    "code": "RAA_BU100_29.27V2.44S",
+    "hex": "#716864",
+    "base": "BU100",
+    "base_pct": 68.29,
+    "vitbas_pct": 29.27,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd umbra nr 100"
+  },
+  {
+    "code": "RAA_BU100_73.17V2.44S",
+    "hex": "#C4C1C0",
+    "base": "BU100",
+    "base_pct": 24.39,
+    "vitbas_pct": 73.17,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd umbra nr 100"
+  },
+  {
+    "code": "RAA_BU100_0V4.76S",
+    "hex": "#332520",
+    "base": "BU100",
+    "base_pct": 95.24,
+    "vitbas_pct": 0,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd umbra nr 100"
+  },
+  {
+    "code": "RAA_BU100_14.28V4.76S",
+    "hex": "#514642",
+    "base": "BU100",
+    "base_pct": 80.96,
+    "vitbas_pct": 14.28,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd umbra nr 100"
+  },
+  {
+    "code": "RAA_BU100_42.85V4.76S",
+    "hex": "#8A8381",
+    "base": "BU100",
+    "base_pct": 52.39,
+    "vitbas_pct": 42.85,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd umbra nr 100"
+  },
+  {
+    "code": "RAA_BU100_57.14V4.76S",
+    "hex": "#A5A09E",
+    "base": "BU100",
+    "base_pct": 38.1,
+    "vitbas_pct": 57.14,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd umbra nr 100"
+  },
+  {
+    "code": "RAA_BU100_85.71V4.76S",
+    "hex": "#D8D7D6",
+    "base": "BU100",
+    "base_pct": 9.53,
+    "vitbas_pct": 85.71,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd umbra nr 100"
+  },
+  {
+    "code": "RAA_BU100_0V6.97S",
+    "hex": "#322520",
+    "base": "BU100",
+    "base_pct": 93.03,
+    "vitbas_pct": 0,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd umbra nr 100"
+  },
+  {
+    "code": "RAA_BU100_41.86V6.97S",
+    "hex": "#87807E",
+    "base": "BU100",
+    "base_pct": 51.17,
+    "vitbas_pct": 41.86,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd umbra nr 100"
+  },
+  {
+    "code": "RAA_BRU39_0V0S",
+    "hex": "#62492D",
+    "base": "BRU39",
+    "base_pct": 100,
+    "vitbas_pct": 0,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Brun umbra nr 39"
+  },
+  {
+    "code": "RAA_BRU39_15V0S",
+    "hex": "#7B6750",
+    "base": "BRU39",
+    "base_pct": 85,
+    "vitbas_pct": 15,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Brun umbra nr 39"
+  },
+  {
+    "code": "RAA_BRU39_30V0S",
+    "hex": "#948370",
+    "base": "BRU39",
+    "base_pct": 70,
+    "vitbas_pct": 30,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Brun umbra nr 39"
+  },
+  {
+    "code": "RAA_BRU39_45V0S",
+    "hex": "#AA9E90",
+    "base": "BRU39",
+    "base_pct": 55,
+    "vitbas_pct": 45,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Brun umbra nr 39"
+  },
+  {
+    "code": "RAA_BRU39_60V0S",
+    "hex": "#C0B7AD",
+    "base": "BRU39",
+    "base_pct": 40,
+    "vitbas_pct": 60,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Brun umbra nr 39"
+  },
+  {
+    "code": "RAA_BRU39_75V0S",
+    "hex": "#D5CFC9",
+    "base": "BRU39",
+    "base_pct": 25,
+    "vitbas_pct": 75,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Brun umbra nr 39"
+  },
+  {
+    "code": "RAA_BRU39_90V0S",
+    "hex": "#E8E6E4",
+    "base": "BRU39",
+    "base_pct": 10,
+    "vitbas_pct": 90,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Brun umbra nr 39"
+  },
+  {
+    "code": "RAA_BRU39_0V2.44S",
+    "hex": "#5F472C",
+    "base": "BRU39",
+    "base_pct": 97.56,
+    "vitbas_pct": 0,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Brun umbra nr 39"
+  },
+  {
+    "code": "RAA_BRU39_29.27V2.44S",
+    "hex": "#8F7F6E",
+    "base": "BRU39",
+    "base_pct": 68.29,
+    "vitbas_pct": 29.27,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Brun umbra nr 39"
+  },
+  {
+    "code": "RAA_BRU39_73.17V2.44S",
+    "hex": "#CFCAC4",
+    "base": "BRU39",
+    "base_pct": 24.39,
+    "vitbas_pct": 73.17,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Brun umbra nr 39"
+  },
+  {
+    "code": "RAA_BRU39_0V4.76S",
+    "hex": "#5D462C",
+    "base": "BRU39",
+    "base_pct": 95.24,
+    "vitbas_pct": 0,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Brun umbra nr 39"
+  },
+  {
+    "code": "RAA_BRU39_14.28V4.76S",
+    "hex": "#75624C",
+    "base": "BRU39",
+    "base_pct": 80.96,
+    "vitbas_pct": 14.28,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Brun umbra nr 39"
+  },
+  {
+    "code": "RAA_BRU39_42.85V4.76S",
+    "hex": "#A19588",
+    "base": "BRU39",
+    "base_pct": 52.39,
+    "vitbas_pct": 42.85,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Brun umbra nr 39"
+  },
+  {
+    "code": "RAA_BRU39_57.14V4.76S",
+    "hex": "#B6ADA4",
+    "base": "BRU39",
+    "base_pct": 38.1,
+    "vitbas_pct": 57.14,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Brun umbra nr 39"
+  },
+  {
+    "code": "RAA_BRU39_85.71V4.76S",
+    "hex": "#DCDAD8",
+    "base": "BRU39",
+    "base_pct": 9.53,
+    "vitbas_pct": 85.71,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Brun umbra nr 39"
+  },
+  {
+    "code": "RAA_BRU39_0V6.97S",
+    "hex": "#5B442B",
+    "base": "BRU39",
+    "base_pct": 93.03,
+    "vitbas_pct": 0,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Brun umbra nr 39"
+  },
+  {
+    "code": "RAA_BRU39_41.86V6.97S",
+    "hex": "#9D9285",
+    "base": "BRU39",
+    "base_pct": 51.17,
+    "vitbas_pct": 41.86,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Brun umbra nr 39"
+  },
+  {
+    "code": "RAA_BT44_0V0S",
+    "hex": "#833C26",
+    "base": "BT44",
+    "base_pct": 100,
+    "vitbas_pct": 0,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd terra nr 44"
+  },
+  {
+    "code": "RAA_BT44_15V0S",
+    "hex": "#985E4C",
+    "base": "BT44",
+    "base_pct": 85,
+    "vitbas_pct": 15,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd terra nr 44"
+  },
+  {
+    "code": "RAA_BT44_30V0S",
+    "hex": "#AB7E6F",
+    "base": "BT44",
+    "base_pct": 70,
+    "vitbas_pct": 30,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd terra nr 44"
+  },
+  {
+    "code": "RAA_BT44_45V0S",
+    "hex": "#BD9B90",
+    "base": "BT44",
+    "base_pct": 55,
+    "vitbas_pct": 45,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd terra nr 44"
+  },
+  {
+    "code": "RAA_BT44_60V0S",
+    "hex": "#CEB6AE",
+    "base": "BT44",
+    "base_pct": 40,
+    "vitbas_pct": 60,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd terra nr 44"
+  },
+  {
+    "code": "RAA_BT44_75V0S",
+    "hex": "#DDCFCA",
+    "base": "BT44",
+    "base_pct": 25,
+    "vitbas_pct": 75,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd terra nr 44"
+  },
+  {
+    "code": "RAA_BT44_90V0S",
+    "hex": "#ECE6E4",
+    "base": "BT44",
+    "base_pct": 10,
+    "vitbas_pct": 90,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd terra nr 44"
+  },
+  {
+    "code": "RAA_BT44_0V2.44S",
+    "hex": "#7F3B26",
+    "base": "BT44",
+    "base_pct": 97.56,
+    "vitbas_pct": 0,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd terra nr 44"
+  },
+  {
+    "code": "RAA_BT44_29.27V2.44S",
+    "hex": "#A67A6C",
+    "base": "BT44",
+    "base_pct": 68.29,
+    "vitbas_pct": 29.27,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd terra nr 44"
+  },
+  {
+    "code": "RAA_BT44_73.17V2.44S",
+    "hex": "#D7C9C5",
+    "base": "BT44",
+    "base_pct": 24.39,
+    "vitbas_pct": 73.17,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd terra nr 44"
+  },
+  {
+    "code": "RAA_BT44_0V4.76S",
+    "hex": "#7B3925",
+    "base": "BT44",
+    "base_pct": 95.24,
+    "vitbas_pct": 0,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd terra nr 44"
+  },
+  {
+    "code": "RAA_BT44_14.28V4.76S",
+    "hex": "#8F5949",
+    "base": "BT44",
+    "base_pct": 80.96,
+    "vitbas_pct": 14.28,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd terra nr 44"
+  },
+  {
+    "code": "RAA_BT44_42.85V4.76S",
+    "hex": "#B39288",
+    "base": "BT44",
+    "base_pct": 52.39,
+    "vitbas_pct": 42.85,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd terra nr 44"
+  },
+  {
+    "code": "RAA_BT44_57.14V4.76S",
+    "hex": "#C2ACA5",
+    "base": "BT44",
+    "base_pct": 38.1,
+    "vitbas_pct": 57.14,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd terra nr 44"
+  },
+  {
+    "code": "RAA_BT44_85.71V4.76S",
+    "hex": "#DFDAD8",
+    "base": "BT44",
+    "base_pct": 9.53,
+    "vitbas_pct": 85.71,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd terra nr 44"
+  },
+  {
+    "code": "RAA_BT44_0V6.97S",
+    "hex": "#783825",
+    "base": "BT44",
+    "base_pct": 93.03,
+    "vitbas_pct": 0,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd terra nr 44"
+  },
+  {
+    "code": "RAA_BT44_41.86V6.97S",
+    "hex": "#AE8E85",
+    "base": "BT44",
+    "base_pct": 51.17,
+    "vitbas_pct": 41.86,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Bränd terra nr 44"
+  },
+  {
+    "code": "RAA_OT46_0V0S",
+    "hex": "#8E6025",
+    "base": "OT46",
+    "base_pct": 100,
+    "vitbas_pct": 0,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd terra nr 46"
+  },
+  {
+    "code": "RAA_OT46_15V0S",
+    "hex": "#A27D4E",
+    "base": "OT46",
+    "base_pct": 85,
+    "vitbas_pct": 15,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd terra nr 46"
+  },
+  {
+    "code": "RAA_OT46_30V0S",
+    "hex": "#B49772",
+    "base": "OT46",
+    "base_pct": 70,
+    "vitbas_pct": 30,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd terra nr 46"
+  },
+  {
+    "code": "RAA_OT46_45V0S",
+    "hex": "#C5AF93",
+    "base": "OT46",
+    "base_pct": 55,
+    "vitbas_pct": 45,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd terra nr 46"
+  },
+  {
+    "code": "RAA_OT46_60V0S",
+    "hex": "#D4C5B1",
+    "base": "OT46",
+    "base_pct": 40,
+    "vitbas_pct": 60,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd terra nr 46"
+  },
+  {
+    "code": "RAA_OT46_75V0S",
+    "hex": "#E1D8CD",
+    "base": "OT46",
+    "base_pct": 25,
+    "vitbas_pct": 75,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd terra nr 46"
+  },
+  {
+    "code": "RAA_OT46_90V0S",
+    "hex": "#EDEAE6",
+    "base": "OT46",
+    "base_pct": 10,
+    "vitbas_pct": 90,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd terra nr 46"
+  },
+  {
+    "code": "RAA_OT46_0V2.44S",
+    "hex": "#895D25",
+    "base": "OT46",
+    "base_pct": 97.56,
+    "vitbas_pct": 0,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd terra nr 46"
+  },
+  {
+    "code": "RAA_OT46_29.27V2.44S",
+    "hex": "#AF936F",
+    "base": "OT46",
+    "base_pct": 68.29,
+    "vitbas_pct": 29.27,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd terra nr 46"
+  },
+  {
+    "code": "RAA_OT46_73.17V2.44S",
+    "hex": "#DBD2C7",
+    "base": "OT46",
+    "base_pct": 24.39,
+    "vitbas_pct": 73.17,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd terra nr 46"
+  },
+  {
+    "code": "RAA_OT46_0V4.76S",
+    "hex": "#855A24",
+    "base": "OT46",
+    "base_pct": 95.24,
+    "vitbas_pct": 0,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd terra nr 46"
+  },
+  {
+    "code": "RAA_OT46_14.28V4.76S",
+    "hex": "#98764A",
+    "base": "OT46",
+    "base_pct": 80.96,
+    "vitbas_pct": 14.28,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd terra nr 46"
+  },
+  {
+    "code": "RAA_OT46_42.85V4.76S",
+    "hex": "#B9A58B",
+    "base": "OT46",
+    "base_pct": 52.39,
+    "vitbas_pct": 42.85,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd terra nr 46"
+  },
+  {
+    "code": "RAA_OT46_57.14V4.76S",
+    "hex": "#C7B9A7",
+    "base": "OT46",
+    "base_pct": 38.1,
+    "vitbas_pct": 57.14,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd terra nr 46"
+  },
+  {
+    "code": "RAA_OT46_85.71V4.76S",
+    "hex": "#E1DDD9",
+    "base": "OT46",
+    "base_pct": 9.53,
+    "vitbas_pct": 85.71,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd terra nr 46"
+  },
+  {
+    "code": "RAA_OT46_0V6.97S",
+    "hex": "#815824",
+    "base": "OT46",
+    "base_pct": 93.03,
+    "vitbas_pct": 0,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd terra nr 46"
+  },
+  {
+    "code": "RAA_OT46_41.86V6.97S",
+    "hex": "#B4A087",
+    "base": "OT46",
+    "base_pct": 51.17,
+    "vitbas_pct": 41.86,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Obränd terra nr 46"
+  },
+  {
+    "code": "RAA_KG83_0V0S",
+    "hex": "#546F44",
+    "base": "KG83",
+    "base_pct": 100,
+    "vitbas_pct": 0,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Kromoxidgrönt nr GN 83"
+  },
+  {
+    "code": "RAA_KG83_15V0S",
+    "hex": "#6A815C",
+    "base": "KG83",
+    "base_pct": 85,
+    "vitbas_pct": 15,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Kromoxidgrönt nr GN 83"
+  },
+  {
+    "code": "RAA_KG83_30V0S",
+    "hex": "#809474",
+    "base": "KG83",
+    "base_pct": 70,
+    "vitbas_pct": 30,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Kromoxidgrönt nr GN 83"
+  },
+  {
+    "code": "RAA_KG83_45V0S",
+    "hex": "#97A78E",
+    "base": "KG83",
+    "base_pct": 55,
+    "vitbas_pct": 45,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Kromoxidgrönt nr GN 83"
+  },
+  {
+    "code": "RAA_KG83_60V0S",
+    "hex": "#AFBBA8",
+    "base": "KG83",
+    "base_pct": 40,
+    "vitbas_pct": 60,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Kromoxidgrönt nr GN 83"
+  },
+  {
+    "code": "RAA_KG83_75V0S",
+    "hex": "#C9D0C4",
+    "base": "KG83",
+    "base_pct": 25,
+    "vitbas_pct": 75,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Kromoxidgrönt nr GN 83"
+  },
+  {
+    "code": "RAA_KG83_90V0S",
+    "hex": "#E3E6E1",
+    "base": "KG83",
+    "base_pct": 10,
+    "vitbas_pct": 90,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Kromoxidgrönt nr GN 83"
+  },
+  {
+    "code": "RAA_KG83_0V2.44S",
+    "hex": "#526D43",
+    "base": "KG83",
+    "base_pct": 97.56,
+    "vitbas_pct": 0,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Kromoxidgrönt nr GN 83"
+  },
+  {
+    "code": "RAA_KG83_29.27V2.44S",
+    "hex": "#7D9072",
+    "base": "KG83",
+    "base_pct": 68.29,
+    "vitbas_pct": 29.27,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Kromoxidgrönt nr GN 83"
+  },
+  {
+    "code": "RAA_KG83_73.17V2.44S",
+    "hex": "#C4CBBF",
+    "base": "KG83",
+    "base_pct": 24.39,
+    "vitbas_pct": 73.17,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Kromoxidgrönt nr GN 83"
+  },
+  {
+    "code": "RAA_KG83_0V4.76S",
+    "hex": "#516B42",
+    "base": "KG83",
+    "base_pct": 95.24,
+    "vitbas_pct": 0,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Kromoxidgrönt nr GN 83"
+  },
+  {
+    "code": "RAA_KG83_14.28V4.76S",
+    "hex": "#657B58",
+    "base": "KG83",
+    "base_pct": 80.96,
+    "vitbas_pct": 14.28,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Kromoxidgrönt nr GN 83"
+  },
+  {
+    "code": "RAA_KG83_42.85V4.76S",
+    "hex": "#909F88",
+    "base": "KG83",
+    "base_pct": 52.39,
+    "vitbas_pct": 42.85,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Kromoxidgrönt nr GN 83"
+  },
+  {
+    "code": "RAA_KG83_57.14V4.76S",
+    "hex": "#A7B2A1",
+    "base": "KG83",
+    "base_pct": 38.1,
+    "vitbas_pct": 57.14,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Kromoxidgrönt nr GN 83"
+  },
+  {
+    "code": "RAA_KG83_85.71V4.76S",
+    "hex": "#D7DAD6",
+    "base": "KG83",
+    "base_pct": 9.53,
+    "vitbas_pct": 85.71,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Kromoxidgrönt nr GN 83"
+  },
+  {
+    "code": "RAA_KG83_0V6.97S",
+    "hex": "#506941",
+    "base": "KG83",
+    "base_pct": 93.03,
+    "vitbas_pct": 0,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Kromoxidgrönt nr GN 83"
+  },
+  {
+    "code": "RAA_KG83_41.86V6.97S",
+    "hex": "#8D9C85",
+    "base": "KG83",
+    "base_pct": 51.17,
+    "vitbas_pct": 41.86,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Kromoxidgrönt nr GN 83"
+  },
+  {
+    "code": "RAA_UB88_0V0S",
+    "hex": "#1A3560",
+    "base": "UB88",
+    "base_pct": 100,
+    "vitbas_pct": 0,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Ultramarinblått nr 88"
+  },
+  {
+    "code": "RAA_UB88_15V0S",
+    "hex": "#395075",
+    "base": "UB88",
+    "base_pct": 85,
+    "vitbas_pct": 15,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Ultramarinblått nr 88"
+  },
+  {
+    "code": "RAA_UB88_30V0S",
+    "hex": "#596C8B",
+    "base": "UB88",
+    "base_pct": 70,
+    "vitbas_pct": 30,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Ultramarinblått nr 88"
+  },
+  {
+    "code": "RAA_UB88_45V0S",
+    "hex": "#7988A1",
+    "base": "UB88",
+    "base_pct": 55,
+    "vitbas_pct": 45,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Ultramarinblått nr 88"
+  },
+  {
+    "code": "RAA_UB88_60V0S",
+    "hex": "#9AA5B7",
+    "base": "UB88",
+    "base_pct": 40,
+    "vitbas_pct": 60,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Ultramarinblått nr 88"
+  },
+  {
+    "code": "RAA_UB88_75V0S",
+    "hex": "#BBC3CE",
+    "base": "UB88",
+    "base_pct": 25,
+    "vitbas_pct": 75,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Ultramarinblått nr 88"
+  },
+  {
+    "code": "RAA_UB88_90V0S",
+    "hex": "#DEE1E5",
+    "base": "UB88",
+    "base_pct": 10,
+    "vitbas_pct": 90,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Ultramarinblått nr 88"
+  },
+  {
+    "code": "RAA_UB88_0V2.44S",
+    "hex": "#1A345E",
+    "base": "UB88",
+    "base_pct": 97.56,
+    "vitbas_pct": 0,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Ultramarinblått nr 88"
+  },
+  {
+    "code": "RAA_UB88_29.27V2.44S",
+    "hex": "#576A87",
+    "base": "UB88",
+    "base_pct": 68.29,
+    "vitbas_pct": 29.27,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Ultramarinblått nr 88"
+  },
+  {
+    "code": "RAA_UB88_73.17V2.44S",
+    "hex": "#B7BEC9",
+    "base": "UB88",
+    "base_pct": 24.39,
+    "vitbas_pct": 73.17,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Ultramarinblått nr 88"
+  },
+  {
+    "code": "RAA_UB88_0V4.76S",
+    "hex": "#1A335C",
+    "base": "UB88",
+    "base_pct": 95.24,
+    "vitbas_pct": 0,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Ultramarinblått nr 88"
+  },
+  {
+    "code": "RAA_UB88_14.28V4.76S",
+    "hex": "#374D70",
+    "base": "UB88",
+    "base_pct": 80.96,
+    "vitbas_pct": 14.28,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Ultramarinblått nr 88"
+  },
+  {
+    "code": "RAA_UB88_42.85V4.76S",
+    "hex": "#748299",
+    "base": "UB88",
+    "base_pct": 52.39,
+    "vitbas_pct": 42.85,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Ultramarinblått nr 88"
+  },
+  {
+    "code": "RAA_UB88_57.14V4.76S",
+    "hex": "#939DAE",
+    "base": "UB88",
+    "base_pct": 38.1,
+    "vitbas_pct": 57.14,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Ultramarinblått nr 88"
+  },
+  {
+    "code": "RAA_UB88_85.71V4.76S",
+    "hex": "#D2D5D9",
+    "base": "UB88",
+    "base_pct": 9.53,
+    "vitbas_pct": 85.71,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Ultramarinblått nr 88"
+  },
+  {
+    "code": "RAA_UB88_0V6.97S",
+    "hex": "#1A335A",
+    "base": "UB88",
+    "base_pct": 93.03,
+    "vitbas_pct": 0,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Ultramarinblått nr 88"
+  },
+  {
+    "code": "RAA_UB88_41.86V6.97S",
+    "hex": "#717F95",
+    "base": "UB88",
+    "base_pct": 51.17,
+    "vitbas_pct": 41.86,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Ultramarinblått nr 88"
+  },
+  {
+    "code": "RAA_KB28_0V0S",
+    "hex": "#02509A",
+    "base": "KB28",
+    "base_pct": 100,
+    "vitbas_pct": 0,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Koboltblått nr 28"
+  },
+  {
+    "code": "RAA_KB28_15V0S",
+    "hex": "#2668A7",
+    "base": "KB28",
+    "base_pct": 85,
+    "vitbas_pct": 15,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Koboltblått nr 28"
+  },
+  {
+    "code": "RAA_KB28_30V0S",
+    "hex": "#4A81B5",
+    "base": "KB28",
+    "base_pct": 70,
+    "vitbas_pct": 30,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Koboltblått nr 28"
+  },
+  {
+    "code": "RAA_KB28_45V0S",
+    "hex": "#6E99C2",
+    "base": "KB28",
+    "base_pct": 55,
+    "vitbas_pct": 45,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Koboltblått nr 28"
+  },
+  {
+    "code": "RAA_KB28_60V0S",
+    "hex": "#92B2D0",
+    "base": "KB28",
+    "base_pct": 40,
+    "vitbas_pct": 60,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Koboltblått nr 28"
+  },
+  {
+    "code": "RAA_KB28_75V0S",
+    "hex": "#B7CBDE",
+    "base": "KB28",
+    "base_pct": 25,
+    "vitbas_pct": 75,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Koboltblått nr 28"
+  },
+  {
+    "code": "RAA_KB28_90V0S",
+    "hex": "#DCE4EC",
+    "base": "KB28",
+    "base_pct": 10,
+    "vitbas_pct": 90,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Koboltblått nr 28"
+  },
+  {
+    "code": "RAA_KB28_0V2.44S",
+    "hex": "#034E96",
+    "base": "KB28",
+    "base_pct": 97.56,
+    "vitbas_pct": 0,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Koboltblått nr 28"
+  },
+  {
+    "code": "RAA_KB28_29.27V2.44S",
+    "hex": "#487EB0",
+    "base": "KB28",
+    "base_pct": 68.29,
+    "vitbas_pct": 29.27,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Koboltblått nr 28"
+  },
+  {
+    "code": "RAA_KB28_73.17V2.44S",
+    "hex": "#B2C6D8",
+    "base": "KB28",
+    "base_pct": 24.39,
+    "vitbas_pct": 73.17,
+    "shade_pct": 2.44,
+    "shade_pigment": "J318",
+    "pigment_name": "Koboltblått nr 28"
+  },
+  {
+    "code": "RAA_KB28_0V4.76S",
+    "hex": "#034D93",
+    "base": "KB28",
+    "base_pct": 95.24,
+    "vitbas_pct": 0,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Koboltblått nr 28"
+  },
+  {
+    "code": "RAA_KB28_14.28V4.76S",
+    "hex": "#25649F",
+    "base": "KB28",
+    "base_pct": 80.96,
+    "vitbas_pct": 14.28,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Koboltblått nr 28"
+  },
+  {
+    "code": "RAA_KB28_42.85V4.76S",
+    "hex": "#6992B9",
+    "base": "KB28",
+    "base_pct": 52.39,
+    "vitbas_pct": 42.85,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Koboltblått nr 28"
+  },
+  {
+    "code": "RAA_KB28_57.14V4.76S",
+    "hex": "#8BA9C5",
+    "base": "KB28",
+    "base_pct": 38.1,
+    "vitbas_pct": 57.14,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Koboltblått nr 28"
+  },
+  {
+    "code": "RAA_KB28_85.71V4.76S",
+    "hex": "#D1D8DF",
+    "base": "KB28",
+    "base_pct": 9.53,
+    "vitbas_pct": 85.71,
+    "shade_pct": 4.76,
+    "shade_pigment": "J318",
+    "pigment_name": "Koboltblått nr 28"
+  },
+  {
+    "code": "RAA_KB28_0V6.97S",
+    "hex": "#044B8F",
+    "base": "KB28",
+    "base_pct": 93.03,
+    "vitbas_pct": 0,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Koboltblått nr 28"
+  },
+  {
+    "code": "RAA_KB28_41.86V6.97S",
+    "hex": "#678EB4",
+    "base": "KB28",
+    "base_pct": 51.17,
+    "vitbas_pct": 41.86,
+    "shade_pct": 6.97,
+    "shade_pigment": "J318",
+    "pigment_name": "Koboltblått nr 28"
+  },
+  {
+    "code": "RAA_GO94__0V0S",
+    "hex": "#78593A",
+    "base": "GO94_GU30",
+    "base_pct": 100,
+    "vitbas_pct": 0,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "50% Guldockra + 50% Grön umbra"
+  },
+  {
+    "code": "RAA_GO94__15V0S",
+    "hex": "#90775E",
+    "base": "GO94_GU30",
+    "base_pct": 85,
+    "vitbas_pct": 15,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "50% Guldockra + 50% Grön umbra"
+  },
+  {
+    "code": "RAA_GO94__30V0S",
+    "hex": "#A5927E",
+    "base": "GO94_GU30",
+    "base_pct": 70,
+    "vitbas_pct": 30,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "50% Guldockra + 50% Grön umbra"
+  },
+  {
+    "code": "RAA_GO94__45V0S",
+    "hex": "#B9AA9C",
+    "base": "GO94_GU30",
+    "base_pct": 55,
+    "vitbas_pct": 45,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "50% Guldockra + 50% Grön umbra"
+  },
+  {
+    "code": "RAA_GO94__60V0S",
+    "hex": "#CBC1B7",
+    "base": "GO94_GU30",
+    "base_pct": 40,
+    "vitbas_pct": 60,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "50% Guldockra + 50% Grön umbra"
+  },
+  {
+    "code": "RAA_GO94__75V0S",
+    "hex": "#DCD6D0",
+    "base": "GO94_GU30",
+    "base_pct": 25,
+    "vitbas_pct": 75,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "50% Guldockra + 50% Grön umbra"
+  },
+  {
+    "code": "RAA_GO94__90V0S",
+    "hex": "#EBE9E7",
+    "base": "GO94_GU30",
+    "base_pct": 10,
+    "vitbas_pct": 90,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "50% Guldockra + 50% Grön umbra"
+  },
+  {
+    "code": "RAA_GU30_0V0S",
+    "hex": "#433A27",
+    "base": "GU30",
+    "base_pct": 100,
+    "vitbas_pct": 0,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Grön umbra nr 30"
+  },
+  {
+    "code": "RAA_GU30_15V0S",
+    "hex": "#645C4D",
+    "base": "GU30",
+    "base_pct": 85,
+    "vitbas_pct": 15,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Grön umbra nr 30"
+  },
+  {
+    "code": "RAA_GU30_30V0S",
+    "hex": "#827C70",
+    "base": "GU30",
+    "base_pct": 70,
+    "vitbas_pct": 30,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Grön umbra nr 30"
+  },
+  {
+    "code": "RAA_GU30_45V0S",
+    "hex": "#9E9990",
+    "base": "GU30",
+    "base_pct": 55,
+    "vitbas_pct": 45,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Grön umbra nr 30"
+  },
+  {
+    "code": "RAA_GU30_60V0S",
+    "hex": "#B8B5AE",
+    "base": "GU30",
+    "base_pct": 40,
+    "vitbas_pct": 60,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Grön umbra nr 30"
+  },
+  {
+    "code": "RAA_GU30_75V0S",
+    "hex": "#D0CECA",
+    "base": "GU30",
+    "base_pct": 25,
+    "vitbas_pct": 75,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Grön umbra nr 30"
+  },
+  {
+    "code": "RAA_GU30_90V0S",
+    "hex": "#E7E6E4",
+    "base": "GU30",
+    "base_pct": 10,
+    "vitbas_pct": 90,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Grön umbra nr 30"
+  },
+  {
+    "code": "RAA_GRAU3_0V0S",
+    "hex": "#767779",
+    "base": "GRAU36",
+    "base_pct": 100,
+    "vitbas_pct": 0,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Grå umbra nr 36"
+  },
+  {
+    "code": "RAA_GRAU3_15V0S",
+    "hex": "#8B8C8D",
+    "base": "GRAU36",
+    "base_pct": 85,
+    "vitbas_pct": 15,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Grå umbra nr 36"
+  },
+  {
+    "code": "RAA_GRAU3_30V0S",
+    "hex": "#9FA0A1",
+    "base": "GRAU36",
+    "base_pct": 70,
+    "vitbas_pct": 30,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Grå umbra nr 36"
+  },
+  {
+    "code": "RAA_GRAU3_45V0S",
+    "hex": "#B3B3B4",
+    "base": "GRAU36",
+    "base_pct": 55,
+    "vitbas_pct": 45,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Grå umbra nr 36"
+  },
+  {
+    "code": "RAA_GRAU3_60V0S",
+    "hex": "#C5C6C7",
+    "base": "GRAU36",
+    "base_pct": 40,
+    "vitbas_pct": 60,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Grå umbra nr 36"
+  },
+  {
+    "code": "RAA_GRAU3_75V0S",
+    "hex": "#D8D8D8",
+    "base": "GRAU36",
+    "base_pct": 25,
+    "vitbas_pct": 75,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Grå umbra nr 36"
+  },
+  {
+    "code": "RAA_GRAU3_90V0S",
+    "hex": "#E9EAEA",
+    "base": "GRAU36",
+    "base_pct": 10,
+    "vitbas_pct": 90,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Grå umbra nr 36"
+  }
+]

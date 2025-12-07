@@ -179,7 +179,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.18-fast, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.19-fast, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),

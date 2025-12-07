@@ -13,8 +13,11 @@ library(jsonlite)
 `%||%` <- function(a, b) if(is.null(a)) b else a
 
 # Stub out memoise if not available (we don't need caching for generation)
-if(!require(memoise, quietly = TRUE)) {
+if(!requireNamespace("memoise", quietly = TRUE)) {
+  message("Package 'memoise' not found, stubbing it out (not needed for palette generation)")
   memoise <- function(f) f
+} else {
+  library(memoise)
 }
 
 # Load minimal dependencies

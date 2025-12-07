@@ -862,57 +862,54 @@ server <- function(input, output, session) {
   })
   
   # Handle swatch clicks
-  observeEvent(input$swatch_click, {
-    req(input$swatch_click)
-    
-    # Determine which recipe set to use based on active tab
-    active_tab <- input$recipe_tabs %||% "premade"
-    
-    if(active_tab == "saved") {
-      recipe_set <- "saved"
-    } else {
-      recipe_set <- input$palette_choice %||% "raa"
-    }
-    
-    code <- input$swatch_click
-    
-    # Load recipes from JSON files (instead of reactive functions)
-    if(recipe_set == "extended") {
-      palette_file <- "www/data/palette_extended.json"
-    } else if(recipe_set == "raa") {
-      palette_file <- "www/data/palette_raa.json"
-    } else {
-      # Handle saved favorites (unchanged)
-      recipe_set <- "saved"
-    }
-    
-    # Get recipe from JSON or saved favorites
-    recipe <- NULL
+  # Helper function to load recipe from different sources
+  get_recipe_from_code <- function(code, recipe_set) {
     if(recipe_set == "saved") {
-      # Load from saved favorites (unchanged from original code)
+      # Load from saved favorites
       favorites_raw <- input$favorites_list
       favorites <- if(is.character(favorites_raw) && nchar(favorites_raw) > 0) {
         tryCatch(jsonlite::fromJSON(favorites_raw), error = function(e) list())
       } else {
         list()
       }
-      recipe <- favorites[[code]]
+      return(favorites[[code]])
     } else {
       # Load from palette JSON file
+      palette_file <- if(recipe_set == "extended") {
+        "www/data/palette_extended.json"
+      } else {
+        "www/data/palette_raa.json"
+      }
+      
       palette_data <- jsonlite::read_json(palette_file, simplifyVector = TRUE)
-      # Find the recipe by code
       idx <- which(palette_data$code == code)
+      
       if(length(idx) > 0) {
-        recipe <- list(
+        return(list(
           base_pigment = palette_data$base[idx],
           base_pct = palette_data$base_pct[idx],
           vitbas_pct = palette_data$vitbas_pct[idx],
           shade_pct = palette_data$shade_pct[idx],
           shade_pigment = palette_data$shade_pigment[idx]
-        )
+        ))
       }
     }
+    return(NULL)
+  }
+  
+  observeEvent(input$swatch_click, {
+    req(input$swatch_click)
     
+    # Determine which recipe set to use based on active tab
+    active_tab <- input$recipe_tabs %||% "premade"
+    recipe_set <- if(active_tab == "saved") {
+      "saved"
+    } else {
+      input$palette_choice %||% "raa"
+    }
+    
+    # Get recipe from appropriate source
+    recipe <- get_recipe_from_code(input$swatch_click, recipe_set)
     if(is.null(recipe)) return()
     
     # Load recipe: base_pigment + vitbas + shade_pigment

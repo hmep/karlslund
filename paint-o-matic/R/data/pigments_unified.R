@@ -1412,7 +1412,7 @@ pigments_db <- list(
       category = "oxide",
       lab_values = list(
         L_tolerance = c(-0.5, 0.5),
-        a_tolerance = c(-1.3, 1. 3),
+        a_tolerance = c(-1.3, 1.3),
         b_tolerance = c(-1.5, 1.5),
         delta_E_max = 1.7,
         tinting_strength_range = c(95, 105)

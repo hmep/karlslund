@@ -1286,6 +1286,31 @@ server <- function(input, output, session) {
     updateTextInput(session, "color_name_step3", value = input$color_name %||% "")
   })
   
+  # Real-time bidirectional color name synchronization
+  # Sync Step 1 → Step 3
+  observeEvent(input$color_name, {
+    # Only update if target field exists and values differ
+    if(!is.null(input$color_name_step3)) {
+      new_value <- input$color_name %||% ""
+      current_value <- input$color_name_step3 %||% ""
+      if(new_value != current_value) {
+        updateTextInput(session, "color_name_step3", value = new_value)
+      }
+    }
+  }, ignoreInit = TRUE)
+  
+  # Sync Step 3 → Step 1
+  observeEvent(input$color_name_step3, {
+    # Only update if target field exists and values differ
+    if(!is.null(input$color_name)) {
+      new_value <- input$color_name_step3 %||% ""
+      current_value <- input$color_name %||% ""
+      if(new_value != current_value) {
+        updateTextInput(session, "color_name", value = new_value)
+      }
+    }
+  }, ignoreInit = TRUE)
+  
   # Simply use input values directly with req() to ensure they're available
   # No need for intermediate reactive values
   calc <- reactive({

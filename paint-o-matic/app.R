@@ -226,7 +226,6 @@ ui <- dashboardPage(
                           tabPanel(
                             "Blandare",
                             value = "sliders",
-                            br(),
                             checkboxInput("raa_only", "Använd endast Kulturkulör-pigment (RAÄ)", FALSE),
                             pickerInput("p1", "Pigment 1", choices = all_choices, selected = "vitbas",
                                         options = pickerOptions(`live-search` = TRUE, size = 12)),
@@ -269,7 +268,7 @@ ui <- dashboardPage(
                             br(),
                             textInput("swatch_filter", NULL, placeholder = "Filtrera pigment...", width = "100%"),
                             
-                            div(style = "margin-top:1em; width: 100%; height: 300px; overflow-y: auto; overflow-x: auto; border: 1px solid #ddd; padding: 10px;",
+                            div(class="swatch-pane",
                                 uiOutput("premade_swatches")
                             )
                           ),
@@ -683,7 +682,8 @@ server <- function(input, output, session) {
       
       # Create group header
       grouped_swatches[[length(grouped_swatches) + 1]] <- tags$h5(
-        style = "margin-top: 1em; margin-bottom: 0.5em; font-weight: bold; color: #333;",
+        style = "font-weight: bold;",
+        class = "grouped-swatches",
         group_name
       )
       
@@ -694,7 +694,8 @@ server <- function(input, output, session) {
         
         # Pigment subheader
         grouped_swatches[[length(grouped_swatches) + 1]] <- tags$div(
-          style = "margin-top: 0.5em; margin-bottom: 0.3em; font-size: 0.9em;",
+          style = "",
+          class = "grouped-swatches-subhead",
           pigment_name
         )
         

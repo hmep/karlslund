@@ -179,7 +179,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.17, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.18-fast, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -281,8 +281,9 @@ ui <- dashboardPage(
                                        tags$small("Kulörpaletter med tonings- och skuggningsmixer för alla pigment som är tillgängliga i Paint-o-matic."),
                                      ),
                                       
-                                      # Filter input placed outside renderUI to maintain state
-                                      textInput("swatch_filter", NULL, placeholder = "Filtrera pigment...", width = "100%"),
+                                     # Filter input placed outside renderUI to maintain state
+                                     br(),
+                                     textInput("swatch_filter", NULL, placeholder = "Filtrera pigment...", width = "100%"),
                                      
                                      div(style = "margin-top:1em; width: 100%; height: 300px; overflow-y: auto; overflow-x: auto; border: 1px solid #ddd; padding: 10px;",
                                          uiOutput("premade_swatches")

@@ -280,6 +280,9 @@ ui <- dashboardPage(
                                        condition = "input.palette_choice == 'extended'",
                                        tags$small("Kulörpaletter med tonings- och skuggningsmixer för alla pigment som är tillgängliga i Paint-o-matic."),
                                      ),
+                                      
+                                      # Filter input placed outside renderUI to maintain state
+                                      textInput("swatch_filter", NULL, placeholder = "Filtrera pigment...", width = "100%"),
                                      
                                      div(style = "margin-top:1em; width: 100%; height: 300px; overflow-y: auto; overflow-x: auto; border: 1px solid #ddd; padding: 10px;",
                                          uiOutput("premade_swatches")
@@ -665,9 +668,6 @@ server <- function(input, output, session) {
     # Load pre-computed palette
     palette_data <- jsonlite::read_json(palette_file, simplifyVector = TRUE)
     
-    # Add filter text field
-    filter_ui <- textInput("swatch_filter", NULL, placeholder = "Filtrera pigment...")
-    
     # Filter swatches if search term provided
     if(!is.null(input$swatch_filter) && nchar(input$swatch_filter) > 0) {
       search_term <- tolower(input$swatch_filter)
@@ -700,26 +700,33 @@ server <- function(input, output, session) {
           pigment_name
         )
         
-        # Render swatches for this pigment
-        swatch_elements <- lapply(1:nrow(pigment_swatches), function(i) {
-          s <- pigment_swatches[i, ]
-          tags$span(
-            class = "kulturkulor-swatch",
-            style = sprintf("background-color:%s;", s$hex),
-            title = sprintf("%s: %s (%g%% + %gV + %gS)", s$code, pigment_name, 
-                           s$base_pct, s$vitbas_pct, s$shade_pct),
-            onclick = sprintf("Shiny.setInputValue('swatch_click', '%s', {priority: 'event'});", s$code)
+        # Group by shade level (shade_pct) to create separate rows
+        # Each [pigment + shade level] gets its own row
+        for(shade_level in unique(pigment_swatches$shade_pct)) {
+          shade_swatches <- pigment_swatches[pigment_swatches$shade_pct == shade_level, ]
+          
+          # Render swatches for this pigment + shade level
+          swatch_elements <- lapply(1:nrow(shade_swatches), function(i) {
+            s <- shade_swatches[i, ]
+            tags$span(
+              class = "kulturkulor-swatch",
+              style = sprintf("background-color:%s;", s$hex),
+              title = sprintf("%s: %s (%g%% + %gV + %gS)", s$code, pigment_name, 
+                             s$base_pct, s$vitbas_pct, s$shade_pct),
+              onclick = sprintf("Shiny.setInputValue('swatch_click', '%s', {priority: 'event'});", s$code)
+            )
+          })
+          
+          grouped_swatches[[length(grouped_swatches) + 1]] <- tags$div(
+            class = "swatch-row",
+            style = "white-space: nowrap;",
+            swatch_elements
           )
-        })
-        
-        grouped_swatches[[length(grouped_swatches) + 1]] <- tags$div(
-          class = "swatch-row",
-          swatch_elements
-        )
+        }
       }
     }
     
-    tagList(filter_ui, grouped_swatches)
+    tagList(grouped_swatches)
   })
   
   # Render saved favorites swatches

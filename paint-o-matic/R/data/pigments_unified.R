@@ -235,8 +235,8 @@ pigments_db <- list(
   ),
   
   # GREENS
-  "40400" = list(
-    id = "40400",
+  "44250" = list(
+    id = "44250",
     name = "Viridian PG18",
     properties = list(
       oil = 40,

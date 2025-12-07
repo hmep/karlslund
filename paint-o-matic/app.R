@@ -876,14 +876,43 @@ server <- function(input, output, session) {
     
     code <- input$swatch_click
     
-    # Both RAÄ and extended now use the same recipe structure
+    # Load recipes from JSON files (instead of reactive functions)
     if(recipe_set == "extended") {
-      recipes <- extended_swatches_reactive()
+      palette_file <- "www/data/palette_extended.json"
+    } else if(recipe_set == "raa") {
+      palette_file <- "www/data/palette_raa.json"
     } else {
-      recipes <- raa_swatches_reactive()
+      # Handle saved favorites (unchanged)
+      recipe_set <- "saved"
     }
     
-    recipe <- recipes[[code]]
+    # Get recipe from JSON or saved favorites
+    recipe <- NULL
+    if(recipe_set == "saved") {
+      # Load from saved favorites (unchanged from original code)
+      favorites_raw <- input$favorites_list
+      favorites <- if(is.character(favorites_raw) && nchar(favorites_raw) > 0) {
+        tryCatch(jsonlite::fromJSON(favorites_raw), error = function(e) list())
+      } else {
+        list()
+      }
+      recipe <- favorites[[code]]
+    } else {
+      # Load from palette JSON file
+      palette_data <- jsonlite::read_json(palette_file, simplifyVector = TRUE)
+      # Find the recipe by code
+      idx <- which(palette_data$code == code)
+      if(length(idx) > 0) {
+        recipe <- list(
+          base_pigment = palette_data$base[idx],
+          base_pct = palette_data$base_pct[idx],
+          vitbas_pct = palette_data$vitbas_pct[idx],
+          shade_pct = palette_data$shade_pct[idx],
+          shade_pigment = palette_data$shade_pigment[idx]
+        )
+      }
+    }
+    
     if(is.null(recipe)) return()
     
     # Load recipe: base_pigment + vitbas + shade_pigment

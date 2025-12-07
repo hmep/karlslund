@@ -5,6 +5,7 @@
 .ready-box {padding:20px;}
 .ready-box h3, h2 {margin:0 0 .5em; padding:0;}
 .rmargin-box {margin-right:20px;}
+.intro {margin-bottom:1em;}
 
 /* Tab styling - active tab in bold */
 .nav-tabs > li > a {font-weight: normal;}

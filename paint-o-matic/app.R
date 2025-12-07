@@ -176,7 +176,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.23-qa, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.24, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -214,9 +214,9 @@ ui <- dashboardPage(
     
     hidden(div(id="step1", class="step",
                h2("Blanda pigment till önskad kulör"),
-               fluidRow(
+               fluidRow(class="intro",
                  column(12,
-                        p("Här kan du ", tags$b("hitta en kulör"), " som går att blanda med naturliga jordpigment och järnoxider (och några moderna syntetiska). Du kan också ", tags$b("skapa ett recept"), " på linoljefärg, äggoljetempera eller tjäroljefärg. Du får också hjälp att ", tags$b("skaffa rätt ingredienser"), " så att du sedan kan ", tags$b("blanda din egen färg"), " med den önskade kulören. Börja här: blanda pigment eller välj från paletterna."),
+                        p("Här kan du ", tags$b("hitta en kulör"), " som går att blanda med naturliga jordpigment och järnoxider. Du kan också ", tags$b("skapa ett recept"), " på linoljefärg, äggoljetempera och/eller tjäroljefärg. Du får hjälp att ", tags$b("hitta rätt ingredienser"), " så att du sedan kan ", tags$b("blanda din egen färg"), ". Börja här: blanda pigment fritt eller välj från paletterna."),
                         )
                ),
                fluidRow(
@@ -261,7 +261,7 @@ ui <- dashboardPage(
                             
                             conditionalPanel(
                               condition = "input.palette_choice == 'extended'",
-                              tags$small("Kulörpaletter med tonings- och skuggningsmixer för alla pigment som är tillgängliga i Paint-o-matic."),
+                              tags$small("Kulörpaletter med tonings- och skuggningsmixer för alla pigment som är tillgängliga i Paint-o-matic. Justera gärna kulören under fliken Blandare."),
                             ),
                              
                             # Filter input placed outside renderUI to maintain state
@@ -317,7 +317,7 @@ ui <- dashboardPage(
                hr(),
                actionButton("back1","Föregående", class="btn-default back-btn", icon = icon("circle-arrow-left")),
                actionButton("to_step3","Nästa", class="btn-primary next-btn", icon = icon(class="icon-next","circle-arrow-right")),
-               div(class="footer-ref", "Kubelka-Munk-funktionen används för att bibehålla färgande pigments styrka i vitbasen konstant")
+               div(class="footer-ref", "Kubelka-Munk-funktionen används för att bibehålla färgande pigments styrka i vitbasen konstant, oavsett förhållandet mellan zink- och titanvitt.")
     )),
     
     hidden(div(id="step3", class="step",
@@ -356,8 +356,8 @@ ui <- dashboardPage(
                                                ),
                                                selected = 1.0),
                                    hr(),
-                                   sliderInput("extra_oil","Extra kokt linolja (CPVC-faktor)",1,2.5,1.6,0.05,post="× CPVC"),
-                                   p("Reglaget ökar endast mängden kokt linolja i receptet (pigmentmängderna är fixerade). En viss mängd extra bindmedel, utöver den minsta mängd som krävs för pigmenten, underlättar både tillredningen av färgen med blandare i borrmaskin och dess strykbarhet med penseln. Du kan utan problem lägga till olja upp till 1,6–2,2 gånger av CPVC."),
+                                   sliderInput("extra_oil","Extra kokt linolja (ökad strykbarhet)",1,2.5,1.6,0.05,post="× minimum"),
+                                   p("Reglaget ökar endast mängden kokt linolja i receptet (pigmentmängderna är fixerade). En viss mängd extra bindmedel, utöver den minsta mängd som krävs för pigmenten, underlättar både tillredningen av färgen med blandare i borrmaskin och dess strykbarhet med penseln. Du kan utan problem lägga till olja upp till 1,6–2,2 gånger av minsta möjliga mängden."),
                                    hr(),
                                    p("Pastan du blandar är lämplig direkt som ", tags$b("grundstrykning"), " med gnuggande målningsstil (enligt principen från magert till fett) och utgör basen för ett komplett system för linoljefärgsmålning."),
                                    p("Till färg för ", tags$b("mellanstrykning"), " kan du tillföra ytterligare kokt linolja, precis upp till den maximala mängd som fortfarande medger att färgen struken på en glasskiva förblir ogenomskinlig."),
@@ -381,8 +381,8 @@ ui <- dashboardPage(
                                    p("En annan lera som också gör färgen tixotrop och ger en len yta är " ,tags$b("kaolin"), " – som sväller mindre och blir mindre geléartad än bentonit."),
                                    hr(),
                                    sliderInput("egg_extra_binder", "Extra äggolja + vatten + fyllmedel (tunnare färg)", 
-                                               1, 2.5, 1.6, 0.05, post = "× CPVC"),
-                                   p("Reglaget ökar mängden ägg, olja och vatten proportionellt, liksom även mängden fyllmedel. Högre värde ger tunnare, mer strykbar färg. Det går bra att utöver detta tillsätta ytterligare vatten till färgen, utifrån hur sugande underlaget är."),
+                                               1, 2.5, 1.6, 0.05, post = "× minimum"),
+                                   p("Reglaget ökar mängden ägg, olja och vatten proportionellt, liksom mängden fyllmedel. Högre värde ger tunnare, mer strykbar färg. Det går bra att utöver detta tillsätta ytterligare vatten till färgen, utifrån hur sugande underlaget är."),
                                    hr(),
                                    p("Måla äggoljetemperan med platt och bred pensel som håller mycket färg, i svepande rörelser i olika riktningar, eller med en fin roller (alltid vått i vått). Vänta till nästa strykning med att rätta till misstag eller luckor i färgen, om du går tillbaka och gör om arbetar du bara fram olja till ytan som blir flammig.")
                           )
@@ -400,9 +400,9 @@ ui <- dashboardPage(
                                                selected = "TAR01"),
                                    p("Tjärfärg lämpar sig bäst med inte alltför ljusa kulörer, eftersom tjäran i sig kan vara ganska mörk. Om du vill blanda ljusast möjliga tjärfärg, välj den finaste och ljusaste trätjäran, den är ljust honungsgul. För svarta eller andra mörka eller klara (blå, gröna, röda) kulörer går det lika bra med de billigare alternativen."),
                                    hr(),
-                                   sliderInput("tar_extra_binder", "Extra olja och tjära (CPVC-faktor)", 
-                                               1, 2.5, 1.6, 0.05, post = "× CPVC"),
-                                   p("Reglaget ökar mängden olja och tjära proportionellt, utöver den minsta mängd som de ingående pigmenten kräver. Högre värde ger mer flytande färg och bättre strykbarhet. Du kan utan problem lägga till olje- och tjärblandning upp till 1,6–2,2 gånger av CPVC."),
+                                   sliderInput("tar_extra_binder", "Extra tjära, olja och terpentin (ökad strykbarhet)", 
+                                               1, 2.5, 1.6, 0.05, post = "× minimum"),
+                                   p("Reglaget ökar mängden tjära, olja och terpentin proportionellt, utöver den minsta mängd som de ingående pigmenten kräver. Högre värde ger mer flytande färg och bättre strykbarhet. Du kan utan problem lägga till olje- och tjärblandning upp till 1,6–2,2 gånger av minsta möjliga mängden."),
                                    hr(),
                                    p("När du målar med tjäroljefärg (som man också kan kalla pigmenterad roslagsmahogny, eftersom receptet också innehåller balsamterpentin), tänk på följande:"),
                                    p("För bästa strykbarhet, måla i sol och värme och värm gärna också tjärfärgen till 50–70° C (inte högre!) i ett vattenbad eller med en termostatstyrd oljevärmare."),
@@ -432,7 +432,7 @@ ui <- dashboardPage(
                hr(),
                actionButton("back2","Föregående", class="btn-default back-btn", icon = icon("circle-arrow-left")),
                actionButton("restart","Börja om från början", class="btn-default back-btn", icon = icon("fast-backward")),
-               div(class="footer-ref", "Åtgång per m²: praktiska test, data från RAÄ Byggnadsvård, m. fl., uppskattningarna är ungefärliga och beror också på målningsstil")
+               div(class="footer-ref", "CPCV-värden hämtade från datablad och litteraturen, uppskattningar av åtgång per m² är ungefärliga och beror också på målningsstil.")
     ))
   )
 )

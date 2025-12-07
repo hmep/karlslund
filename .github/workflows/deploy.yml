@@ -100,7 +100,8 @@ jobs:
               'www/service-worker-register.js',
               list.files('www/css', full.names = TRUE, recursive = TRUE),
               list.files('www/js', full.names = TRUE, recursive = TRUE),
-              list.files('www/icons', full.names = TRUE, recursive = TRUE)
+              list.files('www/icons', full.names = TRUE, recursive = TRUE),
+              list.files('www/data', full.names = TRUE, recursive = TRUE)
             );
             
             # Filter out files that don't exist

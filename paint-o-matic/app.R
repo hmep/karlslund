@@ -128,7 +128,7 @@ PIGMENT_DISPLAY_GROUPS <- list(
   "Siennas & Umbror" = c("44650", "44620", "OU103", "BU100", "BRU39", "GRAU36", "40470", "40542", "40610", "40630", "40720", "GU30"),
   "Röda & Orange" = c("44300", "44200", "44210", "44220", "44510", "J225", "J180M", "J120N", "ER48A", "17280", "48289", "48651"),
   "Bruna" = c("J663", "J686", "48330"),
-  "Vita (vitbas rekommenderas för bättre kulörkontroll)" = c("44100", "44400", "46280"),
+  "Vita (välj vitbas för optimal kulörkontroll)" = c("vitbas", "44100", "44400", "46280"),
   "Moderna syntetiska" = c("23000", "23050", "23720", "43300")
 )
 # "Moderna syntetiska" = c("23000", "23050", "23720", "43300", "46280")

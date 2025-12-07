@@ -224,7 +224,7 @@ ui <- dashboardPage(
                         tabsetPanel(
                           id = "recipe_tabs",
                           tabPanel(
-                            "Blanda pigment",
+                            "Blandare",
                             value = "sliders",
                             br(),
                             checkboxInput("raa_only", "Använd endast Kulturkulör-pigment (RAÄ)", FALSE),
@@ -244,7 +244,7 @@ ui <- dashboardPage(
                             actionButton("reset_pigments", "Nollställ pigment", class="btn-default", icon = icon("refresh"))
                           ),
                           tabPanel(
-                            "Förblandade kulörer",
+                            "Paletter",
                             value = "premade",
                             br(),
                             selectInput("palette_choice", NULL,
@@ -274,7 +274,7 @@ ui <- dashboardPage(
                             )
                           ),
                           tabPanel(
-                            "Favoritkulörer",
+                            "Favoriter",
                             value = "saved",
                             br(),
                             tags$small("Alla dina sparade favorit-kulörblandningar lagras på din enhet."),
@@ -291,7 +291,7 @@ ui <- dashboardPage(
                         uiOutput("total_warning"),
                         tags$div(style="margin-top:1em;",
                                  hr(),
-                                 textInput("color_name", "Valfritt kulörnamn", 
+                                 textInput("color_name", "Kulörnamn (kan redigeras)", 
                                            value = "", 
                                            placeholder = "Dörrkarm 1923"),
                                  actionButton("save_favorite", "Spara som favoritkulör", class="btn-default btn-sm btn-x", 
@@ -419,7 +419,7 @@ ui <- dashboardPage(
                         uiOutput("final_preview"),br(),
                         tableOutput("final_recipe"),
                         hr(),
-                        textInput("color_name_step3", "Valfritt kulörnamn", 
+                        textInput("color_name_step3", "Kulörnamn (kan redigeras)", 
                                   value = "", 
                                   placeholder = "Dörrkarm 1923"),
                         actionButton("save_favorite", "Spara som favoritkulör", class="btn-default btn-sm btn-x", 

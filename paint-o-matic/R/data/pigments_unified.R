@@ -1400,16 +1400,23 @@ pigments_db <- list(
     id = "48250",
     name = "Järnoxidrött 222 mörk",
     properties = list(
-      oil = 25,
-      K = 1.08,
-      S = 0.36,
-      density = 5.1,
-      rgb = c(145, 45, 40)
+      oil = 30,  # Typical for this class of iron oxide red
+      K = 1.12,  # High absorption - "dark" indicates more concentrated pigment
+      S = 0.98,  # Relative tinting strength 95-105% (normalized to 1.0 = 100%)
+      density = 5.2,
+      rgb = c(138, 42, 33)  # Calculated from typical L*a*b* for this specification
     ),
     metadata = list(
       is_raa = FALSE,
       is_tar_compatible = TRUE,
-      category = "oxide"
+      category = "oxide",
+      lab_values = list(
+        L_tolerance = c(-0.5, 0.5),
+        a_tolerance = c(-1.3, 1. 3),
+        b_tolerance = c(-1.5, 1.5),
+        delta_E_max = 1.7,
+        tinting_strength_range = c(95, 105)
+      )
     ),
     suppliers = list(
       kremer = list(
@@ -1418,7 +1425,7 @@ pigments_db <- list(
         url = "https://www.kremer-pigmente.com/en/shop/pigments/48250-iron-oxide-red-222-dark.html"
       )
     ),
-    notes = "Järnoxidrött 222, mörk variant. PR101. Syntetiskt järnoxid (Fe₂O₃) med mörkröd nyans. God täckförmåga och ljushärdighet. Mångsidigt rödfärgspigment för linoljefärg, har rostskyddande egenskaper."
+    notes = "Järnoxidrött 222, mörk variant. PR101. Syntetiskt järnoxid (Fe₂O₃) med djup mörkröd nyans.  Relativ färgstyrka 95-105% (standardiserad mot baryt). Mycket tight färgtolerans (ΔE*ab max 1,7). Excellent ljushärdighet, opak, lämplig för alla bindemedel.  Kvalitetskontrollerad konsistens mellan batcher."
   ),
   
   # BROWNS - IRON OXIDES

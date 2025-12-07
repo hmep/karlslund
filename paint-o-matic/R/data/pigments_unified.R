@@ -1396,6 +1396,31 @@ pigments_db <- list(
     notes = "Traditionellt engelskt rött, ljust orange-rött järnoxid"
   ),
   
+  "48250" = list(
+    id = "48250",
+    name = "Järnoxidrött 222 mörk",
+    properties = list(
+      oil = 25,
+      K = 1.08,
+      S = 0.36,
+      density = 5.1,
+      rgb = c(145, 45, 40)
+    ),
+    metadata = list(
+      is_raa = FALSE,
+      is_tar_compatible = TRUE,
+      category = "oxide"
+    ),
+    suppliers = list(
+      kremer = list(
+        id = "48250",
+        match = "exact",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/48250-iron-oxide-red-222-dark.html"
+      )
+    ),
+    notes = "Järnoxidrött 222, mörk variant. PR101. Syntetiskt järnoxid (Fe₂O₃) med mörkröd nyans. God täckförmåga och ljushärdighet. Mångsidigt rödfärgspigment för linoljefärg, har rostskyddande egenskaper."
+  ),
+  
   # BROWNS - IRON OXIDES
   "J663" = list(
     id = "J663",

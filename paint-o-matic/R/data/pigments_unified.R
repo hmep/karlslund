@@ -1,6 +1,41 @@
 # Unified Pigment Database
 # Consolidates properties, suppliers, and metadata in one structure
-# Replaces: km (pigment_database.R), suppliers (supplier_data.R), raa_pigments list
+#
+# ============================================================================
+# QUALITY ASSURANCE DOCUMENTATION
+# ============================================================================
+# QA performed: December 2025
+# 
+# METHODOLOGY:
+# - For is_raa = TRUE pigments: RGB values left unchanged (RAÄ authoritative)
+#   K and S values reviewed against Kubelka-Munk literature and Kremer data
+# - For is_raa = FALSE pigments: All values (RGB, K, S) reviewed against:
+#   1. Kremer Pigmente product specifications and technical data
+#   2. Kubelka-Munk theory literature (Kubelka & Munk, 1931; Barron, 1986)
+#   3. Artist pigment databases (artistpigments.org, handprint.com)
+#   4. Swedish National Heritage Board (RAÄ) Kulturkulör system
+#
+# RELIABILITY INDICATORS:
+# - VERIFIED: Value confirmed by multiple sources or direct manufacturer data
+# - REVIEWED: Value assessed, may need adjustment based on use case
+# - ESTIMATED: Value estimated from pigment class behavior
+# - COMPUTED: Value calculated from component pigments
+#
+# KUBELKA-MUNK REFERENCE VALUES BY PIGMENT CLASS:
+# - White (TiO2, ZnO): K = 0.00, S = 1.5-3.0
+# - Black (carbon): K = 2.5-3.5, S = 0.7-1.2
+# - Black (iron oxide): K = 2.0-2.8, S = 1.0-1.3
+# - Earth yellows: K = 0.4-0.7, S = 0.3-0.5
+# - Earth reds: K = 0.7-1.2, S = 0.3-0.6
+# - Earth browns: K = 0.8-1.2, S = 0.4-0.6
+# - Earth greens: K = 0.6-0.9, S = 0.5-0.7
+# - Chrome oxide green: K = 1.0-1.3, S = 1.5-2.0
+# - Ultramarine blue: K = 1.4-1.8, S = 0.8-1.0
+# - Cobalt blue: K = 1.2-1.5, S = 0.9-1.1
+# - Phthalocyanine: K = 1.5-2.0, S = 1.2-1.6
+#
+# See pigments_qa_methodology.md for full methodology documentation
+# ============================================================================
 
 pigments_db <- list(
   # BASE WHITES

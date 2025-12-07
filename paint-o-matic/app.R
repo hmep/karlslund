@@ -118,7 +118,7 @@ create_filler_choices <- function() {
 # Define display group mapping for pigments
 # This mapping determines which Swedish category each pigment appears in
 PIGMENT_DISPLAY_GROUPS <- list(
-  "Vitbas" = c("vitbas"),
+  "Vitbas (rekommenderas för optimal kulörkontroll)" = c("vitbas"),
   "Gröna" = c("44250", "41700", "41750", "11100", "11000", "KG83", "ZG65", "40850", "40860", "GU30"),
   "Svarta" = c("J318", "BS98", "47250", "47400", "47800", "47501", "44450", "48401", "47700"),
   "Blåa" = c("UB88", "KB28"),
@@ -127,12 +127,11 @@ PIGMENT_DISPLAY_GROUPS <- list(
   "Siennas & Umbror" = c("44650", "44620", "OU103", "BU100", "BRU39", "GRAU36", "40470", "40542", "40610", "40630", "40720", "GU30"),
   "Röda & Orange" = c("44300", "44200", "48250", "44210", "44220", "44510", "J225", "J180M", "J120N", "ER48A", "17280", "48289", "48651"),
   "Bruna" = c("J663", "J686", "48330"),
-  "Vita (välj vitbas för optimal kulörkontroll)" = c("vitbas", "44100", "44400", "46280"),
+  "Vita" = c("vitbas", "44100", "44400", "46280"),
   "Fyllmedel" = c("599930", "58000", "58010", "58162", "58900", "58250"),
   "Rostskyddande" = c("48250", "48651"),
   "Moderna syntetiska" = c("11670", "23000", "23050", "23720", "43300")
 )
-# "Moderna syntetiska" = c("23000", "23050", "23720", "43300", "46280")
 
 # Create grouped choices for optgroups (Swedish categories)
 # Now with validation to ensure all pigments in pigments_db are included
@@ -177,7 +176,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.22-ui, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.23-qa, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),

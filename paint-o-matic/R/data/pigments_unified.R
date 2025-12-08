@@ -138,7 +138,7 @@ pigments_db <- list(
       kremer = list(
         id = "599930",
         match = "exact",
-        url = "https://shop.kremerpigments.com/us/shop/fillers-building-materials/599930-tripoli-rotten-stone-light.html"
+        url = "https://www.kremer-pigmente.com/en/shop/fillers-building-materials/599930-tripoli-rotten-stone-light.html"
       )
     ),
     notes = "Kiselgur (diatoméjord), mycket fin poleringsfyllnad. Mycket hög oljeabsorption. Används för fin polering och som mattande tillsats."
@@ -163,7 +163,7 @@ pigments_db <- list(
       kremer = list(
         id = "58000",
         match = "exact",
-        url = "https://shop.kremerpigments.com/us/shop/fillers-building-materials/58000-chalk-from-champagne.html"
+        url = "https://www.kremer-pigmente.com/en/shop/fillers-building-materials/58000-chalk-from-champagne.html"
       )
     ),
     notes = "Naturlig kalciumkarbonat från Frankrike (CaCO3). Används för grundningar, stuckatur och som fyllmedel i färg. Färgindex: PW 18.77220. Låg oljeabsorption."
@@ -188,7 +188,7 @@ pigments_db <- list(
       kremer = list(
         id = "58010",
         match = "exact",
-        url = "https://shop.kremerpigments.com/us/shop/fillers-building-materials/58010-chalk-from-ruegen.html"
+        url = "https://www.kremer-pigmente.com/en/shop/fillers-building-materials/58010-chalk-from-ruegen.html"
       )
     ),
     notes = "Naturlig kalciumkarbonat från Tyskland, ca 40 µ. Något grövre och mer gråaktig än Champagnekrita. Färgindex: PW 18.77220. Används i väggfärg och grundningar."
@@ -238,7 +238,7 @@ pigments_db <- list(
       kremer = list(
         id = "58900",
         match = "exact",
-        url = "https://shop.kremerpigments.com/us/shop/fillers-building-materials/58900-bentonite.html"
+        url = "https://www.kremer-pigmente.com/en/shop/fillers-building-materials/58900-bentonite.html"
       )
     ),
     notes = "Förtjockningsmedel, särskilt för oljefärg. Mycket hög oljeabsorption (180%). Lera som sväller i kontakt med olja. Färgindex: PW 19.77004. Används sparsamt (1-5%)."
@@ -263,7 +263,7 @@ pigments_db <- list(
       kremer = list(
         id = "58250",
         match = "exact",
-        url = "https://shop.kremerpigments.com/us/shop/fillers-building-materials/58250-kaolin-yellowish.html"
+        url = "https://www.kremer-pigmente.com/en/shop/fillers-building-materials/58250-kaolin-yellowish.html"
       )
     ),
     notes = "Vit bolus, gulaktig kaolin-lera. Används som fyllmedel och för att öka opacitet. Färgindex: PW 19. Måttlig oljeabsorption (45%)."

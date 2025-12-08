@@ -176,7 +176,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.24, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.25, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -226,7 +226,9 @@ ui <- dashboardPage(
                           tabPanel(
                             "Blandare",
                             value = "sliders",
-                            checkboxInput("raa_only", "Använd endast Kulturkulör-pigment (RAÄ)", FALSE),
+                            tags$h5(style="font-weight:bold;margin-top:1em;","Visningsinställningar"),
+                            checkboxInput("raa_only", "Endast Kulturkulör-pigment (RAÄ)", FALSE),
+                            hr(),
                             pickerInput("p1", "Pigment 1", choices = all_choices, selected = "vitbas",
                                         options = pickerOptions(`live-search` = TRUE, size = 12)),
                             conditionalPanel("input.p1", sliderInput("pct1","Andel (%)",0,100,20,1)),

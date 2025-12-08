@@ -176,7 +176,7 @@ ui <- dashboardPage(
     # Version number (right side, small text)
     tags$li(
       class = "dropdown",
-      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.25, © 2025 Tobias Hagberg, licens GPLv3")
+      tags$a(href = "https://github.com/hmep/karlslund/blob/main/paint-o-matic/LICENSE", class = "version-text", "v0.10.26, © 2025 Tobias Hagberg, licens GPLv3")
     )
   ),
   dashboardSidebar(disable = TRUE),
@@ -216,7 +216,7 @@ ui <- dashboardPage(
                h2("Blanda pigment till önskad kulör"),
                fluidRow(class="intro",
                  column(12,
-                        p("Här kan du ", tags$b("hitta en kulör"), " som går att blanda med naturliga jordpigment och järnoxider. Du kan också ", tags$b("skapa ett recept"), " på linoljefärg, äggoljetempera och/eller tjäroljefärg. Du får hjälp att ", tags$b("hitta rätt ingredienser"), " så att du sedan kan ", tags$b("blanda din egen färg"), ". Börja här: blanda pigment fritt eller välj från paletterna."),
+                        p("Här kan du ", tags$b("hitta en kulör"), " som går att blanda med naturliga jordpigment och järnoxider. Du kan också ", tags$b("skapa ett recept"), " på linoljefärg, äggoljetempera och/eller tjäroljefärg. Du får hjälp att ", tags$b("hitta rätt ingredienser"), " så att du sedan kan ", tags$b("blanda din egen färg"), " – börja med att blanda pigment eller välja något från paletterna."),
                         )
                ),
                fluidRow(
@@ -226,9 +226,14 @@ ui <- dashboardPage(
                           tabPanel(
                             "Blandare",
                             value = "sliders",
-                            tags$h5(style="font-weight:bold;margin-top:1em;","Visningsinställningar"),
-                            checkboxInput("raa_only", "Endast Kulturkulör-pigment (RAÄ)", FALSE),
-                            hr(),
+                              shinyWidgets::materialSwitch(
+                                inputId = "raa_only",
+                                label = "Visa endast Kulturkulör-pigment (RAÄ)",
+                                status = "default",
+                                right = TRUE,
+                                value = FALSE,
+                                width = "100%"
+                              ),
                             pickerInput("p1", "Pigment 1", choices = all_choices, selected = "vitbas",
                                         options = pickerOptions(`live-search` = TRUE, size = 12)),
                             conditionalPanel("input.p1", sliderInput("pct1","Andel (%)",0,100,20,1)),

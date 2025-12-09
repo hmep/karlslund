@@ -508,10 +508,10 @@ server <- function(input, output, session) {
     grouped <- grouped[sapply(grouped, length) > 0]
     choices_list <- c("Välj pigment" = "", grouped)
     
-    updatePickerInput(session, "p1", choices = choices_list)
-    updatePickerInput(session, "p2", choices = choices_list)
-    updatePickerInput(session, "p3", choices = choices_list)
-    updatePickerInput(session, "p4", choices = choices_list)
+    updatePickerInput(session, "p1", choices = choices_list, selectize=F)
+    updatePickerInput(session, "p2", choices = choices_list, selectize=F)
+    updatePickerInput(session, "p3", choices = choices_list, selectize=F)
+    updatePickerInput(session, "p4", choices = choices_list, selectize=F)
   }
   
   # Update stored values when inputs are valid (combined for efficiency)

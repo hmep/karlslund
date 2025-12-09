@@ -172,6 +172,7 @@ source("R/utils/swatch_generation.R")
 
 ui <- dashboardPage(
   dashboardHeader(
+    disable = TRUE,
     title = "Paint-o-matic",
     # Version number (right side, small text)
     tags$li(
@@ -213,7 +214,7 @@ ui <- dashboardPage(
     ),
     
     hidden(div(id="step1", class="step",
-               h2("Blanda pigment till önskad kulör"),
+               h2("Blanda din kulör"),
                fluidRow(class="intro",
                  column(12,
                         p("Här kan du ", tags$b("hitta en kulör"), " som går att blanda med naturliga jordpigment och järnoxider. Du kan också ", tags$b("skapa ett recept"), " på linoljefärg, äggoljetempera och/eller tjäroljefärg. Du får hjälp att ", tags$b("hitta rätt ingredienser"), " så att du sedan kan ", tags$b("blanda din egen färg"), " – börja med att blanda pigment eller välja något från paletterna."),

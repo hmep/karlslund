@@ -229,7 +229,7 @@ ui <- dashboardPage(
                             value = "sliders",
                               shinyWidgets::materialSwitch(
                                 inputId = "raa_only",
-                                label = "Visa endast Kulturkulör-pigment (RAÄ)",
+                                label = "Endast Kulturkulör-pigment (RAÄ)",
                                 status = "default",
                                 right = TRUE,
                                 value = FALSE,

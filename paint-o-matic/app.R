@@ -115,23 +115,9 @@ create_filler_choices <- function() {
   as.list(choices)
 }
 
-# Define display group mapping for pigments
-# This mapping determines which Swedish category each pigment appears in
-PIGMENT_DISPLAY_GROUPS <- list(
-  "Vitbas (rekommenderas för optimal kulörkontroll)" = c("vitbas"),
-  "Gröna" = c("44250", "41700", "41750", "11100", "11000", "KG83", "ZG65", "40850", "40860", "GU30"),
-  "Svarta" = c("J318", "BS98", "47250", "47400", "47800", "47501", "44450", "48401", "47700"),
-  "Blåa" = c("UB88", "KB28"),
-  "Terra & Pozzuoli" = c("40820", "40830", "40800", "BT44", "OT46", "11620"),
-  "Gula & Ockror" = c("44082", "44086", "44150", "44160", "J920", "LO92", "GO94", "GO94_GU30", "40010", "40020", "40030", "40050", "40060", "40070", "40080", "40090", "40130", "40214"),
-  "Siennas & Umbror" = c("44650", "44620", "OU103", "BU100", "BRU39", "GRAU36", "40470", "40542", "40610", "40630", "40720", "GU30"),
-  "Röda & Orange" = c("44300", "44200", "48250", "44210", "44220", "44510", "J225", "J180M", "J120N", "ER48A", "17280", "48289", "48651"),
-  "Bruna" = c("J663", "J686", "48330"),
-  "Vita" = c("vitbas", "44100", "44400", "46280"),
-  "Fyllmedel" = c("599930", "58000", "58010", "58162", "58900", "58250"),
-  "Rostskyddande" = c("48250", "48651"),
-  "Moderna syntetiska" = c("11670", "23000", "23050", "23720", "43300")
-)
+# Display group mapping for pigments
+source("R/data/pigment_display_order.R")
+PIGMENT_DISPLAY_GROUPS <- PIGMENT_DISPLAY_ORDER  # Use the shared definition
 
 # Create grouped choices for optgroups (Swedish categories)
 # Now with validation to ensure all pigments in pigments_db are included
@@ -285,7 +271,7 @@ ui <- dashboardPage(
                             value = "saved",
                             br(),
                             tags$small("Alla dina sparade favorit-kulörblandningar lagras på din enhet."),
-                            div(style = "margin-top:1em; width: 100%; height: 300px; overflow-y: auto; overflow-x: auto; border: 1px solid #ddd; padding: 10px;",
+                            div(style = "margin-top:1em; width: 100%; height: 450px; overflow-y: auto; overflow-x: auto; border: 1px solid #ddd; padding: 10px;",
                                 uiOutput("saved_swatches")
                             )
                           )
@@ -658,11 +644,7 @@ server <- function(input, output, session) {
     updatePickerInput(session, "p3", choices = choices_list, selected = input$p3)
     updatePickerInput(session, "p4", choices = choices_list, selected = input$p4)
   })
-  
 
-
-  # Render premade palette swatches (RAÄ or extended)
-  # Now uses pre-computed static JSON files
   output$premade_swatches <- renderUI({
     palette_file <- if(input$palette_choice == "raa") {
       "www/data/palette_raa.json"
@@ -671,7 +653,19 @@ server <- function(input, output, session) {
     }
     
     # Load pre-computed palette
-    palette_data <- jsonlite::read_json(palette_file, simplifyVector = TRUE)
+    palette_data <- tryCatch({
+      jsonlite::read_json(palette_file, simplifyVector = TRUE)
+    }, error = function(e) {
+      return(NULL)
+    })
+    
+    if(is.null(palette_data) || nrow(palette_data) == 0) {
+      return(tags$div(
+        style = "padding: 20px; color: #d9534f;",
+        icon("exclamation-triangle"), " Error loading palette data. ",
+        "Please regenerate palettes with: Rscript generate_palettes.R"
+      ))
+    }
     
     # Filter swatches if search term provided
     if(!is.null(input$swatch_filter) && nchar(input$swatch_filter) > 0) {
@@ -679,58 +673,131 @@ server <- function(input, output, session) {
       palette_data <- palette_data[grepl(search_term, tolower(palette_data$pigment_name)), ]
     }
     
-    # Group swatches by pigment and display group (matching dropdown optgroups)
+    # Check if display_group field exists (new format)
+    has_display_group <- "display_group" %in% names(palette_data)
+    
     grouped_swatches <- list()
     
-    for(group_name in names(PIGMENT_DISPLAY_GROUPS)) {
-      group_pigments <- PIGMENT_DISPLAY_GROUPS[[group_name]]
-      group_data <- palette_data[palette_data$base %in% group_pigments, ]
-      
-      if(nrow(group_data) == 0) next
-      
-      # Create group header
-      grouped_swatches[[length(grouped_swatches) + 1]] <- tags$h5(
-        style = "font-weight: bold;",
-        class = "grouped-swatches",
-        group_name
-      )
-      
-      # Group by base pigment within category
-      for(base_id in unique(group_data$base)) {
-        pigment_swatches <- group_data[group_data$base == base_id, ]
-        pigment_name <- pigment_swatches$pigment_name[1]
+    if(has_display_group) {
+      # === NEW FORMAT: Use display_group from JSON ===
+      # Iterate through groups in the order defined by PIGMENT_DISPLAY_ORDER
+      for(group_name in names(PIGMENT_DISPLAY_ORDER)) {
+        # Filter palette data for this group
+        group_data <- palette_data[palette_data$display_group == group_name, ]
         
-        # Pigment subheader
-        grouped_swatches[[length(grouped_swatches) + 1]] <- tags$div(
-          style = "",
-          class = "grouped-swatches-subhead",
-          pigment_name
+        if(nrow(group_data) == 0) next
+        
+        # Create group header
+        grouped_swatches[[length(grouped_swatches) + 1]] <- tags$h5(
+          style = "font-weight: bold;",
+          class = "grouped-swatches",
+          group_name
         )
         
-        # Group by shade level (shade_pct) to create separate rows
-        # Each [pigment + shade level] gets its own row
-        for(shade_level in unique(pigment_swatches$shade_pct)) {
-          shade_swatches <- pigment_swatches[pigment_swatches$shade_pct == shade_level, ]
+        # Group by base pigment within category (preserving order)
+        base_pigments <- unique(group_data$base)
+        
+        for(base_id in base_pigments) {
+          pigment_swatches <- group_data[group_data$base == base_id, ]
+          pigment_name <- pigment_swatches$pigment_name[1]
           
-          # Render swatches for this pigment + shade level
-          swatch_elements <- lapply(1:nrow(shade_swatches), function(i) {
-            s <- shade_swatches[i, ]
-            tags$span(
-              class = "kulturkulor-swatch",
-              style = sprintf("background-color:%s;", s$hex),
-              title = sprintf("%s: %s (%g%% + %gV + %gS)", s$code, pigment_name, 
-                             s$base_pct, s$vitbas_pct, s$shade_pct),
-              onclick = sprintf("Shiny.setInputValue('swatch_click', '%s', {priority: 'event'});", s$code)
-            )
-          })
-          
+          # Pigment subheader
           grouped_swatches[[length(grouped_swatches) + 1]] <- tags$div(
-            class = "swatch-row",
-            style = "white-space: nowrap;",
-            swatch_elements
+            style = "",
+            class = "grouped-swatches-subhead",
+            pigment_name
           )
+          
+          # Group by shade level (shade_pct) to create separate rows
+          shade_levels <- unique(pigment_swatches$shade_pct)
+          
+          for(shade_level in shade_levels) {
+            shade_swatches <- pigment_swatches[pigment_swatches$shade_pct == shade_level, ]
+            
+            # Render swatches for this pigment + shade level
+            swatch_elements <- lapply(1:nrow(shade_swatches), function(i) {
+              s <- shade_swatches[i, ]
+              tags$span(
+                class = "kulturkulor-swatch",
+                style = sprintf("background-color:%s;", s$hex),
+                title = sprintf("%s: %s (%g%% + %gV + %gS)", s$code, pigment_name, 
+                                s$base_pct, s$vitbas_pct, s$shade_pct),
+                onclick = sprintf("Shiny.setInputValue('swatch_click', '%s', {priority: 'event'});", s$code)
+              )
+            })
+            
+            grouped_swatches[[length(grouped_swatches) + 1]] <- tags$div(
+              class = "swatch-row",
+              style = "white-space: nowrap;",
+              swatch_elements
+            )
+          }
         }
       }
+    } else {
+      # === OLD FORMAT: Fallback to using base pigment ID ===
+      # This preserves backward compatibility with old JSON files
+      for(group_name in names(PIGMENT_DISPLAY_ORDER)) {
+        group_pigments <- PIGMENT_DISPLAY_ORDER[[group_name]]
+        group_data <- palette_data[palette_data$base %in% group_pigments, ]
+        
+        if(nrow(group_data) == 0) next
+        
+        # Create group header
+        grouped_swatches[[length(grouped_swatches) + 1]] <- tags$h5(
+          style = "font-weight: bold;",
+          class = "grouped-swatches",
+          group_name
+        )
+        
+        # Group by base pigment within category
+        for(base_id in unique(group_data$base)) {
+          pigment_swatches <- group_data[group_data$base == base_id, ]
+          pigment_name <- pigment_swatches$pigment_name[1]
+          
+          # Pigment subheader
+          grouped_swatches[[length(grouped_swatches) + 1]] <- tags$div(
+            style = "",
+            class = "grouped-swatches-subhead",
+            pigment_name
+          )
+          
+          # Group by shade level (shade_pct) to create separate rows
+          for(shade_level in unique(pigment_swatches$shade_pct)) {
+            shade_swatches <- pigment_swatches[pigment_swatches$shade_pct == shade_level, ]
+            
+            # Render swatches for this pigment + shade level
+            swatch_elements <- lapply(1:nrow(shade_swatches), function(i) {
+              s <- shade_swatches[i, ]
+              tags$span(
+                class = "kulturkulor-swatch",
+                style = sprintf("background-color:%s;", s$hex),
+                title = sprintf("%s: %s (%g%% + %gV + %gS)", s$code, pigment_name, 
+                                s$base_pct, s$vitbas_pct, s$shade_pct),
+                onclick = sprintf("Shiny.setInputValue('swatch_click', '%s', {priority: 'event'});", s$code)
+              )
+            })
+            
+            grouped_swatches[[length(grouped_swatches) + 1]] <- tags$div(
+              class = "swatch-row",
+              style = "white-space: nowrap;",
+              swatch_elements
+            )
+          }
+        }
+      }
+    }
+    
+    if(length(grouped_swatches) == 0) {
+      return(tags$div(
+        style = "padding: 20px; color: #666;",
+        "No swatches found. ",
+        if(!is.null(input$swatch_filter) && nchar(input$swatch_filter) > 0) {
+          "Try a different search term."
+        } else {
+          "Please regenerate palettes with: Rscript generate_palettes.R"
+        }
+      ))
     }
     
     tagList(grouped_swatches)

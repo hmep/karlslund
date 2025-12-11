@@ -13,6 +13,7 @@ library(shinyjs)
 library(shinyWidgets)
 library(jsonlite)
 library(memoise)
+library(DT)
 
 # === SWEDISH LOCALE CONFIGURATION === 
 # Set Swedish locale for number formatting (cross-platform)

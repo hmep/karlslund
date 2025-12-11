@@ -130,7 +130,7 @@ create_grouped_choices <- function() {
     if(length(existing_ids) < length(ids)) {
       missing <- setdiff(ids, existing_ids)
       warning(sprintf("Display group '%s' references missing pigments: %s", 
-                     group_name, paste(missing, collapse=", ")))
+                      group_name, paste(missing, collapse=", ")))
     }
     make_choices(existing_ids)
   })
@@ -144,7 +144,7 @@ create_grouped_choices <- function() {
   unmapped <- setdiff(db_ids, c(all_mapped_ids, exclude_from_check))
   if(length(unmapped) > 0) {
     warning(sprintf("Pigments in database but not in any display group: %s\nThese pigments will NOT appear in dropdown menus!", 
-                   paste(unmapped, collapse=", ")))
+                    paste(unmapped, collapse=", ")))
   }
   
   groups
@@ -202,8 +202,8 @@ ui <- dashboardPage(
     hidden(div(id="step1", class="step",
                h2("Blanda din kulör"),
                fluidRow(class="intro",
-                 column(12,
-                        p("Här kan du ", tags$b("hitta en kulör"), " som går att blanda med naturliga jordpigment och järnoxider. Du kan också ", tags$b("skapa ett recept"), " på linoljefärg, äggoljetempera och/eller tjäroljefärg. Du får hjälp att ", tags$b("hitta rätt ingredienser"), " så att du sedan kan ", tags$b("blanda din egen färg"), " – börja med att blanda pigment eller välja något från paletterna."),
+                        column(12,
+                               p("Här kan du ", tags$b("hitta en kulör"), " som går att blanda med naturliga jordpigment och järnoxider. Du kan också ", tags$b("skapa ett recept"), " på linoljefärg, äggoljetempera och/eller tjäroljefärg. Du får hjälp att ", tags$b("hitta rätt ingredienser"), " så att du sedan kan ", tags$b("blanda din egen färg"), " – börja med att blanda pigment eller välja något från paletterna."),
                         )
                ),
                fluidRow(
@@ -213,14 +213,14 @@ ui <- dashboardPage(
                           tabPanel(
                             "Blandare",
                             value = "sliders",
-                              shinyWidgets::materialSwitch(
-                                inputId = "raa_only",
-                                label = "Endast Kulturkulör-pigment (RAÄ)",
-                                status = "default",
-                                right = TRUE,
-                                value = FALSE,
-                                width = "100%"
-                              ),
+                            shinyWidgets::materialSwitch(
+                              inputId = "raa_only",
+                              label = "Endast Kulturkulör-pigment (RAÄ)",
+                              status = "default",
+                              right = TRUE,
+                              value = FALSE,
+                              width = "100%"
+                            ),
                             pickerInput("p1", "Pigment 1", choices = all_choices, selected = "vitbas",
                                         options = pickerOptions(`live-search` = TRUE, size = 12)),
                             conditionalPanel("input.p1", sliderInput("pct1","Andel (%)",0,100,20,1)),
@@ -257,7 +257,7 @@ ui <- dashboardPage(
                               condition = "input.palette_choice == 'extended'",
                               tags$small("Kulörpaletter med tonings- och skuggningsmixer för alla pigment som är tillgängliga i Paint-o-matic. Justera gärna kulören under fliken Blandare."),
                             ),
-                             
+                            
                             # Filter input placed outside renderUI to maintain state
                             br(),
                             textInput("swatch_filter", NULL, placeholder = "Filtrera pigment...", width = "100%"),
@@ -358,7 +358,7 @@ ui <- dashboardPage(
                                    p("Till färg för ", tags$b("slutstrykning"), " kan du därutöver med fördel tillsätta 10% kokt eller ännu hellre soloxiderad olja."),
                                    p("En burk till alla strykningar – tillsätt bara lite mer linolja efter hand."),
                                    p("Var medveten om brandrisken, särskilt när du hanterar trasor och material som innehåller kokt linolja. Blöt dem i vatten och förvara dem i en tät behållare när du målat klart.")
-                                   )
+                          )
                         ),
                         
                         # Äggoljetemperafärg settings
@@ -402,7 +402,7 @@ ui <- dashboardPage(
                                    p("För bästa strykbarhet, måla i sol och värme och värm gärna också tjärfärgen till 50–70° C (inte högre!) i ett vattenbad eller med en termostatstyrd oljevärmare."),
                                    p("Använd en pensel för att stryka ut den färgen i träets längdriktning. Torktiden kan variera från några dagar till flera veckor beroende på temperatur och fukt."),
                                    p("Var medveten om brandrisken, särskilt när du hanterar trasor och material som innehåller kokt linolja. Blöt dem i vatten och förvara dem i en tät behållare när du målat klart.")
-                                   )
+                          )
                         )
                         
                  ),
@@ -644,7 +644,7 @@ server <- function(input, output, session) {
     updatePickerInput(session, "p3", choices = choices_list, selected = input$p3)
     updatePickerInput(session, "p4", choices = choices_list, selected = input$p4)
   })
-
+  
   output$premade_swatches <- renderUI({
     palette_file <- if(input$palette_choice == "raa") {
       "www/data/palette_raa.json"
@@ -1492,6 +1492,230 @@ server <- function(input, output, session) {
     })
   })
   
+  # Helper function to format supplier info as HTML (for modals)
+  format_supplier_info_html <- function(pigment_id) {
+    pigment <- pigments_db[[pigment_id]]
+    if(is.null(pigment) || is.null(pigment$suppliers)) {
+      return("")
+    }
+    
+    lines <- c()
+    
+    # Define supplier display configuration
+    supplier_config <- list(
+      kremer = list(
+        name = "KREMER PIGMENTE (Tyskland)",
+        fields = c("match", "id", "url")
+      ),
+      ottosson = list(
+        name = "OTTOSSON FÄRGMAKERI (Sverige)",
+        fields = c("name", "url")
+      ),
+      claessons = list(
+        name = "CLAESSONS TRÄTJÄRA (Sverige)",
+        fields = c("name", "url")
+      ),
+      gysinge = list(
+        name = "GYSINGE (Sverige)",
+        fields = c("name", "url")
+      ),
+      ocres_de_france = list(
+        name = "OCRES DE FRANCE",
+        fields = c("name", "match", "url")
+      )
+    )
+    
+    # Field label mapping (Swedish)
+    field_labels <- list(
+      match = "Matchning",
+      id = "Produkt-ID",
+      name = "Produkt",
+      url = "Webbadress"
+    )
+    
+    # Loop through all suppliers
+    for(supplier_key in names(supplier_config)) {
+      supplier_data <- pigment$suppliers[[supplier_key]]
+      
+      if(!is.null(supplier_data)) {
+        config <- supplier_config[[supplier_key]]
+        
+        # Add supplier name header
+        lines <- c(lines, config$name)
+        
+        # Add each field for this supplier
+        for(field in config$fields) {
+          value <- supplier_data[[field]]
+          
+          # Check if value exists and is not empty
+          has_value <- !is.null(value) && length(value) > 0
+          
+          if(has_value) {
+            label <- field_labels[[field]]
+            if(is.null(label)) label <- field
+            
+            # Special handling for match field
+            if(identical(field, "match")) {
+              lines <- c(lines, paste0("  ", label, ": ", value, " match"))
+            }
+            # Special handling for URL field (multiple URLs possible)
+            else if(identical(field, "url") && length(value) > 1) {
+              lines <- c(lines, paste0("  ", label, "er:"))
+              for(url in value) {
+                lines <- c(lines, paste0('    <a href="', url, '" target="_blank">', url, '</a>'))
+              }
+            }
+            # Single URL - make it a link
+            else if(identical(field, "url")) {
+              lines <- c(lines, paste0('  ', label, ': <a href="', value, '" target="_blank">', value, '</a>'))
+            }
+            # Special handling for name field in ocres_de_france (has default)
+            else if(identical(field, "name") && identical(supplier_key, "ocres_de_france")) {
+              # Check if value is effectively empty
+              is_empty <- is.null(value) || length(value) == 0 || 
+                (is.character(value) && nchar(value[1]) == 0)
+              
+              if(is_empty) {
+                lines <- c(lines, paste0("  ", label, ": Se webbadress"))
+              } else {
+                lines <- c(lines, paste0("  ", label, ": ", value))
+              }
+            }
+            # Standard field display
+            else {
+              lines <- c(lines, paste0("  ", label, ": ", value))
+            }
+          }
+        }
+        
+        lines <- c(lines, "")  # Empty line after each supplier
+      }
+    }
+    
+    # Add notes if present
+    notes <- pigment$notes
+    has_notes <- !is.null(notes) && length(notes) > 0
+    if(has_notes && is.character(notes) && nchar(notes[1]) > 0) {
+      lines <- c(lines, "NOTERING:")
+      lines <- c(lines, paste0("  ", notes))
+    }
+    
+    paste(lines, collapse = "\n")
+  }
+  
+  # Helper function to format supplier info as plain text (for text export)
+  format_supplier_info_text <- function(pigment_id) {
+    pigment <- pigments_db[[pigment_id]]
+    if(is.null(pigment) || is.null(pigment$suppliers)) {
+      return("")
+    }
+    
+    lines <- c()
+    
+    # Define supplier display configuration
+    supplier_config <- list(
+      kremer = list(
+        name = "KREMER PIGMENTE (Tyskland)",
+        fields = c("match", "id", "url")
+      ),
+      ottosson = list(
+        name = "OTTOSSON FÄRGMAKERI (Sverige)",
+        fields = c("name", "url")
+      ),
+      claessons = list(
+        name = "CLAESSONS TRÄTJÄRA (Sverige)",
+        fields = c("name", "url")
+      ),
+      gysinge = list(
+        name = "GYSINGE (Sverige)",
+        fields = c("name", "url")
+      ),
+      ocres_de_france = list(
+        name = "OCRES DE FRANCE",
+        fields = c("name", "match", "url")
+      )
+    )
+    
+    # Field label mapping (Swedish)
+    field_labels <- list(
+      match = "Matchning",
+      id = "Produkt-ID",
+      name = "Produkt",
+      url = "Webbadress"
+    )
+    
+    # Loop through all suppliers
+    for(supplier_key in names(supplier_config)) {
+      supplier_data <- pigment$suppliers[[supplier_key]]
+      
+      if(!is.null(supplier_data)) {
+        config <- supplier_config[[supplier_key]]
+        
+        # Add supplier name header
+        lines <- c(lines, config$name)
+        
+        # Add each field for this supplier
+        for(field in config$fields) {
+          value <- supplier_data[[field]]
+          
+          # Check if value exists and is not empty
+          has_value <- !is.null(value) && length(value) > 0
+          
+          if(has_value) {
+            label <- field_labels[[field]]
+            if(is.null(label)) label <- field
+            
+            # Special handling for match field
+            if(identical(field, "match")) {
+              lines <- c(lines, paste0("  ", label, ": ", value, " match"))
+            }
+            # Special handling for URL field (multiple URLs possible) - PLAIN TEXT
+            else if(identical(field, "url") && length(value) > 1) {
+              lines <- c(lines, paste0("  ", label, "er:"))
+              for(url in value) {
+                lines <- c(lines, paste0("    ", url))
+              }
+            }
+            # Single URL - plain text
+            else if(identical(field, "url")) {
+              lines <- c(lines, paste0("  ", label, ": ", value))
+            }
+            # Special handling for name field in ocres_de_france (has default)
+            else if(identical(field, "name") && identical(supplier_key, "ocres_de_france")) {
+              # Check if value is effectively empty
+              is_empty <- is.null(value) || length(value) == 0 || 
+                (is.character(value) && nchar(value[1]) == 0)
+              
+              if(is_empty) {
+                lines <- c(lines, paste0("  ", label, ": Se webbadress"))
+              } else {
+                lines <- c(lines, paste0("  ", label, ": ", value))
+              }
+            }
+            # Standard field display
+            else {
+              lines <- c(lines, paste0("  ", label, ": ", value))
+            }
+          }
+        }
+        
+        lines <- c(lines, "")  # Empty line after each supplier
+      }
+    }
+    
+    # Add notes if present
+    notes <- pigment$notes
+    has_notes <- !is.null(notes) && length(notes) > 0
+    if(has_notes && is.character(notes) && nchar(notes[1]) > 0) {
+      lines <- c(lines, "NOTERING:")
+      lines <- c(lines, paste0("  ", notes))
+    }
+    
+    paste(lines, collapse = "\n")
+  }
+  
+  # Build recipe data frame with supplier information
+  
   recipe_df <- reactive({
     r <- final_recipe()
     paint_type <- input$paint_type %||% "linseed"
@@ -1499,53 +1723,90 @@ server <- function(input, output, session) {
     rows <- list()
     
     if(paint_type == "egg_oil") {
-      # Egg-oil tempera recipe format
-      rows <- c(rows, list(list("Kallpressad kokt linolja", r$oil)))
-      rows <- c(rows, list(list(paste0("Ägg (", format_swe(r$eggs_count), " st à 50 g)"), r$eggs)))
-      rows <- c(rows, list(list("Vatten", r$water)))
+      rows <- c(rows, list(list("Kallpressad kokt linolja", r$oil, "")))
+      rows <- c(rows, list(list(paste0("Ägg (", format_swe(r$eggs_count), " st à 50 g)"), r$eggs, "")))
+      rows <- c(rows, list(list("Vatten", r$water, "")))
       
-      if(r$zn > 0.1) rows <- c(rows, list(list("Zinkvitt PW4 (#44100)", r$zn)))
-      if(r$ti > 0.1) rows <- c(rows, list(list("Titanvitt Rutile PW6 (#44400)", r$ti)))
+      if(!is.null(r$zn) && r$zn > 0.1) rows <- c(rows, list(list("Zinkvitt PW4", r$zn, "44100")))
+      if(!is.null(r$ti) && r$ti > 0.1) rows <- c(rows, list(list("Titanvitt Rutile PW6", r$ti, "44400")))
       
-      for(id in names(r$color)) {
-        rows <- c(rows, list(list(paste0(pigments_db[[id]]$name, " (#", id, ")"), as.numeric(r$color[id]))))
+      if(!is.null(r$color) && length(r$color) > 0) {
+        for(id in names(r$color)) {
+          if(id %in% names(pigments_db)) {
+            pigment_name <- pigments_db[[id]]$name
+            if(!is.null(pigment_name)) {
+              rows <- c(rows, list(list(as.character(pigment_name), as.numeric(r$color[id]), as.character(id))))
+            }
+          }
+        }
       }
       
-      # Add extra filler last
-      rows <- c(rows, list(list(paste0(pigments_db[[r$filler_id]]$name, " (#", r$filler_id, ")"), r$filler_g)))
+      if(!is.null(r$filler_id) && r$filler_id %in% names(pigments_db)) {
+        filler_name <- pigments_db[[r$filler_id]]$name
+        if(!is.null(filler_name)) {
+          rows <- c(rows, list(list(as.character(filler_name), r$filler_g, as.character(r$filler_id))))
+        }
+      }
       
     } else if(paint_type == "tar") {
-      # Tar oil paint recipe format
       tar_name <- if(!is.null(r$tar_id) && r$tar_id %in% names(misc_db)) {
         misc_db[[r$tar_id]]$name
       } else {
         "Trätjära"
       }
-      rows <- c(rows, list(list(tar_name, r$tar)))
-      rows <- c(rows, list(list("Kallpressad kokt linolja", r$oil)))
-      rows <- c(rows, list(list("Balsamterpentin", r$balsamterpentin)))
+      rows <- c(rows, list(list(tar_name, r$tar, "")))
+      rows <- c(rows, list(list("Kallpressad kokt linolja", r$oil, "")))
+      rows <- c(rows, list(list("Balsamterpentin", r$balsamterpentin, "")))
       
-      if(r$zn > 0.1) rows <- c(rows, list(list("Zinkvitt PW4 (#44100)", r$zn)))
-      if(r$ti > 0.1) rows <- c(rows, list(list("Titanvitt Rutile PW6 (#44400)", r$ti)))
+      if(!is.null(r$zn) && r$zn > 0.1) rows <- c(rows, list(list("Zinkvitt PW4", r$zn, "44100")))
+      if(!is.null(r$ti) && r$ti > 0.1) rows <- c(rows, list(list("Titanvitt Rutile PW6", r$ti, "44400")))
       
-      for(id in names(r$color)) {
-        rows <- c(rows, list(list(paste0(pigments_db[[id]]$name, " (#", id, ")"), as.numeric(r$color[id]))))
+      if(!is.null(r$color) && length(r$color) > 0) {
+        for(id in names(r$color)) {
+          if(id %in% names(pigments_db)) {
+            pigment_name <- pigments_db[[id]]$name
+            if(!is.null(pigment_name)) {
+              rows <- c(rows, list(list(as.character(pigment_name), as.numeric(r$color[id]), as.character(id))))
+            }
+          }
+        }
       }
       
     } else {
-      # Linseed oil paint recipe format (original)
-      rows <- c(rows, list(list("Kallpressad kokt linolja", r$oil)))
-      if(r$zn > 0.1) rows <- c(rows, list(list("Zinkvitt PW4 (#44100)", r$zn)))
-      if(r$ti > 0.1) rows <- c(rows, list(list("Titanvitt Rutile PW6 (#44400)", r$ti)))
-      for(id in names(r$color)) {
-        rows <- c(rows, list(list(paste0(pigments_db[[id]]$name, " (#", id, ")"), as.numeric(r$color[id]))))
+      rows <- c(rows, list(list("Kallpressad kokt linolja", r$oil, "")))
+      if(!is.null(r$zn) && r$zn > 0.1) rows <- c(rows, list(list("Zinkvitt PW4", r$zn, "44100")))
+      if(!is.null(r$ti) && r$ti > 0.1) rows <- c(rows, list(list("Titanvitt Rutile PW6", r$ti, "44400")))
+      
+      if(!is.null(r$color) && length(r$color) > 0) {
+        for(id in names(r$color)) {
+          if(id %in% names(pigments_db)) {
+            pigment_name <- pigments_db[[id]]$name
+            if(!is.null(pigment_name)) {
+              rows <- c(rows, list(list(as.character(pigment_name), as.numeric(r$color[id]), as.character(id))))
+            }
+          }
+        }
       }
     }
     
-    df <- as.data.frame(do.call(rbind, rows), stringsAsFactors = FALSE)
-    colnames(df) <- c("Ingrediens", "Gram")
+    # Build data frame with explicit type conversion
+    df <- data.frame(
+      Ingrediens = character(length(rows)),
+      Gram = numeric(length(rows)),
+      pigment_id = character(length(rows)),
+      stringsAsFactors = FALSE
+    )
+    
+    for(i in seq_along(rows)) {
+      df$Ingrediens[i] <- as.character(rows[[i]][[1]])
+      df$Gram[i] <- as.numeric(rows[[i]][[2]])
+      df$pigment_id[i] <- as.character(rows[[i]][[3]])
+    }
+    
     df
   })
+  
+  # Separate reactive for display with info links
   
   # Calculate actual total volume of finished paint (pigment + oil)
   total_paint_volume <- reactive({
@@ -1622,12 +1883,61 @@ server <- function(input, output, session) {
     calculate_recipe_generic(paint_type, c$target_liters, m, zinc_ratio, extra_params)
   })
   
-  output$final_recipe <- renderTable({
+  output$final_recipe <- renderUI({
     df <- recipe_df()
-    # Format the Gram column with Swedish decimals
-    df$Gram <- sapply(df$Gram, function(x) format_swe(parse_numeric(x), 1))
-    df
-  }, striped=TRUE, bordered=TRUE, width="100%", align="lr", sanitize.text.function = function(x) x)
+    
+    # Build HTML table manually
+    table_rows <- lapply(1:nrow(df), function(i) {
+      name <- as.character(df$Ingrediens[i])
+      gram <- as.numeric(df$Gram[i])
+      pid <- as.character(df$pigment_id[i])
+      
+      # Add info link if pigment has suppliers
+      if(length(pid) > 0 && nchar(pid) > 0 && pid %in% names(pigments_db)) {
+        pigment <- pigments_db[[pid]]
+        if(!is.null(pigment) && !is.null(pigment$suppliers)) {
+          name <- paste0(name, ' <a href="#" onclick="Shiny.setInputValue(\'show_supplier\', \'', 
+                         pid, '\', {priority: \'event\'}); return false;" ',
+                         'style="color: #337ab7; font-size: 11px; margin-left: 5px;">',
+                         '(info)</a>')
+        }
+      }
+      
+      tags$tr(
+        tags$td(HTML(name)),
+        tags$td(style="text-align: right;", paste0(format_swe(gram, 1), " g"))
+      )
+    })
+    
+    tags$table(
+      class = "table table-striped table-bordered",
+      style = "width: 100%;",
+      tags$thead(
+        tags$tr(
+          tags$th("Ingrediens"),
+          tags$th(style="text-align: right;", "Gram")
+        )
+      ),
+      tags$tbody(table_rows)
+    )
+  })
+  
+  # Handle clicking supplier info
+  observeEvent(input$show_supplier, {
+    pigment_id <- input$show_supplier
+    if(pigment_id %in% names(pigments_db)) {
+      supplier_html <- format_supplier_info_html(pigment_id)
+      
+      showModal(modalDialog(
+        title = paste0(pigments_db[[pigment_id]]$name, " (#", pigment_id, ")"),
+        HTML(paste0('<pre style="font-size: 12px; white-space: pre-wrap; font-family: monospace;">', 
+                    supplier_html, 
+                    '</pre>')),
+        easyClose = TRUE,
+        footer = modalButton("Stäng")
+      ))
+    }
+  })
   output$final_preview <- renderUI({
     # Force explicit dependencies on color-affecting reactives
     m <- mix()  # Depend on pigment mix
@@ -1640,23 +1950,21 @@ server <- function(input, output, session) {
   output$download_txt <- downloadHandler(
     filename = function() paste0("fargrecept_", Sys.Date(), ".txt"),
     content = function(file) {
-      df <- recipe_df()
       recipe <- final_recipe()
-      c <- calc()  # Get calc values
-      
-      # Get paint type
+      c <- calc()
       paint_type <- input$paint_type %||% "linseed"
+      df <- recipe_df()
+      
       paint_type_name <- switch(paint_type,
                                 "linseed" = "Linoljefärg",
                                 "egg_oil" = "Äggoljetemperafärg",
                                 "tar" = "Tjäroljefärg",
-                                "Linoljefärg")  # fallback
+                                "Linoljefärg")
       
       txt <- paste0(strrep("=", 60), "\n")
       txt <- paste0(txt, "Paint-o-matic – recept ", Sys.Date(), "\n")
       txt <- paste0(txt, strrep("=", 60), "\n\n")
       
-      # Add color name if provided
       color_name <- input$color_name_step3 %||% input$color_name %||% ""
       if(nchar(color_name) > 0) {
         txt <- paste0(txt, "Färgnamn: ", color_name, "\n")
@@ -1668,114 +1976,59 @@ server <- function(input, output, session) {
                     "Yta: ", format_swe(c$area, 0), " m²\n",
                     "Antal strykningar: ", input$use, "\n\n")
       
-      # Recipe ingredients
+      txt <- paste0(txt, strrep("-", 60), "\n")
+      txt <- paste0(txt, "RECEPT\n")
+      txt <- paste0(txt, strrep("-", 60), "\n\n")
+      
       for(i in 1:nrow(df)) {
-        gram_val <- format_swe(parse_numeric(df[i,2]), 1)
-        txt <- paste0(txt, df[i,1], ": ", gram_val, " g\n")
+        gram_val <- format_swe(parse_numeric(df$Gram[i]), 1)
+        txt <- paste0(txt, df$Ingrediens[i], ": ", gram_val, " g\n")
       }
       
-      # Add sharing URL section
       txt <- paste0(txt, "\n", strrep("=", 60), "\n")
-      txt <- paste0(txt, "Dela och samarbeta om receptet med andra\n")
+      txt <- paste0(txt, "DELA RECEPTET\n")
       txt <- paste0(txt, strrep("=", 60), "\n\n")
       
-      # Generate share URL using helper
       share_url <- generate_share_url(session, input = input, mix_data = mix())
-      
       if(!is.null(share_url)) {
-        txt <- paste0(txt, "Återskapa detta recept genom att öppna följande länk, som återställer alla ingredienser, vikter och inställningar:\n")
-        txt <- paste0(txt, share_url, "\n")
-      } else {
-        txt <- paste0(txt, "Ingen delningslänk tillgänglig.\n")
+        txt <- paste0(txt, "Återskapa detta recept:\n", share_url, "\n\n")
       }
       
-      # Add sourcing section
       txt <- paste0(txt, "\n", strrep("=", 60), "\n")
-      txt <- paste0(txt, "Skaffa ingredienserna till din färg här\n")
+      txt <- paste0(txt, "LEVERANTÖRSINFORMATION\n")
       txt <- paste0(txt, strrep("=", 60), "\n\n")
       
-      # Collect all pigment IDs used in recipe
-      pigment_ids <- c()
-      if(recipe$zn > 0.1) pigment_ids <- c(pigment_ids, "44100")
-      if(recipe$ti > 0.1) pigment_ids <- c(pigment_ids, "44400")
-      if(length(recipe$color) > 0) pigment_ids <- c(pigment_ids, names(recipe$color))
-      # Add filler for egg-oil tempera
-      if(paint_type == "egg_oil" && ! is.null(recipe$filler_id)) {
-        pigment_ids <- c(pigment_ids, recipe$filler_id)
-      }
-      
-      # Add supplier links for each pigment
-      suppliers_found <- FALSE
-      for(id in pigment_ids) {
-        pigment <- pigments_db[[id]]
-        if(is.null(pigment) || is.null(pigment$suppliers)) next
+      has_suppliers <- FALSE
+      for(i in 1:nrow(df)) {
+        pid <- df$pigment_id[i]
         
-        suppliers_found <- TRUE
-        
-        txt <- paste0(txt, pigments_db[[id]]$name, "\n")
-
-        # Kremer Pigmente
-        if(!is.null(pigment$suppliers$kremer)) {
-          txt <- paste0(txt, "  Kremer Pigmente:\n")
-          txt <- paste0(txt, "    - Matchning: ", pigment$suppliers$kremer$match, " match\n")
-          txt <- paste0(txt, "    - Produkt-ID: ", pigment$suppliers$kremer$id, "\n")
+        if(nchar(pid) > 0 && pid %in% names(pigments_db)) {
+          supplier_text <- format_supplier_info_text(pid)
           
-          # Handle multiple URLs (e.g., for GO94_GU30)
-          if(length(pigment$suppliers$kremer$url) > 1) {
-            txt <- paste0(txt, "    - Webbadresser:\n")
-            for(url in pigment$suppliers$kremer$url) {
-              txt <- paste0(txt, "      ", url, "\n")
-            }
-          } else {
-            txt <- paste0(txt, "    - Webbadress: ", pigment$suppliers$kremer$url, "\n")
+          if(nchar(supplier_text) > 0) {
+            has_suppliers <- TRUE
+            txt <- paste0(txt, df$Ingrediens[i], "\n")
+            txt <- paste0(txt, strrep("-", 40), "\n")
+            txt <- paste0(txt, supplier_text, "\n\n")
           }
         }
-        
-        # Ottosson Färgmakeri
-        if(!is.null(pigment$suppliers$ottosson)) {
-          txt <- paste0(txt, "  Ottosson Färgmakeri (Sverige):\n")
-          txt <- paste0(txt, "    - Produkt: ", pigment$suppliers$ottosson$name, "\n")
-          txt <- paste0(txt, "    - Webbadress: ", pigment$suppliers$ottosson$url, "\n")
-        }
-        
-        # Claessons Trätjära
-        if(!is.null(pigment$suppliers$claessons)) {
-          txt <- paste0(txt, "  Claessons Trätjära (Sverige):\n")
-          txt <- paste0(txt, "    - Produkt: ", pigment$suppliers$claessons$name, "\n")
-          txt <- paste0(txt, "    - Webbadress: ", pigment$suppliers$claessons$url, "\n")
-        }
-        
-        # Gysinge
-        if(!is.null(pigment$suppliers$gysinge)) {
-          txt <- paste0(txt, "  Gysinge (Sverige):\n")
-          txt <- paste0(txt, "    - Produkt: ", pigment$suppliers$gysinge$name, "\n")
-          txt <- paste0(txt, "    - Webbadress: ", pigment$suppliers$gysinge$url, "\n")
-        }
-        
-        txt <- paste0(txt, "  Notering: ", pigment$notes, "\n\n")
       }
       
-      # Add general supplier info
-      if(suppliers_found) {
-        #txt <- paste0(txt, strrep("-", 60), "\n")
-        txt <- paste0(txt, "\n", strrep("=", 60), "\n")
-        txt <- paste0(txt, "Pålitliga leverantörer till byggnadsvårdare\n")
-        txt <- paste0(txt, strrep("=", 60), "\n\n")
-        txt <- paste0(txt, "Kremer Pigmente GmbH & Co. KG (Tyskland)\n")
-        txt <- paste0(txt, "  Webbplats: https://www.kremer-pigmente.com/en/shop/pigments\n")
-        txt <- paste0(txt, "  Internationell leverantör av högkvalitativa pigment\n\n")
-        txt <- paste0(txt, "Ottosson Färgmakeri (Sverige)\n")
-        txt <- paste0(txt, "  Webbplats: https://ottossonfarg.com/\n")
-        txt <- paste0(txt, "  Svensktillverkad linoljefärg och pigment\n\n")
-        txt <- paste0(txt, "Claessons Trätjära (Sverige)\n")
-        txt <- paste0(txt, "  Webbplats: https://claessons.com/pigment/\n")
-        txt <- paste0(txt, "  Byggnadsvård och pigment\n\n")
-        txt <- paste0(txt, "Andra svenska leverantörer:\n")
-        txt <- paste0(txt, "  - Gysinge: https://gysinge.se/\n")
-      } else {
-        txt <- paste0(txt, "Inga leverantörslänkar tillgängliga för dessa pigment.\n")
-        txt <- paste0(txt, "Kontakta Kremer Pigmente, Ottosson, Claessons eller Gysinge.\n")
+      if(!has_suppliers) {
+        txt <- paste0(txt, "Ingen leverantörsinformation tillgänglig.\n\n")
       }
+      
+      txt <- paste0(txt, strrep("=", 60), "\n")
+      txt <- paste0(txt, "GENERELL LEVERANTÖRSINFORMATION\n")
+      txt <- paste0(txt, strrep("=", 60), "\n\n")
+      txt <- paste0(txt, "Kremer Pigmente GmbH & Co. KG (Tyskland)\n")
+      txt <- paste0(txt, "  https://www.kremer-pigmente.com/en/shop/pigments\n\n")
+      txt <- paste0(txt, "Ottosson Färgmakeri (Sverige)\n")
+      txt <- paste0(txt, "  https://ottossonfarg.com/\n\n")
+      txt <- paste0(txt, "Claessons Trätjära (Sverige)\n")
+      txt <- paste0(txt, "  https://claessons.com/pigment/\n\n")
+      txt <- paste0(txt, "Gysinge (Sverige)\n")
+      txt <- paste0(txt, "  https://gysinge.se/\n\n")
       
       con <- file(file, open = "wt", encoding = "UTF-8")
       writeLines(txt, con)

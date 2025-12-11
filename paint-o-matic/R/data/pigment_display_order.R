@@ -158,7 +158,9 @@ PIGMENT_DISPLAY_ORDER <- list(
     "23720",  # Quinacridone magenta
     "11670",  # Phthalo blue
     "23050",  # Phthalo blue primary
-    "23000"   # Phthalo green
+    "23000",  # Phthalo green
+    "41700",
+    "11100"
   ),
   
   "Specialfärger & Patina" = c("ODF_PATINE"),

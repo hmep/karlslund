@@ -26,12 +26,12 @@ PIGMENT_DISPLAY_ORDER <- list(
   # GREENS: Hue progression (yellow-green → blue-green)
   "Gröna" = c(
     # Yellow-green umbers
-    "GU30", "40630", "ODF_T_OMBRE_V",  # Greenish umber group (H:40-80°)
+    #"GU30", "40630", 
+    "ODF_T_OMBRE_V",  # Greenish umber group (H:40-80°)
     # True greens - Verona group (lightest)
     "40860", "11000", "41750", "40850",  # Verona green earths (identical/equivalent)
-    "ODF_TV_BRENT",  # Brentonico (Italian, similar to Verona)
-    # True greens - French/Cyprus
     "40830",  # Green earth from France
+    "ODF_TV_BRENT",  # Brentonico (Italian, similar to Verona)
     "ODF_TV_NICO",  # Nicosia green (Cyprus)
     "ODF_TV_ANC",  # Ancient green earth stock
     # Blue-greens (chromium)

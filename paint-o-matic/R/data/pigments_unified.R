@@ -2224,7 +2224,7 @@ pigments_db <- list(
   
   "41600" = list(
     id = "41600",
-    name = "Terra Ercolano (Kremer)",
+    name = "Terra Ercolano",
     properties = list(
       oil = 34,
       K = 0.82,

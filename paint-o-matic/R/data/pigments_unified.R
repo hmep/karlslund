@@ -78,7 +78,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "46300",
-        match = "exact",
+        match = "exakt",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/46300-zinc-white"
       ),
       ottosson = list(
@@ -107,7 +107,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "46200",
-        match = "exact",
+        match = "exakt",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/46200-titanium-white-rutile"
       ),
       ottosson = list(
@@ -137,8 +137,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "599930",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/fillers-building-materials/599930-tripoli-rotten-stone-light"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/fillers-building-materials/599930-tripoli-rotten-stone-light.html"
       )
     ),
     notes = "Kiselgur (diatoméjord), mycket fin poleringsfyllnad. Mycket hög oljeabsorption. Används för fin polering och som mattande tillsats."
@@ -162,8 +162,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "58000",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/fillers-building-materials/58000-chalk-from-champagne"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/fillers-building-materials/58000-chalk-from-champagne.html"
       )
     ),
     notes = "Naturlig kalciumkarbonat från Frankrike (CaCO3). Används för grundningar, stuckatur och som fyllmedel i färg. Färgindex: PW 18.77220. Låg oljeabsorption."
@@ -187,8 +187,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "58010",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/fillers-building-materials/58010-chalk-from-ruegen"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/fillers-building-materials/58010-chalk-from-ruegen.html"
       )
     ),
     notes = "Naturlig kalciumkarbonat från Tyskland, ca 40 µ. Något grövre och mer gråaktig än Champagnekrita. Färgindex: PW 18.77220. Används i väggfärg och grundningar."
@@ -212,8 +212,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "58162",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/fillers-building-materials/58162-stone-chalk-white"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/fillers-building-materials/58162-stone-chalk-white.html"
       )
     ),
     notes = "Mycket fin stenkrita, ca 4 µ. Finaste kvalitet krita för högkvalitativa applikationer. Lägst oljeabsorption av alla kritor."
@@ -237,8 +237,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "58900",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/fillers-building-materials/58900-bentonite"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/fillers-building-materials/58900-bentonite.html"
       )
     ),
     notes = "Förtjockningsmedel, särskilt för oljefärg. Mycket hög oljeabsorption (180%). Lera som sväller i kontakt med olja. Färgindex: PW 19.77004. Används sparsamt (1-5%)."
@@ -262,8 +262,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "58250",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/fillers-building-materials/58250-kaolin-yellowish"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/fillers-building-materials/58250-kaolin-yellowish.html"
       )
     ),
     notes = "Vit bolus, gulaktig kaolin-lera. Används som fyllmedel och för att öka opacitet. Färgindex: PW 19. Måttlig oljeabsorption (45%)."
@@ -288,7 +288,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "44250",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/44250-viridian-green"
       )
     ),
@@ -313,7 +313,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "44400",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/44400-malachite-synthetic"
       )
     ),
@@ -338,7 +338,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "23000",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/23000-phthalo-green-bluish-pg-7"
       )
     ),
@@ -363,7 +363,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "44200",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/44200-chrome-oxide-green"
       )
     ),
@@ -388,7 +388,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "44350",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/44350-cobalt-green-dark"
       )
     ),
@@ -413,22 +413,22 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40850",
-        match = "exact",
+        match = "exakt",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/40850-green-earth-bohemian"
       ),
       kremer_verona_alt1 = list(
         id = "41700",
-        match = "identical",
+        match = "identisk",
         confidence = "confirmed",
         notes = "Verona Green Earth - same source",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/41700-verona-green-earth"
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/41700-verona-green-earth.html"
       ),
       kremer_verona_alt2 = list(
         id = "11000",
-        match = "identical",
+        match = "identisk",
         confidence = "confirmed",
         notes = "Verona Green Earth alternate code",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/11000-verona-green-earth"
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/11000-verona-green-earth.html"
       )
     ),
     notes = "EXAKT MATCHNING - Samma produktnummer! Böhmisk grön jord från Kremer."
@@ -452,15 +452,15 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40860",
-        match = "exact",
+        match = "exakt",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/40860-green-earth-verona"
       ),
       kremer_france = list(
         id = "40830",
-        match = "equivalent",
+        match = "ekvivalent",
         confidence = "high",
         notes = "Green Earth from France",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40830-green-earth-from-france"
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40830-green-earth-from-france.html"
       )
     ),
     notes = "EXAKT MATCHNING - Samma produktnummer! Veronese grön jord från Kremer."
@@ -484,22 +484,22 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40630",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/40630-raw-umber-greenish"
       ),
       kremer = list(
         id = "40630",
-        match = "exact",
+        match = "exakt",
         confidence = "high",
         notes = "Raw Umber Greenish - grönaktig umbra",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40630-raw-umber-greenish"
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40630-raw-umber-greenish.html"
       ),
       ocres_de_france = list(
         name = "Terre d'ombre verdâtre",
-        match = "equivalent",
+        match = "ekvivalent",
         confidence = "high",
         notes = "Greenish umber earth",
-        url = "https://www.ocres-de-france.com/en/natural-pigments"
+        url = "https://www.ocres-de-france.com/en/green-pigments/558-434-pigment-terre-d-ombre-verdatre.html"
       )
     ),
     notes = "Tysk obränd umbra med grönaktig nyans"
@@ -524,7 +524,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "47000",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/47000-black-iron-oxide"
       ),
       ottosson = list(
@@ -558,7 +558,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "48400",
-        match = "exact",
+        match = "exakt",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/48400-iron-oxide-black-318-high-tinting"
       ),
       ottosson = list(
@@ -592,7 +592,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "47100",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/47100-bone-black"
       ),
       ottosson = list(
@@ -640,8 +640,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "47400",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/47400-spinel-black"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/47400-spinel-black.html"
       )
     ),
     notes = "Enda 'sanna' svarta - jämnt icke-reflekterande över hela spektrumet. Djupaste svarta pigmentet tillgängligt (förutom Vanta Black). Järn-mangan spinell (Fe,Mn)₃O₄. Färgindex: PBk 26.77494. Utmärkt ljusäkthet (8/8/8). Värmebeständig >500°C. Mycket fin partikelstorlek (~0.5 µm). Kräver hög oljeabsorption (65-70%). Säker att använda. Premium kvalitet."
@@ -666,7 +666,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "23060",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/23060-phthalo-blue-royal-blue-pb-15-3"
       )
     ),
@@ -691,7 +691,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "45000",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/45000-ultramarine-blue-very-dark"
       )
     ),
@@ -716,7 +716,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "45710",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/45710-cobalt-blue-medium"
       )
     ),
@@ -742,7 +742,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "41550",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/41550-terra-pozzuoli"
       )
     ),
@@ -767,7 +767,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40400",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/40400-raw-sienna-italian"
       )
     ),
@@ -791,8 +791,8 @@ pigments_db <- list(
     ),
     suppliers = list(
       kremer = list(
-        id = "40450",
-        match = "equivalent",
+        id = "44620",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/40450-burnt-sienna-italian"
       )
     ),
@@ -817,7 +817,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40400",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/40400-raw-sienna-italian"
       )
     ),
@@ -843,7 +843,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40010",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/40010-yellow-ochre-light"
       ),
       ottosson = list(
@@ -852,10 +852,10 @@ pigments_db <- list(
       ),
       kremer = list(
         id = "40010",
-        match = "equivalent",
+        match = "ekvivalent",
         confidence = "high",
         notes = "French Ochre Jaune Clair - lightest yellow ochre",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/40010-french-ochre-jtcles"
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/40010-french-ochre-jtcles.html"
       )
     ),
     notes = "Ljus gul ockra, ett av de mest använda pigmenten i svensk tradition."
@@ -879,7 +879,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40030",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/40030-yellow-ochre-dark"
       )
     ),
@@ -904,7 +904,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "43010",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/43010-naples-yellow-light"
       )
     ),
@@ -929,7 +929,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "43000",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/43000-naples-yellow-dark"
       )
     ),
@@ -954,7 +954,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40030",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/40030-yellow-ochre-dark"
       )
     ),
@@ -979,7 +979,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40010",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/40010-yellow-ochre-light"
       )
     ),
@@ -1004,7 +1004,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40015",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/40015-yellow-ochre-golden-italian"
       ),
       ottosson = list(
@@ -1013,10 +1013,10 @@ pigments_db <- list(
       ),
       ocres_de_france = list(
         name = "Ocre jaune foncé JFLES",
-        match = "equivalent",
+        match = "ekvivalent",
         confidence = "medium",
         notes = "Vaucluse gold ochre - star product",
-        url = "https://www.ocres-de-france.com/en/yellow-pigments/500-pigment-ocre-jaune-fonce-jfles.html"
+        url = "https://www.ocres-de-france.com/en/yellow-pigments/500-43-pigment-ocre-jaune-fonce-jfles.html"
       )
     ),
     notes = "Guldtonad ockra, varmare än ljusockra. Klassiskt svensk pigment."
@@ -1071,7 +1071,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40400",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/40400-raw-sienna-italian"
       ),
       ocres_de_france = list(
@@ -1079,7 +1079,7 @@ pigments_db <- list(
         match = "similar",
         confidence = "medium",
         notes = "Natural sienna - NOTE: source changed 2017",
-        url = "https://www.ocres-de-france.com/en/yellow-pigments"
+        url = "https://www.ocres-de-france.com/en/yellow-pigments/590-424-pigment-sienne-naturelle.html"
       )
     ),
     notes = "Klassisk obränd sienna från Italien. Naturligt jordpigment."
@@ -1103,7 +1103,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40450",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/40450-burnt-sienna-italian"
       ),
       ottosson = list(
@@ -1112,17 +1112,17 @@ pigments_db <- list(
       ),
       kremer = list(
         id = "40470",
-        match = "equivalent",
+        match = "ekvivalent",
         confidence = "high",
         notes = "Burnt Sienna from France",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40470-burnt-sienna-from-france"
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40470-burnt-sienna-from-france.html"
       ),
       ocres_de_france = list(
         name = "Sienne calcinée",
-        match = "equivalent",
+        match = "ekvivalent",
         confidence = "high",
         notes = "Burnt sienna from France",
-        url = "https://www.ocres-de-france.com/en/red-pigments"
+        url = "https://www.ocres-de-france.com/en/red-pigments/588-412-pigment-sienne-calcinee.html"
       )
     ),
     notes = "Bränd sienna med varm rödbrun nyans. Liknande bränt järnoxid."
@@ -1146,7 +1146,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40610",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/40610-raw-umber"
       ),
       ocres_de_france = list(
@@ -1154,7 +1154,7 @@ pigments_db <- list(
         match = "variant",
         confidence = "medium",
         notes = "Cyprus raw umber - Type D",
-        url = "https://www.ocres-de-france.com/en/yellow-pigments"
+        url = "https://www.ocres-de-france.com/en/umber-pigments-/548-297-pigment-ombre-de-chypre-d.html"
       )
     ),
     notes = "Traditionell cypriotisk obränd umbra, mörkbrun-grön. MYCKET GOD MATCHNING - samma pigment (PBr8)."
@@ -1178,7 +1178,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40720",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/40720-burnt-umber-dark-brown"
       ),
       ottosson = list(
@@ -1192,10 +1192,10 @@ pigments_db <- list(
       ),
       ocres_de_france = list(
         name = "Ombre brûlée de Chypre B",
-        match = "equivalent",
+        match = "ekvivalent",
         confidence = "high",
         notes = "Cyprus burnt umber - Type B",
-        url = "https://www.ocres-de-france.com/en/red-pigments"
+        url = "https://www.ocres-de-france.com/en/umber-pigments-/543-282-pigment-ombre-brulee-de-chypre-b.html"
       )
     ),
     notes = "Cypriotisk bränd umbra, mycket mörk. Finns hos Kremer, Ottosson och Claessons."
@@ -1219,7 +1219,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40700",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/40700-burnt-umber-reddish"
       )
     ),
@@ -1244,7 +1244,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40660",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/40660-raw-umber-dark"
       )
     ),
@@ -1270,15 +1270,15 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "48000",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/48000-transparent-brown-oxide"
       ),
       ocres_de_france = list(
         name = "Ocre rouge RFLES",
-        match = "equivalent",
+        match = "ekvivalent",
         confidence = "medium",
         notes = "Vaucluse red ochre - burnt from JFLES",
-        url = "https://www.ocres-de-france.com/en/red-pigments"
+        url = "https://www.ocres-de-france.com/en/red-pigments/507-49-pigment-ocre-rouge-rfles.html"
       )
     ),
     notes = "Transparent järnoxid för lasering och transparenta skikt."
@@ -1302,7 +1302,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "48100",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/48100-red-iron-oxide-transparent"
       )
     ),
@@ -1327,7 +1327,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "48200",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/48200-red-iron-oxide-light"
       ),
       ottosson = list(
@@ -1361,7 +1361,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "48300",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/48300-red-iron-oxide-dark"
       ),
       ottosson = list(
@@ -1390,7 +1390,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "48500",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/48500-orange-iron-oxide"
       )
     ),
@@ -1415,7 +1415,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "48200",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/48200-red-iron-oxide-medium"
       )
     ),
@@ -1440,7 +1440,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "48280",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/48280-caput-mortuum-violet"
       )
     ),
@@ -1465,7 +1465,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "48220",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/48220-red-iron-oxide-light"
       )
     ),
@@ -1490,15 +1490,15 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "42100",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/42100-english-red"
       ),
       kremer_light = list(
         id = "40542",
-        match = "exact",
+        match = "exakt",
         confidence = "high",
         notes = "English Red Light - ljusare variant",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40542-english-red-light"
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40542-english-red-light.html"
       )
     ),
     notes = "Traditionellt engelskt rött, ljust orange-rött järnoxid"
@@ -1529,8 +1529,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "48250",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/48250-iron-oxide-red-222-dark"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/48250-iron-oxide-red-222-dark.html"
       )
     ),
     notes = "Järnoxidrött 222, mörk variant. PR101. Syntetiskt järnoxid (Fe₂O₃) med djup mörkröd nyans.  Relativ färgstyrka 95-105% (standardiserad mot baryt). Mycket tight färgtolerans (ΔE*ab max 1,7). Excellent ljushärdighet, opak, lämplig för alla bindemedel.  Kvalitetskontrollerad konsistens mellan batcher."
@@ -1555,7 +1555,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "48610",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/48610-brown-iron-oxide-610"
       )
     ),
@@ -1580,7 +1580,7 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "48686",
-        match = "exact",
+        match = "exakt",
         url = "https://www.kremer-pigmente.com/en/shop/pigments/48686-brown-iron-oxide-686"
       )
     ),
@@ -1671,8 +1671,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "11620",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/11620-brown-earth-from-otranto"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/11620-brown-earth-from-otranto.html"
       )
     ),
     notes = "Naturlig brunockra från Otranto, Italien. Järnoxid med kalkavlagringar ('ärtmalm'). PBr7. Mycket god ljushärdighet (8/8). Sanguinbrun nyans."
@@ -1699,8 +1699,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "17280",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/kremer-made-and-historic-pigments/17280-persian-red"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/kremer-made-and-historic-pigments/17280-persian-red.html"
       )
     ),
     notes = "Historiskt järnoxidrött från Hormuz. PR102, ca 70% järnoxid, mycket fin kornstorlek (~20 µm). Varm djup röd nyans. Excellent ljushärdighet."
@@ -1728,12 +1728,12 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40010",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/40010-french-ochre-jtcles"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/40010-french-ochre-jtcles.html"
       ),
       ocres_de_france = list(
         name = "Ocre jaune clair",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.ocres-de-france.com/en/yellow-pigments/499-pigment-ocre-jaune-clair.html"
       )
     ),
@@ -1761,8 +1761,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40020",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/40020-french-ochre-rtfles"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/40020-french-ochre-rtfles.html"
       )
     ),
     notes = "Fransk naturlig gulockra, mörk nyans. PY43. Högre järninnehåll än ljus variant. Mycket god ljushärdighet."
@@ -1789,8 +1789,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40030",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/40030-french-ochre-joles"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/40030-french-ochre-joles.html"
       )
     ),
     notes = "Fransk guldockra med varmt ton. PY43. Klassisk ockra för byggnadsvård. Liknar svensk guldockra."
@@ -1817,8 +1817,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40050",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40050-french-ochre-jfles"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40050-french-ochre-jfles.html"
       )
     ),
     notes = "Fransk mörkgul ockra med brunaktigt ton. PY43. Övergångsfärg mellan gult och brunt."
@@ -1845,8 +1845,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40060",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40060-french-ochre-jals"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40060-french-ochre-jals.html"
       )
     ),
     notes = "Fransk orangetonad ockra. PY43. Varm nyans mellan gult och orange. För ljusa fasadfärger."
@@ -1873,8 +1873,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40070",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/40070-french-ochre-sofodor"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/40070-french-ochre-sofodor.html"
       )
     ),
     notes = "Fransk guldbrunt ockra. PY43. Mörkare gulbrun nyans, rik färg för historiska rekonstruktioner."
@@ -1901,12 +1901,12 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40080",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/40080-french-ochre-havane"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/40080-french-ochre-havane.html"
       ),
       ocres_de_france = list(
         name = "Ocre havane",
-        match = "equivalent",
+        match = "ekvivalent",
         url = "https://www.ocres-de-france.com/en/orange-pigments/498-pigment-ocre-havane.html"
       )
     ),
@@ -1934,8 +1934,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40090",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/40090-french-ochre-soforouge"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/40090-french-ochre-soforouge.html"
       )
     ),
     notes = "Fransk rödbrun ockra. PY43. Övergångsfärg mot röda toner. För varma fasader."
@@ -1962,8 +1962,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40130",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40130-french-ochre-sahara"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40130-french-ochre-sahara.html"
       )
     ),
     notes = "Fransk saharaockra med neutral gulbrun ton. PY43. För neutrala fasadkulörer."
@@ -1990,8 +1990,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40214",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/40214-gold-ochre-dd"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/40214-gold-ochre-dd.html"
       )
     ),
     notes = "Tysk guldockra DD-kvalitet. PY43. Rik guldgul ton, liknande svensk guldockra GO94."
@@ -2019,8 +2019,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40470",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40470-burnt-sienna-from-france"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40470-burnt-sienna-from-france.html"
       )
     ),
     notes = "Fransk bränd sienna. PBr7. Varm rödbrun naturlig jord, bränd för att intensifiera färgen. Klassiskt konstnärspigment. Se 44620 för RAÄ-referens."
@@ -2047,8 +2047,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40542",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40542-english-red-light"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40542-english-red-light.html"
       )
     ),
     notes = "Ljus variant av engelskt rött järnoxid. PR102. Klassisk byggnadsvårdsfärg, ljusare än standard engelskt rött. Se ER48A för RAÄ-referens."
@@ -2075,8 +2075,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40610",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/40610-raw-umber"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/40610-raw-umber.html"
       )
     ),
     notes = "Obränd umbra, naturlig brungrön jord. PBr7. Standard umbra för linoljefärg. Cypriotisk ursprung. Se OU103 för RAÄ-referens."
@@ -2103,8 +2103,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40630",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40630-raw-umber-greenish"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40630-raw-umber-greenish.html"
       )
     ),
     notes = "Obränd umbra med grön underton. PBr7. Används för gröngrå nyanser. Tysk/cypriotisk. Se GU30 för RAÄ-referens."
@@ -2131,8 +2131,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40720",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40720-burnt-umber-dark-brown"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40720-burnt-umber-dark-brown.html"
       )
     ),
     notes = "Mycket mörk bränd umbra. PBr7. Kalla mörkbruna toner för schattering. Cypriotisk bränd umbra. Se BU100 för RAÄ-referens."
@@ -2159,8 +2159,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40830",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40830-green-earth-from-france"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40830-green-earth-from-france.html"
       )
     ),
     notes = "Fransk grön jord (terre verte). PG23. Naturlig celadonit/glaukonit. Klassiskt pigment för underliggande toner i porträtt."
@@ -2187,8 +2187,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "41700",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/41700-verona-green-earth"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/41700-verona-green-earth.html"
       )
     ),
     notes = "Verona grön jord från Italien. PG23. Klassisk verones grön för fresko och olja. Naturlig glaukonit."
@@ -2215,8 +2215,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "41750",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/41750-vagone-green-earth"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/41750-vagone-green-earth.html"
       )
     ),
     notes = "Vagone grön jord från Italien. PG23. Variant av Verona grön med något ljusare ton."
@@ -2224,7 +2224,7 @@ pigments_db <- list(
   
   "41600" = list(
     id = "41600",
-    name = "Terra Ercolano",
+    name = "Terra Ercolano (Kremer)",
     properties = list(
       oil = 34,
       K = 0.82,
@@ -2243,12 +2243,12 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "41600",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/41600-terra-ercolano"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/41600-terra-ercolano.html"
       ),
       ocres_de_france = list(
         name = "Rouge Ercolano",
-        match = "identical",
+        match = "identisk",
         confidence = "confirmed",
         notes = "SAME PIGMENT: San Giovanni Ilarione source",
         url = "https://www.ocres-de-france.com/en/red-pigments/552-pigment-rouge-ercolano.html"
@@ -2278,8 +2278,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "11000",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/11000-verona-green-earth"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/11000-verona-green-earth.html"
       )
     ),
     notes = "Alternativ Verona grön jord. PG23. Samma pigmenttyp som 41700, kan vara annan kvalitetsklass."
@@ -2307,8 +2307,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "23000",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/23000-phthalo-green-bluish-pg-7"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/23000-phthalo-green-bluish-pg-7.html"
       )
     ),
     notes = "Phthalocyaningrön, blåaktig nyans. PG7. Mycket hög färgstyrka (95-105%), excellent ljushärdighet (8/8). Organiskt pigment. Kall grön."
@@ -2335,8 +2335,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "23050",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/23050-phthalo-blue-primary-pb-15-1"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/23050-phthalo-blue-primary-pb-15-1.html"
       )
     ),
     notes = "Phthalocyaninblå, primär nyans. PB15:1. Mycket hög färgstyrka, excellent ljushärdighet. Organiskt pigment. Rent blå ton."
@@ -2363,8 +2363,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "23720",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/pigments-of-modern-age/23720-quinacridone-red-magenta-pv-19"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/pigments-of-modern-age/23720-quinacridone-red-magenta-pv-19.html"
       )
     ),
     notes = "Quinacridon magenta. PV19. Hög färgstyrka, transparent, excellent ljushärdighet (7-8/8). Organiskt pigment för lasering och intensiva toner."
@@ -2392,8 +2392,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "43300",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/pigments-of-modern-age/43300-titanium-orange"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/pigments-of-modern-age/43300-titanium-orange.html"
       )
     ),
     notes = "Titanbaserat orange pigment. Mycket hög täckförmåga och god ljushärdighet. Modern syntetiskt pigment."
@@ -2420,8 +2420,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "46280",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/46280-buff-titanium"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/46280-buff-titanium.html"
       )
     ),
     notes = "Buff titanium, ljus beige-gul. Titanbaserat pigment med mycket hög täckförmåga. För ljusa, täckande toner."
@@ -2449,8 +2449,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "47700",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/pigments-of-modern-age/carbon-black/47700-graphite-powder-silver"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/pigments-of-modern-age/carbon-black/47700-graphite-powder-silver.html"
       )
     ),
     notes = "Grafitpulver med metallisk silverton. Kolbaserat pigment. Ger metallisk glans åt färgen. Lägre färgstyrka än kimrök."
@@ -2477,8 +2477,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "47800",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/pigments-of-modern-age/carbon-black/47800-charcoal-powder"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/pigments-of-modern-age/carbon-black/47800-charcoal-powder.html"
       )
     ),
     notes = "Träkolspulver. PBk6/7. Naturligt svart från pyrolys av trä. Lägre färgstyrka än kolsvart, mjukare svart med brunaktig underton. Mycket hög oljeabsorption."
@@ -2506,8 +2506,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "48289",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/iron-oxide-pigments/48289-iron-oxide-red-micronized"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/iron-oxide-pigments/48289-iron-oxide-red-micronized.html"
       )
     ),
     notes = "Mikroniserat järnoxidrött. PR101. Mycket fin kornstorlek ger högre färgstyrka och jämnare dispersion. Låg oljeabsorption."
@@ -2534,8 +2534,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "48401",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/iron-oxide-pigments/48401-iron-oxide-black-neutral"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/iron-oxide-pigments/48401-iron-oxide-black-neutral.html"
       )
     ),
     notes = "Neutralt järnoxidsvart. PBk11. Syntetiskt magnetit (Fe₃O₄). Neutral svart ton utan färgskiftning."
@@ -2562,8 +2562,8 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "48651",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/iron-oxide-pigments/48651-haematite-intense-tinting"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/iron-oxide-pigments/48651-haematite-intense-tinting.html"
       )
     ),
     notes = "Hematit med intensiv färgstyrka. PR102. Naturligt järnoxid (Fe₂O₃) bearbetat för maximal färgstyrka. Djup röd nyans."
@@ -2590,15 +2590,15 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "47250",
-        match = "exact",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/47250-furnace-black"
+        match = "exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/47250-furnace-black.html"
       ),
       ocres_de_france = list(
         name = "Noir de Rome",
         match = "similar",
         confidence = "medium",
         notes = "Roman black - traditional black pigment",
-        url = "https://www.ocres-de-france.com/en/natural-pigments"
+        url = "https://www.ocres-de-france.com/en/black-pigments/542-194-pigment-noir-de-rome.html"
       )
     ),
     notes = "Kimrök, modern variant av lampsvart (Furnace Black), kolsvart PBk7. Mycket hög färgstyrka och djup svart nyans. Framställt genom ofullständig förbränning av kolväten i ugn. Ett av de svarta pigment som har högst färgstyrka. Mycket hög oljeabsorption. Neutral blåsvart underton."
@@ -2629,8 +2629,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Ocre jaune foncé JFLES",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/yellow-pigments/500-pigment-ocre-jaune-fonce-jfles.html"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/yellow-pigments/500-43-pigment-ocre-jaune-fonce-jfles.html"
       )
     ),
     notes = "Ocres de France 'stjärnprodukt'. JFLES = Jaune Foncé Lavé Extra Supérieur (Mörkgul Tvättad Extra Överlägsen). Utvunnen från Gargas-stenbrott, Vaucluse. Lång process av utvinning, separation, tvättning, sedimentation, torkning och malning för att uppnå exceptionell renhet. Även känd som 'gulockra från Vaucluse'. Används för att tillverka Ocre rouge RFLES genom bränning. 100% naturlig. PY43."
@@ -2657,8 +2657,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Oxy Apt jaune",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/natural-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/yellow-pigments/504-324-pigment-oxy-apt-jaune.html"
       )
     ),
     notes = "Oxy Apt jaune - pigmentberedning baserad på gulockra från Gargas-stenbrott. Ursprungligen kallad 'gul oxid från Apt' (Apt = stad där Ocres de Frances fabrik ligger). 98% naturlig. Något ljusare än JFLES. PY43."
@@ -2685,8 +2685,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Ocre Iclès-Sof",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/natural-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/yellow-pigments/506-230-pigment-ocre-icles-sof.html"
       )
     ),
     notes = "Ocre Iclès-Sof - pigmentberedning baserad på gulockra, skapad 2004. 98% naturlig. Mellanliggande gulockraton. PY43."
@@ -2717,8 +2717,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Ocre rouge RFLES",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/red-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/red-pigments/507-49-pigment-ocre-rouge-rfles.html"
       )
     ),
     notes = "Ocre rouge RFLES (Rouge Foncé Lavé Extra Supérieur). Tillverkad genom bränning av Ocre jaune foncé JFLES från Gargas-stenbrott. Finaste ockran, högsta järnoxidinnehåll. Lysande, mjuk röd färg. 100% naturlig. PR102."
@@ -2745,8 +2745,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Oxy Apt rouge",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/red-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/red-pigments/505-333-pigment-oxy-apt-rouge.html"
       )
     ),
     notes = "Oxy Apt rouge - pigmentberedning baserad på gulockra. Ursprungligen 'rött oxid från Apt'. 100% naturlig. Något ljusare än RFLES. PR102."
@@ -2773,8 +2773,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Ocre marron",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/natural-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/brown-pigments/503-61-pigment-ocre-marron.html"
       )
     ),
     notes = "Ocre marron (Brunockra) - pigmentberedning skapad av Ocres de France. Sammansatt av ockra och andra järnoxider. 93% naturlig. Varm brun ton. PBr7."
@@ -2805,8 +2805,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Sienne naturelle",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/yellow-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/yellow-pigments/590-424-pigment-sienne-naturelle.html"
       )
     ),
     notes = "Sienne naturelle (Naturlig Sienna). Mycket gammalt pigment, traditionellt från Siena, Italien. Finns även i Ardennerna, Cypern, Tyskland, England, Mexiko, södra Kina, Indien. OBS: Sedan 2017 har Ocres de Frances sienna-källa ändrats - kontakta dem för arbetskontinuitet om man använder pre-2017. 100% naturlig. PBr7."
@@ -2833,8 +2833,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Sienne calcinée",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/red-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/red-pigments/588-412-pigment-sienne-calcinee.html"
       )
     ),
     notes = "Sienne calcinée (Bränd Sienna). Resultat av bränning av naturlig sienna. Varm rödbrun färg. 100% naturlig. PBr7."
@@ -2861,8 +2861,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Sienne claire (Sahara)",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/natural-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/green-pigments/589-418-pigment-sienne-claire-sahara.html"
       )
     ),
     notes = "Sienne claire (Sahara) - ljus sienna med varm beige ton. 100% naturlig. PBr7."
@@ -2893,8 +2893,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Terre jaune d'Italie",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/yellow-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/yellow-pigments/557-430-pigment-terre-jaune-d-italie.html"
       )
     ),
     notes = "Terre jaune d'Italie (Gul Jord från Italien). Färgad jord från Veronas kullar. Torkad, renad och malen med hammarkvarn. 100% naturlig. PY43."
@@ -2921,15 +2921,15 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Rouge Ercolano",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/red-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/red-pigments/552-377-pigment-rouge-ercolano.html"
       ),
       kremer = list(
         id = "41600",
-        match = "identical",
+        match = "identisk",
         confidence = "confirmed",
         notes = "SAME SOURCE: San Giovanni Ilarione quarry, Veneto, Italy",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/41600-terra-ercolano"
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/41600-terra-ercolano.html"
       )
     ),
     notes = "Rouge Ercolano - krossad naturlig röd jord från San Giovanni Ilarione-stenbrott, Veneto, Italien. 100% naturlig. PR102. Samma som Kremers Terra di Ercolano."
@@ -2956,8 +2956,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Rouge Vénitien",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/red-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/red-pigments/555-404-pigment-rouge-venitien.html"
       )
     ),
     notes = "Rouge Vénitien (Venetianskt Rött) - färgande jord från Veneto-regionen (Verona). Känd sedan antiken, efterfrågad inom konst och restaurering. 100% naturlig. PR102."
@@ -2984,8 +2984,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Brun de Cassel d'Italie",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/natural-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/brown-pigments/538-119-pigment-brun-de-cassel-d-italie.html"
       )
     ),
     notes = "Brun de Cassel d'Italie (Casselbrunt från Italien) - jord från Verona-området. Ursprungligen från torv- eller lignitfyndigheter. Historiskt dålig ljusbeständighet, ersatt på 1800-talet av brända oxider. 100% naturlig. PBr8."
@@ -3016,8 +3016,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Terre verte de Nicosie",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/natural-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/green-pigments/561-449-pigment-terre-verte-de-nicosie.html"
       )
     ),
     notes = "Terre verte de Nicosie (Nikosia Grön Jord) - jord utvunnen på Cypern. Mycket god täckförmåga och unik färg. 100% naturlig. PG23. Celadonit/glaukonit."
@@ -3044,8 +3044,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Terre verte de Brentonico",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/natural-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/green-pigments/563-445-pigment-terre-verte-de-brentonico.html"
       )
     ),
     notes = "Terre verte de Brentonico - italiensk grön jord. 100% naturlig. PG23. Celadonit/glaukonit."
@@ -3072,8 +3072,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Terre verte ancienne",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/natural-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/green-pigments/560-442-pigment-terre-verte-ancienne.html"
       )
     ),
     notes = "Terre verte ancienne (Gammal Grön Jord) - grön jord från äldre lager. 100% naturlig. PG23."
@@ -3104,8 +3104,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Ombre de Chypre D",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/yellow-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/umber-pigments-/548-297-pigment-ombre-de-chypre-d.html"
       )
     ),
     notes = "Ombre de Chypre D (Umbra D från Cypern). Cypern är största mediterrana umbraproducenten. Namn från latin 'umbra' (skugga). Förekommer som lera, vilket gör det tillgängligt och billigt. 100% naturlig. PBr7."
@@ -3132,8 +3132,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Ombre brûlée de Chypre B",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/red-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/umber-pigments-/543-282-pigment-ombre-brulee-de-chypre-b.html"
       )
     ),
     notes = "Ombre brûlée de Chypre B (Bränd Umbra B från Cypern). Bränd Cypern umbra. 100% naturlig. PBr7."
@@ -3160,8 +3160,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Ombre de Chypre FL",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/natural-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/umber-pigments-/540-301-pigment-ombre-de-chypre-fl.html"
       )
     ),
     notes = "Ombre de Chypre FL (Umbra FL från Cypern). Obränd Cypern umbra. 100% naturlig. PBr7."
@@ -3188,8 +3188,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Ombre naturelle",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/natural-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/umber-pigments-/587-309-pigment-ombre-naturelle.html"
       )
     ),
     notes = "Ombre naturelle (Naturlig Umbra) - INTE i naturligt tillstånd, resultat av blandning av flera naturliga pigment av Ocres de France. Flaggskeppspigment med hög UV-beständighet, oumbärlig nyans för dekoration eller stenpatina. Varm brun ton. PBr7/PBr8-blandning."
@@ -3216,8 +3216,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Ombre calcinée",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/natural-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/umber-pigments-/586-272-pigment-ombre-calcinee.html"
       )
     ),
     notes = "Ombre calcinée (Bränd Umbra) - pigmentberedning skapad av Ocres de France från Sienna-jord. 96% naturlig. Djup brun ton. PBr7."
@@ -3244,8 +3244,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Terre d'ombre verdâtre",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/natural-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/green-pigments/558-434-pigment-terre-d-ombre-verdatre.html"
       )
     ),
     notes = "Terre d'ombre verdâtre (Grönaktig Umbrajord) - umbra med grön underton. 100% naturlig. PBr8."
@@ -3276,8 +3276,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Jaune Indien",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/yellow-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/yellow-pigments/526-162-pigment-jaune-indien.html"
       )
     ),
     notes = "Jaune Indien (Indiskt Gult) - pigmentberedning tillverkad av Ocres de France. 100% naturlig. Varmt gult med gyllen underton. PY43."
@@ -3304,8 +3304,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Rouge Indien",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/red-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/red-pigments/528-383-pigment-rouge-indien.html"
       )
     ),
     notes = "Rouge Indien (Indiskt Rött) - naturlig jord från Indien. 100% naturlig. Varmt djupt rött. PR102."
@@ -3332,8 +3332,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Noir Indien",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/natural-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/black-pigments/527-209-pigment-noir-indien.html"
       )
     ),
     notes = "Noir Indien (Indiskt Svart) - pigment från Indien. 100% naturlig. Djupt svart. PBk7/PBk11-blandning."
@@ -3364,8 +3364,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Noir d'Ivoire",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/natural-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/black-pigments/537-204-pigment-noir-d-ivoire.html"
       )
     ),
     notes = "Noir d'Ivoire (Elfenbenssvart) - pigmentberedning designad 2016, förfinad 2021. Äkta elfenbenssvart framställdes från brända djurben. Nu framställt från järnoxid och växtbaserat kol. Namnet behållet för färglikhet. 97% naturlig. PBk9/PBk11."
@@ -3392,8 +3392,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Noir de vigne",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/natural-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/black-pigments/533-199-pigment-noir-de-vigne.html"
       )
     ),
     notes = "Noir de vigne (Vinsvart) - svart järnoxid som reproducerar original vinsvart (förkolnade vinkvista). 98% naturlig. VARNING: Inte för slätpolering (risk för strimmor/'fusées'). PBk11."
@@ -3420,8 +3420,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Noir de Rome",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/natural-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/black-pigments/542-194-pigment-noir-de-rome.html"
       )
     ),
     notes = "Noir de Rome (Romskt Svart) - traditionellt svart pigment. 100% naturlig. Neutralt svart. PBk7/PBk11."
@@ -3452,8 +3452,8 @@ pigments_db <- list(
     suppliers = list(
       ocres_de_france = list(
         name = "Patine terre",
-        match = "exact",
-        url = "https://www.ocres-de-france.com/en/natural-pigments"
+        match = "exakt",
+        url = "https://www.ocres-de-france.com/en/pigments-in-powder/48-330-pigment-patine-terre.html"
       )
     ),
     notes = "Patine terre (Jordpatina) - pigmentberedning skapad 2019. Neutral, naturlig färg som påminner om jord och sand. 100% naturlig. För dekoration och stenpatina. PY43/PBr7."

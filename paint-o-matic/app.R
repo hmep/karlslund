@@ -426,7 +426,7 @@ ui <- dashboardPage(
                hr(),
                actionButton("back2","Föregående", class="btn-default back-btn", icon = icon("circle-arrow-left")),
                actionButton("restart","Börja om från början", class="btn-default back-btn", icon = icon("fast-backward")),
-               div(class="footer-ref", "CPCV-värden hämtade från datablad och litteraturen, uppskattningar av åtgång per m² är ungefärliga och beror också på målningsstil.")
+               div(class="footer-ref", "Oljetal hämtade från datablad och litteraturen, uppskattningar av åtgång per m² är ungefärliga och beror också på målningsstil.")
     ))
   )
 )
@@ -1723,7 +1723,7 @@ server <- function(input, output, session) {
     rows <- list()
     
     if(paint_type == "egg_oil") {
-      rows <- c(rows, list(list("Kallpressad kokt linolja", r$oil, "")))
+      rows <- c(rows, list(list("Kokt kallpressad linolja", r$oil, "")))
       rows <- c(rows, list(list(paste0("Ägg (", format_swe(r$eggs_count), " st à 50 g)"), r$eggs, "")))
       rows <- c(rows, list(list("Vatten", r$water, "")))
       
@@ -1755,7 +1755,7 @@ server <- function(input, output, session) {
         "Trätjära"
       }
       rows <- c(rows, list(list(tar_name, r$tar, "")))
-      rows <- c(rows, list(list("Kallpressad kokt linolja", r$oil, "")))
+      rows <- c(rows, list(list("Kokt kallpressad linolja", r$oil, "")))
       rows <- c(rows, list(list("Balsamterpentin", r$balsamterpentin, "")))
       
       if(!is.null(r$zn) && r$zn > 0.1) rows <- c(rows, list(list("Zinkvitt PW4", r$zn, "44100")))
@@ -1773,7 +1773,7 @@ server <- function(input, output, session) {
       }
       
     } else {
-      rows <- c(rows, list(list("Kallpressad kokt linolja", r$oil, "")))
+      rows <- c(rows, list(list("Kokt kallpressad linolja", r$oil, "")))
       if(!is.null(r$zn) && r$zn > 0.1) rows <- c(rows, list(list("Zinkvitt PW4", r$zn, "44100")))
       if(!is.null(r$ti) && r$ti > 0.1) rows <- c(rows, list(list("Titanvitt Rutile PW6", r$ti, "44400")))
       

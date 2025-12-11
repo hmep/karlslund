@@ -120,5 +120,35 @@ misc_db <- list(
       )
     ),
     notes = "Traditionellt lösningsmedel för linoljefärg."
+  ),
+  # === LINSEED OIL ===
+  "OIL01" = list(
+    id = "OIL01",
+    name = "Kokt kallpressad linolja",
+    properties = list(
+      density = 0.92  # g/cm³ approximate
+    ),
+    metadata = list(
+      category = "binder",
+      description = "Kokt kallpressad linolja."
+    ),
+    suppliers = list(
+      biltema = list(
+        match = "Balsamterpentin 1 liter",
+        url = "https://www.biltema.se/bygg/farg/rengoringsmedel/balsamterpentin-1-liter-2000063842",
+        notes = "Prisvärd, lättillgänglig i butik, tveksam kvalitet (undvik helst)"
+      ),
+      claessons = list(
+        match = "Balsamterpentin",
+        url = "https://claessons.com/balsamterpentin/balsamterpentin/",
+        notes = "Hög kvalitet, naturprodukt"
+      ),
+      kremer = list(
+        match = "Pine Turpentine",
+        url = "https://www.kremer-pigmente.com/en/shop/solvents-chemicals-additives/70010-pine-turpentine.html",
+        notes = "Premium quality, international supplier"
+      )
+    ),
+    notes = "Traditionellt bindemedel för linoljefärg, emulsionsfärg, äggoljetemperad, kitt, tjäroljefärg med mera."
   )
 )

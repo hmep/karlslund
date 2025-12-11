@@ -317,7 +317,7 @@ pigments_db <- list(
         url = "https://www.kremer-pigmente.com/en/shop/pigments/44400-malachite-synthetic"
       )
     ),
-    notes = "Syntetisk malakit som alternativ till naturlig. Speciellt pigment från Kremer."
+    notes = "Syntetisk malakit som alternativ till naturlig. Speciellt pigment från Kremer. Säljs ej till privatpersoner."
   ),
   
   "11100" = list(
@@ -387,16 +387,16 @@ pigments_db <- list(
     ),
     suppliers = list(
       kremer = list(
-        id = "44350",
-        match = "ekvivalent",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/44350-cobalt-green-dark"
+        id = "44101",
+        match = "skaplig, ej exakt",
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/44101-cobalt-green-pg-50.html"
       )
     ),
-    notes = "Zinkbaserad grön, närmaste matchning för traditionell zinkgrön"
+    notes = "Zinkbaserad grön, närmaste giftfria matchning för traditionell zinkgrön"
   ),
   
-  "40850" = list(
-    id = "40850",
+  "40810" = list(
+    id = "40810",
     name = "Grön jord Böhmen",
     properties = list(
       oil = 35,
@@ -412,58 +412,12 @@ pigments_db <- list(
     ),
     suppliers = list(
       kremer = list(
-        id = "40850",
+        id = "40810",
         match = "exakt",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/40850-green-earth-bohemian"
-      ),
-      kremer_verona_alt1 = list(
-        id = "41700",
-        match = "identisk",
-        confidence = "confirmed",
-        notes = "Verona Green Earth - same source",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/41700-verona-green-earth.html"
-      ),
-      kremer_verona_alt2 = list(
-        id = "11000",
-        match = "identisk",
-        confidence = "confirmed",
-        notes = "Verona Green Earth alternate code",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/11000-verona-green-earth.html"
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/40810-bohemian-green-earth.html"
       )
     ),
     notes = "EXAKT MATCHNING - Samma produktnummer! Böhmisk grön jord från Kremer."
-  ),
-  
-  "40860" = list(
-    id = "40860",
-    name = "Grön jord Verona",
-    properties = list(
-      oil = 35,
-      K = 0.65,
-      S = 0.60,
-      density = 3.2,
-      rgb = c(100, 130, 80)
-    ),
-    metadata = list(
-      is_raa = FALSE,
-      is_tar_compatible = TRUE,
-      category = "earth"
-    ),
-    suppliers = list(
-      kremer = list(
-        id = "40860",
-        match = "exakt",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/40860-green-earth-verona"
-      ),
-      kremer_france = list(
-        id = "40830",
-        match = "ekvivalent",
-        confidence = "high",
-        notes = "Green Earth from France",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40830-green-earth-from-france.html"
-      )
-    ),
-    notes = "EXAKT MATCHNING - Samma produktnummer! Veronese grön jord från Kremer."
   ),
   
   "GU30" = list(
@@ -484,11 +438,6 @@ pigments_db <- list(
     suppliers = list(
       kremer = list(
         id = "40630",
-        match = "ekvivalent",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/40630-raw-umber-greenish"
-      ),
-      kremer = list(
-        id = "40630",
         match = "exakt",
         confidence = "high",
         notes = "Raw Umber Greenish - grönaktig umbra",
@@ -503,41 +452,6 @@ pigments_db <- list(
       )
     ),
     notes = "Tysk obränd umbra med grönaktig nyans"
-  ),
-  
-  # BLACKS
-  "44450" = list(
-    id = "44450",
-    name = "Svartoxid PBk11",
-    properties = list(
-      oil = 15,
-      K = 2.40,
-      S = 1.10,
-      density = 5.21,
-      rgb = c(28, 38, 38)
-    ),
-    metadata = list(
-      is_raa = FALSE,
-      is_tar_compatible = TRUE,
-      category = "black"
-    ),
-    suppliers = list(
-      kremer = list(
-        id = "47000",
-        match = "ekvivalent",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/47000-black-iron-oxide"
-      ),
-      ottosson = list(
-        name = "Järnoxidsvart",
-        url = "https://ottossonfarg.com/produkt/jarnoxidsvart/"
-      ),
-      claessons = list(
-        id = "9313",
-        name = "Järnoxidsvart 9313",
-        url = "https://claessons.com/svarta/jarnoxidsvart-9313-losvikt/"
-      )
-    ),
-    notes = "Järnoxidsvart med hög täckförmåga. Finns hos Kremer, Ottosson och Claessons."
   ),
   
   "J318" = list(
@@ -1489,16 +1403,9 @@ pigments_db <- list(
     ),
     suppliers = list(
       kremer = list(
-        id = "42100",
+        id = "40545",
         match = "ekvivalent",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/42100-english-red"
-      ),
-      kremer_light = list(
-        id = "40542",
-        match = "exakt",
-        confidence = "high",
-        notes = "English Red Light - ljusare variant",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40542-english-red-light.html"
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/earth-pigments/40545-english-red-deep.html"
       )
     ),
     notes = "Traditionellt engelskt rött, ljust orange-rött järnoxid"
@@ -1554,9 +1461,9 @@ pigments_db <- list(
     ),
     suppliers = list(
       kremer = list(
-        id = "48610",
+        id = "48350", #48610
         match = "ekvivalent",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/48610-brown-iron-oxide-610"
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/iron-oxide-pigments/48350-iron-oxide-brown-660-dark.html"
       )
     ),
     notes = "Syntetiskt brunt järnoxid, mycket mörkt"
@@ -1581,7 +1488,7 @@ pigments_db <- list(
       kremer = list(
         id = "48686",
         match = "exakt",
-        url = "https://www.kremer-pigmente.com/en/shop/pigments/48686-brown-iron-oxide-686"
+        url = "https://www.kremer-pigmente.com/en/shop/pigments/48360-iron-oxide-brown-686-extra-dark.html"
       )
     ),
     notes = "EXAKT MATCHNING - Samma produktnummer 686, troligen identiskt pigment."
@@ -2259,7 +2166,7 @@ pigments_db <- list(
   
   "11000" = list(
     id = "11000",
-    name = "Grön jord Verona (alternativ kvalitet)",
+    name = "Grön jord Verona",
     properties = list(
       oil = 38,
       K = 0.68,

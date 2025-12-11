@@ -27,15 +27,15 @@ PIGMENT_DISPLAY_ORDER <- list(
   "Gröna" = c(
     # Yellow-green umbers
     #"GU30", "40630", 
-    "ODF_T_OMBRE_V",  # Greenish umber group (H:40-80°)
+    #"ODF_T_OMBRE_V",  # Greenish umber group (H:40-80°)
     # True greens - Verona group (lightest)
-    "40860", "11000", "41750", "40850",  # Verona green earths (identical/equivalent)
+    "11000", "41750", "40810",  # Verona green earths (identical/equivalent)
     "40830",  # Green earth from France
     "ODF_TV_BRENT",  # Brentonico (Italian, similar to Verona)
     "ODF_TV_NICO",  # Nicosia green (Cyprus)
     "ODF_TV_ANC",  # Ancient green earth stock
     # Blue-greens (chromium)
-    "44250", "KG83", "ZG65"  # Chrome oxide greens
+    "KG83", "ZG65"  # Chrome oxide greens
   ),
   
   # BLACKS: Value progression (light grey → deep black)
@@ -49,8 +49,8 @@ PIGMENT_DISPLAY_ORDER <- list(
     "BS98",  # Bone black
     "ODF_INDIEN_N",  # Indian black
     "47250",  # Lamp black (furnace black)
-    "47400",  # Carbon black
-    "44450",  # Mars black
+    "47400",  # Spinel black
+    #"44450",  # Mars black
     "47501"   # Manganese black (darkest)
   ),
   
@@ -160,6 +160,7 @@ PIGMENT_DISPLAY_ORDER <- list(
     "23050",  # Phthalo blue primary
     "23000",  # Phthalo green
     "41700",
+    "44250",
     "11100"
   ),
   
@@ -184,8 +185,6 @@ PIGMENT_DISPLAY_ORDER <- list(
 # CONFIRMED IDENTICAL (same source):
 # - 41600 (Kremer) = ODF_ERCOLANO (Ocres de France)
 #   → San Giovanni Ilarione quarry, Italy
-# - 40850 = 41700 = 11000 (all Kremer Verona Green Earth)
-#   → Verona region, Italy
 #
 # HIGH-CONFIDENCE EQUIVALENTS:
 # - ER48A ≈ 40542 (English Red / English Red Light)

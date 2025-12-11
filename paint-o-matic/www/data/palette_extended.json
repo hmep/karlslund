@@ -1,599 +1,5 @@
 [
   {
-    "code": "EXT_ODF_T_0V0S",
-    "hex": "#545D46",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 100,
-    "vitbas_pct": 0,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_ODF_T_15V0S",
-    "hex": "#727966",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 85,
-    "vitbas_pct": 15,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_ODF_T_30V0S",
-    "hex": "#8D9384",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 70,
-    "vitbas_pct": 30,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_ODF_T_45V0S",
-    "hex": "#A6AB9F",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 55,
-    "vitbas_pct": 45,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_ODF_T_60V0S",
-    "hex": "#BEC1B9",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 40,
-    "vitbas_pct": 60,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_ODF_T_70V0S",
-    "hex": "#CCCFC9",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 30,
-    "vitbas_pct": 70,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_ODF_T_78V0S",
-    "hex": "#D8D9D5",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 22,
-    "vitbas_pct": 78,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_ODF_T_85V0S",
-    "hex": "#E1E2E0",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 15,
-    "vitbas_pct": 85,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_ODF_T_90V0S",
-    "hex": "#E8E9E7",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 10,
-    "vitbas_pct": 90,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_ODF_T_0V8S",
-    "hex": "#4D5541",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 92,
-    "vitbas_pct": 0,
-    "shade_pct": 8,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_ODF_T_15V8S",
-    "hex": "#697060",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 77,
-    "vitbas_pct": 15,
-    "shade_pct": 8,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_ODF_T_30V8S",
-    "hex": "#84897C",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 62,
-    "vitbas_pct": 30,
-    "shade_pct": 8,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_ODF_T_45V8S",
-    "hex": "#9DA097",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 47,
-    "vitbas_pct": 45,
-    "shade_pct": 8,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_ODF_T_60V8S",
-    "hex": "#B3B6B0",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 32,
-    "vitbas_pct": 60,
-    "shade_pct": 8,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_ODF_T_70V8S",
-    "hex": "#C2C4BF",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 22,
-    "vitbas_pct": 70,
-    "shade_pct": 8,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_ODF_T_0V18S",
-    "hex": "#454C3A",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 82,
-    "vitbas_pct": 0,
-    "shade_pct": 18,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_ODF_T_15V18S",
-    "hex": "#606558",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 67,
-    "vitbas_pct": 15,
-    "shade_pct": 18,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_ODF_T_30V18S",
-    "hex": "#7A7E74",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 52,
-    "vitbas_pct": 30,
-    "shade_pct": 18,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_ODF_T_45V18S",
-    "hex": "#92948D",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 37,
-    "vitbas_pct": 45,
-    "shade_pct": 18,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_ODF_T_60V18S",
-    "hex": "#A8A9A5",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 22,
-    "vitbas_pct": 60,
-    "shade_pct": 18,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_ODF_T_0V32S",
-    "hex": "#3B4033",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 68,
-    "vitbas_pct": 0,
-    "shade_pct": 32,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_ODF_T_15V32S",
-    "hex": "#55594F",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 53,
-    "vitbas_pct": 15,
-    "shade_pct": 32,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_ODF_T_30V32S",
-    "hex": "#6D7069",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 38,
-    "vitbas_pct": 30,
-    "shade_pct": 32,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_ODF_T_45V32S",
-    "hex": "#848581",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 23,
-    "vitbas_pct": 45,
-    "shade_pct": 32,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_ODF_T_0V50S",
-    "hex": "#30332A",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 50,
-    "vitbas_pct": 0,
-    "shade_pct": 50,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_ODF_T_15V50S",
-    "hex": "#484B44",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 35,
-    "vitbas_pct": 15,
-    "shade_pct": 50,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_ODF_T_30V50S",
-    "hex": "#5F605D",
-    "base": "ODF_T_OMBRE_V",
-    "base_pct": 20,
-    "vitbas_pct": 30,
-    "shade_pct": 50,
-    "shade_pigment": "J318",
-    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_0V0S",
-    "hex": "#648250",
-    "base": "40860",
-    "base_pct": 100,
-    "vitbas_pct": 0,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_15V0S",
-    "hex": "#7F986F",
-    "base": "40860",
-    "base_pct": 85,
-    "vitbas_pct": 15,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_30V0S",
-    "hex": "#98AB8B",
-    "base": "40860",
-    "base_pct": 70,
-    "vitbas_pct": 30,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_45V0S",
-    "hex": "#AFBDA5",
-    "base": "40860",
-    "base_pct": 55,
-    "vitbas_pct": 45,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_60V0S",
-    "hex": "#C4CEBD",
-    "base": "40860",
-    "base_pct": 40,
-    "vitbas_pct": 60,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_70V0S",
-    "hex": "#D1D9CC",
-    "base": "40860",
-    "base_pct": 30,
-    "vitbas_pct": 70,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_78V0S",
-    "hex": "#DBE1D8",
-    "base": "40860",
-    "base_pct": 22,
-    "vitbas_pct": 78,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_85V0S",
-    "hex": "#E4E7E1",
-    "base": "40860",
-    "base_pct": 15,
-    "vitbas_pct": 85,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_90V0S",
-    "hex": "#EAECE8",
-    "base": "40860",
-    "base_pct": 10,
-    "vitbas_pct": 90,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_0V8S",
-    "hex": "#5B7549",
-    "base": "40860",
-    "base_pct": 92,
-    "vitbas_pct": 0,
-    "shade_pct": 8,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_15V8S",
-    "hex": "#758A67",
-    "base": "40860",
-    "base_pct": 77,
-    "vitbas_pct": 15,
-    "shade_pct": 8,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_30V8S",
-    "hex": "#8D9E82",
-    "base": "40860",
-    "base_pct": 62,
-    "vitbas_pct": 30,
-    "shade_pct": 8,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_45V8S",
-    "hex": "#A4AF9C",
-    "base": "40860",
-    "base_pct": 47,
-    "vitbas_pct": 45,
-    "shade_pct": 8,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_60V8S",
-    "hex": "#B8C0B3",
-    "base": "40860",
-    "base_pct": 32,
-    "vitbas_pct": 60,
-    "shade_pct": 8,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_70V8S",
-    "hex": "#C5CAC2",
-    "base": "40860",
-    "base_pct": 22,
-    "vitbas_pct": 70,
-    "shade_pct": 8,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_0V18S",
-    "hex": "#506642",
-    "base": "40860",
-    "base_pct": 82,
-    "vitbas_pct": 0,
-    "shade_pct": 18,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_15V18S",
-    "hex": "#6A7B5E",
-    "base": "40860",
-    "base_pct": 67,
-    "vitbas_pct": 15,
-    "shade_pct": 18,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_30V18S",
-    "hex": "#818E78",
-    "base": "40860",
-    "base_pct": 52,
-    "vitbas_pct": 30,
-    "shade_pct": 18,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_45V18S",
-    "hex": "#97A091",
-    "base": "40860",
-    "base_pct": 37,
-    "vitbas_pct": 45,
-    "shade_pct": 18,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_60V18S",
-    "hex": "#ABB0A7",
-    "base": "40860",
-    "base_pct": 22,
-    "vitbas_pct": 60,
-    "shade_pct": 18,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_0V32S",
-    "hex": "#445538",
-    "base": "40860",
-    "base_pct": 68,
-    "vitbas_pct": 0,
-    "shade_pct": 32,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_15V32S",
-    "hex": "#5C6853",
-    "base": "40860",
-    "base_pct": 53,
-    "vitbas_pct": 15,
-    "shade_pct": 32,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_30V32S",
-    "hex": "#727B6C",
-    "base": "40860",
-    "base_pct": 38,
-    "vitbas_pct": 30,
-    "shade_pct": 32,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_45V32S",
-    "hex": "#878C83",
-    "base": "40860",
-    "base_pct": 23,
-    "vitbas_pct": 45,
-    "shade_pct": 32,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_0V50S",
-    "hex": "#36412E",
-    "base": "40860",
-    "base_pct": 50,
-    "vitbas_pct": 0,
-    "shade_pct": 50,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_15V50S",
-    "hex": "#4C5447",
-    "base": "40860",
-    "base_pct": 35,
-    "vitbas_pct": 15,
-    "shade_pct": 50,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_40860_30V50S",
-    "hex": "#61665E",
-    "base": "40860",
-    "base_pct": 20,
-    "vitbas_pct": 30,
-    "shade_pct": 50,
-    "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona",
-    "display_group": "Gröna"
-  },
-  {
     "code": "EXT_11000_0V0S",
     "hex": "#7E8864",
     "base": "11000",
@@ -601,7 +7,7 @@
     "vitbas_pct": 0,
     "shade_pct": 0,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -612,7 +18,7 @@
     "vitbas_pct": 15,
     "shade_pct": 0,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -623,7 +29,7 @@
     "vitbas_pct": 30,
     "shade_pct": 0,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -634,7 +40,7 @@
     "vitbas_pct": 45,
     "shade_pct": 0,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -645,7 +51,7 @@
     "vitbas_pct": 60,
     "shade_pct": 0,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -656,7 +62,7 @@
     "vitbas_pct": 70,
     "shade_pct": 0,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -667,7 +73,7 @@
     "vitbas_pct": 78,
     "shade_pct": 0,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -678,7 +84,7 @@
     "vitbas_pct": 85,
     "shade_pct": 0,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -689,7 +95,7 @@
     "vitbas_pct": 90,
     "shade_pct": 0,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -700,7 +106,7 @@
     "vitbas_pct": 0,
     "shade_pct": 8,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -711,7 +117,7 @@
     "vitbas_pct": 15,
     "shade_pct": 8,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -722,7 +128,7 @@
     "vitbas_pct": 30,
     "shade_pct": 8,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -733,7 +139,7 @@
     "vitbas_pct": 45,
     "shade_pct": 8,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -744,7 +150,7 @@
     "vitbas_pct": 60,
     "shade_pct": 8,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -755,7 +161,7 @@
     "vitbas_pct": 70,
     "shade_pct": 8,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -766,7 +172,7 @@
     "vitbas_pct": 0,
     "shade_pct": 18,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -777,7 +183,7 @@
     "vitbas_pct": 15,
     "shade_pct": 18,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -788,7 +194,7 @@
     "vitbas_pct": 30,
     "shade_pct": 18,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -799,7 +205,7 @@
     "vitbas_pct": 45,
     "shade_pct": 18,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -810,7 +216,7 @@
     "vitbas_pct": 60,
     "shade_pct": 18,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -821,7 +227,7 @@
     "vitbas_pct": 0,
     "shade_pct": 32,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -832,7 +238,7 @@
     "vitbas_pct": 15,
     "shade_pct": 32,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -843,7 +249,7 @@
     "vitbas_pct": 30,
     "shade_pct": 32,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -854,7 +260,7 @@
     "vitbas_pct": 45,
     "shade_pct": 32,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -865,7 +271,7 @@
     "vitbas_pct": 0,
     "shade_pct": 50,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -876,7 +282,7 @@
     "vitbas_pct": 15,
     "shade_pct": 50,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -887,7 +293,7 @@
     "vitbas_pct": 30,
     "shade_pct": 50,
     "shade_pigment": "J318",
-    "pigment_name": "Grön jord Verona (alternativ kvalitet)",
+    "pigment_name": "Grön jord Verona",
     "display_group": "Gröna"
   },
   {
@@ -1188,9 +594,9 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_0V0S",
+    "code": "EXT_40810_0V0S",
     "hex": "#5A7846",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 100,
     "vitbas_pct": 0,
     "shade_pct": 0,
@@ -1199,9 +605,9 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_15V0S",
+    "code": "EXT_40810_15V0S",
     "hex": "#789068",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 85,
     "vitbas_pct": 15,
     "shade_pct": 0,
@@ -1210,9 +616,9 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_30V0S",
+    "code": "EXT_40810_30V0S",
     "hex": "#93A686",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 70,
     "vitbas_pct": 30,
     "shade_pct": 0,
@@ -1221,9 +627,9 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_45V0S",
+    "code": "EXT_40810_45V0S",
     "hex": "#ACBAA2",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 55,
     "vitbas_pct": 45,
     "shade_pct": 0,
@@ -1232,9 +638,9 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_60V0S",
+    "code": "EXT_40810_60V0S",
     "hex": "#C2CCBB",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 40,
     "vitbas_pct": 60,
     "shade_pct": 0,
@@ -1243,9 +649,9 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_70V0S",
+    "code": "EXT_40810_70V0S",
     "hex": "#D0D7CB",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 30,
     "vitbas_pct": 70,
     "shade_pct": 0,
@@ -1254,9 +660,9 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_78V0S",
+    "code": "EXT_40810_78V0S",
     "hex": "#DADFD7",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 22,
     "vitbas_pct": 78,
     "shade_pct": 0,
@@ -1265,9 +671,9 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_85V0S",
+    "code": "EXT_40810_85V0S",
     "hex": "#E3E7E1",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 15,
     "vitbas_pct": 85,
     "shade_pct": 0,
@@ -1276,9 +682,9 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_90V0S",
+    "code": "EXT_40810_90V0S",
     "hex": "#E9ECE8",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 10,
     "vitbas_pct": 90,
     "shade_pct": 0,
@@ -1287,9 +693,9 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_0V8S",
+    "code": "EXT_40810_0V8S",
     "hex": "#526C40",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 92,
     "vitbas_pct": 0,
     "shade_pct": 8,
@@ -1298,9 +704,9 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_15V8S",
+    "code": "EXT_40810_15V8S",
     "hex": "#6F8361",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 77,
     "vitbas_pct": 15,
     "shade_pct": 8,
@@ -1309,9 +715,9 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_30V8S",
+    "code": "EXT_40810_30V8S",
     "hex": "#89997E",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 62,
     "vitbas_pct": 30,
     "shade_pct": 8,
@@ -1320,9 +726,9 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_45V8S",
+    "code": "EXT_40810_45V8S",
     "hex": "#A1AC99",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 47,
     "vitbas_pct": 45,
     "shade_pct": 8,
@@ -1331,9 +737,9 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_60V8S",
+    "code": "EXT_40810_60V8S",
     "hex": "#B7BEB2",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 32,
     "vitbas_pct": 60,
     "shade_pct": 8,
@@ -1342,9 +748,9 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_70V8S",
+    "code": "EXT_40810_70V8S",
     "hex": "#C4C9C1",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 22,
     "vitbas_pct": 70,
     "shade_pct": 8,
@@ -1353,9 +759,9 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_0V18S",
+    "code": "EXT_40810_0V18S",
     "hex": "#485E3A",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 82,
     "vitbas_pct": 0,
     "shade_pct": 18,
@@ -1364,9 +770,9 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_15V18S",
+    "code": "EXT_40810_15V18S",
     "hex": "#647559",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 67,
     "vitbas_pct": 15,
     "shade_pct": 18,
@@ -1375,9 +781,9 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_30V18S",
+    "code": "EXT_40810_30V18S",
     "hex": "#7D8A75",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 52,
     "vitbas_pct": 30,
     "shade_pct": 18,
@@ -1386,9 +792,9 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_45V18S",
+    "code": "EXT_40810_45V18S",
     "hex": "#949D8F",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 37,
     "vitbas_pct": 45,
     "shade_pct": 18,
@@ -1397,9 +803,9 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_60V18S",
+    "code": "EXT_40810_60V18S",
     "hex": "#AAAFA6",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 22,
     "vitbas_pct": 60,
     "shade_pct": 18,
@@ -1408,9 +814,9 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_0V32S",
+    "code": "EXT_40810_0V32S",
     "hex": "#3D4E32",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 68,
     "vitbas_pct": 0,
     "shade_pct": 32,
@@ -1419,9 +825,9 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_15V32S",
+    "code": "EXT_40810_15V32S",
     "hex": "#57644F",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 53,
     "vitbas_pct": 15,
     "shade_pct": 32,
@@ -1430,9 +836,9 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_30V32S",
+    "code": "EXT_40810_30V32S",
     "hex": "#6F7869",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 38,
     "vitbas_pct": 30,
     "shade_pct": 32,
@@ -1441,9 +847,9 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_45V32S",
+    "code": "EXT_40810_45V32S",
     "hex": "#858A82",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 23,
     "vitbas_pct": 45,
     "shade_pct": 32,
@@ -1452,9 +858,9 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_0V50S",
+    "code": "EXT_40810_0V50S",
     "hex": "#313C2A",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 50,
     "vitbas_pct": 0,
     "shade_pct": 50,
@@ -1463,9 +869,9 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_15V50S",
+    "code": "EXT_40810_15V50S",
     "hex": "#495144",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 35,
     "vitbas_pct": 15,
     "shade_pct": 50,
@@ -1474,311 +880,14 @@
     "display_group": "Gröna"
   },
   {
-    "code": "EXT_40850_30V50S",
+    "code": "EXT_40810_30V50S",
     "hex": "#60645D",
-    "base": "40850",
+    "base": "40810",
     "base_pct": 20,
     "vitbas_pct": 30,
     "shade_pct": 50,
     "shade_pigment": "J318",
     "pigment_name": "Grön jord Böhmen",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_0V0S",
-    "hex": "#1E7850",
-    "base": "44250",
-    "base_pct": 100,
-    "vitbas_pct": 0,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_15V0S",
-    "hex": "#3C8967",
-    "base": "44250",
-    "base_pct": 85,
-    "vitbas_pct": 15,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_30V0S",
-    "hex": "#5A9B7E",
-    "base": "44250",
-    "base_pct": 70,
-    "vitbas_pct": 30,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_45V0S",
-    "hex": "#7AAD96",
-    "base": "44250",
-    "base_pct": 55,
-    "vitbas_pct": 45,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_60V0S",
-    "hex": "#9AC0AF",
-    "base": "44250",
-    "base_pct": 40,
-    "vitbas_pct": 60,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_70V0S",
-    "hex": "#B0CDC0",
-    "base": "44250",
-    "base_pct": 30,
-    "vitbas_pct": 70,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_78V0S",
-    "hex": "#C2D7CE",
-    "base": "44250",
-    "base_pct": 22,
-    "vitbas_pct": 78,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_85V0S",
-    "hex": "#D2E1DA",
-    "base": "44250",
-    "base_pct": 15,
-    "vitbas_pct": 85,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_90V0S",
-    "hex": "#DEE7E3",
-    "base": "44250",
-    "base_pct": 10,
-    "vitbas_pct": 90,
-    "shade_pct": 0,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_0V8S",
-    "hex": "#1E704B",
-    "base": "44250",
-    "base_pct": 92,
-    "vitbas_pct": 0,
-    "shade_pct": 8,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_15V8S",
-    "hex": "#3B8062",
-    "base": "44250",
-    "base_pct": 77,
-    "vitbas_pct": 15,
-    "shade_pct": 8,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_30V8S",
-    "hex": "#599279",
-    "base": "44250",
-    "base_pct": 62,
-    "vitbas_pct": 30,
-    "shade_pct": 8,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_45V8S",
-    "hex": "#78A490",
-    "base": "44250",
-    "base_pct": 47,
-    "vitbas_pct": 45,
-    "shade_pct": 8,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_60V8S",
-    "hex": "#98B6A9",
-    "base": "44250",
-    "base_pct": 32,
-    "vitbas_pct": 60,
-    "shade_pct": 8,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_70V8S",
-    "hex": "#AEC3BA",
-    "base": "44250",
-    "base_pct": 22,
-    "vitbas_pct": 70,
-    "shade_pct": 8,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_0V18S",
-    "hex": "#1D6545",
-    "base": "44250",
-    "base_pct": 82,
-    "vitbas_pct": 0,
-    "shade_pct": 18,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_15V18S",
-    "hex": "#3A765B",
-    "base": "44250",
-    "base_pct": 67,
-    "vitbas_pct": 15,
-    "shade_pct": 18,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_30V18S",
-    "hex": "#588772",
-    "base": "44250",
-    "base_pct": 52,
-    "vitbas_pct": 30,
-    "shade_pct": 18,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_45V18S",
-    "hex": "#769889",
-    "base": "44250",
-    "base_pct": 37,
-    "vitbas_pct": 45,
-    "shade_pct": 18,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_60V18S",
-    "hex": "#96AAA1",
-    "base": "44250",
-    "base_pct": 22,
-    "vitbas_pct": 60,
-    "shade_pct": 18,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_0V32S",
-    "hex": "#1C573D",
-    "base": "44250",
-    "base_pct": 68,
-    "vitbas_pct": 0,
-    "shade_pct": 32,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_15V32S",
-    "hex": "#396753",
-    "base": "44250",
-    "base_pct": 53,
-    "vitbas_pct": 15,
-    "shade_pct": 32,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_30V32S",
-    "hex": "#567869",
-    "base": "44250",
-    "base_pct": 38,
-    "vitbas_pct": 30,
-    "shade_pct": 32,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_45V32S",
-    "hex": "#748980",
-    "base": "44250",
-    "base_pct": 23,
-    "vitbas_pct": 45,
-    "shade_pct": 32,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_0V50S",
-    "hex": "#1B4633",
-    "base": "44250",
-    "base_pct": 50,
-    "vitbas_pct": 0,
-    "shade_pct": 50,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_15V50S",
-    "hex": "#375548",
-    "base": "44250",
-    "base_pct": 35,
-    "vitbas_pct": 15,
-    "shade_pct": 50,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
-    "display_group": "Gröna"
-  },
-  {
-    "code": "EXT_44250_30V50S",
-    "hex": "#54655E",
-    "base": "44250",
-    "base_pct": 20,
-    "vitbas_pct": 30,
-    "shade_pct": 50,
-    "shade_pigment": "J318",
-    "pigment_name": "Viridian PG18",
     "display_group": "Gröna"
   },
   {
@@ -23166,6 +22275,303 @@
     "display_group": "Moderna syntetiska"
   },
   {
+    "code": "EXT_44250_0V0S",
+    "hex": "#1E7850",
+    "base": "44250",
+    "base_pct": 100,
+    "vitbas_pct": 0,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
+    "code": "EXT_44250_15V0S",
+    "hex": "#3C8967",
+    "base": "44250",
+    "base_pct": 85,
+    "vitbas_pct": 15,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
+    "code": "EXT_44250_30V0S",
+    "hex": "#5A9B7E",
+    "base": "44250",
+    "base_pct": 70,
+    "vitbas_pct": 30,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
+    "code": "EXT_44250_45V0S",
+    "hex": "#7AAD96",
+    "base": "44250",
+    "base_pct": 55,
+    "vitbas_pct": 45,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
+    "code": "EXT_44250_60V0S",
+    "hex": "#9AC0AF",
+    "base": "44250",
+    "base_pct": 40,
+    "vitbas_pct": 60,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
+    "code": "EXT_44250_70V0S",
+    "hex": "#B0CDC0",
+    "base": "44250",
+    "base_pct": 30,
+    "vitbas_pct": 70,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
+    "code": "EXT_44250_78V0S",
+    "hex": "#C2D7CE",
+    "base": "44250",
+    "base_pct": 22,
+    "vitbas_pct": 78,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
+    "code": "EXT_44250_85V0S",
+    "hex": "#D2E1DA",
+    "base": "44250",
+    "base_pct": 15,
+    "vitbas_pct": 85,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
+    "code": "EXT_44250_90V0S",
+    "hex": "#DEE7E3",
+    "base": "44250",
+    "base_pct": 10,
+    "vitbas_pct": 90,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
+    "code": "EXT_44250_0V8S",
+    "hex": "#1E704B",
+    "base": "44250",
+    "base_pct": 92,
+    "vitbas_pct": 0,
+    "shade_pct": 8,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
+    "code": "EXT_44250_15V8S",
+    "hex": "#3B8062",
+    "base": "44250",
+    "base_pct": 77,
+    "vitbas_pct": 15,
+    "shade_pct": 8,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
+    "code": "EXT_44250_30V8S",
+    "hex": "#599279",
+    "base": "44250",
+    "base_pct": 62,
+    "vitbas_pct": 30,
+    "shade_pct": 8,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
+    "code": "EXT_44250_45V8S",
+    "hex": "#78A490",
+    "base": "44250",
+    "base_pct": 47,
+    "vitbas_pct": 45,
+    "shade_pct": 8,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
+    "code": "EXT_44250_60V8S",
+    "hex": "#98B6A9",
+    "base": "44250",
+    "base_pct": 32,
+    "vitbas_pct": 60,
+    "shade_pct": 8,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
+    "code": "EXT_44250_70V8S",
+    "hex": "#AEC3BA",
+    "base": "44250",
+    "base_pct": 22,
+    "vitbas_pct": 70,
+    "shade_pct": 8,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
+    "code": "EXT_44250_0V18S",
+    "hex": "#1D6545",
+    "base": "44250",
+    "base_pct": 82,
+    "vitbas_pct": 0,
+    "shade_pct": 18,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
+    "code": "EXT_44250_15V18S",
+    "hex": "#3A765B",
+    "base": "44250",
+    "base_pct": 67,
+    "vitbas_pct": 15,
+    "shade_pct": 18,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
+    "code": "EXT_44250_30V18S",
+    "hex": "#588772",
+    "base": "44250",
+    "base_pct": 52,
+    "vitbas_pct": 30,
+    "shade_pct": 18,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
+    "code": "EXT_44250_45V18S",
+    "hex": "#769889",
+    "base": "44250",
+    "base_pct": 37,
+    "vitbas_pct": 45,
+    "shade_pct": 18,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
+    "code": "EXT_44250_60V18S",
+    "hex": "#96AAA1",
+    "base": "44250",
+    "base_pct": 22,
+    "vitbas_pct": 60,
+    "shade_pct": 18,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
+    "code": "EXT_44250_0V32S",
+    "hex": "#1C573D",
+    "base": "44250",
+    "base_pct": 68,
+    "vitbas_pct": 0,
+    "shade_pct": 32,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
+    "code": "EXT_44250_15V32S",
+    "hex": "#396753",
+    "base": "44250",
+    "base_pct": 53,
+    "vitbas_pct": 15,
+    "shade_pct": 32,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
+    "code": "EXT_44250_30V32S",
+    "hex": "#567869",
+    "base": "44250",
+    "base_pct": 38,
+    "vitbas_pct": 30,
+    "shade_pct": 32,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
+    "code": "EXT_44250_45V32S",
+    "hex": "#748980",
+    "base": "44250",
+    "base_pct": 23,
+    "vitbas_pct": 45,
+    "shade_pct": 32,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
+    "code": "EXT_44250_0V50S",
+    "hex": "#1B4633",
+    "base": "44250",
+    "base_pct": 50,
+    "vitbas_pct": 0,
+    "shade_pct": 50,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
+    "code": "EXT_44250_15V50S",
+    "hex": "#375548",
+    "base": "44250",
+    "base_pct": 35,
+    "vitbas_pct": 15,
+    "shade_pct": 50,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
+    "code": "EXT_44250_30V50S",
+    "hex": "#54655E",
+    "base": "44250",
+    "base_pct": 20,
+    "vitbas_pct": 30,
+    "shade_pct": 50,
+    "shade_pigment": "J318",
+    "pigment_name": "Viridian PG18",
+    "display_group": "Moderna syntetiska"
+  },
+  {
     "code": "EXT_11100_0V0S",
     "hex": "#006432",
     "base": "11100",
@@ -24055,5 +23461,302 @@
     "shade_pigment": "J318",
     "pigment_name": "Buff titanium",
     "display_group": "Vita"
+  },
+  {
+    "code": "EXT_ODF_T_0V0S",
+    "hex": "#545D46",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 100,
+    "vitbas_pct": 0,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
+  },
+  {
+    "code": "EXT_ODF_T_15V0S",
+    "hex": "#727966",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 85,
+    "vitbas_pct": 15,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
+  },
+  {
+    "code": "EXT_ODF_T_30V0S",
+    "hex": "#8D9384",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 70,
+    "vitbas_pct": 30,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
+  },
+  {
+    "code": "EXT_ODF_T_45V0S",
+    "hex": "#A6AB9F",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 55,
+    "vitbas_pct": 45,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
+  },
+  {
+    "code": "EXT_ODF_T_60V0S",
+    "hex": "#BEC1B9",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 40,
+    "vitbas_pct": 60,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
+  },
+  {
+    "code": "EXT_ODF_T_70V0S",
+    "hex": "#CCCFC9",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 30,
+    "vitbas_pct": 70,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
+  },
+  {
+    "code": "EXT_ODF_T_78V0S",
+    "hex": "#D8D9D5",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 22,
+    "vitbas_pct": 78,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
+  },
+  {
+    "code": "EXT_ODF_T_85V0S",
+    "hex": "#E1E2E0",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 15,
+    "vitbas_pct": 85,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
+  },
+  {
+    "code": "EXT_ODF_T_90V0S",
+    "hex": "#E8E9E7",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 10,
+    "vitbas_pct": 90,
+    "shade_pct": 0,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
+  },
+  {
+    "code": "EXT_ODF_T_0V8S",
+    "hex": "#4D5541",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 92,
+    "vitbas_pct": 0,
+    "shade_pct": 8,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
+  },
+  {
+    "code": "EXT_ODF_T_15V8S",
+    "hex": "#697060",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 77,
+    "vitbas_pct": 15,
+    "shade_pct": 8,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
+  },
+  {
+    "code": "EXT_ODF_T_30V8S",
+    "hex": "#84897C",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 62,
+    "vitbas_pct": 30,
+    "shade_pct": 8,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
+  },
+  {
+    "code": "EXT_ODF_T_45V8S",
+    "hex": "#9DA097",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 47,
+    "vitbas_pct": 45,
+    "shade_pct": 8,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
+  },
+  {
+    "code": "EXT_ODF_T_60V8S",
+    "hex": "#B3B6B0",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 32,
+    "vitbas_pct": 60,
+    "shade_pct": 8,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
+  },
+  {
+    "code": "EXT_ODF_T_70V8S",
+    "hex": "#C2C4BF",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 22,
+    "vitbas_pct": 70,
+    "shade_pct": 8,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
+  },
+  {
+    "code": "EXT_ODF_T_0V18S",
+    "hex": "#454C3A",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 82,
+    "vitbas_pct": 0,
+    "shade_pct": 18,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
+  },
+  {
+    "code": "EXT_ODF_T_15V18S",
+    "hex": "#606558",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 67,
+    "vitbas_pct": 15,
+    "shade_pct": 18,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
+  },
+  {
+    "code": "EXT_ODF_T_30V18S",
+    "hex": "#7A7E74",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 52,
+    "vitbas_pct": 30,
+    "shade_pct": 18,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
+  },
+  {
+    "code": "EXT_ODF_T_45V18S",
+    "hex": "#92948D",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 37,
+    "vitbas_pct": 45,
+    "shade_pct": 18,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
+  },
+  {
+    "code": "EXT_ODF_T_60V18S",
+    "hex": "#A8A9A5",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 22,
+    "vitbas_pct": 60,
+    "shade_pct": 18,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
+  },
+  {
+    "code": "EXT_ODF_T_0V32S",
+    "hex": "#3B4033",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 68,
+    "vitbas_pct": 0,
+    "shade_pct": 32,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
+  },
+  {
+    "code": "EXT_ODF_T_15V32S",
+    "hex": "#55594F",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 53,
+    "vitbas_pct": 15,
+    "shade_pct": 32,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
+  },
+  {
+    "code": "EXT_ODF_T_30V32S",
+    "hex": "#6D7069",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 38,
+    "vitbas_pct": 30,
+    "shade_pct": 32,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
+  },
+  {
+    "code": "EXT_ODF_T_45V32S",
+    "hex": "#848581",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 23,
+    "vitbas_pct": 45,
+    "shade_pct": 32,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
+  },
+  {
+    "code": "EXT_ODF_T_0V50S",
+    "hex": "#30332A",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 50,
+    "vitbas_pct": 0,
+    "shade_pct": 50,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
+  },
+  {
+    "code": "EXT_ODF_T_15V50S",
+    "hex": "#484B44",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 35,
+    "vitbas_pct": 15,
+    "shade_pct": 50,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
+  },
+  {
+    "code": "EXT_ODF_T_30V50S",
+    "hex": "#5F605D",
+    "base": "ODF_T_OMBRE_V",
+    "base_pct": 20,
+    "vitbas_pct": 30,
+    "shade_pct": 50,
+    "shade_pigment": "J318",
+    "pigment_name": "Terre d'ombre verdâtre (Ocres de France)",
+    "display_group": "Övrigt"
   }
 ]

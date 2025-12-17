@@ -232,16 +232,48 @@ ui <- dashboardPage(
                             ),
                             pickerInput("p1", "Pigment 1", choices = all_choices, selected = "vitbas",
                                         options = pickerOptions(`live-search` = TRUE, size = 12)),
-                            conditionalPanel("input.p1", sliderInput("pct1","Andel (%)",0,100,20,1)),
+                            conditionalPanel("input.p1",
+                                             column(8,
+                                                  sliderInput("pct1", "Andel (%)", 
+                                                              min = 0, max = 100, value = 70, step = 0.1)
+                                              ),
+                                              column(4,
+                                                     numericInput("pct1_exact", "", 
+                                                                  value = 70, min = 0, max = 100, step = 0.01)
+                                              )),
                             pickerInput("p2", "Pigment 2", choices = all_choices, selected = "J225",
                                         options = pickerOptions(`live-search` = TRUE, size = 12)),
-                            conditionalPanel("input.p2", sliderInput("pct2","Andel (%)",0,100,80,1)),
+                            conditionalPanel("input.p2",
+                                             column(8,
+                                                    sliderInput("pct2", "Andel (%)", 
+                                                                min = 0, max = 100, value = 30, step = 0.1)
+                                             ),
+                                             column(4,
+                                                    numericInput("pct2_exact", "", 
+                                                                 value = 30, min = 0, max = 100, step = 0.01)
+                                             )),
                             pickerInput("p3", "Pigment 3", choices = all_choices, selected = "",
                                         options = pickerOptions(`live-search` = TRUE, size = 12)),
-                            conditionalPanel("input.p3", sliderInput("pct3","Andel (%)",0,100,0,1)),
+                            conditionalPanel("input.p3",
+                                             column(8,
+                                                    sliderInput("pct3", "Andel (%)", 
+                                                                min = 0, max = 100, value = 0, step = 0.1)
+                                             ),
+                                             column(4,
+                                                    numericInput("pct3_exact", "", 
+                                                                 value = 0, min = 0, max = 100, step = 0.01)
+                                             )),
                             pickerInput("p4", "Pigment 4", choices = all_choices, selected = "",
                                         options = pickerOptions(`live-search` = TRUE, size = 12)),
-                            conditionalPanel("input.p4", sliderInput("pct4","Andel (%)",0,100,0,1)),
+                            conditionalPanel("input.p4",
+                                             column(8,
+                                                    sliderInput("pct4", "Andel (%)", 
+                                                                min = 0, max = 100, value = 0, step = 0.1)
+                                             ),
+                                             column(4,
+                                                    numericInput("pct4_exact", "", 
+                                                                 value = 0, min = 0, max = 100, step = 0.01)
+                                             )),
                             hr(),
                             actionButton("reset_pigments", "Nollställ pigment", class="btn-default", icon = icon("refresh"))
                           ),
@@ -615,6 +647,32 @@ server <- function(input, output, session) {
   
   # Helper function already defined at top of file, available here
   # parse_numeric() and format_swe() are already in global scope
+  
+  # Sync pigment controls
+  observeEvent(input$pct1, {
+    updateNumericInput(session, "pct1_exact", value = input$pct1)
+  })
+  observeEvent(input$pct1_exact, {
+    updateSliderInput(session, "pct1", value = input$pct1_exact)
+  })
+  observeEvent(input$pct2, {
+    updateNumericInput(session, "pct2_exact", value = input$pct2)
+  })
+  observeEvent(input$pct2_exact, {
+    updateSliderInput(session, "pct2", value = input$pct2_exact)
+  })
+  observeEvent(input$pct3, {
+    updateNumericInput(session, "pct3_exact", value = input$pct3)
+  })
+  observeEvent(input$pct3_exact, {
+    updateSliderInput(session, "pct3", value = input$pct3_exact)
+  })
+  observeEvent(input$pct4, {
+    updateNumericInput(session, "pct4_exact", value = input$pct4)
+  })
+  observeEvent(input$pct4_exact, {
+    updateSliderInput(session, "pct4", value = input$pct4_exact)
+  })
   
   # Reset pigments
   observeEvent(input$reset_pigments, {
@@ -1271,11 +1329,11 @@ server <- function(input, output, session) {
       normalized <- (m$pct / m$total) * 100
       
       # Filter out any entries with 0 or near-0 normalized percentages
-      keep <- normalized > 0.05
+      keep <- normalized > 0.005
       if(sum(keep) == 0) return(NULL)
       
       ids_filtered <- m$ids[keep]
-      normalized_filtered <- round(normalized[keep], 1)
+      normalized_filtered <- round(normalized[keep], 2)
       
       # Get pigment names and format
       pigment_names <- sapply(ids_filtered, function(id) {
@@ -1315,7 +1373,7 @@ server <- function(input, output, session) {
       normalized <- (m$pct / m$total) * 100
       
       # Round to integers (sliders use step=1)
-      normalized_int <- round(normalized)
+      normalized_int <- round(normalized,2)
       
       # Ensure they sum to exactly 100 by adjusting largest
       total_normalized <- sum(normalized_int)

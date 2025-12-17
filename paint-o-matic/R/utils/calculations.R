@@ -29,7 +29,7 @@ calculate_base_properties <- function(m, compensated_pcts, zinc_ratio) {
 # Calculate pigment amounts for target volume
 calculate_pigment_amounts <- function(target_liters, oil_absorption, density) {
   V_pigment_per_gram <- 1 / density
-  V_oil_per_gram_min <- oil_absorption / 0.92
+  V_oil_per_gram_min <- oil_absorption / 0.93
   pvc_base <- V_pigment_per_gram / (V_pigment_per_gram + V_oil_per_gram_min)
   
   pigment_volume_L <- target_liters * pvc_base

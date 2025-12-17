@@ -44,8 +44,8 @@ pigments_db <- list(
     name = "Vitbas (K-M-kompenserad titan/zink-blandning)",
     properties = list(
       oil = 17,
-      K = 0.00,
-      S = 2.20,
+      K = 0.003, #0.00,
+      S = 2.2, #2.20,
       density = 4.2,
       rgb = c(245, 245, 245)
     ),
@@ -65,7 +65,7 @@ pigments_db <- list(
     name = "Zinkvitt PW4",
     properties = list(
       oil = 20,
-      K = 0.00,
+      K = 0.003,
       S = 1.66,
       density = 5.6,
       rgb = c(248, 248, 248)
@@ -94,7 +94,7 @@ pigments_db <- list(
     name = "Titanvitt Rutile PW6",
     properties = list(
       oil = 15,
-      K = 0.00,
+      K = 0.003,
       S = 2.55,
       density = 4.2,
       rgb = c(252, 252, 250)

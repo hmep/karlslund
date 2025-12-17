@@ -12,7 +12,7 @@
   },
   {
     "code": "RAA_KG83_15V0S",
-    "hex": "#6A815C",
+    "hex": "#5B774A",
     "base": "KG83",
     "base_pct": 85,
     "vitbas_pct": 15,
@@ -23,7 +23,7 @@
   },
   {
     "code": "RAA_KG83_30V0S",
-    "hex": "#809474",
+    "hex": "#637F52",
     "base": "KG83",
     "base_pct": 70,
     "vitbas_pct": 30,
@@ -34,7 +34,7 @@
   },
   {
     "code": "RAA_KG83_45V0S",
-    "hex": "#97A78E",
+    "hex": "#6E8A5B",
     "base": "KG83",
     "base_pct": 55,
     "vitbas_pct": 45,
@@ -45,7 +45,7 @@
   },
   {
     "code": "RAA_KG83_60V0S",
-    "hex": "#AFBBA8",
+    "hex": "#7B9768",
     "base": "KG83",
     "base_pct": 40,
     "vitbas_pct": 60,
@@ -56,7 +56,7 @@
   },
   {
     "code": "RAA_KG83_75V0S",
-    "hex": "#C9D0C4",
+    "hex": "#8EA87B",
     "base": "KG83",
     "base_pct": 25,
     "vitbas_pct": 75,
@@ -67,7 +67,7 @@
   },
   {
     "code": "RAA_KG83_90V0S",
-    "hex": "#E3E6E1",
+    "hex": "#AFC49E",
     "base": "KG83",
     "base_pct": 10,
     "vitbas_pct": 90,
@@ -78,7 +78,7 @@
   },
   {
     "code": "RAA_KG83_0V2.44S",
-    "hex": "#526D43",
+    "hex": "#4F6542",
     "base": "KG83",
     "base_pct": 97.56,
     "vitbas_pct": 0,
@@ -89,7 +89,7 @@
   },
   {
     "code": "RAA_KG83_29.27V2.44S",
-    "hex": "#7D9072",
+    "hex": "#5C714E",
     "base": "KG83",
     "base_pct": 68.29,
     "vitbas_pct": 29.27,
@@ -100,7 +100,7 @@
   },
   {
     "code": "RAA_KG83_73.17V2.44S",
-    "hex": "#C4CBBF",
+    "hex": "#7C8A6F",
     "base": "KG83",
     "base_pct": 24.39,
     "vitbas_pct": 73.17,
@@ -111,7 +111,7 @@
   },
   {
     "code": "RAA_KG83_0V4.76S",
-    "hex": "#516B42",
+    "hex": "#4C5D40",
     "base": "KG83",
     "base_pct": 95.24,
     "vitbas_pct": 0,
@@ -122,7 +122,7 @@
   },
   {
     "code": "RAA_KG83_14.28V4.76S",
-    "hex": "#657B58",
+    "hex": "#516245",
     "base": "KG83",
     "base_pct": 80.96,
     "vitbas_pct": 14.28,
@@ -133,7 +133,7 @@
   },
   {
     "code": "RAA_KG83_42.85V4.76S",
-    "hex": "#909F88",
+    "hex": "#5E6C52",
     "base": "KG83",
     "base_pct": 52.39,
     "vitbas_pct": 42.85,
@@ -144,7 +144,7 @@
   },
   {
     "code": "RAA_KG83_57.14V4.76S",
-    "hex": "#A7B2A1",
+    "hex": "#66725B",
     "base": "KG83",
     "base_pct": 38.1,
     "vitbas_pct": 57.14,
@@ -155,7 +155,7 @@
   },
   {
     "code": "RAA_KG83_85.71V4.76S",
-    "hex": "#D7DAD6",
+    "hex": "#7C8177",
     "base": "KG83",
     "base_pct": 9.53,
     "vitbas_pct": 85.71,
@@ -166,7 +166,7 @@
   },
   {
     "code": "RAA_KG83_0V6.97S",
-    "hex": "#506941",
+    "hex": "#48573E",
     "base": "KG83",
     "base_pct": 93.03,
     "vitbas_pct": 0,
@@ -177,7 +177,7 @@
   },
   {
     "code": "RAA_KG83_41.86V6.97S",
-    "hex": "#8D9C85",
+    "hex": "#58644E",
     "base": "KG83",
     "base_pct": 51.17,
     "vitbas_pct": 41.86,
@@ -199,7 +199,7 @@
   },
   {
     "code": "RAA_UB88_15V0S",
-    "hex": "#395075",
+    "hex": "#203F6E",
     "base": "UB88",
     "base_pct": 85,
     "vitbas_pct": 15,
@@ -210,7 +210,7 @@
   },
   {
     "code": "RAA_UB88_30V0S",
-    "hex": "#596C8B",
+    "hex": "#284A7B",
     "base": "UB88",
     "base_pct": 70,
     "vitbas_pct": 30,
@@ -221,7 +221,7 @@
   },
   {
     "code": "RAA_UB88_45V0S",
-    "hex": "#7988A1",
+    "hex": "#31578A",
     "base": "UB88",
     "base_pct": 55,
     "vitbas_pct": 45,
@@ -232,7 +232,7 @@
   },
   {
     "code": "RAA_UB88_60V0S",
-    "hex": "#9AA5B7",
+    "hex": "#3C679A",
     "base": "UB88",
     "base_pct": 40,
     "vitbas_pct": 60,
@@ -243,7 +243,7 @@
   },
   {
     "code": "RAA_UB88_75V0S",
-    "hex": "#BBC3CE",
+    "hex": "#4E7DAE",
     "base": "UB88",
     "base_pct": 25,
     "vitbas_pct": 75,
@@ -254,7 +254,7 @@
   },
   {
     "code": "RAA_UB88_90V0S",
-    "hex": "#DEE1E5",
+    "hex": "#73A2C9",
     "base": "UB88",
     "base_pct": 10,
     "vitbas_pct": 90,
@@ -265,7 +265,7 @@
   },
   {
     "code": "RAA_UB88_0V2.44S",
-    "hex": "#1A345E",
+    "hex": "#1A3354",
     "base": "UB88",
     "base_pct": 97.56,
     "vitbas_pct": 0,
@@ -276,7 +276,7 @@
   },
   {
     "code": "RAA_UB88_29.27V2.44S",
-    "hex": "#576A87",
+    "hex": "#274669",
     "base": "UB88",
     "base_pct": 68.29,
     "vitbas_pct": 29.27,
@@ -287,7 +287,7 @@
   },
   {
     "code": "RAA_UB88_73.17V2.44S",
-    "hex": "#B7BEC9",
+    "hex": "#4B6F8A",
     "base": "UB88",
     "base_pct": 24.39,
     "vitbas_pct": 73.17,
@@ -298,7 +298,7 @@
   },
   {
     "code": "RAA_UB88_0V4.76S",
-    "hex": "#1A335C",
+    "hex": "#1A314C",
     "base": "UB88",
     "base_pct": 95.24,
     "vitbas_pct": 0,
@@ -309,7 +309,7 @@
   },
   {
     "code": "RAA_UB88_14.28V4.76S",
-    "hex": "#374D70",
+    "hex": "#203A55",
     "base": "UB88",
     "base_pct": 80.96,
     "vitbas_pct": 14.28,
@@ -320,7 +320,7 @@
   },
   {
     "code": "RAA_UB88_42.85V4.76S",
-    "hex": "#748299",
+    "hex": "#2F4C67",
     "base": "UB88",
     "base_pct": 52.39,
     "vitbas_pct": 42.85,
@@ -331,7 +331,7 @@
   },
   {
     "code": "RAA_UB88_57.14V4.76S",
-    "hex": "#939DAE",
+    "hex": "#39586F",
     "base": "UB88",
     "base_pct": 38.1,
     "vitbas_pct": 57.14,
@@ -342,7 +342,7 @@
   },
   {
     "code": "RAA_UB88_85.71V4.76S",
-    "hex": "#D2D5D9",
+    "hex": "#617781",
     "base": "UB88",
     "base_pct": 9.53,
     "vitbas_pct": 85.71,
@@ -353,7 +353,7 @@
   },
   {
     "code": "RAA_UB88_0V6.97S",
-    "hex": "#1A335A",
+    "hex": "#1A3046",
     "base": "UB88",
     "base_pct": 93.03,
     "vitbas_pct": 0,
@@ -364,7 +364,7 @@
   },
   {
     "code": "RAA_UB88_41.86V6.97S",
-    "hex": "#717F95",
+    "hex": "#2E495D",
     "base": "UB88",
     "base_pct": 51.17,
     "vitbas_pct": 41.86,
@@ -375,7 +375,7 @@
   },
   {
     "code": "RAA_KB28_0V0S",
-    "hex": "#02509A",
+    "hex": "#19509A",
     "base": "KB28",
     "base_pct": 100,
     "vitbas_pct": 0,
@@ -386,7 +386,7 @@
   },
   {
     "code": "RAA_KB28_15V0S",
-    "hex": "#2668A7",
+    "hex": "#205CA6",
     "base": "KB28",
     "base_pct": 85,
     "vitbas_pct": 15,
@@ -397,7 +397,7 @@
   },
   {
     "code": "RAA_KB28_30V0S",
-    "hex": "#4A81B5",
+    "hex": "#2769B1",
     "base": "KB28",
     "base_pct": 70,
     "vitbas_pct": 30,
@@ -408,7 +408,7 @@
   },
   {
     "code": "RAA_KB28_45V0S",
-    "hex": "#6E99C2",
+    "hex": "#2F77BC",
     "base": "KB28",
     "base_pct": 55,
     "vitbas_pct": 45,
@@ -419,7 +419,7 @@
   },
   {
     "code": "RAA_KB28_60V0S",
-    "hex": "#92B2D0",
+    "hex": "#3A88C7",
     "base": "KB28",
     "base_pct": 40,
     "vitbas_pct": 60,
@@ -430,7 +430,7 @@
   },
   {
     "code": "RAA_KB28_75V0S",
-    "hex": "#B7CBDE",
+    "hex": "#4C9DD4",
     "base": "KB28",
     "base_pct": 25,
     "vitbas_pct": 75,
@@ -441,7 +441,7 @@
   },
   {
     "code": "RAA_KB28_90V0S",
-    "hex": "#DCE4EC",
+    "hex": "#70BDE3",
     "base": "KB28",
     "base_pct": 10,
     "vitbas_pct": 90,
@@ -452,7 +452,7 @@
   },
   {
     "code": "RAA_KB28_0V2.44S",
-    "hex": "#034E96",
+    "hex": "#194971",
     "base": "KB28",
     "base_pct": 97.56,
     "vitbas_pct": 0,
@@ -463,7 +463,7 @@
   },
   {
     "code": "RAA_KB28_29.27V2.44S",
-    "hex": "#487EB0",
+    "hex": "#265E82",
     "base": "KB28",
     "base_pct": 68.29,
     "vitbas_pct": 29.27,
@@ -474,7 +474,7 @@
   },
   {
     "code": "RAA_KB28_73.17V2.44S",
-    "hex": "#B2C6D8",
+    "hex": "#498396",
     "base": "KB28",
     "base_pct": 24.39,
     "vitbas_pct": 73.17,
@@ -485,7 +485,7 @@
   },
   {
     "code": "RAA_KB28_0V4.76S",
-    "hex": "#034D93",
+    "hex": "#19445F",
     "base": "KB28",
     "base_pct": 95.24,
     "vitbas_pct": 0,
@@ -496,7 +496,7 @@
   },
   {
     "code": "RAA_KB28_14.28V4.76S",
-    "hex": "#25649F",
+    "hex": "#1F4D67",
     "base": "KB28",
     "base_pct": 80.96,
     "vitbas_pct": 14.28,
@@ -507,7 +507,7 @@
   },
   {
     "code": "RAA_KB28_42.85V4.76S",
-    "hex": "#6992B9",
+    "hex": "#2D5F74",
     "base": "KB28",
     "base_pct": 52.39,
     "vitbas_pct": 42.85,
@@ -518,7 +518,7 @@
   },
   {
     "code": "RAA_KB28_57.14V4.76S",
-    "hex": "#8BA9C5",
+    "hex": "#38697A",
     "base": "KB28",
     "base_pct": 38.1,
     "vitbas_pct": 57.14,
@@ -529,7 +529,7 @@
   },
   {
     "code": "RAA_KB28_85.71V4.76S",
-    "hex": "#D1D8DF",
+    "hex": "#607F84",
     "base": "KB28",
     "base_pct": 9.53,
     "vitbas_pct": 85.71,
@@ -540,7 +540,7 @@
   },
   {
     "code": "RAA_KB28_0V6.97S",
-    "hex": "#044B8F",
+    "hex": "#194055",
     "base": "KB28",
     "base_pct": 93.03,
     "vitbas_pct": 0,
@@ -551,7 +551,7 @@
   },
   {
     "code": "RAA_KB28_41.86V6.97S",
-    "hex": "#678EB4",
+    "hex": "#2D5867",
     "base": "KB28",
     "base_pct": 51.17,
     "vitbas_pct": 41.86,
@@ -573,7 +573,7 @@
   },
   {
     "code": "RAA_BT44_15V0S",
-    "hex": "#985E4C",
+    "hex": "#984D33",
     "base": "BT44",
     "base_pct": 85,
     "vitbas_pct": 15,
@@ -584,7 +584,7 @@
   },
   {
     "code": "RAA_BT44_30V0S",
-    "hex": "#AB7E6F",
+    "hex": "#A85D40",
     "base": "BT44",
     "base_pct": 70,
     "vitbas_pct": 30,
@@ -595,7 +595,7 @@
   },
   {
     "code": "RAA_BT44_45V0S",
-    "hex": "#BD9B90",
+    "hex": "#B66E4E",
     "base": "BT44",
     "base_pct": 55,
     "vitbas_pct": 45,
@@ -606,7 +606,7 @@
   },
   {
     "code": "RAA_BT44_60V0S",
-    "hex": "#CEB6AE",
+    "hex": "#C4815F",
     "base": "BT44",
     "base_pct": 40,
     "vitbas_pct": 60,
@@ -617,7 +617,7 @@
   },
   {
     "code": "RAA_BT44_75V0S",
-    "hex": "#DDCFCA",
+    "hex": "#D29877",
     "base": "BT44",
     "base_pct": 25,
     "vitbas_pct": 75,
@@ -628,7 +628,7 @@
   },
   {
     "code": "RAA_BT44_90V0S",
-    "hex": "#ECE6E4",
+    "hex": "#E2BA9E",
     "base": "BT44",
     "base_pct": 10,
     "vitbas_pct": 90,
@@ -639,7 +639,7 @@
   },
   {
     "code": "RAA_BT44_0V2.44S",
-    "hex": "#7F3B26",
+    "hex": "#5D3725",
     "base": "BT44",
     "base_pct": 97.56,
     "vitbas_pct": 0,
@@ -650,7 +650,7 @@
   },
   {
     "code": "RAA_BT44_29.27V2.44S",
-    "hex": "#A67A6C",
+    "hex": "#79533D",
     "base": "BT44",
     "base_pct": 68.29,
     "vitbas_pct": 29.27,
@@ -661,7 +661,7 @@
   },
   {
     "code": "RAA_BT44_73.17V2.44S",
-    "hex": "#D7C9C5",
+    "hex": "#947F6A",
     "base": "BT44",
     "base_pct": 24.39,
     "vitbas_pct": 73.17,
@@ -672,7 +672,7 @@
   },
   {
     "code": "RAA_BT44_0V4.76S",
-    "hex": "#7B3925",
+    "hex": "#4D3424",
     "base": "BT44",
     "base_pct": 95.24,
     "vitbas_pct": 0,
@@ -683,7 +683,7 @@
   },
   {
     "code": "RAA_BT44_14.28V4.76S",
-    "hex": "#8F5949",
+    "hex": "#5A412F",
     "base": "BT44",
     "base_pct": 80.96,
     "vitbas_pct": 14.28,
@@ -694,7 +694,7 @@
   },
   {
     "code": "RAA_BT44_42.85V4.76S",
-    "hex": "#B39288",
+    "hex": "#6E5845",
     "base": "BT44",
     "base_pct": 52.39,
     "vitbas_pct": 42.85,
@@ -705,7 +705,7 @@
   },
   {
     "code": "RAA_BT44_57.14V4.76S",
-    "hex": "#C2ACA5",
+    "hex": "#766452",
     "base": "BT44",
     "base_pct": 38.1,
     "vitbas_pct": 57.14,
@@ -716,7 +716,7 @@
   },
   {
     "code": "RAA_BT44_85.71V4.76S",
-    "hex": "#DFDAD8",
+    "hex": "#837D75",
     "base": "BT44",
     "base_pct": 9.53,
     "vitbas_pct": 85.71,
@@ -727,7 +727,7 @@
   },
   {
     "code": "RAA_BT44_0V6.97S",
-    "hex": "#783825",
+    "hex": "#443123",
     "base": "BT44",
     "base_pct": 93.03,
     "vitbas_pct": 0,
@@ -738,7 +738,7 @@
   },
   {
     "code": "RAA_BT44_41.86V6.97S",
-    "hex": "#AE8E85",
+    "hex": "#615142",
     "base": "BT44",
     "base_pct": 51.17,
     "vitbas_pct": 41.86,
@@ -760,7 +760,7 @@
   },
   {
     "code": "RAA_OT46_15V0S",
-    "hex": "#A27D4E",
+    "hex": "#A37633",
     "base": "OT46",
     "base_pct": 85,
     "vitbas_pct": 15,
@@ -771,7 +771,7 @@
   },
   {
     "code": "RAA_OT46_30V0S",
-    "hex": "#B49772",
+    "hex": "#B38940",
     "base": "OT46",
     "base_pct": 70,
     "vitbas_pct": 30,
@@ -782,7 +782,7 @@
   },
   {
     "code": "RAA_OT46_45V0S",
-    "hex": "#C5AF93",
+    "hex": "#C09A4F",
     "base": "OT46",
     "base_pct": 55,
     "vitbas_pct": 45,
@@ -793,7 +793,7 @@
   },
   {
     "code": "RAA_OT46_60V0S",
-    "hex": "#D4C5B1",
+    "hex": "#CCAB60",
     "base": "OT46",
     "base_pct": 40,
     "vitbas_pct": 60,
@@ -804,7 +804,7 @@
   },
   {
     "code": "RAA_OT46_75V0S",
-    "hex": "#E1D8CD",
+    "hex": "#D8BE78",
     "base": "OT46",
     "base_pct": 25,
     "vitbas_pct": 75,
@@ -815,7 +815,7 @@
   },
   {
     "code": "RAA_OT46_90V0S",
-    "hex": "#EDEAE6",
+    "hex": "#E6D59F",
     "base": "OT46",
     "base_pct": 10,
     "vitbas_pct": 90,
@@ -826,7 +826,7 @@
   },
   {
     "code": "RAA_OT46_0V2.44S",
-    "hex": "#895D25",
+    "hex": "#5E4D24",
     "base": "OT46",
     "base_pct": 97.56,
     "vitbas_pct": 0,
@@ -837,7 +837,7 @@
   },
   {
     "code": "RAA_OT46_29.27V2.44S",
-    "hex": "#AF936F",
+    "hex": "#7B6C3D",
     "base": "OT46",
     "base_pct": 68.29,
     "vitbas_pct": 29.27,
@@ -848,7 +848,7 @@
   },
   {
     "code": "RAA_OT46_73.17V2.44S",
-    "hex": "#DBD2C7",
+    "hex": "#958F6B",
     "base": "OT46",
     "base_pct": 24.39,
     "vitbas_pct": 73.17,
@@ -859,7 +859,7 @@
   },
   {
     "code": "RAA_OT46_0V4.76S",
-    "hex": "#855A24",
+    "hex": "#4D4323",
     "base": "OT46",
     "base_pct": 95.24,
     "vitbas_pct": 0,
@@ -870,7 +870,7 @@
   },
   {
     "code": "RAA_OT46_14.28V4.76S",
-    "hex": "#98764A",
+    "hex": "#5B512F",
     "base": "OT46",
     "base_pct": 80.96,
     "vitbas_pct": 14.28,
@@ -881,7 +881,7 @@
   },
   {
     "code": "RAA_OT46_42.85V4.76S",
-    "hex": "#B9A58B",
+    "hex": "#6F6846",
     "base": "OT46",
     "base_pct": 52.39,
     "vitbas_pct": 42.85,
@@ -892,7 +892,7 @@
   },
   {
     "code": "RAA_OT46_57.14V4.76S",
-    "hex": "#C7B9A7",
+    "hex": "#777153",
     "base": "OT46",
     "base_pct": 38.1,
     "vitbas_pct": 57.14,
@@ -903,7 +903,7 @@
   },
   {
     "code": "RAA_OT46_85.71V4.76S",
-    "hex": "#E1DDD9",
+    "hex": "#848275",
     "base": "OT46",
     "base_pct": 9.53,
     "vitbas_pct": 85.71,
@@ -914,7 +914,7 @@
   },
   {
     "code": "RAA_OT46_0V6.97S",
-    "hex": "#815824",
+    "hex": "#433C23",
     "base": "OT46",
     "base_pct": 93.03,
     "vitbas_pct": 0,
@@ -925,7 +925,7 @@
   },
   {
     "code": "RAA_OT46_41.86V6.97S",
-    "hex": "#B4A087",
+    "hex": "#625D42",
     "base": "OT46",
     "base_pct": 51.17,
     "vitbas_pct": 41.86,
@@ -947,7 +947,7 @@
   },
   {
     "code": "RAA_LO92_15V0S",
-    "hex": "#B2894B",
+    "hex": "#B6852B",
     "base": "LO92",
     "base_pct": 85,
     "vitbas_pct": 15,
@@ -958,7 +958,7 @@
   },
   {
     "code": "RAA_LO92_30V0S",
-    "hex": "#C2A273",
+    "hex": "#C49838",
     "base": "LO92",
     "base_pct": 70,
     "vitbas_pct": 30,
@@ -969,7 +969,7 @@
   },
   {
     "code": "RAA_LO92_45V0S",
-    "hex": "#CFB896",
+    "hex": "#CFA946",
     "base": "LO92",
     "base_pct": 55,
     "vitbas_pct": 45,
@@ -980,7 +980,7 @@
   },
   {
     "code": "RAA_LO92_60V0S",
-    "hex": "#DBCBB4",
+    "hex": "#D9B957",
     "base": "LO92",
     "base_pct": 40,
     "vitbas_pct": 60,
@@ -991,7 +991,7 @@
   },
   {
     "code": "RAA_LO92_75V0S",
-    "hex": "#E6DDCF",
+    "hex": "#E2C96E",
     "base": "LO92",
     "base_pct": 25,
     "vitbas_pct": 75,
@@ -1002,7 +1002,7 @@
   },
   {
     "code": "RAA_LO92_90V0S",
-    "hex": "#EFECE7",
+    "hex": "#ECDD96",
     "base": "LO92",
     "base_pct": 10,
     "vitbas_pct": 90,
@@ -1013,7 +1013,7 @@
   },
   {
     "code": "RAA_LO92_0V2.44S",
-    "hex": "#9A671D",
+    "hex": "#5D4F1D",
     "base": "LO92",
     "base_pct": 97.56,
     "vitbas_pct": 0,
@@ -1024,7 +1024,7 @@
   },
   {
     "code": "RAA_LO92_29.27V2.44S",
-    "hex": "#BB9D70",
+    "hex": "#7D7135",
     "base": "LO92",
     "base_pct": 68.29,
     "vitbas_pct": 29.27,
@@ -1035,7 +1035,7 @@
   },
   {
     "code": "RAA_LO92_73.17V2.44S",
-    "hex": "#DFD6C9",
+    "hex": "#969264",
     "base": "LO92",
     "base_pct": 24.39,
     "vitbas_pct": 73.17,
@@ -1046,7 +1046,7 @@
   },
   {
     "code": "RAA_LO92_0V4.76S",
-    "hex": "#94641D",
+    "hex": "#4A431D",
     "base": "LO92",
     "base_pct": 95.24,
     "vitbas_pct": 0,
@@ -1057,7 +1057,7 @@
   },
   {
     "code": "RAA_LO92_14.28V4.76S",
-    "hex": "#A68047",
+    "hex": "#5A5328",
     "base": "LO92",
     "base_pct": 80.96,
     "vitbas_pct": 14.28,
@@ -1068,7 +1068,7 @@
   },
   {
     "code": "RAA_LO92_42.85V4.76S",
-    "hex": "#C2AD8D",
+    "hex": "#6F6A3F",
     "base": "LO92",
     "base_pct": 52.39,
     "vitbas_pct": 42.85,
@@ -1079,7 +1079,7 @@
   },
   {
     "code": "RAA_LO92_57.14V4.76S",
-    "hex": "#CEBFAA",
+    "hex": "#77734C",
     "base": "LO92",
     "base_pct": 38.1,
     "vitbas_pct": 57.14,
@@ -1090,7 +1090,7 @@
   },
   {
     "code": "RAA_LO92_85.71V4.76S",
-    "hex": "#E2DFDA",
+    "hex": "#848372",
     "base": "LO92",
     "base_pct": 9.53,
     "vitbas_pct": 85.71,
@@ -1101,7 +1101,7 @@
   },
   {
     "code": "RAA_LO92_0V6.97S",
-    "hex": "#8F611C",
+    "hex": "#403B1C",
     "base": "LO92",
     "base_pct": 93.03,
     "vitbas_pct": 0,
@@ -1112,7 +1112,7 @@
   },
   {
     "code": "RAA_LO92_41.86V6.97S",
-    "hex": "#BDA889",
+    "hex": "#625E3D",
     "base": "LO92",
     "base_pct": 51.17,
     "vitbas_pct": 41.86,
@@ -1134,7 +1134,7 @@
   },
   {
     "code": "RAA_GO94_15V0S",
-    "hex": "#C89B5B",
+    "hex": "#CC9B46",
     "base": "GO94",
     "base_pct": 85,
     "vitbas_pct": 15,
@@ -1145,7 +1145,7 @@
   },
   {
     "code": "RAA_GO94_30V0S",
-    "hex": "#D2AF7E",
+    "hex": "#D6AC57",
     "base": "GO94",
     "base_pct": 70,
     "vitbas_pct": 30,
@@ -1156,7 +1156,7 @@
   },
   {
     "code": "RAA_GO94_45V0S",
-    "hex": "#DBC19C",
+    "hex": "#DDBA68",
     "base": "GO94",
     "base_pct": 55,
     "vitbas_pct": 45,
@@ -1167,7 +1167,7 @@
   },
   {
     "code": "RAA_GO94_60V0S",
-    "hex": "#E3D1B8",
+    "hex": "#E4C77C",
     "base": "GO94",
     "base_pct": 40,
     "vitbas_pct": 60,
@@ -1178,7 +1178,7 @@
   },
   {
     "code": "RAA_GO94_75V0S",
-    "hex": "#EAE0D1",
+    "hex": "#EAD493",
     "base": "GO94",
     "base_pct": 25,
     "vitbas_pct": 75,
@@ -1189,7 +1189,7 @@
   },
   {
     "code": "RAA_GO94_90V0S",
-    "hex": "#F1EDE7",
+    "hex": "#F0E4B6",
     "base": "GO94",
     "base_pct": 10,
     "vitbas_pct": 90,
@@ -1200,7 +1200,7 @@
   },
   {
     "code": "RAA_GO94_0V2.44S",
-    "hex": "#B67F34",
+    "hex": "#655A31",
     "base": "GO94",
     "base_pct": 97.56,
     "vitbas_pct": 0,
@@ -1211,7 +1211,7 @@
   },
   {
     "code": "RAA_GO94_29.27V2.44S",
-    "hex": "#CBA97A",
+    "hex": "#81794F",
     "base": "GO94",
     "base_pct": 68.29,
     "vitbas_pct": 29.27,
@@ -1222,7 +1222,7 @@
   },
   {
     "code": "RAA_GO94_73.17V2.44S",
-    "hex": "#E4D9CB",
+    "hex": "#98957C",
     "base": "GO94",
     "base_pct": 24.39,
     "vitbas_pct": 73.17,
@@ -1233,7 +1233,7 @@
   },
   {
     "code": "RAA_GO94_0V4.76S",
-    "hex": "#B07B33",
+    "hex": "#4F4A2F",
     "base": "GO94",
     "base_pct": 95.24,
     "vitbas_pct": 0,
@@ -1244,7 +1244,7 @@
   },
   {
     "code": "RAA_GO94_14.28V4.76S",
-    "hex": "#BB9156",
+    "hex": "#5E593C",
     "base": "GO94",
     "base_pct": 80.96,
     "vitbas_pct": 14.28,
@@ -1255,7 +1255,7 @@
   },
   {
     "code": "RAA_GO94_42.85V4.76S",
-    "hex": "#CEB593",
+    "hex": "#716E55",
     "base": "GO94",
     "base_pct": 52.39,
     "vitbas_pct": 42.85,
@@ -1266,7 +1266,7 @@
   },
   {
     "code": "RAA_GO94_57.14V4.76S",
-    "hex": "#D6C5AD",
+    "hex": "#797661",
     "base": "GO94",
     "base_pct": 38.1,
     "vitbas_pct": 57.14,
@@ -1277,7 +1277,7 @@
   },
   {
     "code": "RAA_GO94_85.71V4.76S",
-    "hex": "#E4E0DB",
+    "hex": "#84837C",
     "base": "GO94",
     "base_pct": 9.53,
     "vitbas_pct": 85.71,
@@ -1288,7 +1288,7 @@
   },
   {
     "code": "RAA_GO94_0V6.97S",
-    "hex": "#AA7832",
+    "hex": "#45412D",
     "base": "GO94",
     "base_pct": 93.03,
     "vitbas_pct": 0,
@@ -1299,7 +1299,7 @@
   },
   {
     "code": "RAA_GO94_41.86V6.97S",
-    "hex": "#C8B08F",
+    "hex": "#63614F",
     "base": "GO94",
     "base_pct": 51.17,
     "vitbas_pct": 41.86,
@@ -1321,7 +1321,7 @@
   },
   {
     "code": "RAA_GO94__15V0S",
-    "hex": "#90775E",
+    "hex": "#8F6F4C",
     "base": "GO94_GU30",
     "base_pct": 85,
     "vitbas_pct": 15,
@@ -1332,7 +1332,7 @@
   },
   {
     "code": "RAA_GO94__30V0S",
-    "hex": "#A5927E",
+    "hex": "#A1825D",
     "base": "GO94_GU30",
     "base_pct": 70,
     "vitbas_pct": 30,
@@ -1343,7 +1343,7 @@
   },
   {
     "code": "RAA_GO94__45V0S",
-    "hex": "#B9AA9C",
+    "hex": "#B0946F",
     "base": "GO94_GU30",
     "base_pct": 55,
     "vitbas_pct": 45,
@@ -1354,7 +1354,7 @@
   },
   {
     "code": "RAA_GO94__60V0S",
-    "hex": "#CBC1B7",
+    "hex": "#BFA682",
     "base": "GO94_GU30",
     "base_pct": 40,
     "vitbas_pct": 60,
@@ -1365,7 +1365,7 @@
   },
   {
     "code": "RAA_GO94__75V0S",
-    "hex": "#DCD6D0",
+    "hex": "#CEB999",
     "base": "GO94_GU30",
     "base_pct": 25,
     "vitbas_pct": 75,
@@ -1376,7 +1376,7 @@
   },
   {
     "code": "RAA_GO94__90V0S",
-    "hex": "#EBE9E7",
+    "hex": "#E0D2BB",
     "base": "GO94_GU30",
     "base_pct": 10,
     "vitbas_pct": 90,
@@ -1398,7 +1398,7 @@
   },
   {
     "code": "RAA_J920_15V0S",
-    "hex": "#C8964B",
+    "hex": "#CC962B",
     "base": "J920",
     "base_pct": 85,
     "vitbas_pct": 15,
@@ -1409,7 +1409,7 @@
   },
   {
     "code": "RAA_J920_30V0S",
-    "hex": "#D2AC72",
+    "hex": "#D6A838",
     "base": "J920",
     "base_pct": 70,
     "vitbas_pct": 30,
@@ -1420,7 +1420,7 @@
   },
   {
     "code": "RAA_J920_45V0S",
-    "hex": "#DBBF94",
+    "hex": "#DEB746",
     "base": "J920",
     "base_pct": 55,
     "vitbas_pct": 45,
@@ -1431,7 +1431,7 @@
   },
   {
     "code": "RAA_J920_60V0S",
-    "hex": "#E3D0B2",
+    "hex": "#E4C557",
     "base": "J920",
     "base_pct": 40,
     "vitbas_pct": 60,
@@ -1442,7 +1442,7 @@
   },
   {
     "code": "RAA_J920_75V0S",
-    "hex": "#EBDFCE",
+    "hex": "#EAD26F",
     "base": "J920",
     "base_pct": 25,
     "vitbas_pct": 75,
@@ -1453,7 +1453,7 @@
   },
   {
     "code": "RAA_J920_90V0S",
-    "hex": "#F1EDE6",
+    "hex": "#F0E396",
     "base": "J920",
     "base_pct": 10,
     "vitbas_pct": 90,
@@ -1464,7 +1464,7 @@
   },
   {
     "code": "RAA_J920_0V2.44S",
-    "hex": "#B5791E",
+    "hex": "#62561E",
     "base": "J920",
     "base_pct": 97.56,
     "vitbas_pct": 0,
@@ -1475,7 +1475,7 @@
   },
   {
     "code": "RAA_J920_29.27V2.44S",
-    "hex": "#CBA66E",
+    "hex": "#807736",
     "base": "J920",
     "base_pct": 68.29,
     "vitbas_pct": 29.27,
@@ -1486,7 +1486,7 @@
   },
   {
     "code": "RAA_J920_73.17V2.44S",
-    "hex": "#E4D9C8",
+    "hex": "#979464",
     "base": "J920",
     "base_pct": 24.39,
     "vitbas_pct": 73.17,
@@ -1497,7 +1497,7 @@
   },
   {
     "code": "RAA_J920_0V4.76S",
-    "hex": "#AE751E",
+    "hex": "#4D471D",
     "base": "J920",
     "base_pct": 95.24,
     "vitbas_pct": 0,
@@ -1508,7 +1508,7 @@
   },
   {
     "code": "RAA_J920_14.28V4.76S",
-    "hex": "#BA8C47",
+    "hex": "#5C5729",
     "base": "J920",
     "base_pct": 80.96,
     "vitbas_pct": 14.28,
@@ -1519,7 +1519,7 @@
   },
   {
     "code": "RAA_J920_42.85V4.76S",
-    "hex": "#CEB38B",
+    "hex": "#716D40",
     "base": "J920",
     "base_pct": 52.39,
     "vitbas_pct": 42.85,
@@ -1530,7 +1530,7 @@
   },
   {
     "code": "RAA_J920_57.14V4.76S",
-    "hex": "#D6C4A8",
+    "hex": "#78754D",
     "base": "J920",
     "base_pct": 38.1,
     "vitbas_pct": 57.14,
@@ -1541,7 +1541,7 @@
   },
   {
     "code": "RAA_J920_85.71V4.76S",
-    "hex": "#E4E0DA",
+    "hex": "#848372",
     "base": "J920",
     "base_pct": 9.53,
     "vitbas_pct": 85.71,
@@ -1552,7 +1552,7 @@
   },
   {
     "code": "RAA_J920_0V6.97S",
-    "hex": "#A8711D",
+    "hex": "#423F1D",
     "base": "J920",
     "base_pct": 93.03,
     "vitbas_pct": 0,
@@ -1563,7 +1563,7 @@
   },
   {
     "code": "RAA_J920_41.86V6.97S",
-    "hex": "#C8AE87",
+    "hex": "#63603D",
     "base": "J920",
     "base_pct": 51.17,
     "vitbas_pct": 41.86,
@@ -1585,7 +1585,7 @@
   },
   {
     "code": "RAA_OU103_15V0S",
-    "hex": "#8A7A6E",
+    "hex": "#8A7666",
     "base": "OU103",
     "base_pct": 85,
     "vitbas_pct": 15,
@@ -1596,7 +1596,7 @@
   },
   {
     "code": "RAA_OU103_30V0S",
-    "hex": "#A09389",
+    "hex": "#9D8979",
     "base": "OU103",
     "base_pct": 70,
     "vitbas_pct": 30,
@@ -1607,7 +1607,7 @@
   },
   {
     "code": "RAA_OU103_45V0S",
-    "hex": "#B5ABA3",
+    "hex": "#AD9A8B",
     "base": "OU103",
     "base_pct": 55,
     "vitbas_pct": 45,
@@ -1618,7 +1618,7 @@
   },
   {
     "code": "RAA_OU103_60V0S",
-    "hex": "#C8C1BC",
+    "hex": "#BCAC9D",
     "base": "OU103",
     "base_pct": 40,
     "vitbas_pct": 60,
@@ -1629,7 +1629,7 @@
   },
   {
     "code": "RAA_OU103_75V0S",
-    "hex": "#DAD5D2",
+    "hex": "#CBBEB2",
     "base": "OU103",
     "base_pct": 25,
     "vitbas_pct": 75,
@@ -1640,7 +1640,7 @@
   },
   {
     "code": "RAA_OU103_90V0S",
-    "hex": "#EAE9E7",
+    "hex": "#DED6CD",
     "base": "OU103",
     "base_pct": 10,
     "vitbas_pct": 90,
@@ -1651,7 +1651,7 @@
   },
   {
     "code": "RAA_OU103_0V2.44S",
-    "hex": "#705C4E",
+    "hex": "#554C44",
     "base": "OU103",
     "base_pct": 97.56,
     "vitbas_pct": 0,
@@ -1662,7 +1662,7 @@
   },
   {
     "code": "RAA_OU103_29.27V2.44S",
-    "hex": "#9C8F86",
+    "hex": "#746C64",
     "base": "OU103",
     "base_pct": 68.29,
     "vitbas_pct": 29.27,
@@ -1673,7 +1673,7 @@
   },
   {
     "code": "RAA_OU103_73.17V2.44S",
-    "hex": "#D3CFCC",
+    "hex": "#938F8A",
     "base": "OU103",
     "base_pct": 24.39,
     "vitbas_pct": 73.17,
@@ -1684,7 +1684,7 @@
   },
   {
     "code": "RAA_OU103_0V4.76S",
-    "hex": "#6D5A4C",
+    "hex": "#47423D",
     "base": "OU103",
     "base_pct": 95.24,
     "vitbas_pct": 0,
@@ -1695,7 +1695,7 @@
   },
   {
     "code": "RAA_OU103_14.28V4.76S",
-    "hex": "#837368",
+    "hex": "#56514B",
     "base": "OU103",
     "base_pct": 80.96,
     "vitbas_pct": 14.28,
@@ -1706,7 +1706,7 @@
   },
   {
     "code": "RAA_OU103_42.85V4.76S",
-    "hex": "#ABA19A",
+    "hex": "#6C6863",
     "base": "OU103",
     "base_pct": 52.39,
     "vitbas_pct": 42.85,
@@ -1717,7 +1717,7 @@
   },
   {
     "code": "RAA_OU103_57.14V4.76S",
-    "hex": "#BDB6B1",
+    "hex": "#74716D",
     "base": "OU103",
     "base_pct": 38.1,
     "vitbas_pct": 57.14,
@@ -1728,7 +1728,7 @@
   },
   {
     "code": "RAA_OU103_85.71V4.76S",
-    "hex": "#DEDCDB",
+    "hex": "#838281",
     "base": "OU103",
     "base_pct": 9.53,
     "vitbas_pct": 85.71,
@@ -1739,7 +1739,7 @@
   },
   {
     "code": "RAA_OU103_0V6.97S",
-    "hex": "#6A584A",
+    "hex": "#3F3C38",
     "base": "OU103",
     "base_pct": 93.03,
     "vitbas_pct": 0,
@@ -1750,7 +1750,7 @@
   },
   {
     "code": "RAA_OU103_41.86V6.97S",
-    "hex": "#A69D96",
+    "hex": "#5F5D59",
     "base": "OU103",
     "base_pct": 51.17,
     "vitbas_pct": 41.86,
@@ -1772,7 +1772,7 @@
   },
   {
     "code": "RAA_GU30_15V0S",
-    "hex": "#645C4D",
+    "hex": "#564C35",
     "base": "GU30",
     "base_pct": 85,
     "vitbas_pct": 15,
@@ -1783,7 +1783,7 @@
   },
   {
     "code": "RAA_GU30_30V0S",
-    "hex": "#827C70",
+    "hex": "#685D43",
     "base": "GU30",
     "base_pct": 70,
     "vitbas_pct": 30,
@@ -1794,7 +1794,7 @@
   },
   {
     "code": "RAA_GU30_45V0S",
-    "hex": "#9E9990",
+    "hex": "#7A6E52",
     "base": "GU30",
     "base_pct": 55,
     "vitbas_pct": 45,
@@ -1805,7 +1805,7 @@
   },
   {
     "code": "RAA_GU30_60V0S",
-    "hex": "#B8B5AE",
+    "hex": "#8D8164",
     "base": "GU30",
     "base_pct": 40,
     "vitbas_pct": 60,
@@ -1816,7 +1816,7 @@
   },
   {
     "code": "RAA_GU30_75V0S",
-    "hex": "#D0CECA",
+    "hex": "#A3997B",
     "base": "GU30",
     "base_pct": 25,
     "vitbas_pct": 75,
@@ -1827,7 +1827,7 @@
   },
   {
     "code": "RAA_GU30_90V0S",
-    "hex": "#E7E6E4",
+    "hex": "#C3BAA2",
     "base": "GU30",
     "base_pct": 10,
     "vitbas_pct": 90,
@@ -1849,7 +1849,7 @@
   },
   {
     "code": "RAA_GRAU3_15V0S",
-    "hex": "#8B8C8D",
+    "hex": "#8A8B8D",
     "base": "GRAU36",
     "base_pct": 85,
     "vitbas_pct": 15,
@@ -1860,7 +1860,7 @@
   },
   {
     "code": "RAA_GRAU3_30V0S",
-    "hex": "#9FA0A1",
+    "hex": "#9B9C9E",
     "base": "GRAU36",
     "base_pct": 70,
     "vitbas_pct": 30,
@@ -1871,7 +1871,7 @@
   },
   {
     "code": "RAA_GRAU3_45V0S",
-    "hex": "#B3B3B4",
+    "hex": "#ABABAD",
     "base": "GRAU36",
     "base_pct": 55,
     "vitbas_pct": 45,
@@ -1882,7 +1882,7 @@
   },
   {
     "code": "RAA_GRAU3_60V0S",
-    "hex": "#C5C6C7",
+    "hex": "#BABABC",
     "base": "GRAU36",
     "base_pct": 40,
     "vitbas_pct": 60,
@@ -1893,7 +1893,7 @@
   },
   {
     "code": "RAA_GRAU3_75V0S",
-    "hex": "#D8D8D8",
+    "hex": "#C9CACB",
     "base": "GRAU36",
     "base_pct": 25,
     "vitbas_pct": 75,
@@ -1904,7 +1904,7 @@
   },
   {
     "code": "RAA_GRAU3_90V0S",
-    "hex": "#E9EAEA",
+    "hex": "#DDDDDE",
     "base": "GRAU36",
     "base_pct": 10,
     "vitbas_pct": 90,
@@ -1926,7 +1926,7 @@
   },
   {
     "code": "RAA_BU100_15V0S",
-    "hex": "#554945",
+    "hex": "#45332D",
     "base": "BU100",
     "base_pct": 85,
     "vitbas_pct": 15,
@@ -1937,7 +1937,7 @@
   },
   {
     "code": "RAA_BU100_30V0S",
-    "hex": "#746A67",
+    "hex": "#544039",
     "base": "BU100",
     "base_pct": 70,
     "vitbas_pct": 30,
@@ -1948,7 +1948,7 @@
   },
   {
     "code": "RAA_BU100_45V0S",
-    "hex": "#928A88",
+    "hex": "#654E46",
     "base": "BU100",
     "base_pct": 55,
     "vitbas_pct": 45,
@@ -1959,7 +1959,7 @@
   },
   {
     "code": "RAA_BU100_60V0S",
-    "hex": "#AFA9A7",
+    "hex": "#775F57",
     "base": "BU100",
     "base_pct": 40,
     "vitbas_pct": 60,
@@ -1970,7 +1970,7 @@
   },
   {
     "code": "RAA_BU100_75V0S",
-    "hex": "#CAC6C5",
+    "hex": "#8F776D",
     "base": "BU100",
     "base_pct": 25,
     "vitbas_pct": 75,
@@ -1981,7 +1981,7 @@
   },
   {
     "code": "RAA_BU100_90V0S",
-    "hex": "#E4E3E2",
+    "hex": "#B39E95",
     "base": "BU100",
     "base_pct": 10,
     "vitbas_pct": 90,
@@ -1992,7 +1992,7 @@
   },
   {
     "code": "RAA_BU100_0V2.44S",
-    "hex": "#342621",
+    "hex": "#322521",
     "base": "BU100",
     "base_pct": 97.56,
     "vitbas_pct": 0,
@@ -2003,7 +2003,7 @@
   },
   {
     "code": "RAA_BU100_29.27V2.44S",
-    "hex": "#716864",
+    "hex": "#4D3D37",
     "base": "BU100",
     "base_pct": 68.29,
     "vitbas_pct": 29.27,
@@ -2014,7 +2014,7 @@
   },
   {
     "code": "RAA_BU100_73.17V2.44S",
-    "hex": "#C4C1C0",
+    "hex": "#7A6A63",
     "base": "BU100",
     "base_pct": 24.39,
     "vitbas_pct": 73.17,
@@ -2025,7 +2025,7 @@
   },
   {
     "code": "RAA_BU100_0V4.76S",
-    "hex": "#332520",
+    "hex": "#2F2420",
     "base": "BU100",
     "base_pct": 95.24,
     "vitbas_pct": 0,
@@ -2036,7 +2036,7 @@
   },
   {
     "code": "RAA_BU100_14.28V4.76S",
-    "hex": "#514642",
+    "hex": "#3C2F2A",
     "base": "BU100",
     "base_pct": 80.96,
     "vitbas_pct": 14.28,
@@ -2047,7 +2047,7 @@
   },
   {
     "code": "RAA_BU100_42.85V4.76S",
-    "hex": "#8A8381",
+    "hex": "#534540",
     "base": "BU100",
     "base_pct": 52.39,
     "vitbas_pct": 42.85,
@@ -2058,7 +2058,7 @@
   },
   {
     "code": "RAA_BU100_57.14V4.76S",
-    "hex": "#A5A09E",
+    "hex": "#5F524C",
     "base": "BU100",
     "base_pct": 38.1,
     "vitbas_pct": 57.14,
@@ -2069,7 +2069,7 @@
   },
   {
     "code": "RAA_BU100_85.71V4.76S",
-    "hex": "#D8D7D6",
+    "hex": "#7C7572",
     "base": "BU100",
     "base_pct": 9.53,
     "vitbas_pct": 85.71,
@@ -2080,7 +2080,7 @@
   },
   {
     "code": "RAA_BU100_0V6.97S",
-    "hex": "#322520",
+    "hex": "#2D2320",
     "base": "BU100",
     "base_pct": 93.03,
     "vitbas_pct": 0,
@@ -2091,7 +2091,7 @@
   },
   {
     "code": "RAA_BU100_41.86V6.97S",
-    "hex": "#87807E",
+    "hex": "#4E423D",
     "base": "BU100",
     "base_pct": 51.17,
     "vitbas_pct": 41.86,
@@ -2113,7 +2113,7 @@
   },
   {
     "code": "RAA_BRU39_15V0S",
-    "hex": "#7B6750",
+    "hex": "#785D3C",
     "base": "BRU39",
     "base_pct": 85,
     "vitbas_pct": 15,
@@ -2124,7 +2124,7 @@
   },
   {
     "code": "RAA_BRU39_30V0S",
-    "hex": "#948370",
+    "hex": "#8B6F4B",
     "base": "BRU39",
     "base_pct": 70,
     "vitbas_pct": 30,
@@ -2135,7 +2135,7 @@
   },
   {
     "code": "RAA_BRU39_45V0S",
-    "hex": "#AA9E90",
+    "hex": "#9C815B",
     "base": "BRU39",
     "base_pct": 55,
     "vitbas_pct": 45,
@@ -2146,7 +2146,7 @@
   },
   {
     "code": "RAA_BRU39_60V0S",
-    "hex": "#C0B7AD",
+    "hex": "#AD946E",
     "base": "BRU39",
     "base_pct": 40,
     "vitbas_pct": 60,
@@ -2157,7 +2157,7 @@
   },
   {
     "code": "RAA_BRU39_75V0S",
-    "hex": "#D5CFC9",
+    "hex": "#BFAA86",
     "base": "BRU39",
     "base_pct": 25,
     "vitbas_pct": 75,
@@ -2168,7 +2168,7 @@
   },
   {
     "code": "RAA_BRU39_90V0S",
-    "hex": "#E8E6E4",
+    "hex": "#D6C7AB",
     "base": "BRU39",
     "base_pct": 10,
     "vitbas_pct": 90,
@@ -2179,7 +2179,7 @@
   },
   {
     "code": "RAA_BRU39_0V2.44S",
-    "hex": "#5F472C",
+    "hex": "#4E402B",
     "base": "BRU39",
     "base_pct": 97.56,
     "vitbas_pct": 0,
@@ -2190,7 +2190,7 @@
   },
   {
     "code": "RAA_BRU39_29.27V2.44S",
-    "hex": "#8F7F6E",
+    "hex": "#6D5F46",
     "base": "BRU39",
     "base_pct": 68.29,
     "vitbas_pct": 29.27,
@@ -2201,7 +2201,7 @@
   },
   {
     "code": "RAA_BRU39_73.17V2.44S",
-    "hex": "#CFCAC4",
+    "hex": "#8F8774",
     "base": "BRU39",
     "base_pct": 24.39,
     "vitbas_pct": 73.17,
@@ -2212,7 +2212,7 @@
   },
   {
     "code": "RAA_BRU39_0V4.76S",
-    "hex": "#5D462C",
+    "hex": "#443A29",
     "base": "BRU39",
     "base_pct": 95.24,
     "vitbas_pct": 0,
@@ -2223,7 +2223,7 @@
   },
   {
     "code": "RAA_BRU39_14.28V4.76S",
-    "hex": "#75624C",
+    "hex": "#524836",
     "base": "BRU39",
     "base_pct": 80.96,
     "vitbas_pct": 14.28,
@@ -2234,7 +2234,7 @@
   },
   {
     "code": "RAA_BRU39_42.85V4.76S",
-    "hex": "#A19588",
+    "hex": "#68604E",
     "base": "BRU39",
     "base_pct": 52.39,
     "vitbas_pct": 42.85,
@@ -2245,7 +2245,7 @@
   },
   {
     "code": "RAA_BRU39_57.14V4.76S",
-    "hex": "#B6ADA4",
+    "hex": "#726B5A",
     "base": "BRU39",
     "base_pct": 38.1,
     "vitbas_pct": 57.14,
@@ -2256,7 +2256,7 @@
   },
   {
     "code": "RAA_BRU39_85.71V4.76S",
-    "hex": "#DCDAD8",
+    "hex": "#828079",
     "base": "BRU39",
     "base_pct": 9.53,
     "vitbas_pct": 85.71,
@@ -2267,7 +2267,7 @@
   },
   {
     "code": "RAA_BRU39_0V6.97S",
-    "hex": "#5B442B",
+    "hex": "#3D3628",
     "base": "BRU39",
     "base_pct": 93.03,
     "vitbas_pct": 0,
@@ -2278,7 +2278,7 @@
   },
   {
     "code": "RAA_BRU39_41.86V6.97S",
-    "hex": "#9D9285",
+    "hex": "#5D5749",
     "base": "BRU39",
     "base_pct": 51.17,
     "vitbas_pct": 41.86,
@@ -2300,7 +2300,7 @@
   },
   {
     "code": "RAA_ER48A_15V0S",
-    "hex": "#945952",
+    "hex": "#96473C",
     "base": "ER48A",
     "base_pct": 85,
     "vitbas_pct": 15,
@@ -2311,7 +2311,7 @@
   },
   {
     "code": "RAA_ER48A_30V0S",
-    "hex": "#A97B75",
+    "hex": "#A9594C",
     "base": "ER48A",
     "base_pct": 70,
     "vitbas_pct": 30,
@@ -2322,7 +2322,7 @@
   },
   {
     "code": "RAA_ER48A_45V0S",
-    "hex": "#BC9A95",
+    "hex": "#B86B5D",
     "base": "ER48A",
     "base_pct": 55,
     "vitbas_pct": 45,
@@ -2333,7 +2333,7 @@
   },
   {
     "code": "RAA_ER48A_60V0S",
-    "hex": "#CDB5B2",
+    "hex": "#C67F71",
     "base": "ER48A",
     "base_pct": 40,
     "vitbas_pct": 60,
@@ -2344,7 +2344,7 @@
   },
   {
     "code": "RAA_ER48A_75V0S",
-    "hex": "#DDCFCD",
+    "hex": "#D39789",
     "base": "ER48A",
     "base_pct": 25,
     "vitbas_pct": 75,
@@ -2355,7 +2355,7 @@
   },
   {
     "code": "RAA_ER48A_90V0S",
-    "hex": "#ECE6E6",
+    "hex": "#E3B9AE",
     "base": "ER48A",
     "base_pct": 10,
     "vitbas_pct": 90,
@@ -2366,7 +2366,7 @@
   },
   {
     "code": "RAA_ER48A_0V2.44S",
-    "hex": "#79332A",
+    "hex": "#553029",
     "base": "ER48A",
     "base_pct": 97.56,
     "vitbas_pct": 0,
@@ -2377,7 +2377,7 @@
   },
   {
     "code": "RAA_ER48A_29.27V2.44S",
-    "hex": "#A47772",
+    "hex": "#775047",
     "base": "ER48A",
     "base_pct": 68.29,
     "vitbas_pct": 29.27,
@@ -2388,7 +2388,7 @@
   },
   {
     "code": "RAA_ER48A_73.17V2.44S",
-    "hex": "#D7C9C7",
+    "hex": "#947E76",
     "base": "ER48A",
     "base_pct": 24.39,
     "vitbas_pct": 73.17,
@@ -2399,7 +2399,7 @@
   },
   {
     "code": "RAA_ER48A_0V4.76S",
-    "hex": "#75322A",
+    "hex": "#462D27",
     "base": "ER48A",
     "base_pct": 95.24,
     "vitbas_pct": 0,
@@ -2410,7 +2410,7 @@
   },
   {
     "code": "RAA_ER48A_14.28V4.76S",
-    "hex": "#8B554E",
+    "hex": "#563C35",
     "base": "ER48A",
     "base_pct": 80.96,
     "vitbas_pct": 14.28,
@@ -2421,7 +2421,7 @@
   },
   {
     "code": "RAA_ER48A_42.85V4.76S",
-    "hex": "#B1918D",
+    "hex": "#6D564E",
     "base": "ER48A",
     "base_pct": 52.39,
     "vitbas_pct": 42.85,
@@ -2432,7 +2432,7 @@
   },
   {
     "code": "RAA_ER48A_57.14V4.76S",
-    "hex": "#C2ABA8",
+    "hex": "#75625B",
     "base": "ER48A",
     "base_pct": 38.1,
     "vitbas_pct": 57.14,
@@ -2443,7 +2443,7 @@
   },
   {
     "code": "RAA_ER48A_85.71V4.76S",
-    "hex": "#DFDAD9",
+    "hex": "#837D7A",
     "base": "ER48A",
     "base_pct": 9.53,
     "vitbas_pct": 85.71,
@@ -2454,7 +2454,7 @@
   },
   {
     "code": "RAA_ER48A_0V6.97S",
-    "hex": "#723129",
+    "hex": "#3E2B26",
     "base": "ER48A",
     "base_pct": 93.03,
     "vitbas_pct": 0,
@@ -2465,7 +2465,7 @@
   },
   {
     "code": "RAA_ER48A_41.86V6.97S",
-    "hex": "#AC8D89",
+    "hex": "#604F4A",
     "base": "ER48A",
     "base_pct": 51.17,
     "vitbas_pct": 41.86,
@@ -2487,7 +2487,7 @@
   },
   {
     "code": "RAA_J225_15V0S",
-    "hex": "#935851",
+    "hex": "#9B4B40",
     "base": "J225",
     "base_pct": 85,
     "vitbas_pct": 15,
@@ -2498,7 +2498,7 @@
   },
   {
     "code": "RAA_J225_30V0S",
-    "hex": "#A87973",
+    "hex": "#AE5F52",
     "base": "J225",
     "base_pct": 70,
     "vitbas_pct": 30,
@@ -2509,7 +2509,7 @@
   },
   {
     "code": "RAA_J225_45V0S",
-    "hex": "#BB9793",
+    "hex": "#BD7264",
     "base": "J225",
     "base_pct": 55,
     "vitbas_pct": 45,
@@ -2520,7 +2520,7 @@
   },
   {
     "code": "RAA_J225_60V0S",
-    "hex": "#CCB3B0",
+    "hex": "#CA8678",
     "base": "J225",
     "base_pct": 40,
     "vitbas_pct": 60,
@@ -2531,7 +2531,7 @@
   },
   {
     "code": "RAA_J225_75V0S",
-    "hex": "#DCCECC",
+    "hex": "#D79E91",
     "base": "J225",
     "base_pct": 25,
     "vitbas_pct": 75,
@@ -2542,7 +2542,7 @@
   },
   {
     "code": "RAA_J225_90V0S",
-    "hex": "#ECE6E5",
+    "hex": "#E6BFB5",
     "base": "J225",
     "base_pct": 10,
     "vitbas_pct": 90,
@@ -2553,7 +2553,7 @@
   },
   {
     "code": "RAA_J225_0V2.44S",
-    "hex": "#79332A",
+    "hex": "#502F29",
     "base": "J225",
     "base_pct": 97.56,
     "vitbas_pct": 0,
@@ -2564,7 +2564,7 @@
   },
   {
     "code": "RAA_J225_29.27V2.44S",
-    "hex": "#A37670",
+    "hex": "#76534A",
     "base": "J225",
     "base_pct": 68.29,
     "vitbas_pct": 29.27,
@@ -2575,7 +2575,7 @@
   },
   {
     "code": "RAA_J225_73.17V2.44S",
-    "hex": "#D6C8C6",
+    "hex": "#94817A",
     "base": "J225",
     "base_pct": 24.39,
     "vitbas_pct": 73.17,
@@ -2586,7 +2586,7 @@
   },
   {
     "code": "RAA_J225_0V4.76S",
-    "hex": "#76322A",
+    "hex": "#412C27",
     "base": "J225",
     "base_pct": 95.24,
     "vitbas_pct": 0,
@@ -2597,7 +2597,7 @@
   },
   {
     "code": "RAA_J225_14.28V4.76S",
-    "hex": "#8B534D",
+    "hex": "#543D37",
     "base": "J225",
     "base_pct": 80.96,
     "vitbas_pct": 14.28,
@@ -2608,7 +2608,7 @@
   },
   {
     "code": "RAA_J225_42.85V4.76S",
-    "hex": "#B08F8B",
+    "hex": "#6C5852",
     "base": "J225",
     "base_pct": 52.39,
     "vitbas_pct": 42.85,
@@ -2619,7 +2619,7 @@
   },
   {
     "code": "RAA_J225_57.14V4.76S",
-    "hex": "#C1AAA7",
+    "hex": "#75655F",
     "base": "J225",
     "base_pct": 38.1,
     "vitbas_pct": 57.14,
@@ -2630,7 +2630,7 @@
   },
   {
     "code": "RAA_J225_85.71V4.76S",
-    "hex": "#DFDAD9",
+    "hex": "#837E7C",
     "base": "J225",
     "base_pct": 9.53,
     "vitbas_pct": 85.71,
@@ -2641,7 +2641,7 @@
   },
   {
     "code": "RAA_J225_0V6.97S",
-    "hex": "#723129",
+    "hex": "#392A25",
     "base": "J225",
     "base_pct": 93.03,
     "vitbas_pct": 0,
@@ -2652,7 +2652,7 @@
   },
   {
     "code": "RAA_J225_41.86V6.97S",
-    "hex": "#AB8B87",
+    "hex": "#5F514C",
     "base": "J225",
     "base_pct": 51.17,
     "vitbas_pct": 41.86,
@@ -2674,7 +2674,7 @@
   },
   {
     "code": "RAA_J120N_15V0S",
-    "hex": "#AC6460",
+    "hex": "#B65C56",
     "base": "J120N",
     "base_pct": 85,
     "vitbas_pct": 15,
@@ -2685,7 +2685,7 @@
   },
   {
     "code": "RAA_J120N_30V0S",
-    "hex": "#BC8380",
+    "hex": "#C6726C",
     "base": "J120N",
     "base_pct": 70,
     "vitbas_pct": 30,
@@ -2696,7 +2696,7 @@
   },
   {
     "code": "RAA_J120N_45V0S",
-    "hex": "#CAA09D",
+    "hex": "#D1867F",
     "base": "J120N",
     "base_pct": 55,
     "vitbas_pct": 45,
@@ -2707,7 +2707,7 @@
   },
   {
     "code": "RAA_J120N_60V0S",
-    "hex": "#D7BAB8",
+    "hex": "#DB9A94",
     "base": "J120N",
     "base_pct": 40,
     "vitbas_pct": 60,
@@ -2718,7 +2718,7 @@
   },
   {
     "code": "RAA_J120N_75V0S",
-    "hex": "#E3D1D1",
+    "hex": "#E3B0AA",
     "base": "J120N",
     "base_pct": 25,
     "vitbas_pct": 75,
@@ -2729,7 +2729,7 @@
   },
   {
     "code": "RAA_J120N_90V0S",
-    "hex": "#EEE7E7",
+    "hex": "#EDCCC8",
     "base": "J120N",
     "base_pct": 10,
     "vitbas_pct": 90,
@@ -2740,7 +2740,7 @@
   },
   {
     "code": "RAA_J120N_0V2.44S",
-    "hex": "#963F3B",
+    "hex": "#543835",
     "base": "J120N",
     "base_pct": 97.56,
     "vitbas_pct": 0,
@@ -2751,7 +2751,7 @@
   },
   {
     "code": "RAA_J120N_29.27V2.44S",
-    "hex": "#B67F7C",
+    "hex": "#7B5F5B",
     "base": "J120N",
     "base_pct": 68.29,
     "vitbas_pct": 29.27,
@@ -2762,7 +2762,7 @@
   },
   {
     "code": "RAA_J120N_73.17V2.44S",
-    "hex": "#DDCCCB",
+    "hex": "#968987",
     "base": "J120N",
     "base_pct": 24.39,
     "vitbas_pct": 73.17,
@@ -2773,7 +2773,7 @@
   },
   {
     "code": "RAA_J120N_0V4.76S",
-    "hex": "#913E39",
+    "hex": "#433230",
     "base": "J120N",
     "base_pct": 95.24,
     "vitbas_pct": 0,
@@ -2784,7 +2784,7 @@
   },
   {
     "code": "RAA_J120N_14.28V4.76S",
-    "hex": "#A15E5A",
+    "hex": "#564542",
     "base": "J120N",
     "base_pct": 80.96,
     "vitbas_pct": 14.28,
@@ -2795,7 +2795,7 @@
   },
   {
     "code": "RAA_J120N_42.85V4.76S",
-    "hex": "#BE9794",
+    "hex": "#6E605E",
     "base": "J120N",
     "base_pct": 52.39,
     "vitbas_pct": 42.85,
@@ -2806,7 +2806,7 @@
   },
   {
     "code": "RAA_J120N_57.14V4.76S",
-    "hex": "#CBAFAE",
+    "hex": "#766B69",
     "base": "J120N",
     "base_pct": 38.1,
     "vitbas_pct": 57.14,
@@ -2817,7 +2817,7 @@
   },
   {
     "code": "RAA_J120N_85.71V4.76S",
-    "hex": "#E1DBDB",
+    "hex": "#848080",
     "base": "J120N",
     "base_pct": 9.53,
     "vitbas_pct": 85.71,
@@ -2828,7 +2828,7 @@
   },
   {
     "code": "RAA_J120N_0V6.97S",
-    "hex": "#8C3D38",
+    "hex": "#3A2E2D",
     "base": "J120N",
     "base_pct": 93.03,
     "vitbas_pct": 0,
@@ -2839,7 +2839,7 @@
   },
   {
     "code": "RAA_J120N_41.86V6.97S",
-    "hex": "#B99290",
+    "hex": "#605755",
     "base": "J120N",
     "base_pct": 51.17,
     "vitbas_pct": 41.86,
@@ -2861,7 +2861,7 @@
   },
   {
     "code": "RAA_J180M_15V0S",
-    "hex": "#7F4F4C",
+    "hex": "#86423C",
     "base": "J180M",
     "base_pct": 85,
     "vitbas_pct": 15,
@@ -2872,7 +2872,7 @@
   },
   {
     "code": "RAA_J180M_30V0S",
-    "hex": "#97716E",
+    "hex": "#9C554F",
     "base": "J180M",
     "base_pct": 70,
     "vitbas_pct": 30,
@@ -2883,7 +2883,7 @@
   },
   {
     "code": "RAA_J180M_45V0S",
-    "hex": "#AD908E",
+    "hex": "#AE6862",
     "base": "J180M",
     "base_pct": 55,
     "vitbas_pct": 45,
@@ -2894,7 +2894,7 @@
   },
   {
     "code": "RAA_J180M_60V0S",
-    "hex": "#C2AEAC",
+    "hex": "#BE7D76",
     "base": "J180M",
     "base_pct": 40,
     "vitbas_pct": 60,
@@ -2905,7 +2905,7 @@
   },
   {
     "code": "RAA_J180M_75V0S",
-    "hex": "#D6CAC9",
+    "hex": "#CD958F",
     "base": "J180M",
     "base_pct": 25,
     "vitbas_pct": 75,
@@ -2916,7 +2916,7 @@
   },
   {
     "code": "RAA_J180M_90V0S",
-    "hex": "#E9E4E4",
+    "hex": "#E0B8B3",
     "base": "J180M",
     "base_pct": 10,
     "vitbas_pct": 90,
@@ -2927,7 +2927,7 @@
   },
   {
     "code": "RAA_J180M_0V2.44S",
-    "hex": "#622A26",
+    "hex": "#472825",
     "base": "J180M",
     "base_pct": 97.56,
     "vitbas_pct": 0,
@@ -2938,7 +2938,7 @@
   },
   {
     "code": "RAA_J180M_29.27V2.44S",
-    "hex": "#926E6B",
+    "hex": "#704C48",
     "base": "J180M",
     "base_pct": 68.29,
     "vitbas_pct": 29.27,
@@ -2949,7 +2949,7 @@
   },
   {
     "code": "RAA_J180M_73.17V2.44S",
-    "hex": "#D0C4C3",
+    "hex": "#927D79",
     "base": "J180M",
     "base_pct": 24.39,
     "vitbas_pct": 73.17,
@@ -2960,7 +2960,7 @@
   },
   {
     "code": "RAA_J180M_0V4.76S",
-    "hex": "#602A26",
+    "hex": "#3B2624",
     "base": "J180M",
     "base_pct": 95.24,
     "vitbas_pct": 0,
@@ -2971,7 +2971,7 @@
   },
   {
     "code": "RAA_J180M_14.28V4.76S",
-    "hex": "#784B48",
+    "hex": "#4F3835",
     "base": "J180M",
     "base_pct": 80.96,
     "vitbas_pct": 14.28,
@@ -2982,7 +2982,7 @@
   },
   {
     "code": "RAA_J180M_42.85V4.76S",
-    "hex": "#A48887",
+    "hex": "#695450",
     "base": "J180M",
     "base_pct": 52.39,
     "vitbas_pct": 42.85,
@@ -2993,7 +2993,7 @@
   },
   {
     "code": "RAA_J180M_57.14V4.76S",
-    "hex": "#B8A5A3",
+    "hex": "#73615E",
     "base": "J180M",
     "base_pct": 38.1,
     "vitbas_pct": 57.14,
@@ -3004,7 +3004,7 @@
   },
   {
     "code": "RAA_J180M_85.71V4.76S",
-    "hex": "#DDD8D8",
+    "hex": "#837D7B",
     "base": "J180M",
     "base_pct": 9.53,
     "vitbas_pct": 85.71,
@@ -3015,7 +3015,7 @@
   },
   {
     "code": "RAA_J180M_0V6.97S",
-    "hex": "#5D2926",
+    "hex": "#352523",
     "base": "J180M",
     "base_pct": 93.03,
     "vitbas_pct": 0,
@@ -3026,7 +3026,7 @@
   },
   {
     "code": "RAA_J180M_41.86V6.97S",
-    "hex": "#9F8583",
+    "hex": "#5D4D4B",
     "base": "J180M",
     "base_pct": 51.17,
     "vitbas_pct": 41.86,
@@ -3048,7 +3048,7 @@
   },
   {
     "code": "RAA_J663_15V0S",
-    "hex": "#655955",
+    "hex": "#5B4943",
     "base": "J663",
     "base_pct": 85,
     "vitbas_pct": 15,
@@ -3059,7 +3059,7 @@
   },
   {
     "code": "RAA_J663_30V0S",
-    "hex": "#837A77",
+    "hex": "#6F5C55",
     "base": "J663",
     "base_pct": 70,
     "vitbas_pct": 30,
@@ -3070,7 +3070,7 @@
   },
   {
     "code": "RAA_J663_45V0S",
-    "hex": "#9F9896",
+    "hex": "#826E67",
     "base": "J663",
     "base_pct": 55,
     "vitbas_pct": 45,
@@ -3081,7 +3081,7 @@
   },
   {
     "code": "RAA_J663_60V0S",
-    "hex": "#B9B4B2",
+    "hex": "#96827A",
     "base": "J663",
     "base_pct": 40,
     "vitbas_pct": 60,
@@ -3092,7 +3092,7 @@
   },
   {
     "code": "RAA_J663_75V0S",
-    "hex": "#D1CECD",
+    "hex": "#AC9A93",
     "base": "J663",
     "base_pct": 25,
     "vitbas_pct": 75,
@@ -3103,7 +3103,7 @@
   },
   {
     "code": "RAA_J663_90V0S",
-    "hex": "#E7E6E5",
+    "hex": "#C9BCB6",
     "base": "J663",
     "base_pct": 10,
     "vitbas_pct": 90,
@@ -3114,7 +3114,7 @@
   },
   {
     "code": "RAA_J663_0V2.44S",
-    "hex": "#42342F",
+    "hex": "#3B312D",
     "base": "J663",
     "base_pct": 97.56,
     "vitbas_pct": 0,
@@ -3125,7 +3125,7 @@
   },
   {
     "code": "RAA_J663_29.27V2.44S",
-    "hex": "#807673",
+    "hex": "#5E524D",
     "base": "J663",
     "base_pct": 68.29,
     "vitbas_pct": 29.27,
@@ -3136,7 +3136,7 @@
   },
   {
     "code": "RAA_J663_73.17V2.44S",
-    "hex": "#CBC8C7",
+    "hex": "#887F7B",
     "base": "J663",
     "base_pct": 24.39,
     "vitbas_pct": 73.17,
@@ -3147,7 +3147,7 @@
   },
   {
     "code": "RAA_J663_0V4.76S",
-    "hex": "#41332E",
+    "hex": "#352E2B",
     "base": "J663",
     "base_pct": 95.24,
     "vitbas_pct": 0,
@@ -3158,7 +3158,7 @@
   },
   {
     "code": "RAA_J663_14.28V4.76S",
-    "hex": "#605450",
+    "hex": "#463D3A",
     "base": "J663",
     "base_pct": 80.96,
     "vitbas_pct": 14.28,
@@ -3169,7 +3169,7 @@
   },
   {
     "code": "RAA_J663_42.85V4.76S",
-    "hex": "#96908D",
+    "hex": "#5F5753",
     "base": "J663",
     "base_pct": 52.39,
     "vitbas_pct": 42.85,
@@ -3180,7 +3180,7 @@
   },
   {
     "code": "RAA_J663_57.14V4.76S",
-    "hex": "#AFAAA8",
+    "hex": "#6B6360",
     "base": "J663",
     "base_pct": 38.1,
     "vitbas_pct": 57.14,
@@ -3191,7 +3191,7 @@
   },
   {
     "code": "RAA_J663_85.71V4.76S",
-    "hex": "#DBDAD9",
+    "hex": "#807E7C",
     "base": "J663",
     "base_pct": 9.53,
     "vitbas_pct": 85.71,
@@ -3202,7 +3202,7 @@
   },
   {
     "code": "RAA_J663_0V6.97S",
-    "hex": "#3F322E",
+    "hex": "#322B29",
     "base": "J663",
     "base_pct": 93.03,
     "vitbas_pct": 0,
@@ -3213,7 +3213,7 @@
   },
   {
     "code": "RAA_J663_41.86V6.97S",
-    "hex": "#928C8A",
+    "hex": "#57504D",
     "base": "J663",
     "base_pct": 51.17,
     "vitbas_pct": 41.86,
@@ -3235,7 +3235,7 @@
   },
   {
     "code": "RAA_J686_15V0S",
-    "hex": "#83675A",
+    "hex": "#855F4D",
     "base": "J686",
     "base_pct": 85,
     "vitbas_pct": 15,
@@ -3246,7 +3246,7 @@
   },
   {
     "code": "RAA_J686_30V0S",
-    "hex": "#9B847B",
+    "hex": "#9A7461",
     "base": "J686",
     "base_pct": 70,
     "vitbas_pct": 30,
@@ -3257,7 +3257,7 @@
   },
   {
     "code": "RAA_J686_45V0S",
-    "hex": "#B1A099",
+    "hex": "#AB8774",
     "base": "J686",
     "base_pct": 55,
     "vitbas_pct": 45,
@@ -3268,7 +3268,7 @@
   },
   {
     "code": "RAA_J686_60V0S",
-    "hex": "#C5BAB4",
+    "hex": "#BB9B88",
     "base": "J686",
     "base_pct": 40,
     "vitbas_pct": 60,
@@ -3279,7 +3279,7 @@
   },
   {
     "code": "RAA_J686_75V0S",
-    "hex": "#D8D1CE",
+    "hex": "#CBB09F",
     "base": "J686",
     "base_pct": 25,
     "vitbas_pct": 75,
@@ -3290,7 +3290,7 @@
   },
   {
     "code": "RAA_J686_90V0S",
-    "hex": "#EAE7E6",
+    "hex": "#DECCC0",
     "base": "J686",
     "base_pct": 10,
     "vitbas_pct": 90,
@@ -3301,7 +3301,7 @@
   },
   {
     "code": "RAA_J686_0V2.44S",
-    "hex": "#664436",
+    "hex": "#4C3C32",
     "base": "J686",
     "base_pct": 97.56,
     "vitbas_pct": 0,
@@ -3312,7 +3312,7 @@
   },
   {
     "code": "RAA_J686_29.27V2.44S",
-    "hex": "#968177",
+    "hex": "#716055",
     "base": "J686",
     "base_pct": 68.29,
     "vitbas_pct": 29.27,
@@ -3323,7 +3323,7 @@
   },
   {
     "code": "RAA_J686_73.17V2.44S",
-    "hex": "#D2CBC8",
+    "hex": "#928982",
     "base": "J686",
     "base_pct": 24.39,
     "vitbas_pct": 73.17,
@@ -3334,7 +3334,7 @@
   },
   {
     "code": "RAA_J686_0V4.76S",
-    "hex": "#634335",
+    "hex": "#40362E",
     "base": "J686",
     "base_pct": 95.24,
     "vitbas_pct": 0,
@@ -3345,7 +3345,7 @@
   },
   {
     "code": "RAA_J686_14.28V4.76S",
-    "hex": "#7B6156",
+    "hex": "#52473F",
     "base": "J686",
     "base_pct": 80.96,
     "vitbas_pct": 14.28,
@@ -3356,7 +3356,7 @@
   },
   {
     "code": "RAA_J686_42.85V4.76S",
-    "hex": "#A79790",
+    "hex": "#6A6159",
     "base": "J686",
     "base_pct": 52.39,
     "vitbas_pct": 42.85,
@@ -3367,7 +3367,7 @@
   },
   {
     "code": "RAA_J686_57.14V4.76S",
-    "hex": "#BAAFAB",
+    "hex": "#736C65",
     "base": "J686",
     "base_pct": 38.1,
     "vitbas_pct": 57.14,
@@ -3378,7 +3378,7 @@
   },
   {
     "code": "RAA_J686_85.71V4.76S",
-    "hex": "#DDDBDA",
+    "hex": "#83817E",
     "base": "J686",
     "base_pct": 9.53,
     "vitbas_pct": 85.71,
@@ -3389,7 +3389,7 @@
   },
   {
     "code": "RAA_J686_0V6.97S",
-    "hex": "#604134",
+    "hex": "#39312C",
     "base": "J686",
     "base_pct": 93.03,
     "vitbas_pct": 0,
@@ -3400,7 +3400,7 @@
   },
   {
     "code": "RAA_J686_41.86V6.97S",
-    "hex": "#A2938D",
+    "hex": "#5E5752",
     "base": "J686",
     "base_pct": 51.17,
     "vitbas_pct": 41.86,

@@ -213,12 +213,21 @@ ui <- dashboardPage(
                           tabPanel(
                             "Blandare",
                             value = "sliders",
+                            tags$h5(style="font-weight:bold;margin-top:1.5em;","Inställningar"),
                             shinyWidgets::materialSwitch(
                               inputId = "raa_only",
                               label = "Endast Kulturkulör-pigment (RAÄ)",
                               status = "default",
                               right = TRUE,
                               value = FALSE,
+                              width = "100%"
+                            ),
+                            shinyWidgets::materialSwitch(
+                              inputId = "use_tinting_strength",
+                              label = "Verklighetstrogen mixning (test)",
+                              status = "default",
+                              right = TRUE,
+                              value = TRUE,
                               width = "100%"
                             ),
                             pickerInput("p1", "Pigment 1", choices = all_choices, selected = "vitbas",
@@ -302,11 +311,11 @@ ui <- dashboardPage(
                fluidRow(column(
                  12,
                  p("Ange förhållandet mellan zinkoxid (zinkvitt) och titaniumdioxid (titanvitt) i vitbasen."),
-                 p("För ", tags$b("utomhusfärg"), "– välj en högre andel zinkvitt i vitbasen (gärna 30 %, om det fungerar med den önskade kulören), så blir den färdiga färgen mer motståndskraftig mot alger och mögelpåväxt."),
+                 p("För ", tags$b("utomhusfärg"), "– välj en högre andel zinkvitt i vitbasen (gärna 25 %, om det fungerar med den önskade kulören), så blir den färdiga färgen mer motståndskraftig mot alger och mögelpåväxt."),
                  p("För ", tags$b("inomhusfärg"), "– välj en lägre andel zinkvitt i vitbasen (0–15 %). Zink gör å ena sidan färgfilmen hårdare, men å den andra blir den också sprödare och känsligare över tid."),
                  #p("Oavsett vilket förhållande du väljer blir den färdiga färgpastan kulörmässigt identisk, eftersom alla färgande pigment automatiskt justeras med Kubelka-Munk-kompensationen."),
                  br(),
-                 sliderInput("zinc_ratio","Andel zinkvitt i vitbasen (%)",0,100,15,1,post="% zinkoxid"),
+                 sliderInput("zinc_ratio","Andel zinkvitt i vitbasen (%)",0,100,25,1,post="% zinkoxid"),
                ), ),
                hr(),
                actionButton("back1","Föregående", class="btn-default back-btn", icon = icon("circle-arrow-left")),
@@ -881,7 +890,7 @@ server <- function(input, output, session) {
         hex_color <- "#FFFFFF"
         if(length(ids) > 0) {
           tryCatch({
-            color_rgb <- mix_colors(ids, pcts, pigments_db, use_tinting = TRUE)
+            color_rgb <- mix_colors(ids, pcts, pigments_db, use_tinting = use_tinting)
             hex_color <- rgb(color_rgb[1], color_rgb[2], color_rgb[3], maxColorValue = 255)
           }, error = function(e) {
             hex_color <<- "#FFFFFF"
@@ -1243,7 +1252,7 @@ server <- function(input, output, session) {
     if(length(m$ids) == 0) return("#FFFFFF")
     
     # Use tinting strength if checkbox is enabled
-    use_tinting <- TRUE #isTRUE(input$use_tinting_strength)
+    use_tinting <- isTRUE(input$use_tinting_strength)
     cols <- mix_colors(m$ids, m$pct, pigments_db, use_tinting = use_tinting)
     
     hex <- sprintf("#%02X%02X%02X", round(cols[1]), round(cols[2]), round(cols[3]))

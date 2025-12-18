@@ -496,7 +496,7 @@ server <- function(input, output, session) {
   # Track which slider is currently being dragged
   slider_being_dragged <- reactiveVal(NULL)
   
-  # Track the source of the last update for each pair (to prevent circular updates)
+  # Track the source of updates to prevent circular updates
   update_source <- reactiveValues()
   for(id in slider_pairs$numeric) {
     update_source[[id]] <- "none"
@@ -512,7 +512,21 @@ server <- function(input, output, session) {
   observeEvent(input$slider_released, {
     released_id <- input$slider_released
     
-    # If this is the slider being dragged, clear the flag
+    # Find the corresponding numeric input for this slider
+    slider_index <- which(slider_pairs$slider == released_id)
+    if(length(slider_index) > 0) {
+      numeric_id <- slider_pairs$numeric[slider_index]
+      
+      # Update the numeric input with the slider's current value
+      update_source[[numeric_id]] <- "slider_release"
+      updateNumericInput(session, numeric_id, value = input[[released_id]])
+      
+      # Clear the flag
+      invalidateLater(50)
+      isolate({ update_source[[numeric_id]] <- "none" })
+    }
+    
+    # Clear the dragging flag
     if(!is.null(slider_being_dragged()) && slider_being_dragged() == released_id) {
       slider_being_dragged(NULL)
     }
@@ -523,22 +537,11 @@ server <- function(input, output, session) {
     slider_id <- slider_pairs$slider[i]
     numeric_id <- slider_pairs$numeric[i]
     
-    # Slider → Numeric (IMMEDIATE)
+    # Slider change → Mark as being dragged (but DON'T update numeric)
     observeEvent(input[[slider_id]], {
-      # Only process if this change came from user interaction (not from updateSliderInput)
+      # Only mark as dragging if not from a programmatic update
       if(isolate(update_source[[numeric_id]]) != "numeric_updating") {
-        # Mark this slider as being dragged
         slider_being_dragged(slider_id)
-        
-        # Mark that we're updating from slider
-        update_source[[numeric_id]] <- "slider_updating"
-        
-        # Update numeric immediately
-        updateNumericInput(session, numeric_id, value = input[[slider_id]])
-        
-        # Clear the flag after a brief moment
-        invalidateLater(50)
-        isolate({ update_source[[numeric_id]] <- "none" })
       }
     }, ignoreInit = TRUE)
     
@@ -548,9 +551,9 @@ server <- function(input, output, session) {
       
       # Only update if:
       # 1. This slider is NOT being dragged, AND
-      # 2. The numeric change didn't come from the slider updating it
+      # 2. The numeric change didn't come from slider release
       if((is.null(slider_being_dragged()) || slider_being_dragged() != slider_id) &&
-         isolate(update_source[[numeric_id]]) != "slider_updating") {
+         isolate(update_source[[numeric_id]]) != "slider_release") {
         
         # Mark that we're updating from numeric
         update_source[[numeric_id]] <- "numeric_updating"
@@ -558,7 +561,7 @@ server <- function(input, output, session) {
         # Update slider
         updateSliderInput(session, slider_id, value = debounced_inputs[[numeric_id]]())
         
-        # Clear the flag after a brief moment
+        # Clear the flag
         invalidateLater(50)
         isolate({ update_source[[numeric_id]] <- "none" })
       }

@@ -502,6 +502,10 @@ server <- function(input, output, session) {
     update_source[[id]] <- "none"
   }
   
+  # Track last values to prevent update loops
+  last_slider_value <- reactiveValues()
+  last_numeric_value <- reactiveValues()
+  
   # Create debounced versions
   debounced_inputs <- lapply(slider_pairs$numeric, function(numeric_id) {
     debounce(reactive(input[[numeric_id]]), millis = 800)
@@ -517,13 +521,22 @@ server <- function(input, output, session) {
     if(length(slider_index) > 0) {
       numeric_id <- slider_pairs$numeric[slider_index]
       
-      # Update the numeric input with the slider's current value
-      update_source[[numeric_id]] <- "slider_release"
-      updateNumericInput(session, numeric_id, value = input[[released_id]])
+      # Only update if the value actually changed
+      current_value <- input[[released_id]]
+      last_numeric <- isolate(last_numeric_value[[numeric_id]])
       
-      # Clear the flag
-      invalidateLater(50)
-      isolate({ update_source[[numeric_id]] <- "none" })
+      if(is.null(last_numeric) || abs(current_value - last_numeric) > 0.001) {
+        # Update the numeric input with the slider's current value
+        update_source[[numeric_id]] <- "slider_release"
+        updateNumericInput(session, numeric_id, value = current_value)
+        
+        # Store the value we just set
+        last_numeric_value[[numeric_id]] <- current_value
+        
+        # Clear the flag
+        invalidateLater(50)
+        isolate({ update_source[[numeric_id]] <- "none" })
+      }
     }
     
     # Clear the dragging flag
@@ -542,6 +555,8 @@ server <- function(input, output, session) {
       # Only mark as dragging if not from a programmatic update
       if(isolate(update_source[[numeric_id]]) != "numeric_updating") {
         slider_being_dragged(slider_id)
+        # Store current slider value
+        last_slider_value[[slider_id]] <- input[[slider_id]]
       }
     }, ignoreInit = TRUE)
     
@@ -549,17 +564,25 @@ server <- function(input, output, session) {
     observeEvent(debounced_inputs[[numeric_id]](), {
       req(!is.na(debounced_inputs[[numeric_id]]()))
       
+      current_numeric <- debounced_inputs[[numeric_id]]()
+      last_slider <- isolate(last_slider_value[[slider_id]])
+      
       # Only update if:
       # 1. This slider is NOT being dragged, AND
-      # 2. The numeric change didn't come from slider release
+      # 2. The numeric change didn't come from slider release, AND
+      # 3. The value actually changed (prevents oscillation)
       if((is.null(slider_being_dragged()) || slider_being_dragged() != slider_id) &&
-         isolate(update_source[[numeric_id]]) != "slider_release") {
+         isolate(update_source[[numeric_id]]) != "slider_release" &&
+         (is.null(last_slider) || abs(current_numeric - last_slider) > 0.001)) {
         
         # Mark that we're updating from numeric
         update_source[[numeric_id]] <- "numeric_updating"
         
         # Update slider
-        updateSliderInput(session, slider_id, value = debounced_inputs[[numeric_id]]())
+        updateSliderInput(session, slider_id, value = current_numeric)
+        
+        # Store the value we just set
+        last_slider_value[[slider_id]] <- current_numeric
         
         # Clear the flag
         invalidateLater(50)

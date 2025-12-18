@@ -1,6 +1,6 @@
 /* Layout */
 html {background:#ccc !important;}
-.content-wrapper::before{content: "Paint-o-matic v0.10.32-true";padding-top:1.5em;text-align:center;font-size:1.4em; font-weight:bold;width:100% !important;display:block;background-image:url("images/stroke.svg")}
+.content-wrapper::before{content: "Paint-o-matic v0.10.33-true";padding-top:1.5em;text-align:center;font-size:1.4em; font-weight:bold;width:100% !important;display:block;background-image:url("images/stroke.svg")}
 //.content-wrapper::after{content: "© 2025 Tobias Hagberg, licens GPLv3";padding-bottom:1em;text-align:center;font-size:.9em; width:100% !important;display:block;}
 .content-wrapper {background:#ccc !important;margin:0 !important;padding: 0 !important;}
 section.content {margin-top:0 !important; padding-top: 0 !important;}

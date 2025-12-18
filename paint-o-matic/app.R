@@ -169,6 +169,17 @@ ui <- dashboardPage(
   dashboardSidebar(disable = TRUE),
   dashboardBody(
     useShinyjs(),
+    tags$head( # Input to slider sync  
+      tags$script(HTML("
+        $(document).on('shiny:connected', function() {
+          // Track when ANY slider is released
+          $(document).on('mouseup touchend', '.js-range-slider', function() {
+            var slider_id = $(this).attr('data-input-id');
+            Shiny.setInputValue('slider_released', slider_id, {priority: 'event'});
+          });
+        });
+      "))
+    ),
     
     # Link external CSS and PWA manifest
     tags$head(
@@ -473,6 +484,87 @@ ui <- dashboardPage(
 )
 
 server <- function(input, output, session) {
+  
+  ## Input to slider sync
+  # Setup all pairs
+  slider_pairs <- data.frame(
+    slider = c("pct1", "pct2", "pct3", "pct4"),
+    numeric = c("pct1_exact", "pct2_exact", "pct3_exact", "pct4_exact"),
+    stringsAsFactors = FALSE
+  )
+  
+  # Track which slider is currently being dragged
+  slider_being_dragged <- reactiveVal(NULL)
+  
+  # Track the source of the last update for each pair (to prevent circular updates)
+  update_source <- reactiveValues()
+  for(id in slider_pairs$numeric) {
+    update_source[[id]] <- "none"
+  }
+  
+  # Create debounced versions
+  debounced_inputs <- lapply(slider_pairs$numeric, function(numeric_id) {
+    debounce(reactive(input[[numeric_id]]), millis = 800)
+  })
+  names(debounced_inputs) <- slider_pairs$numeric
+  
+  # Listen for slider release events
+  observeEvent(input$slider_released, {
+    released_id <- input$slider_released
+    
+    # If this is the slider being dragged, clear the flag
+    if(!is.null(slider_being_dragged()) && slider_being_dragged() == released_id) {
+      slider_being_dragged(NULL)
+    }
+  })
+  
+  # Setup observers
+  invisible(lapply(1:nrow(slider_pairs), function(i) {
+    slider_id <- slider_pairs$slider[i]
+    numeric_id <- slider_pairs$numeric[i]
+    
+    # Slider → Numeric (IMMEDIATE)
+    observeEvent(input[[slider_id]], {
+      # Only process if this change came from user interaction (not from updateSliderInput)
+      if(isolate(update_source[[numeric_id]]) != "numeric_updating") {
+        # Mark this slider as being dragged
+        slider_being_dragged(slider_id)
+        
+        # Mark that we're updating from slider
+        update_source[[numeric_id]] <- "slider_updating"
+        
+        # Update numeric immediately
+        updateNumericInput(session, numeric_id, value = input[[slider_id]])
+        
+        # Clear the flag after a brief moment
+        invalidateLater(50)
+        isolate({ update_source[[numeric_id]] <- "none" })
+      }
+    }, ignoreInit = TRUE)
+    
+    # Numeric → Slider (DEBOUNCED)
+    observeEvent(debounced_inputs[[numeric_id]](), {
+      req(!is.na(debounced_inputs[[numeric_id]]()))
+      
+      # Only update if:
+      # 1. This slider is NOT being dragged, AND
+      # 2. The numeric change didn't come from the slider updating it
+      if((is.null(slider_being_dragged()) || slider_being_dragged() != slider_id) &&
+         isolate(update_source[[numeric_id]]) != "slider_updating") {
+        
+        # Mark that we're updating from numeric
+        update_source[[numeric_id]] <- "numeric_updating"
+        
+        # Update slider
+        updateSliderInput(session, slider_id, value = debounced_inputs[[numeric_id]]())
+        
+        # Clear the flag after a brief moment
+        invalidateLater(50)
+        isolate({ update_source[[numeric_id]] <- "none" })
+      }
+    }, ignoreInit = TRUE)
+  }))
+  
   # === STORE LAST VALID INPUT VALUES ===
   # This prevents crashes when user clears text boxes temporarily
   last_valid <- reactiveValues(

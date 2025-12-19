@@ -169,6 +169,31 @@ ui <- dashboardPage(
   dashboardSidebar(disable = TRUE),
   dashboardBody(
     useShinyjs(),
+    tags$head(
+      tags$script(HTML("
+        $(document).on('shiny:connected', function() {
+          // When user presses Enter in a numeric input, trigger a custom event
+          $(document).on('keypress', 'input[type=\"number\"]', function(e) {
+            if(e.which === 13) { // Enter key
+              var input_id = $(this).attr('id');
+              console.log('Enter pressed on:', input_id);
+              Shiny.setInputValue('numeric_confirmed_' + input_id, 
+                                 $(this).val(), 
+                                 {priority: 'event'});
+            }
+          });
+          
+          // Also trigger when input loses focus (user clicks away)
+          $(document).on('blur', 'input[type=\"number\"]', function() {
+            var input_id = $(this).attr('id');
+            console.log('Blur on:', input_id);
+            Shiny.setInputValue('numeric_confirmed_' + input_id, 
+                               $(this).val(), 
+                               {priority: 'event'});
+          });
+        });
+      "))
+    ),
     
     # Link external CSS and PWA manifest
     tags$head(
@@ -541,35 +566,27 @@ server <- function(input, output, session) {
     slider_id <- slider_pairs$slider[i]
     numeric_id <- slider_pairs$numeric[i]
     
-    # Create debounced version
-    numeric_debounced <- debounce(reactive(input[[numeric_id]]), millis = 1800)
+    # Remove the debounced version - we'll use confirmed events instead
+    # numeric_debounced <- debounce(reactive(input[[numeric_id]]), millis = 800)
     
     # Slider change → Record timestamp and update numeric after release
     observeEvent(input[[slider_id]], {
-      # Record the current time
       last_slider_movement[[slider_id]] <- Sys.time()
       current_value <- input[[slider_id]]
-      
-      # CAPTURE the timestamp before entering the later() callback
       timestamp_when_moved <- last_slider_movement[[slider_id]]
       
-      # Schedule numeric update after slider has been still for 300ms
       later::later(function() {
-        # Now compare with the CAPTURED timestamp (not reactive access)
         time_since_movement <- difftime(Sys.time(), 
                                         timestamp_when_moved, 
                                         units = "secs")
         
         if(time_since_movement >= 0.3) {
-          # Suspend observer
           if(!is.null(numeric_observers[[numeric_id]])) {
             numeric_observers[[numeric_id]]$suspend()
           }
           
-          # Update numeric
           updateNumericInput(session, numeric_id, value = current_value)
           
-          # Resume
           later::later(function() {
             if(!is.null(numeric_observers[[numeric_id]])) {
               numeric_observers[[numeric_id]]$resume()
@@ -579,12 +596,16 @@ server <- function(input, output, session) {
       }, delay = 0.3)
     }, ignoreInit = TRUE)
     
-    # Numeric → Slider (DEBOUNCED)
-    numeric_observers[[numeric_id]] <<- observeEvent(numeric_debounced(), {
-      val <- numeric_debounced()
-      req(!is.na(val))
+    # Numeric → Slider (ONLY on Enter or blur, NO debounce)
+    confirmed_event_id <- paste0("numeric_confirmed_", numeric_id)
+    
+    numeric_observers[[numeric_id]] <<- observeEvent(input[[confirmed_event_id]], {
+      val <- as.numeric(input[[confirmed_event_id]])
       
-      # CAPTURE the last movement time before using in later()
+      req(!is.na(val))
+      req(val >= 0 && val <= 100)  # Validate range
+      
+      # Check if slider was recently moved
       last_movement <- isolate(last_slider_movement[[slider_id]])
       time_since <- if(is.null(last_movement)) 999 else 
         difftime(Sys.time(), last_movement, units = "secs")

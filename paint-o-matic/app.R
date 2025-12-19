@@ -542,7 +542,7 @@ server <- function(input, output, session) {
     numeric_id <- slider_pairs$numeric[i]
     
     # Create debounced version
-    numeric_debounced <- debounce(reactive(input[[numeric_id]]), millis = 800)
+    numeric_debounced <- debounce(reactive(input[[numeric_id]]), millis = 1800)
     
     # Slider change → Record timestamp and update numeric after release
     observeEvent(input[[slider_id]], {

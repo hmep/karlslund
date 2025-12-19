@@ -7,13 +7,13 @@ km_compensate_vitbas <- function(normalized_pcts, ids, zinc_ratio) {
   if (!("vitbas" %in% ids)) return(normalized_pcts)
   
   # K and S values for whites
-  K_zinc <- 0.03 #0.00
+  K_zinc <- 0.00
   S_zinc <- 1.66
-  K_titanium <- 0.03 #0.00
-  S_titanium <- 2.2 #2.55
+  K_titanium <- 0.00
+  S_titanium <- 2.55
   
-  # REFERENCE POINT: 25% zinc baseline
-  zinc_ratio_ref <- 0.25
+  # REFERENCE POINT: 15% zinc baseline
+  zinc_ratio_ref <- 0.15
   S_vitbas_ref <- zinc_ratio_ref * S_zinc + (1 - zinc_ratio_ref) * S_titanium
   S_vitbas_current <- zinc_ratio * S_zinc + (1 - zinc_ratio) * S_titanium
   

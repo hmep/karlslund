@@ -169,17 +169,6 @@ ui <- dashboardPage(
   dashboardSidebar(disable = TRUE),
   dashboardBody(
     useShinyjs(),
-    tags$head( # Input to slider sync  
-      tags$script(HTML("
-        $(document).on('shiny:connected', function() {
-          // Track when ANY slider is released
-          $(document).on('mouseup touchend', '.js-range-slider', function() {
-            var slider_id = $(this).attr('data-input-id');
-            Shiny.setInputValue('slider_released', slider_id, {priority: 'event'});
-          });
-        });
-      "))
-    ),
     
     # Link external CSS and PWA manifest
     tags$head(
@@ -243,48 +232,96 @@ ui <- dashboardPage(
                             ),
                             pickerInput("p1", "Pigment 1", choices = all_choices, selected = "vitbas",
                                         options = pickerOptions(`live-search` = TRUE, size = 12)),
-                            conditionalPanel("input.p1",
-                                             column(8,
-                                                  sliderInput("pct1", "Andel (%)", 
-                                                              min = 0, max = 100, value = 70, step = 0.1)
-                                              ),
-                                              column(4,
-                                                     numericInput("pct1_exact", "", 
-                                                                  value = 70, min = 0, max = 100, step = 0.01)
-                                              )),
+                            conditionalPanel("input.p1", fluidRow(column(
+                              8,
+                              sliderInput(
+                                "pct1",
+                                "Pigment 1",
+                                min = 0,
+                                max = 100,
+                                value = 25,
+                                step = 0.1
+                              )
+                            ), column(
+                              4,
+                              numericInput(
+                                "pct1_exact",
+                                "Exakt %",
+                                value = 25,
+                                min = 0,
+                                max = 100,
+                                step = 0.01
+                              )
+                            ))), 
                             pickerInput("p2", "Pigment 2", choices = all_choices, selected = "J225",
                                         options = pickerOptions(`live-search` = TRUE, size = 12)),
-                            conditionalPanel("input.p2",
-                                             column(8,
-                                                    sliderInput("pct2", "Andel (%)", 
-                                                                min = 0, max = 100, value = 30, step = 0.1)
-                                             ),
-                                             column(4,
-                                                    numericInput("pct2_exact", "", 
-                                                                 value = 30, min = 0, max = 100, step = 0.01)
-                                             )),
+                            conditionalPanel("input.p2", fluidRow(column(
+                              8,
+                              sliderInput(
+                                "pct2",
+                                "Pigment 1",
+                                min = 0,
+                                max = 100,
+                                value = 75,
+                                step = 0.1
+                              )
+                            ), column(
+                              4,
+                              numericInput(
+                                "pct2_exact",
+                                "Exakt %",
+                                value = 75,
+                                min = 0,
+                                max = 100,
+                                step = 0.01
+                              )
+                            ))), 
                             pickerInput("p3", "Pigment 3", choices = all_choices, selected = "",
                                         options = pickerOptions(`live-search` = TRUE, size = 12)),
-                            conditionalPanel("input.p3",
-                                             column(8,
-                                                    sliderInput("pct3", "Andel (%)", 
-                                                                min = 0, max = 100, value = 0, step = 0.1)
-                                             ),
-                                             column(4,
-                                                    numericInput("pct3_exact", "", 
-                                                                 value = 0, min = 0, max = 100, step = 0.01)
-                                             )),
+                            conditionalPanel("input.p3", fluidRow(column(
+                              8,
+                              sliderInput(
+                                "pct3",
+                                "Pigment 1",
+                                min = 0,
+                                max = 100,
+                                value = 0,
+                                step = 0.1
+                              )
+                            ), column(
+                              4,
+                              numericInput(
+                                "pct3_exact",
+                                "Exakt %",
+                                value = 0,
+                                min = 0,
+                                max = 100,
+                                step = 0.01
+                              )
+                            ))), 
                             pickerInput("p4", "Pigment 4", choices = all_choices, selected = "",
                                         options = pickerOptions(`live-search` = TRUE, size = 12)),
-                            conditionalPanel("input.p4",
-                                             column(8,
-                                                    sliderInput("pct4", "Andel (%)", 
-                                                                min = 0, max = 100, value = 0, step = 0.1)
-                                             ),
-                                             column(4,
-                                                    numericInput("pct4_exact", "", 
-                                                                 value = 0, min = 0, max = 100, step = 0.01)
-                                             )),
+                            conditionalPanel("input.p4", fluidRow(column(
+                              8,
+                              sliderInput(
+                                "pct4",
+                                "Pigment 1",
+                                min = 0,
+                                max = 100,
+                                value = 0,
+                                step = 0.1
+                              )
+                            ), column(
+                              4,
+                              numericInput(
+                                "pct4_exact",
+                                "Exakt %",
+                                value = 0,
+                                min = 0,
+                                max = 100,
+                                step = 0.01
+                              )
+                            ))), 
                             hr(),
                             actionButton("reset_pigments", "Nollställ pigment", class="btn-default", icon = icon("refresh"))
                           ),
@@ -493,100 +530,82 @@ server <- function(input, output, session) {
     stringsAsFactors = FALSE
   )
   
-  # Track which slider is currently being dragged
-  slider_being_dragged <- reactiveVal(NULL)
+  # Track last time each slider moved
+  last_slider_movement <- reactiveValues()
   
-  # Track the source of updates to prevent circular updates
-  update_source <- reactiveValues()
-  for(id in slider_pairs$numeric) {
-    update_source[[id]] <- "none"
-  }
-  
-  # Track last values to prevent update loops
-  last_slider_value <- reactiveValues()
-  last_numeric_value <- reactiveValues()
-  
-  # Create debounced versions
-  debounced_inputs <- lapply(slider_pairs$numeric, function(numeric_id) {
-    debounce(reactive(input[[numeric_id]]), millis = 800)
-  })
-  names(debounced_inputs) <- slider_pairs$numeric
-  
-  # Listen for slider release events
-  observeEvent(input$slider_released, {
-    released_id <- input$slider_released
-    
-    # Find the corresponding numeric input for this slider
-    slider_index <- which(slider_pairs$slider == released_id)
-    if(length(slider_index) > 0) {
-      numeric_id <- slider_pairs$numeric[slider_index]
-      
-      # Only update if the value actually changed
-      current_value <- input[[released_id]]
-      last_numeric <- isolate(last_numeric_value[[numeric_id]])
-      
-      if(is.null(last_numeric) || abs(current_value - last_numeric) > 0.001) {
-        # Update the numeric input with the slider's current value
-        update_source[[numeric_id]] <- "slider_release"
-        updateNumericInput(session, numeric_id, value = current_value)
-        
-        # Store the value we just set
-        last_numeric_value[[numeric_id]] <- current_value
-        
-        # Clear the flag
-        invalidateLater(50)
-        isolate({ update_source[[numeric_id]] <- "none" })
-      }
-    }
-    
-    # Clear the dragging flag
-    if(!is.null(slider_being_dragged()) && slider_being_dragged() == released_id) {
-      slider_being_dragged(NULL)
-    }
-  })
+  # Store observer handles
+  numeric_observers <- list()
   
   # Setup observers
   invisible(lapply(1:nrow(slider_pairs), function(i) {
     slider_id <- slider_pairs$slider[i]
     numeric_id <- slider_pairs$numeric[i]
     
-    # Slider change → Mark as being dragged (but DON'T update numeric)
+    # Create debounced version
+    numeric_debounced <- debounce(reactive(input[[numeric_id]]), millis = 800)
+    
+    # Slider change → Record timestamp and update numeric after release
     observeEvent(input[[slider_id]], {
-      # Only mark as dragging if not from a programmatic update
-      if(isolate(update_source[[numeric_id]]) != "numeric_updating") {
-        slider_being_dragged(slider_id)
-        # Store current slider value
-        last_slider_value[[slider_id]] <- input[[slider_id]]
-      }
+      # Record the current time
+      last_slider_movement[[slider_id]] <- Sys.time()
+      current_value <- input[[slider_id]]
+      
+      # CAPTURE the timestamp before entering the later() callback
+      timestamp_when_moved <- last_slider_movement[[slider_id]]
+      
+      # Schedule numeric update after slider has been still for 300ms
+      later::later(function() {
+        # Now compare with the CAPTURED timestamp (not reactive access)
+        time_since_movement <- difftime(Sys.time(), 
+                                        timestamp_when_moved, 
+                                        units = "secs")
+        
+        if(time_since_movement >= 0.3) {
+          # Suspend observer
+          if(!is.null(numeric_observers[[numeric_id]])) {
+            numeric_observers[[numeric_id]]$suspend()
+          }
+          
+          # Update numeric
+          updateNumericInput(session, numeric_id, value = current_value)
+          
+          # Resume
+          later::later(function() {
+            if(!is.null(numeric_observers[[numeric_id]])) {
+              numeric_observers[[numeric_id]]$resume()
+            }
+          }, delay = 0.2)
+        }
+      }, delay = 0.3)
     }, ignoreInit = TRUE)
     
     # Numeric → Slider (DEBOUNCED)
-    observeEvent(debounced_inputs[[numeric_id]](), {
-      req(!is.na(debounced_inputs[[numeric_id]]()))
+    numeric_observers[[numeric_id]] <<- observeEvent(numeric_debounced(), {
+      val <- numeric_debounced()
+      req(!is.na(val))
       
-      current_numeric <- debounced_inputs[[numeric_id]]()
-      last_slider <- isolate(last_slider_value[[slider_id]])
+      # CAPTURE the last movement time before using in later()
+      last_movement <- isolate(last_slider_movement[[slider_id]])
+      time_since <- if(is.null(last_movement)) 999 else 
+        difftime(Sys.time(), last_movement, units = "secs")
       
-      # Only update if:
-      # 1. This slider is NOT being dragged, AND
-      # 2. The numeric change didn't come from slider release, AND
-      # 3. The value actually changed (prevents oscillation)
-      if((is.null(slider_being_dragged()) || slider_being_dragged() != slider_id) &&
-         isolate(update_source[[numeric_id]]) != "slider_release" &&
-         (is.null(last_slider) || abs(current_numeric - last_slider) > 0.001)) {
-        
-        # Mark that we're updating from numeric
-        update_source[[numeric_id]] <- "numeric_updating"
+      # Only update if slider hasn't moved in the last 500ms
+      if(time_since > 0.5) {
+        # Suspend
+        current_observer <- numeric_observers[[numeric_id]]
+        if(!is.null(current_observer)) {
+          current_observer$suspend()
+        }
         
         # Update slider
-        updateSliderInput(session, slider_id, value = current_numeric)
+        updateSliderInput(session, slider_id, value = val)
         
-        # Store the value we just set
-        last_slider_value[[slider_id]] <- current_numeric
-        
-        # Clear the flag
-        invalidateLater(50)
-        isolate({ update_source[[numeric_id]] <- "none" })
+        # Resume
+        later::later(function() {
+          if(!is.null(current_observer)) {
+            current_observer$resume()
+          }
+        }, delay = 0.2)
       }
     }, ignoreInit = TRUE)
   }))
@@ -765,32 +784,6 @@ server <- function(input, output, session) {
   
   # Helper function already defined at top of file, available here
   # parse_numeric() and format_swe() are already in global scope
-  
-  # Sync pigment controls
-  observeEvent(input$pct1, {
-    updateNumericInput(session, "pct1_exact", value = input$pct1)
-  })
-  observeEvent(input$pct1_exact, {
-    updateSliderInput(session, "pct1", value = input$pct1_exact)
-  })
-  observeEvent(input$pct2, {
-    updateNumericInput(session, "pct2_exact", value = input$pct2)
-  })
-  observeEvent(input$pct2_exact, {
-    updateSliderInput(session, "pct2", value = input$pct2_exact)
-  })
-  observeEvent(input$pct3, {
-    updateNumericInput(session, "pct3_exact", value = input$pct3)
-  })
-  observeEvent(input$pct3_exact, {
-    updateSliderInput(session, "pct3", value = input$pct3_exact)
-  })
-  observeEvent(input$pct4, {
-    updateNumericInput(session, "pct4_exact", value = input$pct4)
-  })
-  observeEvent(input$pct4_exact, {
-    updateSliderInput(session, "pct4", value = input$pct4_exact)
-  })
   
   # Reset pigments
   observeEvent(input$reset_pigments, {
@@ -1447,11 +1440,11 @@ server <- function(input, output, session) {
       normalized <- (m$pct / m$total) * 100
       
       # Filter out any entries with 0 or near-0 normalized percentages
-      keep <- normalized > 0.005
+      keep <- normalized > 0.05
       if(sum(keep) == 0) return(NULL)
       
       ids_filtered <- m$ids[keep]
-      normalized_filtered <- round(normalized[keep], 2)
+      normalized_filtered <- round(normalized[keep], 1)
       
       # Get pigment names and format
       pigment_names <- sapply(ids_filtered, function(id) {
@@ -1491,7 +1484,7 @@ server <- function(input, output, session) {
       normalized <- (m$pct / m$total) * 100
       
       # Round to integers (sliders use step=1)
-      normalized_int <- round(normalized,2)
+      normalized_int <- round(normalized)
       
       # Ensure they sum to exactly 100 by adjusting largest
       total_normalized <- sum(normalized_int)

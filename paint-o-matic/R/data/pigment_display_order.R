@@ -109,6 +109,7 @@ PIGMENT_DISPLAY_ORDER <- list(
     "ODF_OMBRE_FL", "ODF_OMBRE_NAT",  # Raw umber variants
     # Greenish umber (already in Greens, but reference here)
     "GU30", "40630",  # Greenish umber (cross-reference)
+    "ODF_T_OMBRE_V",  # Greenish umber group (H:40-80°)
     # Grey umber
     "GRAU36",  # Grey umber
     # Burnt siennas (red-brown)

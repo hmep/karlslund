@@ -250,7 +250,7 @@ ui <- dashboardPage(
                                 value = 25,
                                 min = 0,
                                 max = 100,
-                                step = 0.01
+                                step = 0.1
                               )
                             ))), 
                             pickerInput("p2", "Pigment 2", choices = all_choices, selected = "J225",
@@ -273,7 +273,7 @@ ui <- dashboardPage(
                                 value = 75,
                                 min = 0,
                                 max = 100,
-                                step = 0.01
+                                step = 0.1
                               )
                             ))), 
                             pickerInput("p3", "Pigment 3", choices = all_choices, selected = "",
@@ -296,7 +296,7 @@ ui <- dashboardPage(
                                 value = 0,
                                 min = 0,
                                 max = 100,
-                                step = 0.01
+                                step = 0.1
                               )
                             ))), 
                             pickerInput("p4", "Pigment 4", choices = all_choices, selected = "",
@@ -319,7 +319,7 @@ ui <- dashboardPage(
                                 value = 0,
                                 min = 0,
                                 max = 100,
-                                step = 0.01
+                                step = 0.1
                               )
                             ))), 
                             hr(),
@@ -1424,7 +1424,7 @@ server <- function(input, output, session) {
     use_tinting <- isTRUE(input$use_tinting_strength)
     cols <- mix_colors(m$ids, m$pct, pigments_db, use_tinting = use_tinting)
     
-    hex <- sprintf("#%02X%02X%02X", round(cols[1]), round(cols[2]), round(cols[3]))
+    hex <- sprintf("#%02X%02X%02X", round(cols[1],2), round(cols[2],2), round(cols[3],2))
     final_hex(hex)
     hex
   })
@@ -1444,7 +1444,7 @@ server <- function(input, output, session) {
       if(sum(keep) == 0) return(NULL)
       
       ids_filtered <- m$ids[keep]
-      normalized_filtered <- round(normalized[keep], 1)
+      normalized_filtered <- round(normalized[keep], 2)
       
       # Get pigment names and format
       pigment_names <- sapply(ids_filtered, function(id) {
@@ -1483,15 +1483,15 @@ server <- function(input, output, session) {
       # Calculate normalized percentages
       normalized <- (m$pct / m$total) * 100
       
-      # Round to integers (sliders use step=1)
-      normalized_int <- round(normalized)
+      # Round to n decimals (n=1)
+      normalized_round <- round(normalized,1)
       
       # Ensure they sum to exactly 100 by adjusting largest
-      total_normalized <- sum(normalized_int)
+      total_normalized <- sum(normalized_round)
       if(total_normalized != 100) {
         diff <- 100 - total_normalized
-        max_idx <- which.max(normalized_int)
-        normalized_int[max_idx] <- normalized_int[max_idx] + diff
+        max_idx <- which.max(normalized_round)
+        normalized_round[max_idx] <- normalized_round[max_idx] + diff
       }
       
       # Map back to p1, p2, p3, p4 inputs
@@ -1506,7 +1506,7 @@ server <- function(input, output, session) {
       # Update sliders for each pigment
       for(i in seq_along(m$ids)) {
         pigment_id <- m$ids[i]
-        new_pct <- normalized_int[i]
+        new_pct <- normalized_round[i]
         
         # Find which input slot this pigment is in
         slot_idx <- which(sapply(current_inputs, function(x) !is.na(x) && x == pigment_id))[1]

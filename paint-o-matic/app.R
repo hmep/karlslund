@@ -261,7 +261,7 @@ ui <- dashboardPage(
                               8,
                               sliderInput(
                                 "pct1",
-                                "Pigment 1",
+                                "Andel %",
                                 min = 0,
                                 max = 100,
                                 value = 25,
@@ -284,7 +284,7 @@ ui <- dashboardPage(
                               8,
                               sliderInput(
                                 "pct2",
-                                "Pigment 1",
+                                "Andel %",
                                 min = 0,
                                 max = 100,
                                 value = 75,
@@ -307,7 +307,7 @@ ui <- dashboardPage(
                               8,
                               sliderInput(
                                 "pct3",
-                                "Pigment 1",
+                                "Andel %",
                                 min = 0,
                                 max = 100,
                                 value = 0,
@@ -330,7 +330,7 @@ ui <- dashboardPage(
                               8,
                               sliderInput(
                                 "pct4",
-                                "Pigment 1",
+                                "Andel %",
                                 min = 0,
                                 max = 100,
                                 value = 0,

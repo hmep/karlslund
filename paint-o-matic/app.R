@@ -490,11 +490,11 @@ ui <- dashboardPage(
                                    hr(),
                                    sliderInput("egg_extra_binder", "Extra äggolja + vatten + fyllmedel (tunnare färg)", 
                                                1, 8, 4.5, 0.05, post = "× minimum"),
-                                   p("Reglaget ökar mängden ägg, olja och vatten proportionellt, liksom mängden fyllmedel. Högre värde ger tunnare, mer strykbar färg. För äggoljetemperafärg fungerar det ofta bra med en faktor kring 4–5."),
-                                   p("Det går bra att utöver detta tillsätta " ,tags$b("ytterligare vatten"), " till färgen, utifrån hur sugande underlaget är – du väljer själv om du vill ha blaskig eller lite tjockare färg."),
-                          ),
+                                   p("Reglaget ökar mängden ägg, olja och vatten proportionellt, liksom mängden fyllmedel. Högre värde ger tunnare, mer strykbar färg. För äggoljetemperafärg fungerar det ofta bra med en faktor kring 4–5.")                          ),
                           tags$h5(style="font-weight:bold;margin-top:1.5em;","Måla så här"),
-                          p("Måla äggoljetemperan med platt och bred pensel som håller mycket färg, i svepande rörelser i olika riktningar, eller med en fin roller (alltid vått i vått). Vänta till nästa strykning med att rätta till misstag eller luckor i färgen, om du går tillbaka och gör om arbetar du bara fram olja till ytan som blir flammig.")
+                          p("Måla äggoljetemperan med platt och bred pensel som håller mycket färg, i svepande rörelser i olika riktningar, eller med en fin roller (alltid vått i vått)."),
+                          p("Vänta till nästa strykning med att rätta till misstag eller luckor i färgen, om du går tillbaka och gör om arbetar du bara fram olja till ytan som blir flammig."),
+                          p("Det går bra att tillsätta " ,tags$b("ytterligare vatten"), " till färgen, utifrån hur sugande underlaget är – du väljer själv om du vill ha blaskigare eller lite tjockare färg.")
                         ),
                         
                         # Tjäroljefärg settings
@@ -2097,10 +2097,8 @@ server <- function(input, output, session) {
       if(length(pid) > 0 && nchar(pid) > 0 && pid %in% names(pigments_db)) {
         pigment <- pigments_db[[pid]]
         if(!is.null(pigment) && !is.null(pigment$suppliers)) {
-          name <- paste0(name, ' <a href="#" onclick="Shiny.setInputValue(\'show_supplier\', \'', 
-                         pid, '\', {priority: \'event\'}); return false;" ',
-                         'style="color: #337ab7; font-size: 11px; margin-left: 5px;">',
-                         '(info)</a>')
+          name <- paste0(' <a href="#" onclick="Shiny.setInputValue(\'show_supplier\', \'', 
+                         pid, '\', {priority: \'event\'}); return false;" ','style="">',name,'</a>')
         }
       }
       

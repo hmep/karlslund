@@ -2140,12 +2140,9 @@ server <- function(input, output, session) {
     }
   })
   output$final_preview <- renderUI({
-    # Force explicit dependencies on color-affecting reactives
-    m <- mix()  # Depend on pigment mix
-    current_color()  # Depend on current color calculation
-    
-    # Re-render preview with current final_hex value
-    render_preview(final_hex(), "final_preview")
+    # Simply use current_color() which already computes and returns the hex
+    hex_color <- current_color()
+    render_preview(hex_color, "final_preview")
   })
   
   output$download_txt <- downloadHandler(

@@ -62,7 +62,7 @@ generate_share_url <- function(session, input = NULL, mix_data = NULL) {
       # Add paint-type-specific parameters
       if(input$paint_type == "egg_oil" && !is.null(input$egg_filler)) {
         params$egg_filler <- input$egg_filler
-        if(!is.null(input$egg_extra_binder) && input$egg_extra_binder != 1.6) {
+        if(!is.null(input$egg_extra_binder) && input$egg_extra_binder != 4.5) {
           params$egg_extra_binder <- input$egg_extra_binder
         }
       }
@@ -466,13 +466,13 @@ ui <- dashboardPage(
                                    hr(),
                                    sliderInput("extra_oil","Extra kokt linolja (ökad strykbarhet)",1,2.5,1.6,0.05,post="× minimum"),
                                    p("Reglaget ökar endast mängden kokt linolja i receptet (pigmentmängderna är fixerade). En viss mängd extra bindmedel, utöver den minsta mängd som krävs för pigmenten, underlättar både tillredningen av färgen med blandare i borrmaskin och dess strykbarhet med penseln. Du kan utan problem lägga till olja upp till 1,6–2,2 gånger av minsta möjliga mängden."),
-                                   hr(),
-                                   p("Pastan du blandar är lämplig direkt som ", tags$b("grundstrykning"), " med gnuggande målningsstil (enligt principen från magert till fett) och utgör basen för ett komplett system för linoljefärgsmålning."),
-                                   p("Till färg för ", tags$b("mellanstrykning"), " kan du tillföra ytterligare kokt linolja, precis upp till den maximala mängd som fortfarande medger att färgen struken på en glasskiva förblir ogenomskinlig."),
-                                   p("Till färg för ", tags$b("slutstrykning"), " kan du därutöver med fördel tillsätta 10% kokt eller ännu hellre soloxiderad olja."),
-                                   p("En burk till alla strykningar – tillsätt bara lite mer linolja efter hand."),
-                                   p("Var medveten om brandrisken, särskilt när du hanterar trasor och material som innehåller kokt linolja. Blöt dem i vatten och förvara dem i en tät behållare när du målat klart.")
-                          )
+                          ),
+                          tags$h5(style="font-weight:bold;margin-top:1.5em;","Måla så här"),
+                          p("Pastan du blandar är lämplig direkt som ", tags$b("grundstrykning"), " med gnuggande målningsstil (enligt principen från magert till fett) och utgör basen för ett komplett system för linoljefärgsmålning."),
+                          p("Till färg för ", tags$b("mellanstrykning"), " kan du tillföra ytterligare kokt linolja, precis upp till den maximala mängd som fortfarande medger att färgen struken på en glasskiva förblir ogenomskinlig."),
+                          p("Till färg för ", tags$b("slutstrykning"), " kan du därutöver med fördel tillsätta 10% kokt eller ännu hellre soloxiderad olja."),
+                          p("En burk till alla strykningar – tillsätt bara lite mer linolja efter hand."),
+                          p("Var medveten om brandrisken, särskilt när du hanterar trasor och material som innehåller kokt linolja. Blöt dem i vatten och förvara dem i en tät behållare när du målat klart.")
                         ),
                         
                         # Äggoljetemperafärg settings
@@ -490,10 +490,11 @@ ui <- dashboardPage(
                                    hr(),
                                    sliderInput("egg_extra_binder", "Extra äggolja + vatten + fyllmedel (tunnare färg)", 
                                                1, 8, 4.5, 0.05, post = "× minimum"),
-                                   p("Reglaget ökar mängden ägg, olja och vatten proportionellt, liksom mängden fyllmedel. Högre värde ger tunnare, mer strykbar färg. Det går bra att utöver detta tillsätta ytterligare vatten till färgen, utifrån hur sugande underlaget är. För äggoljetemperafärg fungerar det ofta bra med en faktor kring 4--5."),
-                                   hr(),
-                                   p("Måla äggoljetemperan med platt och bred pensel som håller mycket färg, i svepande rörelser i olika riktningar, eller med en fin roller (alltid vått i vått). Vänta till nästa strykning med att rätta till misstag eller luckor i färgen, om du går tillbaka och gör om arbetar du bara fram olja till ytan som blir flammig.")
-                          )
+                                   p("Reglaget ökar mängden ägg, olja och vatten proportionellt, liksom mängden fyllmedel. Högre värde ger tunnare, mer strykbar färg. För äggoljetemperafärg fungerar det ofta bra med en faktor kring 4–5."),
+                                   p("Det går bra att utöver detta tillsätta " ,tags$b("ytterligare vatten"), " till färgen, utifrån hur sugande underlaget är – du väljer själv om du vill ha blaskig eller lite tjockare färg."),
+                          ),
+                          tags$h5(style="font-weight:bold;margin-top:1.5em;","Måla så här"),
+                          p("Måla äggoljetemperan med platt och bred pensel som håller mycket färg, i svepande rörelser i olika riktningar, eller med en fin roller (alltid vått i vått). Vänta till nästa strykning med att rätta till misstag eller luckor i färgen, om du går tillbaka och gör om arbetar du bara fram olja till ytan som blir flammig.")
                         ),
                         
                         # Tjäroljefärg settings
@@ -511,12 +512,12 @@ ui <- dashboardPage(
                                    sliderInput("tar_extra_binder", "Extra tjära, olja och terpentin (ökad strykbarhet)", 
                                                1, 2.5, 1.6, 0.05, post = "× minimum"),
                                    p("Reglaget ökar mängden tjära, olja och terpentin proportionellt, utöver den minsta mängd som de ingående pigmenten kräver. Högre värde ger mer flytande färg och bättre strykbarhet. Du kan utan problem lägga till olje- och tjärblandning upp till 1,6–2,2 gånger av minsta möjliga mängden."),
-                                   hr(),
-                                   p("När du målar med tjäroljefärg (som man också kan kalla pigmenterad roslagsmahogny, eftersom receptet också innehåller balsamterpentin), tänk på följande:"),
-                                   p("För bästa strykbarhet, måla i sol och värme och värm gärna också tjärfärgen till 50–70° C (inte högre!) i ett vattenbad eller med en termostatstyrd oljevärmare."),
-                                   p("Använd en pensel för att stryka ut den färgen i träets längdriktning. Torktiden kan variera från några dagar till flera veckor beroende på temperatur och fukt."),
-                                   p("Var medveten om brandrisken, särskilt när du hanterar trasor och material som innehåller kokt linolja. Blöt dem i vatten och förvara dem i en tät behållare när du målat klart.")
-                          )
+                          ),
+                          tags$h5(style="font-weight:bold;margin-top:1.5em;","Måla så här"),
+                          p("När du målar med tjäroljefärg (som man också kan kalla pigmenterad roslagsmahogny, eftersom receptet också innehåller balsamterpentin), tänk på följande:"),
+                          p("För bästa strykbarhet, måla i sol och värme och värm gärna också tjärfärgen till 50–70° C (inte högre!) i ett vattenbad eller med en termostatstyrd oljevärmare."),
+                          p("Använd en pensel för att stryka ut den färgen i träets längdriktning. Torktiden kan variera från några dagar till flera veckor beroende på temperatur och fukt."),
+                          p("Var medveten om brandrisken, särskilt när du hanterar trasor och material som innehåller kokt linolja. Blöt dem i vatten och förvara dem i en tät behållare när du målat klart.")
                         )
                         
                  ),
@@ -2074,7 +2075,7 @@ server <- function(input, output, session) {
       extra_params$extra_oil <- c$extra_oil
     } else if (paint_type == "egg_oil") {
       extra_params$filler_id <- input$egg_filler
-      extra_params$egg_extra_binder <- input$egg_extra_binder %||% 1.6
+      extra_params$egg_extra_binder <- input$egg_extra_binder %||% 4.5
     } else if (paint_type == "tar") {
       extra_params$tar_id <- input$tar_id
       extra_params$tar_extra_binder <- input$tar_extra_binder %||% 1.6

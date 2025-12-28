@@ -1,6 +1,6 @@
 /* Layout */
 html {background:#ccc !important;}
-.content-wrapper::before{content: "Paint-o-matic v0.10.39-ida";padding-top:1.5em;text-align:center;font-size:1.4em; font-weight:bold;width:100% !important;display:block;background-image:url("images/stroke.svg")}
+.content-wrapper::before{content: "Paint-o-matic v0.10.40-ida";padding-top:1.5em;text-align:center;font-size:1.4em; font-weight:bold;width:100% !important;display:block;background-image:url("images/stroke.svg")}
 .content-wrapper {background:#ccc !important;margin:0 !important;padding: 0 !important;}
 section.content {margin-top:0 !important; padding-top: 0 !important;}
 .step {padding:24px 24px 64px; background:#fff; border-radius:12px; margin:20px auto 80px; position:relative; min-width:360px; max-width:840px;}

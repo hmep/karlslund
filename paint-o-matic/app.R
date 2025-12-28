@@ -1456,8 +1456,9 @@ server <- function(input, output, session) {
   
   output$total_warning <- renderUI({
     m <- mix()
-    if (m$total > 100 && length(m$ids) > 0) {
-      # Calculate normalized percentages
+    #if (m$total > 100 && length(m$ids) > 0) {
+    if (m$total != 100 && length(m$ids) > 0) {
+        # Calculate normalized percentages
       normalized <- (m$pct / m$total) * 100
       
       # Filter out any entries with 0 or near-0 normalized percentages
@@ -1465,7 +1466,7 @@ server <- function(input, output, session) {
       if(sum(keep) == 0) return(NULL)
       
       ids_filtered <- m$ids[keep]
-      normalized_filtered <- round(normalized[keep], 2)
+      normalized_filtered <- round(normalized[keep], 1)
       
       # Get pigment names and format
       pigment_names <- sapply(ids_filtered, function(id) {
@@ -1478,7 +1479,7 @@ server <- function(input, output, session) {
       normalized_swe <- sapply(normalized_filtered, function(x) format_swe(x, 1))
       
       text_lines <- paste0(pigment_names, ": ", normalized_swe, " %", collapse = " • ")
-      msg <- "Totalen överstiger 100 %. Normaliserade procentsatser som används:"
+      msg <- "Totalen är inte 100 %. Normaliserade procentsatser som används:"
       
       info_box(
         tagList(
@@ -1500,7 +1501,7 @@ server <- function(input, output, session) {
   # Handle normalize button click
   observeEvent(input$normalize_values, {
     m <- mix()
-    if (m$total > 100 && length(m$ids) > 0) {
+    if (m$total != 100 && length(m$ids) > 0) {
       # Calculate normalized percentages
       normalized <- (m$pct / m$total) * 100
       

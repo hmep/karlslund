@@ -636,8 +636,8 @@ server <- function(input, output, session) {
   # This prevents crashes when user clears text boxes temporarily
   last_valid <- reactiveValues(
     area = 10,
-    extra_oil = 1.8,
-    zinc_ratio = 15
+    extra_oil = 1.6,
+    zinc_ratio = 25
   )
   
   # === HELPER FUNCTIONS ===
@@ -1628,7 +1628,7 @@ server <- function(input, output, session) {
     target_liters <- total_area_m2 / adjusted_coverage
     
     list(
-      target_liters = round(target_liters, 2),
+      target_liters = round(target_liters, 1),
       area = area_num,
       use = use_num,
       substrate = substrate_num,
